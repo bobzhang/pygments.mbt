@@ -18,11 +18,39 @@ pub let system_verilog_lexer_info : @lexer.LexerInfo = {
 ///|
 let system_verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(6845, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preproc)]), Some([Push("macro")])),
-    r(6846, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), None),
-    r(6847, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("import")])),
+    r(
+      6845,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preproc)]),
+      Some([Push("macro")]),
+    ),
+    r(
+      6846,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      6847,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("import")]),
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(557, 8, ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]), None),
+    r(
+      557,
+      8,
+      ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(5368, 8, Emit(tk_comment_single), None),
     r(1241, 8, Emit(tk_comment_multiline), None),
     r(6848, 8, Emit(tk_punctuation), None),
@@ -41,9 +69,38 @@ let system_verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6856, 8, Emit(tk_punctuation), None),
     r(270, 8, Emit(tk_name_constant), None),
     r(6857, 8, Emit(tk_keyword), None),
-    r(6858, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
-    r(6859, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
-    r(6860, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
+    r(
+      6858,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+      ]),
+      None,
+    ),
+    r(
+      6859,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+      ]),
+      None,
+    ),
+    r(
+      6860,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+      ]),
+      None,
+    ),
     r(6861, 8, Emit(tk_keyword_type), None),
     r(6862, 8, Emit(tk_comment_preproc), None),
     r(6863, 8, Emit(tk_name_builtin), None),
@@ -53,7 +110,12 @@ let system_verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(2861, 8, Emit(tk_literal_string_escape), None),
     r(434, 8, Emit(tk_literal_string), None),
-    r(557, 8, ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]), None),
+    r(
+      557,
+      8,
+      ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(200, 8, Emit(tk_literal_string), None),
     r(437, 8, Emit(tk_comment_preproc), None),
     r(282, 8, Emit(tk_comment_multiline), None),
@@ -67,15 +129,32 @@ let system_verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "SystemVerilogLexer",
     ["root", "string", "macro", "import"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], [32, 33, 34, 35, 36], [37, 38, 39, 40, 41, 42], [43]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+      ],
+      [32, 33, 34, 35, 36],
+      [37, 38, 39, 40, 41, 42],
+      [43],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `SystemVerilogLexer` (systemverilog).
-pub fn system_verilog_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(system_verilog_lexer_info, options, opts => system_verilog_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, system_verilog_lexer_def.force(), text, stack))
+pub fn system_verilog_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    system_verilog_lexer_info,
+    options,
+    opts => system_verilog_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, system_verilog_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -98,7 +177,12 @@ let verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(7627, 8, Emit(tk_comment_preproc), Some([Push("macro")])),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(557, 8, ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]), None),
+    r(
+      557,
+      8,
+      ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(5368, 8, Emit(tk_comment_single), None),
     r(1241, 8, Emit(tk_comment_multiline), None),
     r(6848, 8, Emit(tk_punctuation), None),
@@ -115,8 +199,26 @@ let verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(411, 8, Emit(tk_operator), None),
     r(7633, 8, Emit(tk_punctuation), None),
     r(270, 8, Emit(tk_name_constant), None),
-    r(6846, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text)]), None),
-    r(6847, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text)]), Some([Push("import")])),
+    r(
+      6846,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
+    r(
+      6847,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text),
+      ]),
+      Some([Push("import")]),
+    ),
     r(7634, 8, Emit(tk_keyword), None),
     r(7635, 8, Emit(tk_comment_preproc), None),
     r(7636, 8, Emit(tk_name_builtin), None),
@@ -127,7 +229,12 @@ let verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(2861, 8, Emit(tk_literal_string_escape), None),
     r(434, 8, Emit(tk_literal_string), None),
-    r(557, 8, ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]), None),
+    r(
+      557,
+      8,
+      ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(200, 8, Emit(tk_literal_string), None),
     r(437, 8, Emit(tk_comment_preproc), None),
     r(282, 8, Emit(tk_comment_multiline), None),
@@ -141,7 +248,15 @@ let verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "VerilogLexer",
     ["root", "string", "macro", "import"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [28, 29, 30, 31, 32], [33, 34, 35, 36, 37, 38], [39]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27,
+      ],
+      [28, 29, 30, 31, 32],
+      [33, 34, 35, 36, 37, 38],
+      [39],
+    ],
     extended=false,
   )
 })
@@ -149,7 +264,14 @@ let verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VerilogLexer` (verilog).
 pub fn verilog_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(verilog_lexer_info, options, opts => verilog_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, verilog_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    verilog_lexer_info,
+    options,
+    opts => verilog_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, verilog_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -171,7 +293,12 @@ pub let vhdl_lexer_info : @lexer.LexerInfo = {
 let vhdl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 10, Emit(tk_text_whitespace), None),
-    r(557, 10, ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]), None),
+    r(
+      557,
+      10,
+      ByGroups([Emit(tk_literal_string_escape), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(247, 10, Emit(tk_comment_single), None),
     r(1241, 10, Emit(tk_comment_multiline), None),
     r(7638, 10, Emit(tk_literal_string_char), None),
@@ -179,16 +306,89 @@ let vhdl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7639, 10, Emit(tk_name_attribute), None),
     r(7633, 10, Emit(tk_punctuation), None),
     r(7640, 10, Emit(tk_literal_string), None),
-    r(7641, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace)]), None),
-    r(7642, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
-    r(7643, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace), Emit(tk_keyword)]), None),
-    r(7644, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace)]), None),
-    r(7645, 10, ByGroups([Emit(tk_name_namespace), Emit(tk_name_namespace)]), None),
+    r(
+      7641,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_namespace),
+      ]),
+      None,
+    ),
+    r(
+      7642,
+      10,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      None,
+    ),
+    r(
+      7643,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_namespace),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
+    r(
+      7644,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_namespace),
+      ]),
+      None,
+    ),
+    r(
+      7645,
+      10,
+      ByGroups([Emit(tk_name_namespace), Emit(tk_name_namespace)]),
+      None,
+    ),
     r(7646, 10, Emit(tk_name_namespace), None),
-    r(7647, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
-    r(7648, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
-    r(7649, 10, ByGroups([Emit(tk_name_class), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
-    r(115, 10, ByGroups([Using(This, None, []), Emit(tk_text_whitespace)]), Some([Push("endblock")])),
+    r(
+      7647,
+      10,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]),
+      None,
+    ),
+    r(
+      7648,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
+    r(
+      7649,
+      10,
+      ByGroups([
+        Emit(tk_name_class),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
+    r(
+      115,
+      10,
+      ByGroups([Using(This, None, []), Emit(tk_text_whitespace)]),
+      Some([Push("endblock")]),
+    ),
     r(7650, 10, Emit(tk_keyword_type), None),
     r(7651, 10, Emit(tk_keyword), None),
     r(7652, 10, Emit(tk_literal_number_integer), None),
@@ -206,7 +406,16 @@ let vhdl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "VhdlLexer",
     ["root", "types", "keywords", "numbers", "endblock"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [19], [20], [21, 22, 23, 24, 25, 26], [20, 28, 29, 30]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27,
+      ],
+      [19],
+      [20],
+      [21, 22, 23, 24, 25, 26],
+      [20, 28, 29, 30],
+    ],
     extended=false,
   )
 })
@@ -214,5 +423,12 @@ let vhdl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VhdlLexer` (vhdl).
 pub fn vhdl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(vhdl_lexer_info, options, opts => vhdl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, vhdl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    vhdl_lexer_info,
+    options,
+    opts => vhdl_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, vhdl_lexer_def.force(), text, stack)
+    },
+  )
 }

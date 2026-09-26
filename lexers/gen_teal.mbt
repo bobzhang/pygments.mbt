@@ -24,7 +24,12 @@ let teal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7122, 8, ByGroups([Emit(tk_name_label), Emit(tk_comment_single)]), None),
     r(7123, 8, Emit(tk_name_function), Some([Push("function-args")])),
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
-    r(7124, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_other)]), None),
+    r(
+      7124,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_other)]),
+      None,
+    ),
     r(7125, 8, Emit(tk_literal_number), None),
     r(2185, 8, Emit(tk_literal_number_hex), None),
     r(223, 8, Emit(tk_literal_number_integer), None),
@@ -47,5 +52,12 @@ let teal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TealLexer` (teal).
 pub fn teal_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(teal_lexer_info, options, opts => teal_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, teal_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    teal_lexer_info,
+    options,
+    opts => teal_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, teal_lexer_def.force(), text, stack)
+    },
+  )
 }

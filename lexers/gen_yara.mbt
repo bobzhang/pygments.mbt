@@ -45,7 +45,10 @@ let yara_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "YaraLexer",
     ["root", "comment"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [18, 19, 20, 21]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [18, 19, 20, 21],
+    ],
     extended=false,
   )
 })
@@ -53,5 +56,12 @@ let yara_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `YaraLexer` (YARA).
 pub fn yara_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(yara_lexer_info, options, opts => yara_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, yara_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    yara_lexer_info,
+    options,
+    opts => yara_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, yara_lexer_def.force(), text, stack)
+    },
+  )
 }

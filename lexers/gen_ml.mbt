@@ -64,7 +64,16 @@ let f_star_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "FStarLexer",
     ["escape-sequence", "root", "comment", "string", "dotted"],
     rules,
-    [[0, 1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [28, 29, 30, 31], [32, 0, 1, 2, 33, 34], [35, 36, 37, 38, 39, 40]],
+    [
+      [0, 1, 2],
+      [
+        3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24, 25, 26, 27,
+      ],
+      [28, 29, 30, 31],
+      [32, 0, 1, 2, 33, 34],
+      [35, 36, 37, 38, 39, 40],
+    ],
     extended=false,
   )
 })
@@ -72,7 +81,14 @@ let f_star_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FStarLexer` (FStar).
 pub fn f_star_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(f_star_lexer_info, options, opts => f_star_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, f_star_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    f_star_lexer_info,
+    options,
+    opts => f_star_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, f_star_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -135,7 +151,16 @@ let ocaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "OcamlLexer",
     ["escape-sequence", "root", "comment", "string", "dotted"],
     rules,
-    [[0, 1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [24, 25, 26, 27], [28, 0, 1, 2, 29, 30], [31, 32, 33, 34, 35, 36]],
+    [
+      [0, 1, 2],
+      [
+        3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23,
+      ],
+      [24, 25, 26, 27],
+      [28, 0, 1, 2, 29, 30],
+      [31, 32, 33, 34, 35, 36],
+    ],
     extended=false,
   )
 })
@@ -143,7 +168,14 @@ let ocaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OcamlLexer` (OCaml).
 pub fn ocaml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ocaml_lexer_info, options, opts => ocaml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ocaml_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    ocaml_lexer_info,
+    options,
+    opts => ocaml_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, ocaml_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -238,14 +270,24 @@ let opa_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5275, 8, Emit(tk_literal_string_single), Some([Push("html-attr-value")])),
     r(5276, 8, Emit(tk_literal_string_single), Some([Pop])),
     r(943, 8, Emit(tk_literal_string_single), Some([Pop, Push("html-content")])),
-    r(224, 8, Emit(tk_literal_string_single), Some([Pop, Push("single-string")])),
+    r(
+      224,
+      8,
+      Emit(tk_literal_string_single),
+      Some([Pop, Push("single-string")]),
+    ),
     r(173, 8, Emit(tk_literal_string_single), Some([Pop, Push("string")])),
     r(5262, 8, Emit(tk_literal_string_single), Some([Pop])),
     r(5263, 8, Emit(tk_literal_string_single), Some([Pop, Push("root")])),
     r(5277, 8, Emit(tk_literal_string_single), Some([Pop])),
     r(245, 8, Emit(tk_operator), Some([Pop, Push("root")])),
     r(2032, 8, Emit(tk_comment), Some([Push("html-comment")])),
-    r(5278, 8, Emit(tk_literal_string_single), Some([Pop, Push("html-end-tag")])),
+    r(
+      5278,
+      8,
+      Emit(tk_literal_string_single),
+      Some([Pop, Push("html-end-tag")]),
+    ),
     r(736, 8, Emit(tk_literal_string_single), Some([Push("html-open-tag")])),
     r(245, 8, Emit(tk_operator), Some([Push("root")])),
     r(5279, 8, Emit(tk_literal_string_single), None),
@@ -254,9 +296,39 @@ let opa_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "OpaLexer",
-    ["escape-sequence", "comments", "comments-and-spaces", "root", "type", "type-1", "type-with-slash", "slash-type-1", "type-lhs-1", "type-arrow", "type-tuple", "type-record", "nested-comment", "string", "single-string", "html-open-tag", "html-end-tag", "html-attr", "html-attr-value", "html-content", "html-comment"],
+    [
+      "escape-sequence", "comments", "comments-and-spaces", "root", "type", "type-1",
+      "type-with-slash", "slash-type-1", "type-lhs-1", "type-arrow", "type-tuple",
+      "type-record", "nested-comment", "string", "single-string", "html-open-tag",
+      "html-end-tag", "html-attr", "html-attr-value", "html-content", "html-comment",
+    ],
     rules,
-    [[0, 1, 2], [3, 4], [3, 4, 5], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], [3, 4, 5, 32, 33], [3, 4, 5, 34, 35, 36, 37, 38, 39], [3, 4, 5, 40], [3, 4, 5, 41, 42], [3, 4, 5, 43, 44, 45], [3, 4, 5, 46, 47, 48], [3, 4, 5, 49, 50, 51, 52], [3, 4, 5, 53, 54, 55, 56], [57, 58, 59, 60], [61, 62, 63, 0, 1, 2], [64, 65, 66, 0, 1, 2], [67, 68], [69], [70, 71, 72, 73], [74, 75, 76, 77, 78, 79], [80, 81, 82, 83, 84], [85, 86]],
+    [
+      [0, 1, 2],
+      [3, 4],
+      [3, 4, 5],
+      [
+        3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24, 25, 26, 27, 28, 29, 30, 31,
+      ],
+      [3, 4, 5, 32, 33],
+      [3, 4, 5, 34, 35, 36, 37, 38, 39],
+      [3, 4, 5, 40],
+      [3, 4, 5, 41, 42],
+      [3, 4, 5, 43, 44, 45],
+      [3, 4, 5, 46, 47, 48],
+      [3, 4, 5, 49, 50, 51, 52],
+      [3, 4, 5, 53, 54, 55, 56],
+      [57, 58, 59, 60],
+      [61, 62, 63, 0, 1, 2],
+      [64, 65, 66, 0, 1, 2],
+      [67, 68],
+      [69],
+      [70, 71, 72, 73],
+      [74, 75, 76, 77, 78, 79],
+      [80, 81, 82, 83, 84],
+      [85, 86],
+    ],
     extended=false,
   )
 })
@@ -264,7 +336,11 @@ let opa_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OpaLexer` (Opa).
 pub fn opa_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(opa_lexer_info, options, opts => opa_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, opa_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(opa_lexer_info, options, opts => opa_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, opa_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -328,7 +404,16 @@ let reason_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ReasonLexer",
     ["escape-sequence", "root", "comment", "string", "dotted"],
     rules,
-    [[0, 1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [25, 26, 27, 28], [29, 0, 1, 2, 30, 31], [32, 33, 34, 35, 36, 37]],
+    [
+      [0, 1, 2],
+      [
+        3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24,
+      ],
+      [25, 26, 27, 28],
+      [29, 0, 1, 2, 30, 31],
+      [32, 33, 34, 35, 36, 37],
+    ],
     extended=false,
   )
 })
@@ -336,7 +421,14 @@ let reason_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ReasonLexer` (ReasonML).
 pub fn reason_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(reason_lexer_info, options, opts => reason_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, reason_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    reason_lexer_info,
+    options,
+    opts => reason_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, reason_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -392,12 +484,22 @@ let sml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(502, 8, Emit(tk_error), None),
     r(98, 0, Nop, Some([Push("main")])),
     r(6361, 8, Emit(tk_keyword_reserved), Some([Push("vname")])),
-    r(6362, 8, Emit(tk_keyword_reserved), Some([Pop, Push("main-fun"), Push("fname")])),
+    r(
+      6362,
+      8,
+      Emit(tk_keyword_reserved),
+      Some([Pop, Push("main-fun"), Push("fname")]),
+    ),
     r(502, 8, Emit(tk_error), None),
     r(326, 8, Emit(tk_text), None),
     r(360, 8, Emit(tk_comment_multiline), Some([Push("comment")])),
     r(6363, 8, Emit(tk_keyword_reserved), Some([Push("fname")])),
-    r(6364, 8, Emit(tk_keyword_reserved), Some([Pop, Push("main"), Push("vname")])),
+    r(
+      6364,
+      8,
+      Emit(tk_keyword_reserved),
+      Some([Pop, Push("main"), Push("vname")]),
+    ),
     r(194, 8, Emit(tk_punctuation), Some([Push("fname")])),
     r(6365, 8, Emit(tk_keyword_reserved), Some([Pop, Push("main")])),
     r(502, 8, Emit(tk_error), None),
@@ -425,8 +527,18 @@ let sml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(98, 0, Nop, Some([Pop])),
     r(6357, 8, Emit(tk_name_decorator), None),
     r(138, 8, Emit(tk_punctuation), Some([Push("tyvarseq")])),
-    r(6370, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_punctuation)]), Some([Pop])),
-    r(6371, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_punctuation)]), Some([Pop])),
+    r(
+      6370,
+      8,
+      ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_punctuation)]),
+      Some([Pop]),
+    ),
+    r(
+      6371,
+      8,
+      ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_punctuation)]),
+      Some([Pop]),
+    ),
     r(6359, 8, Emit(tk_name_variable), Some([Pop])),
     r(6360, 8, Emit(tk_name_variable), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
@@ -440,19 +552,49 @@ let sml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(502, 8, Emit(tk_error), Some([Pop])),
     r(6357, 8, Emit(tk_name_decorator), None),
     r(138, 8, Emit(tk_punctuation), Some([Push("tyvarseq")])),
-    r(6374, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_keyword_reserved)]), Some([Pop])),
-    r(6372, 8, Emit(tk_punctuation), Some([Pop, Push("datbind"), Push("datcon")])),
+    r(
+      6374,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_keyword_reserved)]),
+      Some([Pop]),
+    ),
+    r(
+      6372,
+      8,
+      Emit(tk_punctuation),
+      Some([Pop, Push("datbind"), Push("datcon")]),
+    ),
     r(6359, 8, Emit(tk_keyword_type), None),
     r(6360, 8, Emit(tk_keyword_type), None),
     r(502, 8, Emit(tk_error), Some([Pop])),
     r(6373, 8, Emit(tk_keyword_reserved), Some([Pop, Push("dname")])),
     r(6375, 8, Emit(tk_keyword_reserved), Some([Pop, Push("tname")])),
     r(6376, 8, Emit(tk_keyword_reserved), None),
-    r(6377, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_class)]), None),
-    r(6378, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_class)]), None),
+    r(
+      6377,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_class)]),
+      None,
+    ),
+    r(
+      6378,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_class)]),
+      None,
+    ),
     r(502, 8, Emit(tk_error), None),
-    r(6379, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text), Emit(tk_name_class)]), None),
-    r(6380, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text), Emit(tk_name_class)]), None),
+    r(
+      6379,
+      8,
+      ByGroups([Emit(tk_keyword_reserved), Emit(tk_text), Emit(tk_name_class)]),
+      None,
+    ),
+    r(
+      6380,
+      8,
+      ByGroups([Emit(tk_keyword_reserved), Emit(tk_text), Emit(tk_name_class)]),
+      None,
+    ),
     r(6376, 8, Emit(tk_keyword_reserved), None),
     r(6381, 8, Emit(tk_name_class), None),
     r(98, 0, Nop, Some([Pop])),
@@ -473,9 +615,50 @@ let sml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "SMLLexer",
-    ["whitespace", "delimiters", "core", "dotted", "root", "main", "main-fun", "char", "string", "breakout", "sname", "fname", "vname", "tname", "typbind", "dname", "datbind", "ename", "datcon", "tyvarseq", "comment"],
+    [
+      "whitespace", "delimiters", "core", "dotted", "root", "main", "main-fun", "char",
+      "string", "breakout", "sname", "fname", "vname", "tname", "typbind", "dname",
+      "datbind", "ename", "datcon", "tyvarseq", "comment",
+    ],
     rules,
-    [[0, 1], [2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [28, 29, 30, 31, 32], [33], [0, 1, 34, 35, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 36], [0, 1, 37, 38, 39, 40, 41, 42, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 43], [44, 45, 46, 47, 48, 49, 50], [51, 52, 53, 54, 55, 56, 57], [58], [0, 1, 58, 59, 60], [0, 1, 61, 62, 63, 64, 65], [0, 1, 66, 67, 68, 69, 70, 71, 72], [0, 1, 58, 73, 74, 75, 76, 77, 78], [0, 1, 79, 58, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 80], [0, 1, 58, 81, 82, 83, 84, 85, 86, 87], [0, 1, 88, 89, 90, 91, 92, 58, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 93], [0, 1, 94, 95, 96, 97, 98], [0, 1, 99, 100, 101], [102, 103, 104, 105, 106, 107, 108], [109, 110, 111, 112]],
+    [
+      [0, 1],
+      [2, 3, 4, 5, 6],
+      [
+        7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+        26, 27,
+      ],
+      [28, 29, 30, 31, 32],
+      [33],
+      [
+        0, 1, 34, 35, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 36,
+      ],
+      [
+        0, 1, 37, 38, 39, 40, 41, 42, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 43,
+      ],
+      [44, 45, 46, 47, 48, 49, 50],
+      [51, 52, 53, 54, 55, 56, 57],
+      [58],
+      [0, 1, 58, 59, 60],
+      [0, 1, 61, 62, 63, 64, 65],
+      [0, 1, 66, 67, 68, 69, 70, 71, 72],
+      [0, 1, 58, 73, 74, 75, 76, 77, 78],
+      [
+        0, 1, 79, 58, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24, 25, 26, 27, 80,
+      ],
+      [0, 1, 58, 81, 82, 83, 84, 85, 86, 87],
+      [
+        0, 1, 88, 89, 90, 91, 92, 58, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 93,
+      ],
+      [0, 1, 94, 95, 96, 97, 98],
+      [0, 1, 99, 100, 101],
+      [102, 103, 104, 105, 106, 107, 108],
+      [109, 110, 111, 112],
+    ],
     extended=false,
   )
 })
@@ -483,5 +666,17 @@ let sml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SMLLexer` (Standard ML).
 pub fn sml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sml_lexer_info, options, opts => sml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sml_lexer_def.force(), text, stack, callbacks=sml_lexer_callbacks(lx)))
+  @lexer.Lexer::new(sml_lexer_info, options, opts => sml_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => {
+    @lexer.run_regex(
+      lx,
+      sml_lexer_def.force(),
+      text,
+      stack,
+      callbacks=sml_lexer_callbacks(lx),
+    )
+  })
 }

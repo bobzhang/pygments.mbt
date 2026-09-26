@@ -17,8 +17,15 @@ pub let dylan_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `DylanConsoleLexer` (Dylan session).
-pub fn dylan_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dylan_console_lexer_info, options, opts => dylan_console_lexer(options=opts), dylan_console_lexer_tokenizer)
+pub fn dylan_console_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    dylan_console_lexer_info,
+    options,
+    opts => dylan_console_lexer(options=opts),
+    dylan_console_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -41,10 +48,25 @@ let dylan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 2, Emit(tk_text_whitespace), None),
     r(81, 2, Emit(tk_comment_single), None),
-    r(2057, 2, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
+    r(
+      2057,
+      2,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Push("code")])),
     r(0, 2, Emit(tk_text_whitespace), None),
-    r(529, 2, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      529,
+      2,
+      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(506, 2, Emit(tk_comment_multiline), Some([Push("comment")])),
     r(173, 2, Emit(tk_literal_string), Some([Push("string")])),
     r(2058, 2, Emit(tk_literal_string_char), None),
@@ -53,8 +75,18 @@ let dylan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2061, 2, Emit(tk_literal_number_float), None),
     r(382, 2, Emit(tk_literal_number_integer), None),
     r(2062, 2, Emit(tk_literal_number_hex), None),
-    r(2063, 2, ByGroups([Emit(tk_name_tag), Emit(tk_operator), Emit(tk_name_builtin)]), None),
-    r(2064, 2, ByGroups([Emit(tk_name_tag), Emit(tk_operator), Emit(tk_name_builtin)]), None),
+    r(
+      2063,
+      2,
+      ByGroups([Emit(tk_name_tag), Emit(tk_operator), Emit(tk_name_builtin)]),
+      None,
+    ),
+    r(
+      2064,
+      2,
+      ByGroups([Emit(tk_name_tag), Emit(tk_operator), Emit(tk_name_builtin)]),
+      None,
+    ),
     r(2065, 2, Emit(tk_name_tag), None),
     r(2066, 2, Emit(tk_punctuation), None),
     r(1465, 2, Emit(tk_operator), None),
@@ -82,7 +114,16 @@ let dylan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "DylanLexer",
     ["root", "code", "comment", "keyword", "string"],
     rules,
-    [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26], [27, 28, 29, 30], [31, 32], [33, 34, 35, 36, 37]],
+    [
+      [0, 1, 2, 3],
+      [
+        4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+        24, 25, 26,
+      ],
+      [27, 28, 29, 30],
+      [31, 32],
+      [33, 34, 35, 36, 37],
+    ],
     extended=false,
   )
 })
@@ -90,7 +131,12 @@ let dylan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DylanLexer` (Dylan).
 pub fn dylan_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dylan_lexer_info, options, opts => dylan_lexer(options=opts), dylan_lexer_tokenizer)
+  @lexer.Lexer::new(
+    dylan_lexer_info,
+    options,
+    opts => dylan_lexer(options=opts),
+    dylan_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -112,8 +158,23 @@ pub let dylan_lid_lexer_info : @lexer.LexerInfo = {
 let dylan_lid_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 2, Emit(tk_text_whitespace), None),
-    r(529, 2, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
-    r(2076, 2, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
+    r(
+      529,
+      2,
+      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      2076,
+      2,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
   ]
   @lexer.RegexDef::new(
     "DylanLidLexer",
@@ -126,6 +187,15 @@ let dylan_lid_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DylanLidLexer` (DylanLID).
-pub fn dylan_lid_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dylan_lid_lexer_info, options, opts => dylan_lid_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dylan_lid_lexer_def.force(), text, stack))
+pub fn dylan_lid_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    dylan_lid_lexer_info,
+    options,
+    opts => dylan_lid_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, dylan_lid_lexer_def.force(), text, stack)
+    },
+  )
 }

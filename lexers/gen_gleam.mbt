@@ -18,16 +18,44 @@ pub let gleam_lexer_info : @lexer.LexerInfo = {
 ///|
 let gleam_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(2378, 8, ByGroups([Emit(tk_literal_string_doc), Emit(tk_text_whitespace)]), None),
-    r(529, 8, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      2378,
+      8,
+      ByGroups([Emit(tk_literal_string_doc), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      529,
+      8,
+      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(2831, 8, Emit(tk_keyword), None),
     r(2832, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]), None),
     r(2833, 8, Emit(tk_punctuation), None),
     r(2834, 8, Emit(tk_punctuation), None),
     r(2835, 8, Emit(tk_operator), None),
     r(1904, 8, Emit(tk_literal_string), None),
-    r(2836, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
-    r(2837, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(
+      2836,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+      ]),
+      None,
+    ),
+    r(
+      2837,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      None,
+    ),
     r(2838, 8, Emit(tk_name), None),
     r(2839, 8, Emit(tk_literal_number_float), None),
     r(2840, 8, Emit(tk_literal_number_float), None),
@@ -50,5 +78,12 @@ let gleam_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GleamLexer` (Gleam).
 pub fn gleam_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gleam_lexer_info, options, opts => gleam_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gleam_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    gleam_lexer_info,
+    options,
+    opts => gleam_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, gleam_lexer_def.force(), text, stack)
+    },
+  )
 }

@@ -20,7 +20,12 @@ let croc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(529, 8, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      529,
+      8,
+      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(506, 8, Emit(tk_comment_multiline), Some([Push("nestedcomment")])),
     r(1506, 8, Emit(tk_keyword), None),
     r(1507, 8, Emit(tk_keyword_constant), None),
@@ -44,7 +49,10 @@ let croc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "CrocLexer",
     ["root", "nestedcomment"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19, 20]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [17, 18, 19, 20],
+    ],
     extended=false,
   )
 })
@@ -52,7 +60,14 @@ let croc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CrocLexer` (Croc).
 pub fn croc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(croc_lexer_info, options, opts => croc_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, croc_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    croc_lexer_info,
+    options,
+    opts => croc_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, croc_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -75,7 +90,12 @@ let d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(529, 8, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      529,
+      8,
+      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(1241, 8, Emit(tk_comment_multiline), None),
     r(1814, 8, Emit(tk_comment_multiline), Some([Push("nested_comment")])),
     r(1815, 8, Emit(tk_keyword), None),
@@ -108,7 +128,17 @@ let d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1841, 8, Emit(tk_name_decorator), None),
     r(1842, 8, Emit(tk_punctuation), None),
     r(1025, 8, Emit(tk_name), None),
-    r(1843, 8, ByGroups([Emit(tk_comment_special), Emit(tk_text_whitespace), Emit(tk_comment_special), Emit(tk_text_whitespace)]), None),
+    r(
+      1843,
+      8,
+      ByGroups([
+        Emit(tk_comment_special),
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_special),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(1844, 8, Emit(tk_comment_multiline), None),
     r(1814, 8, Emit(tk_comment_multiline), Some([Dup])),
     r(1845, 8, Emit(tk_comment_multiline), Some([Pop])),
@@ -124,7 +154,12 @@ let d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(144, 8, Emit(tk_literal_string), Some([Dup])),
     r(151, 8, Emit(tk_literal_string), Some([Pop])),
     r(1422, 8, Emit(tk_literal_string), None),
-    r(138, 8, Emit(tk_literal_string), Some([Push("delimited_inside_parenthesis")])),
+    r(
+      138,
+      8,
+      Emit(tk_literal_string),
+      Some([Push("delimited_inside_parenthesis")]),
+    ),
     r(1849, 8, Emit(tk_literal_string), Some([Pop])),
     r(1422, 8, Emit(tk_literal_string), None),
     r(138, 8, Emit(tk_literal_string), Some([Dup])),
@@ -144,9 +179,35 @@ let d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "DLexer",
-    ["root", "nested_comment", "token_string", "token_string_nest", "delimited_bracket", "delimited_inside_bracket", "delimited_parenthesis", "delimited_inside_parenthesis", "delimited_angle", "delimited_inside_angle", "delimited_curly", "delimited_inside_curly"],
+    [
+      "root", "nested_comment", "token_string", "token_string_nest", "delimited_bracket",
+      "delimited_inside_bracket", "delimited_parenthesis", "delimited_inside_parenthesis",
+      "delimited_angle", "delimited_inside_angle", "delimited_curly", "delimited_inside_curly",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], [36, 37, 38, 39], [40, 41, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], [42, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], [44, 45, 46], [47, 48, 49], [50, 51, 52], [53, 54, 55], [56, 57, 58], [59, 60, 61], [62, 63, 64], [65, 66, 67]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+      ],
+      [36, 37, 38, 39],
+      [
+        40, 41, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+      ],
+      [
+        42, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+      ],
+      [44, 45, 46],
+      [47, 48, 49],
+      [50, 51, 52],
+      [53, 54, 55],
+      [56, 57, 58],
+      [59, 60, 61],
+      [62, 63, 64],
+      [65, 66, 67],
+    ],
     extended=false,
   )
 })
@@ -154,7 +215,11 @@ let d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DLexer` (D).
 pub fn d_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(d_lexer_info, options, opts => d_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, d_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(d_lexer_info, options, opts => d_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, d_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -177,7 +242,12 @@ let mini_d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(529, 8, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      529,
+      8,
+      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(506, 8, Emit(tk_comment_multiline), Some([Push("nestedcomment")])),
     r(1506, 8, Emit(tk_keyword), None),
     r(1507, 8, Emit(tk_keyword_constant), None),
@@ -201,7 +271,10 @@ let mini_d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "MiniDLexer",
     ["root", "nestedcomment"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19, 20]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [17, 18, 19, 20],
+    ],
     extended=false,
   )
 })
@@ -209,5 +282,12 @@ let mini_d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MiniDLexer` (MiniD).
 pub fn mini_d_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mini_d_lexer_info, options, opts => mini_d_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mini_d_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    mini_d_lexer_info,
+    options,
+    opts => mini_d_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, mini_d_lexer_def.force(), text, stack)
+    },
+  )
 }

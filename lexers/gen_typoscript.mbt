@@ -18,9 +18,42 @@ pub let typo_script_css_data_lexer_info : @lexer.LexerInfo = {
 ///|
 let typo_script_css_data_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(7301, 8, ByGroups([Emit(tk_literal_string), Emit(tk_name_constant), Emit(tk_literal_string)]), None),
-    r(7302, 8, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_operator), Emit(tk_name_constant), Emit(tk_name_constant), Emit(tk_literal_string_symbol)]), None),
-    r(7303, 8, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_symbol), Emit(tk_name_constant), Emit(tk_operator), Emit(tk_name_constant), Emit(tk_literal_string_symbol), Emit(tk_literal_string)]), None),
+    r(
+      7301,
+      8,
+      ByGroups([
+        Emit(tk_literal_string),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
+    r(
+      7302,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_symbol),
+        Emit(tk_operator),
+        Emit(tk_name_constant),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string_symbol),
+      ]),
+      None,
+    ),
+    r(
+      7303,
+      8,
+      ByGroups([
+        Emit(tk_literal_string),
+        Emit(tk_literal_string_symbol),
+        Emit(tk_name_constant),
+        Emit(tk_operator),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string_symbol),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
     r(0, 8, Emit(tk_text), None),
     r(7304, 8, Emit(tk_comment), None),
     r(7305, 8, Emit(tk_comment), None),
@@ -38,8 +71,17 @@ let typo_script_css_data_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(()
 
 ///|
 /// Creates a `TypoScriptCssDataLexer` (TypoScriptCssData).
-pub fn typo_script_css_data_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(typo_script_css_data_lexer_info, options, opts => typo_script_css_data_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, typo_script_css_data_lexer_def.force(), text, stack))
+pub fn typo_script_css_data_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    typo_script_css_data_lexer_info,
+    options,
+    opts => typo_script_css_data_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, typo_script_css_data_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -62,9 +104,42 @@ let typo_script_html_data_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy((
   let rules = [
     r(7308, 8, Emit(tk_name_class), None),
     r(7309, 8, Emit(tk_literal_string), None),
-    r(7301, 8, ByGroups([Emit(tk_literal_string), Emit(tk_name_constant), Emit(tk_literal_string)]), None),
-    r(7302, 8, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_operator), Emit(tk_name_constant), Emit(tk_name_constant), Emit(tk_literal_string_symbol)]), None),
-    r(7303, 8, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_symbol), Emit(tk_name_constant), Emit(tk_operator), Emit(tk_name_constant), Emit(tk_literal_string_symbol), Emit(tk_literal_string)]), None),
+    r(
+      7301,
+      8,
+      ByGroups([
+        Emit(tk_literal_string),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
+    r(
+      7302,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_symbol),
+        Emit(tk_operator),
+        Emit(tk_name_constant),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string_symbol),
+      ]),
+      None,
+    ),
+    r(
+      7303,
+      8,
+      ByGroups([
+        Emit(tk_literal_string),
+        Emit(tk_literal_string_symbol),
+        Emit(tk_name_constant),
+        Emit(tk_operator),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string_symbol),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
     r(0, 8, Emit(tk_text), None),
     r(7306, 8, Emit(tk_literal_string), None),
     r(7310, 8, Emit(tk_literal_string), None),
@@ -80,8 +155,17 @@ let typo_script_html_data_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy((
 
 ///|
 /// Creates a `TypoScriptHtmlDataLexer` (TypoScriptHtmlData).
-pub fn typo_script_html_data_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(typo_script_html_data_lexer_info, options, opts => typo_script_html_data_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, typo_script_html_data_lexer_def.force(), text, stack))
+pub fn typo_script_html_data_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    typo_script_html_data_lexer_info,
+    options,
+    opts => typo_script_html_data_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, typo_script_html_data_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -105,16 +189,68 @@ let typo_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7305, 24, Emit(tk_comment), None),
     r(7304, 24, Emit(tk_comment), None),
     r(7311, 24, Emit(tk_comment), None),
-    r(7302, 24, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_operator), Emit(tk_name_constant), Emit(tk_name_constant), Emit(tk_literal_string_symbol)]), None),
-    r(7312, 24, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_name_constant), Emit(tk_operator), Emit(tk_name_constant), Emit(tk_literal_string_symbol)]), None),
+    r(
+      7302,
+      24,
+      ByGroups([
+        Emit(tk_literal_string_symbol),
+        Emit(tk_operator),
+        Emit(tk_name_constant),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string_symbol),
+      ]),
+      None,
+    ),
+    r(
+      7312,
+      24,
+      ByGroups([
+        Emit(tk_literal_string_symbol),
+        Emit(tk_name_constant),
+        Emit(tk_operator),
+        Emit(tk_name_constant),
+        Emit(tk_literal_string_symbol),
+      ]),
+      None,
+    ),
     r(7313, 24, Emit(tk_literal_string_char), None),
-    r(7314, 24, Using(Other(opts => typo_script_html_data_lexer(options=opts)), None, []), None),
+    r(
+      7314,
+      24,
+      Using(Other(opts => typo_script_html_data_lexer(options=opts)), None, []),
+      None,
+    ),
     r(7315, 24, Emit(tk_literal_string), None),
-    r(7316, 24, ByGroups([Emit(tk_name_class), Emit(tk_text), Emit(tk_literal_string_symbol), Using(Other(opts => typo_script_css_data_lexer(options=opts)), None, [])]), None),
+    r(
+      7316,
+      24,
+      ByGroups([
+        Emit(tk_name_class),
+        Emit(tk_text),
+        Emit(tk_literal_string_symbol),
+        Using(Other(opts => typo_script_css_data_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
     r(7309, 24, Emit(tk_literal_string), None),
-    r(7317, 24, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string)]), None),
+    r(
+      7317,
+      24,
+      ByGroups([Emit(tk_literal_string), Emit(tk_literal_string)]),
+      None,
+    ),
     r(0, 24, Emit(tk_text), None),
-    r(7318, 26, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_name_constant), Emit(tk_text), Emit(tk_literal_string_symbol)]), None),
+    r(
+      7318,
+      26,
+      ByGroups([
+        Emit(tk_literal_string_symbol),
+        Emit(tk_name_constant),
+        Emit(tk_text),
+        Emit(tk_literal_string_symbol),
+      ]),
+      None,
+    ),
     r(7319, 24, Emit(tk_name_function), None),
     r(7320, 24, ByGroups([Emit(tk_operator), Emit(tk_name_builtin)]), None),
     r(7321, 24, Emit(tk_name_class), None),
@@ -132,15 +268,43 @@ let typo_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "TypoScriptLexer",
-    ["root", "comment", "constant", "html", "label", "whitespace", "keywords", "punctuation", "operator", "structure", "literal", "other"],
+    [
+      "root", "comment", "constant", "html", "label", "whitespace", "keywords", "punctuation",
+      "operator", "structure", "literal", "other",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26], [0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10], [11], [12, 13, 14, 15, 16, 17, 18, 19], [20], [21], [22], [23, 24, 25], [26]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26,
+      ],
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [9, 10],
+      [11],
+      [12, 13, 14, 15, 16, 17, 18, 19],
+      [20],
+      [21],
+      [22],
+      [23, 24, 25],
+      [26],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `TypoScriptLexer` (TypoScript).
-pub fn typo_script_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(typo_script_lexer_info, options, opts => typo_script_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, typo_script_lexer_def.force(), text, stack))
+pub fn typo_script_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    typo_script_lexer_info,
+    options,
+    opts => typo_script_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, typo_script_lexer_def.force(), text, stack)
+    },
+  )
 }

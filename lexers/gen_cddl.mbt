@@ -21,7 +21,16 @@ let cddl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(0, 8, Emit(tk_text_whitespace), None),
     r(1168, 8, Emit(tk_comment_single), None),
     r(1169, 8, Emit(tk_keyword_type), None),
-    r(1170, 8, ByGroups([Emit(tk_literal_number), Emit(tk_operator), Emit(tk_literal_number)]), None),
+    r(
+      1170,
+      8,
+      ByGroups([
+        Emit(tk_literal_number),
+        Emit(tk_operator),
+        Emit(tk_literal_number),
+      ]),
+      None,
+    ),
     r(1171, 8, Emit(tk_operator), None),
     r(1172, 8, Emit(tk_operator), None),
     r(1173, 8, Emit(tk_operator), None),
@@ -31,10 +40,29 @@ let cddl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1177, 8, Emit(tk_operator), None),
     r(1178, 8, Emit(tk_operator), None),
     r(1179, 8, Emit(tk_punctuation), None),
-    r(1180, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("bstrb64url")])),
-    r(1181, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("bstrh")])),
+    r(
+      1180,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("bstrb64url")]),
+    ),
+    r(
+      1181,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("bstrh")]),
+    ),
     r(224, 8, Emit(tk_literal_string_single), Some([Push("bstr")])),
-    r(1182, 8, ByGroups([Emit(tk_literal_string), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      1182,
+      8,
+      ByGroups([
+        Emit(tk_literal_string),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(1183, 8, Emit(tk_name_builtin), None),
     r(1184, 8, Emit(tk_name_class), None),
     r(1153, 8, Emit(tk_literal_number_bin), None),
@@ -60,7 +88,16 @@ let cddl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "CddlLexer",
     ["commentsandwhitespace", "root", "bstrb64url", "bstrh", "bstr"],
     rules,
-    [[0, 1], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], [26, 0, 1, 27, 28, 29], [30, 0, 1, 31, 32, 33], [34, 35, 36]],
+    [
+      [0, 1],
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25,
+      ],
+      [26, 0, 1, 27, 28, 29],
+      [30, 0, 1, 31, 32, 33],
+      [34, 35, 36],
+    ],
     extended=false,
   )
 })
@@ -68,5 +105,12 @@ let cddl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CddlLexer` (CDDL).
 pub fn cddl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cddl_lexer_info, options, opts => cddl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cddl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    cddl_lexer_info,
+    options,
+    opts => cddl_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, cddl_lexer_def.force(), text, stack)
+    },
+  )
 }

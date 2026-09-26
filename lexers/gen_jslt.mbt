@@ -53,9 +53,29 @@ let jslt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "JSLTLexer",
-    ["root", "import-path", "whitespace", "_tmp_0", "import-alias", "_tmp_1", "constant", "_tmp_2", "function", "function-parameter-list", "function-parameters", "_tmp_5", "_tmp_4", "_tmp_3", "string"],
+    [
+      "root", "import-path", "whitespace", "_tmp_0", "import-alias", "_tmp_1", "constant",
+      "_tmp_2", "function", "function-parameter-list", "function-parameters", "_tmp_5",
+      "_tmp_4", "_tmp_3", "string",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [20], [21, 22], [20, 21, 22], [23], [23, 21, 22], [24], [24, 21, 22], [25], [26], [27, 28, 29], [27, 28, 29, 21, 22], [26, 21, 22], [25, 21, 22], [30, 31]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [20],
+      [21, 22],
+      [20, 21, 22],
+      [23],
+      [23, 21, 22],
+      [24],
+      [24, 21, 22],
+      [25],
+      [26],
+      [27, 28, 29],
+      [27, 28, 29, 21, 22],
+      [26, 21, 22],
+      [25, 21, 22],
+      [30, 31],
+    ],
     extended=false,
   )
 })
@@ -63,5 +83,12 @@ let jslt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JSLTLexer` (JSLT).
 pub fn jslt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(jslt_lexer_info, options, opts => jslt_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, jslt_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    jslt_lexer_info,
+    options,
+    opts => jslt_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, jslt_lexer_def.force(), text, stack)
+    },
+  )
 }

@@ -69,9 +69,31 @@ let tcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "TclLexer",
-    ["root", "command", "basic", "data", "command-in-brace", "command-in-bracket", "command-in-paren", "params", "params-in-brace", "params-in-paren", "params-in-bracket", "string", "string-square", "brace", "paren", "bracket", "comment"],
+    [
+      "root", "command", "basic", "data", "command-in-brace", "command-in-bracket",
+      "command-in-paren", "params", "params-in-brace", "params-in-paren", "params-in-bracket",
+      "string", "string-square", "brace", "paren", "bracket", "comment",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [0, 1, 2, 3], [4, 5, 6, 7, 8, 9], [10, 11, 12, 13, 14, 15, 16, 17], [19, 20, 21, 22], [23, 24, 25, 26], [27, 28, 29, 30], [31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [34, 31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [35, 31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [36, 31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [37, 38, 39], [40, 41, 42], [43, 19, 20, 21, 22, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [44, 27, 28, 29, 30, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [45, 23, 24, 25, 26, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [46, 47]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [0, 1, 2, 3],
+      [4, 5, 6, 7, 8, 9],
+      [10, 11, 12, 13, 14, 15, 16, 17],
+      [19, 20, 21, 22],
+      [23, 24, 25, 26],
+      [27, 28, 29, 30],
+      [31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [34, 31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [35, 31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [36, 31, 32, 33, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [37, 38, 39],
+      [40, 41, 42],
+      [43, 19, 20, 21, 22, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [44, 27, 28, 29, 30, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [45, 23, 24, 25, 26, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [46, 47],
+    ],
     extended=false,
   )
 })
@@ -79,5 +101,9 @@ let tcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TclLexer` (Tcl).
 pub fn tcl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tcl_lexer_info, options, opts => tcl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tcl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(tcl_lexer_info, options, opts => tcl_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, tcl_lexer_def.force(), text, stack))
 }

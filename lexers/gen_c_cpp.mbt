@@ -7,7 +7,9 @@ pub let c_lexer_info : @lexer.LexerInfo = {
   aliases: ["c"],
   filenames: ["*.c", "*.h", "*.idc", "*.x[bp]m"],
   alias_filenames: [],
-  mimetypes: ["text/x-chdr", "text/x-csrc", "image/x-xbitmap", "image/x-xpixmap"],
+  mimetypes: [
+    "text/x-chdr", "text/x-csrc", "image/x-xbitmap", "image/x-xpixmap",
+  ],
   priority: 0.1,
   url: "https://en.wikipedia.org/wiki/C_(programming_language)",
   version_added: "",
@@ -20,7 +22,12 @@ let c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(388, 8, Emit(tk_punctuation), Some([Push("attribute")])),
     r(1034, 8, Emit(tk_keyword), None),
-    r(393, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
+    r(
+      393,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
     r(394, 8, Emit(tk_keyword), Some([Push("case-value")])),
     r(395, 8, Emit(tk_keyword), None),
     r(396, 8, Emit(tk_keyword_reserved), None),
@@ -29,8 +36,23 @@ let c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1035, 8, Emit(tk_keyword_type), None),
     r(400, 8, Emit(tk_keyword_reserved), None),
     r(401, 8, Emit(tk_keyword_type), None),
-    r(402, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]), Some([Push("string")])),
-    r(403, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_char), Emit(tk_literal_string_char), Emit(tk_literal_string_char)]), None),
+    r(
+      402,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]),
+      Some([Push("string")]),
+    ),
+    r(
+      403,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_char),
+        Emit(tk_literal_string_char),
+        Emit(tk_literal_string_char),
+      ]),
+      None,
+    ),
     r(404, 8, Emit(tk_literal_number_float), None),
     r(405, 8, Emit(tk_literal_number_float), None),
     r(406, 8, Emit(tk_literal_number_float), None),
@@ -44,17 +66,65 @@ let c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(414, 8, Emit(tk_name), None),
     r(415, 8, Emit(tk_comment_preproc), Some([Push("if0")])),
     r(416, 8, Emit(tk_comment_preproc), Some([Push("macro")])),
-    r(417, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]), Some([Push("if0")])),
-    r(418, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]), Some([Push("macro")])),
-    r(419, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      417,
+      8,
+      ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]),
+      Some([Push("if0")]),
+    ),
+    r(
+      418,
+      8,
+      ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]),
+      Some([Push("macro")]),
+    ),
+    r(
+      419,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(264, 8, Emit(tk_text_whitespace), None),
     r(109, 8, Emit(tk_text_whitespace), None),
     r(351, 8, Emit(tk_text), None),
     r(420, 8, Emit(tk_comment_single), None),
     r(421, 8, Emit(tk_comment_multiline), None),
     r(422, 8, Emit(tk_comment_multiline), None),
-    r(423, 8, ByGroups([Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Emit(tk_name_function), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Emit(tk_punctuation)]), Some([Push("function")])),
-    r(424, 8, ByGroups([Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Emit(tk_name_function), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Emit(tk_punctuation)]), None),
+    r(
+      423,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Emit(tk_name_function),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("function")]),
+    ),
+    r(
+      424,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Emit(tk_name_function),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Push("statement")])),
     r(339, 8, Emit(tk_punctuation), None),
     r(433, 8, Emit(tk_punctuation), Some([Pop])),
@@ -66,8 +136,32 @@ let c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(434, 8, Emit(tk_literal_string), None),
     r(351, 8, Emit(tk_literal_string), None),
     r(200, 8, Emit(tk_literal_string), None),
-    r(435, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc), Using(This, None, []), Emit(tk_comment_preprocfile), Using(This, None, []), Emit(tk_comment_multiline)]), None),
-    r(436, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc), Using(This, None, []), Emit(tk_comment_preprocfile), Using(This, None, []), Emit(tk_comment_single)]), None),
+    r(
+      435,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Emit(tk_comment_preproc),
+        Using(This, None, []),
+        Emit(tk_comment_preprocfile),
+        Using(This, None, []),
+        Emit(tk_comment_multiline),
+      ]),
+      None,
+    ),
+    r(
+      436,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Emit(tk_comment_preproc),
+        Using(This, None, []),
+        Emit(tk_comment_preprocfile),
+        Using(This, None, []),
+        Emit(tk_comment_single),
+      ]),
+      None,
+    ),
     r(437, 8, Emit(tk_comment_preproc), None),
     r(282, 8, Emit(tk_comment_multiline), None),
     r(81, 8, Emit(tk_comment_single), Some([Pop])),
@@ -94,9 +188,45 @@ let c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "CLexer",
-    ["statements", "keywords", "types", "whitespace", "root", "statement", "function", "string", "macro", "if0", "classname", "case-value", "attribute", "attribute-args"],
+    [
+      "statements", "keywords", "types", "whitespace", "root", "statement", "function",
+      "string", "macro", "if0", "classname", "case-value", "attribute", "attribute-args",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [1, 2, 3, 4, 5, 6, 7], [8, 9, 10], [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 1, 2, 3, 4, 5, 6, 7, 35, 36, 8, 9, 10, 37], [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 38, 39], [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 40, 41, 42], [43, 44, 45, 46, 47], [48, 49, 50, 51, 52, 53, 54, 55], [56, 57, 58, 59], [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 60, 61, 62, 63], [64, 65, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [66, 67, 68, 69, 70, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], [71, 72, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23,
+      ],
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10],
+      [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
+      [
+        24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 1, 2, 3, 4, 5, 6, 7, 35, 36,
+        8, 9, 10, 37,
+      ],
+      [
+        24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 38, 39,
+      ],
+      [
+        24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 40, 41, 42,
+      ],
+      [43, 44, 45, 46, 47],
+      [48, 49, 50, 51, 52, 53, 54, 55],
+      [56, 57, 58, 59],
+      [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 60, 61, 62, 63],
+      [
+        64, 65, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6,
+        7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+      ],
+      [66, 67, 68, 69, 70, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
+      [
+        71, 72, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23,
+      ],
+    ],
     extended=false,
   )
 })
@@ -104,7 +234,12 @@ let c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CLexer` (C).
 pub fn c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(c_lexer_info, options, opts => c_lexer(options=opts), c_lexer_tokenizer)
+  @lexer.Lexer::new(
+    c_lexer_info,
+    options,
+    opts => c_lexer(options=opts),
+    c_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -112,7 +247,10 @@ pub let cpp_lexer_info : @lexer.LexerInfo = {
   class_name: "CppLexer",
   name: "C++",
   aliases: ["cpp", "c++"],
-  filenames: ["*.cpp", "*.hpp", "*.c++", "*.h++", "*.cc", "*.hh", "*.cxx", "*.hxx", "*.C", "*.H", "*.cp", "*.CPP", "*.tpp", "*.cppm", "*.ixx", "*.mxx", "*.ipp"],
+  filenames: [
+    "*.cpp", "*.hpp", "*.c++", "*.h++", "*.cc", "*.hh", "*.cxx", "*.hxx", "*.C",
+    "*.H", "*.cp", "*.CPP", "*.tpp", "*.cppm", "*.ixx", "*.mxx", "*.ipp",
+  ],
   alias_filenames: [],
   mimetypes: ["text/x-c++hdr", "text/x-c++src"],
   priority: 0.1,
@@ -125,14 +263,51 @@ pub let cpp_lexer_info : @lexer.LexerInfo = {
 ///|
 let cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(386, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string), Emit(tk_literal_string_delimiter), Emit(tk_literal_string_delimiter), Emit(tk_literal_string), Emit(tk_literal_string_delimiter), Emit(tk_literal_string)]), None),
-    r(387, 8, ByGroups([Emit(tk_punctuation), Emit(tk_punctuation), Emit(tk_name_decorator)]), Some([Push("annotation")])),
+    r(
+      386,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string),
+        Emit(tk_literal_string_delimiter),
+        Emit(tk_literal_string_delimiter),
+        Emit(tk_literal_string),
+        Emit(tk_literal_string_delimiter),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
+    r(
+      387,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_punctuation),
+        Emit(tk_name_decorator),
+      ]),
+      Some([Push("annotation")]),
+    ),
     r(388, 8, Emit(tk_punctuation), Some([Push("attribute")])),
-    r(389, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
+    r(
+      389,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
     r(390, 8, Emit(tk_keyword), None),
     r(391, 8, Emit(tk_keyword), Some([Push("namespace")])),
-    r(392, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("enumname")])),
-    r(393, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
+    r(
+      392,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("enumname")]),
+    ),
+    r(
+      393,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
     r(394, 8, Emit(tk_keyword), Some([Push("case-value")])),
     r(395, 8, Emit(tk_keyword), None),
     r(396, 8, Emit(tk_keyword_reserved), None),
@@ -141,8 +316,23 @@ let cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(399, 8, Emit(tk_keyword_type), None),
     r(400, 8, Emit(tk_keyword_reserved), None),
     r(401, 8, Emit(tk_keyword_type), None),
-    r(402, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]), Some([Push("string")])),
-    r(403, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_char), Emit(tk_literal_string_char), Emit(tk_literal_string_char)]), None),
+    r(
+      402,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]),
+      Some([Push("string")]),
+    ),
+    r(
+      403,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_char),
+        Emit(tk_literal_string_char),
+        Emit(tk_literal_string_char),
+      ]),
+      None,
+    ),
     r(404, 8, Emit(tk_literal_number_float), None),
     r(405, 8, Emit(tk_literal_number_float), None),
     r(406, 8, Emit(tk_literal_number_float), None),
@@ -156,27 +346,93 @@ let cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(414, 8, Emit(tk_name), None),
     r(415, 8, Emit(tk_comment_preproc), Some([Push("if0")])),
     r(416, 8, Emit(tk_comment_preproc), Some([Push("macro")])),
-    r(417, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]), Some([Push("if0")])),
-    r(418, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]), Some([Push("macro")])),
-    r(419, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      417,
+      8,
+      ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]),
+      Some([Push("if0")]),
+    ),
+    r(
+      418,
+      8,
+      ByGroups([Using(This, None, []), Emit(tk_comment_preproc)]),
+      Some([Push("macro")]),
+    ),
+    r(
+      419,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(264, 8, Emit(tk_text_whitespace), None),
     r(109, 8, Emit(tk_text_whitespace), None),
     r(351, 8, Emit(tk_text), None),
     r(420, 8, Emit(tk_comment_single), None),
     r(421, 8, Emit(tk_comment_multiline), None),
     r(422, 8, Emit(tk_comment_multiline), None),
-    r(423, 8, ByGroups([Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Emit(tk_name_function), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Emit(tk_punctuation)]), Some([Push("function")])),
-    r(424, 8, ByGroups([Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Emit(tk_name_function), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Using(This, Some(["root", "whitespace"]), []), Using(This, None, []), Emit(tk_punctuation)]), None),
+    r(
+      423,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Emit(tk_name_function),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("function")]),
+    ),
+    r(
+      424,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Emit(tk_name_function),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Using(This, Some(["root", "whitespace"]), []),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Push("statement")])),
     r(425, 8, Emit(tk_keyword_reserved), None),
     r(426, 8, Emit(tk_keyword_pseudo), None),
-    r(387, 8, ByGroups([Emit(tk_punctuation), Emit(tk_punctuation), Emit(tk_name_decorator)]), Some([Push("annotation")])),
+    r(
+      387,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_punctuation),
+        Emit(tk_name_decorator),
+      ]),
+      Some([Push("annotation")]),
+    ),
     r(388, 8, Emit(tk_punctuation), Some([Push("attribute")])),
     r(414, 8, Emit(tk_name_class), Some([Pop])),
     r(427, 8, Emit(tk_text), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
     r(428, 8, Emit(tk_keyword), None),
-    r(387, 8, ByGroups([Emit(tk_punctuation), Emit(tk_punctuation), Emit(tk_name_decorator)]), Some([Push("annotation")])),
+    r(
+      387,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_punctuation),
+        Emit(tk_name_decorator),
+      ]),
+      Some([Push("annotation")]),
+    ),
     r(388, 8, Emit(tk_punctuation), Some([Push("attribute")])),
     r(414, 8, Emit(tk_name_class), Some([Pop])),
     r(427, 8, Emit(tk_text), Some([Pop])),
@@ -210,8 +466,32 @@ let cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(434, 8, Emit(tk_literal_string), None),
     r(351, 8, Emit(tk_literal_string), None),
     r(200, 8, Emit(tk_literal_string), None),
-    r(435, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc), Using(This, None, []), Emit(tk_comment_preprocfile), Using(This, None, []), Emit(tk_comment_multiline)]), None),
-    r(436, 8, ByGroups([Using(This, None, []), Emit(tk_comment_preproc), Using(This, None, []), Emit(tk_comment_preprocfile), Using(This, None, []), Emit(tk_comment_single)]), None),
+    r(
+      435,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Emit(tk_comment_preproc),
+        Using(This, None, []),
+        Emit(tk_comment_preprocfile),
+        Using(This, None, []),
+        Emit(tk_comment_multiline),
+      ]),
+      None,
+    ),
+    r(
+      436,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Emit(tk_comment_preproc),
+        Using(This, None, []),
+        Emit(tk_comment_preprocfile),
+        Using(This, None, []),
+        Emit(tk_comment_single),
+      ]),
+      None,
+    ),
     r(437, 8, Emit(tk_comment_preproc), None),
     r(282, 8, Emit(tk_comment_multiline), None),
     r(81, 8, Emit(tk_comment_single), Some([Pop])),
@@ -229,9 +509,64 @@ let cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "CppLexer",
-    ["statements", "keywords", "types", "root", "whitespace", "classname", "enumname", "attribute", "namespace", "statement", "namespace-body", "annotation", "annotation-args", "function", "string", "macro", "if0", "case-value", "attribute-args"],
+    [
+      "statements", "keywords", "types", "root", "whitespace", "classname", "enumname",
+      "attribute", "namespace", "statement", "namespace-body", "annotation", "annotation-args",
+      "function", "string", "macro", "if0", "case-value", "attribute-args",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [13, 14, 15], [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 40, 41, 13, 14, 15, 42, 43, 44], [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39], [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 45, 46, 47, 48, 49], [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 50, 51, 52, 53, 54, 55], [56, 57, 58, 59, 60, 61, 62, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39], [63, 64, 65, 66, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 67, 68], [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 67, 68], [69, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 40, 41, 13, 14, 15, 42, 43, 44], [70, 71, 72, 73, 74, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39], [75, 76, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 77, 78, 79], [80, 81, 82, 83, 84], [85, 86, 87, 88, 89, 90, 91, 92], [93, 94, 95, 96], [97, 98, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [99, 100, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      [13, 14, 15],
+      [
+        29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+        12, 40, 41, 13, 14, 15, 42, 43, 44,
+      ],
+      [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+      [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 45, 46, 47, 48, 49],
+      [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 50, 51, 52, 53, 54, 55],
+      [56, 57, 58, 59, 60, 61, 62, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+      [
+        63, 64, 65, 66, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4,
+        5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26, 27, 28, 67, 68,
+      ],
+      [
+        29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+        67, 68,
+      ],
+      [
+        69, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 40, 41, 13, 14, 15, 42, 43, 44,
+      ],
+      [70, 71, 72, 73, 74, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+      [
+        75, 76, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [
+        29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+        77, 78, 79,
+      ],
+      [80, 81, 82, 83, 84],
+      [85, 86, 87, 88, 89, 90, 91, 92],
+      [93, 94, 95, 96],
+      [
+        97, 98, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 0, 1, 2, 3, 4, 5, 6,
+        7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+        26, 27, 28,
+      ],
+      [
+        99, 100, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+    ],
     extended=false,
   )
 })
@@ -239,5 +574,10 @@ let cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CppLexer` (C++).
 pub fn cpp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cpp_lexer_info, options, opts => cpp_lexer(options=opts), cpp_lexer_tokenizer)
+  @lexer.Lexer::new(
+    cpp_lexer_info,
+    options,
+    opts => cpp_lexer(options=opts),
+    cpp_lexer_tokenizer,
+  )
 }

@@ -31,14 +31,53 @@ let arturo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(469, 8, Emit(tk_keyword_declaration), None),
     r(470, 8, Emit(tk_keyword_type), None),
     r(471, 8, Emit(tk_name_attribute), None),
-    r(472, 8, ByGroups([Emit(tk_punctuation), Using(This, None, []), Emit(tk_punctuation)]), None),
-    r(173, 8, Emit(tk_literal_string_double), Some([Push("inside-simple-string")])),
-    r(473, 8, Emit(tk_literal_string_single), Some([Push("inside-smart-string")])),
-    r(474, 8, Emit(tk_literal_string_double), Some([Push("inside-safe-string")])),
-    r(475, 8, Emit(tk_literal_string_single), Some([Push("inside-regex-string")])),
-    r(476, 8, Emit(tk_literal_string_double), Some([Push("inside-curly-verb-string")])),
+    r(
+      472,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      173,
+      8,
+      Emit(tk_literal_string_double),
+      Some([Push("inside-simple-string")]),
+    ),
+    r(
+      473,
+      8,
+      Emit(tk_literal_string_single),
+      Some([Push("inside-smart-string")]),
+    ),
+    r(
+      474,
+      8,
+      Emit(tk_literal_string_double),
+      Some([Push("inside-safe-string")]),
+    ),
+    r(
+      475,
+      8,
+      Emit(tk_literal_string_single),
+      Some([Push("inside-regex-string")]),
+    ),
+    r(
+      476,
+      8,
+      Emit(tk_literal_string_double),
+      Some([Push("inside-curly-verb-string")]),
+    ),
     r(477, 8, Call("ArturoLexer.handle_annotated_strings", []), None),
-    r(245, 8, Emit(tk_literal_string_single), Some([Push("inside-curly-string")])),
+    r(
+      245,
+      8,
+      Emit(tk_literal_string_single),
+      Some([Push("inside-curly-string")]),
+    ),
     r(478, 8, Emit(tk_literal_string_single), Some([Push("inside-eof-string")])),
     r(479, 8, Emit(tk_name_builtin), None),
     r(480, 8, Emit(tk_name_builtin), None),
@@ -85,9 +124,29 @@ let arturo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "ArturoLexer",
-    ["root", "builtin-functions", "inside-interpol", "inside-template", "string-escape", "inside-simple-string", "inside-smart-string", "inside-safe-string", "inside-regex-string", "inside-curly-verb-string", "inside-curly-string", "inside-eof-string"],
+    [
+      "root", "builtin-functions", "inside-interpol", "inside-template", "string-escape",
+      "inside-simple-string", "inside-smart-string", "inside-safe-string", "inside-regex-string",
+      "inside-curly-verb-string", "inside-curly-string", "inside-eof-string",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], [22, 23], [30, 31], [32, 33], [34], [34, 35, 36, 37, 38], [34, 39, 40, 41, 42], [34, 43, 44, 45, 46], [47, 48, 49, 50, 51], [34, 52, 53, 54, 55], [34, 56, 57, 58, 59], [34, 60, 61, 62, 63]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29,
+      ],
+      [22, 23],
+      [30, 31],
+      [32, 33],
+      [34],
+      [34, 35, 36, 37, 38],
+      [34, 39, 40, 41, 42],
+      [34, 43, 44, 45, 46],
+      [47, 48, 49, 50, 51],
+      [34, 52, 53, 54, 55],
+      [34, 56, 57, 58, 59],
+      [34, 60, 61, 62, 63],
+    ],
     extended=false,
   )
 })
@@ -95,5 +154,10 @@ let arturo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ArturoLexer` (Arturo).
 pub fn arturo_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(arturo_lexer_info, options, opts => arturo_lexer(options=opts), arturo_lexer_tokenizer)
+  @lexer.Lexer::new(
+    arturo_lexer_info,
+    options,
+    opts => arturo_lexer(options=opts),
+    arturo_lexer_tokenizer,
+  )
 }

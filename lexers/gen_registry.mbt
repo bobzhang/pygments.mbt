@@ -2,7 +2,9 @@
 
 ///|
 /// Every builtin lexer class: metadata and constructor.
-pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer raise)] = [
+pub let all_lexers : Array[
+  (@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer raise),
+] = [
   (abap_lexer_info, opts => abap_lexer(options=opts)),
   (amdgpu_lexer_info, opts => amdgpu_lexer(options=opts)),
   (apl_lexer_info, opts => apl_lexer(options=opts)),
@@ -18,7 +20,10 @@ pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer r
   (ampl_lexer_info, opts => ampl_lexer(options=opts)),
   (angular2_html_lexer_info, opts => angular2_html_lexer(options=opts)),
   (angular2_lexer_info, opts => angular2_lexer(options=opts)),
-  (antlr_action_script_lexer_info, opts => antlr_action_script_lexer(options=opts)),
+  (
+    antlr_action_script_lexer_info,
+    opts => antlr_action_script_lexer(options=opts),
+  ),
   (antlr_c_sharp_lexer_info, opts => antlr_c_sharp_lexer(options=opts)),
   (antlr_cpp_lexer_info, opts => antlr_cpp_lexer(options=opts)),
   (antlr_java_lexer_info, opts => antlr_java_lexer(options=opts)),
@@ -87,7 +92,10 @@ pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer r
   (chapel_lexer_info, opts => chapel_lexer(options=opts)),
   (charmci_lexer_info, opts => charmci_lexer(options=opts)),
   (cheetah_html_lexer_info, opts => cheetah_html_lexer(options=opts)),
-  (cheetah_javascript_lexer_info, opts => cheetah_javascript_lexer(options=opts)),
+  (
+    cheetah_javascript_lexer_info,
+    opts => cheetah_javascript_lexer(options=opts),
+  ),
   (cheetah_lexer_info, opts => cheetah_lexer(options=opts)),
   (cheetah_xml_lexer_info, opts => cheetah_xml_lexer(options=opts)),
   (cirru_lexer_info, opts => cirru_lexer(options=opts)),
@@ -334,8 +342,14 @@ pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer r
   (mosel_lexer_info, opts => mosel_lexer(options=opts)),
   (moz_preproc_css_lexer_info, opts => moz_preproc_css_lexer(options=opts)),
   (moz_preproc_hash_lexer_info, opts => moz_preproc_hash_lexer(options=opts)),
-  (moz_preproc_javascript_lexer_info, opts => moz_preproc_javascript_lexer(options=opts)),
-  (moz_preproc_percent_lexer_info, opts => moz_preproc_percent_lexer(options=opts)),
+  (
+    moz_preproc_javascript_lexer_info,
+    opts => moz_preproc_javascript_lexer(options=opts),
+  ),
+  (
+    moz_preproc_percent_lexer_info,
+    opts => moz_preproc_percent_lexer(options=opts),
+  ),
   (moz_preproc_xul_lexer_info, opts => moz_preproc_xul_lexer(options=opts)),
   (mql_lexer_info, opts => mql_lexer(options=opts)),
   (mscgen_lexer_info, opts => mscgen_lexer(options=opts)),
@@ -402,7 +416,10 @@ pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer r
   (postgres_lexer_info, opts => postgres_lexer(options=opts)),
   (povray_lexer_info, opts => povray_lexer(options=opts)),
   (power_shell_lexer_info, opts => power_shell_lexer(options=opts)),
-  (power_shell_session_lexer_info, opts => power_shell_session_lexer(options=opts)),
+  (
+    power_shell_session_lexer_info,
+    opts => power_shell_session_lexer(options=opts),
+  ),
   (praat_lexer_info, opts => praat_lexer(options=opts)),
   (procfile_lexer_info, opts => procfile_lexer(options=opts)),
   (prolog_lexer_info, opts => prolog_lexer(options=opts)),
@@ -455,7 +472,10 @@ pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer r
   (ride_lexer_info, opts => ride_lexer(options=opts)),
   (rita_lexer_info, opts => rita_lexer(options=opts)),
   (roboconf_graph_lexer_info, opts => roboconf_graph_lexer(options=opts)),
-  (roboconf_instances_lexer_info, opts => roboconf_instances_lexer(options=opts)),
+  (
+    roboconf_instances_lexer_info,
+    opts => roboconf_instances_lexer(options=opts),
+  ),
   (robot_framework_lexer_info, opts => robot_framework_lexer(options=opts)),
   (rocq_lexer_info, opts => rocq_lexer(options=opts)),
   (rql_lexer_info, opts => rql_lexer(options=opts)),
@@ -546,8 +566,14 @@ pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer r
   (twig_html_lexer_info, opts => twig_html_lexer(options=opts)),
   (twig_lexer_info, opts => twig_lexer(options=opts)),
   (type_script_lexer_info, opts => type_script_lexer(options=opts)),
-  (typo_script_css_data_lexer_info, opts => typo_script_css_data_lexer(options=opts)),
-  (typo_script_html_data_lexer_info, opts => typo_script_html_data_lexer(options=opts)),
+  (
+    typo_script_css_data_lexer_info,
+    opts => typo_script_css_data_lexer(options=opts),
+  ),
+  (
+    typo_script_html_data_lexer_info,
+    opts => typo_script_html_data_lexer(options=opts),
+  ),
   (typo_script_lexer_info, opts => typo_script_lexer(options=opts)),
   (typst_lexer_info, opts => typst_lexer(options=opts)),
   (ul4_lexer_info, opts => ul4_lexer(options=opts)),
@@ -572,7 +598,10 @@ pub let all_lexers : Array[(@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer r
   (verilog_lexer_info, opts => verilog_lexer(options=opts)),
   (vhdl_lexer_info, opts => vhdl_lexer(options=opts)),
   (vim_lexer_info, opts => vim_lexer(options=opts)),
-  (visual_prolog_grammar_lexer_info, opts => visual_prolog_grammar_lexer(options=opts)),
+  (
+    visual_prolog_grammar_lexer_info,
+    opts => visual_prolog_grammar_lexer(options=opts),
+  ),
   (visual_prolog_lexer_info, opts => visual_prolog_lexer(options=opts)),
   (vue_lexer_info, opts => vue_lexer(options=opts)),
   (vyper_lexer_info, opts => vyper_lexer(options=opts)),

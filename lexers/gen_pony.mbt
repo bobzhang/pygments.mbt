@@ -29,8 +29,18 @@ let pony_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5568, 8, Emit(tk_operator_word), None),
     r(5569, 8, Emit(tk_operator), None),
     r(5570, 8, Emit(tk_keyword), None),
-    r(5571, 8, ByGroups([Emit(tk_keyword), Emit(tk_text)]), Some([Push("typename")])),
-    r(5572, 8, ByGroups([Emit(tk_keyword), Emit(tk_text)]), Some([Push("methodname")])),
+    r(
+      5571,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text)]),
+      Some([Push("typename")]),
+    ),
+    r(
+      5572,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text)]),
+      Some([Push("methodname")]),
+    ),
     r(5573, 8, Emit(tk_name_builtin_type), None),
     r(5574, 8, Emit(tk_name_type), None),
     r(2863, 8, Emit(tk_literal_number_float), None),
@@ -39,8 +49,18 @@ let pony_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1150, 8, Emit(tk_name_builtin), None),
     r(5575, 8, Emit(tk_name), None),
     r(5576, 8, Emit(tk_name), None),
-    r(5577, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_class)]), Some([Pop])),
-    r(5578, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]), Some([Pop])),
+    r(
+      5577,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_class)]),
+      Some([Pop]),
+    ),
+    r(
+      5578,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]),
+      Some([Pop]),
+    ),
     r(523, 8, Emit(tk_comment_multiline), None),
     r(506, 8, Emit(tk_comment_multiline), Some([Dup])),
     r(524, 8, Emit(tk_comment_multiline), Some([Pop])),
@@ -53,7 +73,13 @@ let pony_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PonyLexer",
     ["root", "typename", "methodname", "nested_comment", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [21], [22], [23, 24, 25, 26], [27, 28, 29]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      [21],
+      [22],
+      [23, 24, 25, 26],
+      [27, 28, 29],
+    ],
     extended=false,
   )
 })
@@ -61,5 +87,12 @@ let pony_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PonyLexer` (Pony).
 pub fn pony_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(pony_lexer_info, options, opts => pony_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pony_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    pony_lexer_info,
+    options,
+    opts => pony_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, pony_lexer_def.force(), text, stack)
+    },
+  )
 }

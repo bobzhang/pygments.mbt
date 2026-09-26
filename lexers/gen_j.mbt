@@ -20,14 +20,43 @@ let j_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(2427, 8, Emit(tk_comment_preproc), None),
     r(3504, 8, Emit(tk_comment_single), None),
-    r(3505, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_multiline)]), Some([Push("comment")])),
-    r(3506, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_single)]), None),
+    r(
+      3505,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_multiline)]),
+      Some([Push("comment")]),
+    ),
+    r(
+      3506,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_single)]),
+      None,
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(224, 8, Emit(tk_literal_string), Some([Push("singlequote")])),
     r(3507, 8, Emit(tk_name_entity), Some([Push("nounDefinition")])),
-    r(3508, 8, ByGroups([Emit(tk_name_entity), Emit(tk_text_whitespace), Emit(tk_name_entity), Emit(tk_text_whitespace)]), Some([Push("nounDefinition")])),
+    r(
+      3508,
+      8,
+      ByGroups([
+        Emit(tk_name_entity),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_entity),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("nounDefinition")]),
+    ),
     r(3509, 8, Emit(tk_name_function), Some([Push("explicitDefinition")])),
-    r(3510, 8, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("explicitDefinition")])),
+    r(
+      3510,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("explicitDefinition")]),
+    ),
     r(3511, 8, Emit(tk_name_label), None),
     r(3512, 8, Emit(tk_name_label), None),
     r(3513, 8, Emit(tk_name_variable), None),
@@ -60,9 +89,30 @@ let j_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "JLexer",
-    ["root", "numbers", "comment", "explicitDefinition", "nounDefinition", "parentheses", "singlequote"],
+    [
+      "root", "numbers", "comment", "explicitDefinition", "nounDefinition", "parentheses",
+      "singlequote",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [20, 21, 22, 23, 24], [25, 26, 27], [28, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 29, 30, 31], [32, 33, 34], [35, 28, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 29, 30, 31, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [36, 37, 38]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24,
+      ],
+      [20, 21, 22, 23, 24],
+      [25, 26, 27],
+      [
+        28, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 29, 30, 31,
+      ],
+      [32, 33, 34],
+      [
+        35, 28, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 29, 30, 31, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+        12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+      ],
+      [36, 37, 38],
+    ],
     extended=false,
   )
 })
@@ -70,5 +120,9 @@ let j_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JLexer` (J).
 pub fn j_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(j_lexer_info, options, opts => j_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, j_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(j_lexer_info, options, opts => j_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, j_lexer_def.force(), text, stack))
 }

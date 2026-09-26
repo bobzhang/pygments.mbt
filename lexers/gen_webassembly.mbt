@@ -49,17 +49,58 @@ let wat_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string_double), Some([Pop])),
     r(459, 8, Emit(tk_literal_string_double), None),
     r(0, 8, Emit(tk_text), None),
-    r(7740, 8, ByGroups([Emit(tk_keyword), Emit(tk_operator), Emit(tk_literal_number_hex)]), None),
-    r(7741, 8, ByGroups([Emit(tk_keyword), Emit(tk_operator), Emit(tk_literal_number_integer)]), None),
-    r(7742, 8, ByGroups([Emit(tk_keyword), Emit(tk_operator), Emit(tk_literal_number_hex)]), None),
-    r(7743, 8, ByGroups([Emit(tk_keyword), Emit(tk_operator), Emit(tk_literal_number_integer)]), None),
+    r(
+      7740,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_operator),
+        Emit(tk_literal_number_hex),
+      ]),
+      None,
+    ),
+    r(
+      7741,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_operator),
+        Emit(tk_literal_number_integer),
+      ]),
+      None,
+    ),
+    r(
+      7742,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_operator),
+        Emit(tk_literal_number_hex),
+      ]),
+      None,
+    ),
+    r(
+      7743,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_operator),
+        Emit(tk_literal_number_integer),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "WatLexer",
     ["root", "nesting_comment", "string", "arguments"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 19], [20, 21, 22, 23, 24, 25, 26, 27, 28, 29], [30, 31, 32, 33, 34, 35]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [16, 17, 18, 19],
+      [20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+      [30, 31, 32, 33, 34, 35],
+    ],
     extended=false,
   )
 })
@@ -67,5 +108,9 @@ let wat_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `WatLexer` (WebAssembly).
 pub fn wat_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(wat_lexer_info, options, opts => wat_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, wat_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(wat_lexer_info, options, opts => wat_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, wat_lexer_def.force(), text, stack))
 }

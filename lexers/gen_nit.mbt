@@ -45,7 +45,12 @@ let nit_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "NitLexer",
     ["root"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21,
+      ],
+    ],
     extended=false,
   )
 })
@@ -53,5 +58,9 @@ let nit_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NitLexer` (Nit).
 pub fn nit_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(nit_lexer_info, options, opts => nit_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nit_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(nit_lexer_info, options, opts => nit_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, nit_lexer_def.force(), text, stack))
 }

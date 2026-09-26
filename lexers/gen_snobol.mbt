@@ -38,14 +38,24 @@ let snobol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(161, 8, Emit(tk_text), Some([Pop, Pop])),
     r(0, 8, Emit(tk_text), None),
     r(6687, 8, Emit(tk_keyword), None),
-    r(6688, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_label), Emit(tk_punctuation)]), None),
+    r(
+      6688,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_label), Emit(tk_punctuation)]),
+      None,
+    ),
     r(1915, 8, Emit(tk_literal_string_heredoc), None),
   ]
   @lexer.RegexDef::new(
     "SnobolLexer",
     ["root", "statement", "goto", "heredoc"],
     rules,
-    [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19, 20], [21]],
+    [
+      [0, 1, 2, 3, 4, 5],
+      [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [17, 18, 19, 20],
+      [21],
+    ],
     extended=false,
   )
 })
@@ -53,5 +63,12 @@ let snobol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SnobolLexer` (Snobol).
 pub fn snobol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(snobol_lexer_info, options, opts => snobol_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, snobol_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    snobol_lexer_info,
+    options,
+    opts => snobol_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, snobol_lexer_def.force(), text, stack)
+    },
+  )
 }

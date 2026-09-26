@@ -24,7 +24,12 @@ let sieve_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6573, 10, ByGroups([Emit(tk_name_tag), Emit(tk_name_tag)]), None),
     r(6574, 10, Emit(tk_name_builtin), None),
     r(6575, 10, Emit(tk_keyword_declaration), None),
-    r(6576, 8, ByGroups([Emit(tk_literal_number), Emit(tk_literal_number)]), None),
+    r(
+      6576,
+      8,
+      ByGroups([Emit(tk_literal_number), Emit(tk_literal_number)]),
+      None,
+    ),
     r(627, 8, Emit(tk_comment_single), None),
     r(6577, 8, Emit(tk_comment_multiline), None),
     r(3159, 8, Emit(tk_literal_string), None),
@@ -44,5 +49,12 @@ let sieve_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SieveLexer` (Sieve).
 pub fn sieve_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sieve_lexer_info, options, opts => sieve_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sieve_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    sieve_lexer_info,
+    options,
+    opts => sieve_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, sieve_lexer_def.force(), text, stack)
+    },
+  )
 }

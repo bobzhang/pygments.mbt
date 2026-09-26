@@ -41,5 +41,12 @@ let rita_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RitaLexer` (Rita).
 pub fn rita_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rita_lexer_info, options, opts => rita_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rita_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    rita_lexer_info,
+    options,
+    opts => rita_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, rita_lexer_def.force(), text, stack)
+    },
+  )
 }

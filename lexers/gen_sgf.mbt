@@ -20,12 +20,68 @@ let smart_game_format_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
   let rules = [
     r(6645, 8, Emit(tk_punctuation), None),
     r(6646, 8, Emit(tk_name_builtin), None),
-    r(6647, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_number), Emit(tk_punctuation)]), None),
-    r(6648, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_date), Emit(tk_punctuation)]), None),
-    r(6649, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation)]), None),
-    r(6650, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation)]), None),
-    r(6651, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation)]), None),
-    r(6652, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      6647,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_literal_number),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      6648,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_literal_date),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      6649,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_literal_string),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      6650,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_literal_string),
+        Emit(tk_punctuation),
+        Emit(tk_literal_string),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      6651,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_literal_string),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      6652,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
   ]
   @lexer.RegexDef::new(
@@ -39,6 +95,15 @@ let smart_game_format_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
 
 ///|
 /// Creates a `SmartGameFormatLexer` (SmartGameFormat).
-pub fn smart_game_format_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(smart_game_format_lexer_info, options, opts => smart_game_format_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, smart_game_format_lexer_def.force(), text, stack))
+pub fn smart_game_format_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    smart_game_format_lexer_info,
+    options,
+    opts => smart_game_format_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, smart_game_format_lexer_def.force(), text, stack)
+    },
+  )
 }

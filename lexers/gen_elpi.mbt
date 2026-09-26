@@ -21,19 +21,137 @@ let elpi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2264, 8, Emit(tk_comment), None),
     r(421, 8, Emit(tk_comment), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(2265, 8, ByGroups([Emit(tk_keyword_mode), Emit(tk_text_whitespace), Emit(tk_literal_string_double)]), Some([Push("elpi-string")])),
-    r(2266, 8, ByGroups([Emit(tk_keyword_mode), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("elpi-indexing-expr")])),
-    r(2267, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("elpi-pred-item")])),
-    r(2268, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("elpi-func-item")])),
-    r(2269, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("elpi-type")])),
-    r(2270, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("elpi-type")])),
-    r(2271, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("elpi-type")])),
-    r(2272, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("elpi-type")])),
-    r(2273, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_literal_string_double)]), Some([Push("elpi-string")])),
-    r(2274, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_text)]), None),
-    r(2275, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_text)]), None),
-    r(2276, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_text)]), None),
-    r(2277, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("elpi-chr-rule-start")])),
+    r(
+      2265,
+      8,
+      ByGroups([
+        Emit(tk_keyword_mode),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_double),
+      ]),
+      Some([Push("elpi-string")]),
+    ),
+    r(
+      2266,
+      8,
+      ByGroups([
+        Emit(tk_keyword_mode),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("elpi-indexing-expr")]),
+    ),
+    r(
+      2267,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("elpi-pred-item")]),
+    ),
+    r(
+      2268,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("elpi-func-item")]),
+    ),
+    r(
+      2269,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("elpi-type")]),
+    ),
+    r(
+      2270,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("elpi-type")]),
+    ),
+    r(
+      2271,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("elpi-type")]),
+    ),
+    r(
+      2272,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("elpi-type")]),
+    ),
+    r(
+      2273,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_double),
+      ]),
+      Some([Push("elpi-string")]),
+    ),
+    r(
+      2274,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
+    r(
+      2275,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
+    r(
+      2276,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
+    r(
+      2277,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("elpi-chr-rule-start")]),
+    ),
     r(2278, 8, Emit(tk_name_variable), None),
     r(2279, 8, Emit(tk_name_variable), None),
     r(1483, 8, Emit(tk_name_variable), None),
@@ -51,7 +169,12 @@ let elpi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2286, 8, Emit(tk_operator), None),
     r(2287, 8, Emit(tk_literal_number_integer), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
-    r(2288, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_literal_string_double)]), Some([Push("elpi-string")])),
+    r(
+      2288,
+      8,
+      ByGroups([Emit(tk_keyword_type), Emit(tk_literal_string_double)]),
+      Some([Push("elpi-string")]),
+    ),
     r(1226, 8, Emit(tk_keyword_type), None),
     r(2289, 8, Emit(tk_keyword_mode), None),
     r(2281, 8, Emit(tk_keyword_type), None),
@@ -64,8 +187,26 @@ let elpi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2292, 8, Emit(tk_keyword_mode), None),
     r(2154, 8, Emit(tk_text), Some([Pop])),
     r(100, 8, Emit(tk_keyword_mode), None),
-    r(2293, 8, ByGroups([Emit(tk_keyword_mode), Emit(tk_text_whitespace), Emit(tk_keyword_declaration)]), Some([Push("elpi-pred-item")])),
-    r(2294, 8, ByGroups([Emit(tk_keyword_mode), Emit(tk_text_whitespace), Emit(tk_keyword_declaration)]), Some([Push("elpi-func-item")])),
+    r(
+      2293,
+      8,
+      ByGroups([
+        Emit(tk_keyword_mode),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_declaration),
+      ]),
+      Some([Push("elpi-pred-item")]),
+    ),
+    r(
+      2294,
+      8,
+      ByGroups([
+        Emit(tk_keyword_mode),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_declaration),
+      ]),
+      Some([Push("elpi-func-item")]),
+    ),
     r(96, 8, Emit(tk_keyword_mode), Some([Pop])),
     r(138, 8, Emit(tk_keyword_type), Some([Push("_elpi-type-item")])),
     r(1226, 8, Emit(tk_keyword_type), None),
@@ -86,8 +227,18 @@ let elpi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string_double), Some([Pop])),
     r(306, 8, Emit(tk_punctuation), Some([Pop])),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(2298, 8, ByGroups([Emit(tk_literal_number), Emit(tk_punctuation)]), Some([Push("elpi-quote-exit")])),
-    r(2299, 8, ByGroups([Emit(tk_literal_number), Emit(tk_name_variable)]), None),
+    r(
+      2298,
+      8,
+      ByGroups([Emit(tk_literal_number), Emit(tk_punctuation)]),
+      Some([Push("elpi-quote-exit")]),
+    ),
+    r(
+      2299,
+      8,
+      ByGroups([Emit(tk_literal_number), Emit(tk_name_variable)]),
+      None,
+    ),
     r(2300, 8, Using(Other(opts => rocq_lexer(options=opts)), None, []), None),
     r(306, 8, Emit(tk_punctuation), Some([Pop])),
     r(2283, 8, Emit(tk_text), Some([Dup])),
@@ -97,9 +248,51 @@ let elpi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "ElpiLexer",
-    ["root", "elpi", "_elpi-comment", "elpi-indexing-expr", "elpi-type", "elpi-chr-rule-start", "elpi-chr-rule", "elpi-pred-item", "_elpi-inner-pred-fun", "_elpi-type-item", "elpi-func-item", "elpi-btick", "elpi-tick", "elpi-string", "elpi-quote", "elpi-quote-exit", "elpi-spill", "elpi-in-parens"],
+    [
+      "root", "elpi", "_elpi-comment", "elpi-indexing-expr", "elpi-type", "elpi-chr-rule-start",
+      "elpi-chr-rule", "elpi-pred-item", "_elpi-inner-pred-fun", "_elpi-type-item",
+      "elpi-func-item", "elpi-btick", "elpi-tick", "elpi-string", "elpi-quote", "elpi-quote-exit",
+      "elpi-spill", "elpi-in-parens",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [0, 1, 2], [31, 32], [33, 34, 35, 36, 37, 38, 0, 1, 2], [39, 0, 1, 2], [40, 41, 42, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [43, 44, 45, 46, 47, 48, 49, 0, 1, 2, 50, 51, 46, 47, 52, 53, 0, 1, 2], [46, 47], [50, 51, 46, 47, 52, 53, 0, 1, 2], [54, 55, 56, 57, 46, 47, 58, 59, 0, 1, 2, 50, 51, 46, 47, 52, 53, 0, 1, 2], [60, 61], [62, 63], [64, 65], [66, 67, 68, 69, 70], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 71], [72, 73, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [74, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 75]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+      [0, 1, 2],
+      [31, 32],
+      [33, 34, 35, 36, 37, 38, 0, 1, 2],
+      [39, 0, 1, 2],
+      [
+        40, 41, 42, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+      [43, 44, 45, 46, 47, 48, 49, 0, 1, 2, 50, 51, 46, 47, 52, 53, 0, 1, 2],
+      [46, 47],
+      [50, 51, 46, 47, 52, 53, 0, 1, 2],
+      [54, 55, 56, 57, 46, 47, 58, 59, 0, 1, 2, 50, 51, 46, 47, 52, 53, 0, 1, 2],
+      [60, 61],
+      [62, 63],
+      [64, 65],
+      [66, 67, 68, 69, 70],
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 71,
+      ],
+      [
+        72, 73, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+      [
+        74, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 75,
+      ],
+    ],
     extended=false,
   )
 })
@@ -107,5 +300,12 @@ let elpi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ElpiLexer` (Elpi).
 pub fn elpi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(elpi_lexer_info, options, opts => elpi_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, elpi_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    elpi_lexer_info,
+    options,
+    opts => elpi_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, elpi_lexer_def.force(), text, stack)
+    },
+  )
 }

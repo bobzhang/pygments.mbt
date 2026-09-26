@@ -17,8 +17,15 @@ pub let julia_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JuliaConsoleLexer` (Julia console).
-pub fn julia_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(julia_console_lexer_info, options, opts => julia_console_lexer(options=opts), julia_console_lexer_tokenizer)
+pub fn julia_console_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    julia_console_lexer_info,
+    options,
+    opts => julia_console_lexer(options=opts),
+    julia_console_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -44,30 +51,150 @@ let julia_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(3711, 8, Emit(tk_comment_multiline), Some([Push("blockcomment")])),
     r(627, 8, Emit(tk_comment), None),
     r(3712, 8, Emit(tk_punctuation), None),
-    r(3713, 8, ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_name)]), None),
+    r(
+      3713,
+      8,
+      ByGroups([
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_name),
+      ]),
+      None,
+    ),
     r(3714, 8, Emit(tk_literal_string_symbol), None),
-    r(3715, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
-    r(3716, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
-    r(3717, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
-    r(3718, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(
+      3715,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_type)]),
+      None,
+    ),
+    r(
+      3716,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
+    r(
+      3717,
+      8,
+      ByGroups([
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
+    r(
+      3718,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
     r(3719, 8, Emit(tk_operator), None),
     r(3720, 8, Emit(tk_operator), None),
     r(3721, 8, Emit(tk_operator), None),
     r(3722, 8, Emit(tk_literal_string_char), None),
     r(3723, 8, Emit(tk_operator), None),
-    r(3724, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]), Some([Push("tqrawstring")])),
-    r(3725, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]), Some([Push("rawstring")])),
-    r(3726, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_regex)]), Some([Push("tqregex")])),
-    r(3727, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_regex)]), Some([Push("regex")])),
-    r(3728, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]), Some([Push("tqstring")])),
-    r(3729, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]), Some([Push("string")])),
-    r(3730, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_backtick)]), Some([Push("tqcommand")])),
-    r(3731, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_backtick)]), Some([Push("command")])),
-    r(3732, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_punctuation)]), Some([Push("curly")])),
-    r(3733, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
+    r(
+      3724,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]),
+      Some([Push("tqrawstring")]),
+    ),
+    r(
+      3725,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]),
+      Some([Push("rawstring")]),
+    ),
+    r(
+      3726,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_regex)]),
+      Some([Push("tqregex")]),
+    ),
+    r(
+      3727,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_regex)]),
+      Some([Push("regex")]),
+    ),
+    r(
+      3728,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]),
+      Some([Push("tqstring")]),
+    ),
+    r(
+      3729,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]),
+      Some([Push("string")]),
+    ),
+    r(
+      3730,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_backtick)]),
+      Some([Push("tqcommand")]),
+    ),
+    r(
+      3731,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_backtick)]),
+      Some([Push("command")]),
+    ),
+    r(
+      3732,
+      8,
+      ByGroups([Emit(tk_keyword_type), Emit(tk_punctuation)]),
+      Some([Push("curly")]),
+    ),
+    r(
+      3733,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
     r(3734, 8, Emit(tk_punctuation), Some([Push("curly")])),
-    r(3735, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword_type)]), None),
-    r(3736, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword_type)]), None),
+    r(
+      3735,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
+    r(
+      3736,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
     r(3737, 8, Emit(tk_name_decorator), None),
     r(3738, 8, Emit(tk_name_decorator), None),
     r(3739, 8, Emit(tk_keyword), None),
@@ -95,36 +222,100 @@ let julia_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(556, 8, Emit(tk_literal_string_escape), None),
     r(3752, 8, Emit(tk_literal_string), None),
     r(3753, 8, Emit(tk_literal_string_interpol), None),
-    r(3754, 8, ByGroups([Emit(tk_literal_string_interpol), Emit(tk_punctuation)]), Some([Push("in-intp")])),
+    r(
+      3754,
+      8,
+      ByGroups([Emit(tk_literal_string_interpol), Emit(tk_punctuation)]),
+      Some([Push("in-intp")]),
+    ),
     r(138, 8, Emit(tk_punctuation), Some([Dup])),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
-    r(3755, 8, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]), Some([Pop])),
+    r(
+      3755,
+      8,
+      ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]),
+      Some([Pop]),
+    ),
     r(3756, 8, Emit(tk_literal_string_escape), None),
     r(3757, 8, Emit(tk_literal_string_interpol), None),
     r(3758, 8, Emit(tk_literal_string), None),
     r(76, 8, Emit(tk_literal_string), None),
-    r(3759, 8, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]), Some([Pop])),
+    r(
+      3759,
+      8,
+      ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]),
+      Some([Pop]),
+    ),
     r(3756, 8, Emit(tk_literal_string_escape), None),
     r(3758, 8, Emit(tk_literal_string), None),
     r(76, 8, Emit(tk_literal_string), None),
-    r(3760, 8, ByGroups([Emit(tk_literal_string_regex), Emit(tk_literal_string_affix)]), Some([Pop])),
+    r(
+      3760,
+      8,
+      ByGroups([Emit(tk_literal_string_regex), Emit(tk_literal_string_affix)]),
+      Some([Pop]),
+    ),
     r(3761, 8, Emit(tk_literal_string_regex), None),
-    r(3762, 8, ByGroups([Emit(tk_literal_string_regex), Emit(tk_literal_string_affix)]), Some([Pop])),
+    r(
+      3762,
+      8,
+      ByGroups([Emit(tk_literal_string_regex), Emit(tk_literal_string_affix)]),
+      Some([Pop]),
+    ),
     r(920, 8, Emit(tk_literal_string_regex), None),
-    r(3763, 8, ByGroups([Emit(tk_literal_string_backtick), Emit(tk_literal_string_affix)]), Some([Pop])),
+    r(
+      3763,
+      8,
+      ByGroups([Emit(tk_literal_string_backtick), Emit(tk_literal_string_affix)]),
+      Some([Pop]),
+    ),
     r(3764, 8, Emit(tk_literal_string_escape), None),
     r(3765, 8, Emit(tk_literal_string_backtick), None),
     r(76, 8, Emit(tk_literal_string_backtick), None),
-    r(3766, 8, ByGroups([Emit(tk_literal_string_backtick), Emit(tk_literal_string_affix)]), Some([Pop])),
+    r(
+      3766,
+      8,
+      ByGroups([Emit(tk_literal_string_backtick), Emit(tk_literal_string_affix)]),
+      Some([Pop]),
+    ),
     r(3767, 8, Emit(tk_literal_string_escape), None),
     r(3765, 8, Emit(tk_literal_string_backtick), None),
     r(76, 8, Emit(tk_literal_string_backtick), None),
   ]
   @lexer.RegexDef::new(
     "JuliaLexer",
-    ["root", "blockcomment", "curly", "tqrawstring", "rawstring", "interp", "in-intp", "string", "tqstring", "regex", "tqregex", "command", "tqcommand"],
+    [
+      "root", "blockcomment", "curly", "tqrawstring", "rawstring", "interp", "in-intp",
+      "string", "tqstring", "regex", "tqregex", "command", "tqcommand",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], [43, 44, 45, 46], [47, 48, 49, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], [50, 51], [52, 53, 54], [55, 56], [57, 58, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], [59, 60, 55, 56, 61, 62, 63], [64, 65, 55, 56, 66, 67], [68, 69], [70, 71], [72, 73, 55, 56, 74, 75], [76, 77, 55, 56, 78, 79]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+        40, 41, 42,
+      ],
+      [43, 44, 45, 46],
+      [
+        47, 48, 49, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+        37, 38, 39, 40, 41, 42,
+      ],
+      [50, 51],
+      [52, 53, 54],
+      [55, 56],
+      [
+        57, 58, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+        38, 39, 40, 41, 42,
+      ],
+      [59, 60, 55, 56, 61, 62, 63],
+      [64, 65, 55, 56, 66, 67],
+      [68, 69],
+      [70, 71],
+      [72, 73, 55, 56, 74, 75],
+      [76, 77, 55, 56, 78, 79],
+    ],
     extended=false,
   )
 })
@@ -132,5 +323,12 @@ let julia_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JuliaLexer` (Julia).
 pub fn julia_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(julia_lexer_info, options, opts => julia_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, julia_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    julia_lexer_info,
+    options,
+    opts => julia_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, julia_lexer_def.force(), text, stack)
+    },
+  )
 }

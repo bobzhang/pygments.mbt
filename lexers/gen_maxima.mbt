@@ -26,7 +26,16 @@ let maxima_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4634, 8, Emit(tk_keyword), None),
     r(4635, 8, Emit(tk_operator), None),
     r(4636, 8, Emit(tk_operator_word), None),
-    r(4637, 72, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      4637,
+      72,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(4638, 72, Emit(tk_name_variable), None),
     r(4639, 8, Emit(tk_literal_number_float), None),
     r(382, 8, Emit(tk_literal_number_integer), None),
@@ -49,5 +58,12 @@ let maxima_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MaximaLexer` (Maxima).
 pub fn maxima_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(maxima_lexer_info, options, opts => maxima_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, maxima_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    maxima_lexer_info,
+    options,
+    opts => maxima_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, maxima_lexer_def.force(), text, stack)
+    },
+  )
 }

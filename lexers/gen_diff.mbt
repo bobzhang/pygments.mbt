@@ -22,12 +22,51 @@ let darcs_patch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(943, 8, Emit(tk_operator), None),
     r(245, 8, Emit(tk_operator), None),
     r(339, 8, Emit(tk_operator), None),
-    r(1854, 8, ByGroups([Emit(tk_operator), Emit(tk_keyword), Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_operator), Emit(tk_literal_date), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
-    r(1855, 8, ByGroups([Emit(tk_operator), Emit(tk_keyword), Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_operator), Emit(tk_literal_date), Emit(tk_text_whitespace)]), Some([Push("comment")])),
+    r(
+      1854,
+      8,
+      ByGroups([
+        Emit(tk_operator),
+        Emit(tk_keyword),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_operator),
+        Emit(tk_literal_date),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
+    r(
+      1855,
+      8,
+      ByGroups([
+        Emit(tk_operator),
+        Emit(tk_keyword),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_operator),
+        Emit(tk_literal_date),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("comment")]),
+    ),
     r(1856, 8, Emit(tk_generic_heading), None),
     r(1857, 8, Emit(tk_generic_heading), None),
     r(1858, 8, Emit(tk_generic_heading), None),
-    r(1859, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text), Emit(tk_text_whitespace)]), None),
+    r(
+      1859,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(1860, 8, Emit(tk_generic_inserted), Some([Push("insert")])),
     r(1861, 8, Emit(tk_generic_deleted), Some([Push("delete")])),
     r(1862, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace)]), None),
@@ -44,15 +83,30 @@ let darcs_patch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "DarcsPatchLexer",
     ["root", "comment", "specialText", "insert", "delete"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [13, 14], [15, 16], [15, 16, 17, 18], [15, 16, 19, 20]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      [13, 14],
+      [15, 16],
+      [15, 16, 17, 18],
+      [15, 16, 19, 20],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `DarcsPatchLexer` (Darcs Patch).
-pub fn darcs_patch_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(darcs_patch_lexer_info, options, opts => darcs_patch_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, darcs_patch_lexer_def.force(), text, stack))
+pub fn darcs_patch_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    darcs_patch_lexer_info,
+    options,
+    opts => darcs_patch_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, darcs_patch_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -66,20 +120,59 @@ pub let diff_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Diff",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: diff_lexer_analyse,
   doc: "\nLexer for unified or context-style diffs or patches.\n",
 }
 
 ///|
 let diff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(1986, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_text), Emit(tk_text_whitespace)]), None),
-    r(1987, 8, ByGroups([Emit(tk_generic_strong), Emit(tk_text_whitespace)]), None),
-    r(1988, 8, ByGroups([Emit(tk_generic_deleted), Emit(tk_text_whitespace)]), None),
-    r(1989, 8, ByGroups([Emit(tk_generic_inserted), Emit(tk_text_whitespace)]), None),
-    r(1990, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_text_whitespace)]), None),
-    r(1991, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]), None),
-    r(1992, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]), None),
+    r(
+      1986,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_text),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      1987,
+      8,
+      ByGroups([Emit(tk_generic_strong), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      1988,
+      8,
+      ByGroups([Emit(tk_generic_deleted), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      1989,
+      8,
+      ByGroups([Emit(tk_generic_inserted), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      1990,
+      8,
+      ByGroups([Emit(tk_generic_subheading), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      1991,
+      8,
+      ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      1992,
+      8,
+      ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(1862, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace)]), None),
   ]
   @lexer.RegexDef::new(
@@ -94,7 +187,14 @@ let diff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DiffLexer` (Diff).
 pub fn diff_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(diff_lexer_info, options, opts => diff_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, diff_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    diff_lexer_info,
+    options,
+    opts => diff_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, diff_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -144,5 +244,12 @@ let w_diff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `WDiffLexer` (WDiff).
 pub fn w_diff_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(w_diff_lexer_info, options, opts => w_diff_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, w_diff_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    w_diff_lexer_info,
+    options,
+    opts => w_diff_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, w_diff_lexer_def.force(), text, stack)
+    },
+  )
 }

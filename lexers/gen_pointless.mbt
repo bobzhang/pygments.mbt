@@ -44,13 +44,26 @@ let pointless_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PointlessLexer",
     ["root", "multiString", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      [13, 14, 15, 16],
+      [17, 18, 19, 20],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `PointlessLexer` (Pointless).
-pub fn pointless_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(pointless_lexer_info, options, opts => pointless_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pointless_lexer_def.force(), text, stack))
+pub fn pointless_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    pointless_lexer_info,
+    options,
+    opts => pointless_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, pointless_lexer_def.force(), text, stack)
+    },
+  )
 }

@@ -382,25 +382,3 @@ pub fn get_filetype_from_buffer(buf : String, max_lines? : Int = 5) -> String? {
   }
   None
 }
-
-///|
-/// Late-bound `get_lexer_by_name` for lexers that delegate to another lexer
-/// by alias (e.g. fenced code blocks). A direct call from a lexer would make
-/// `all_lexers` depend on itself; the hook is filled in by `init`.
-let lexer_lookup : Ref[(String, @lexer.Options) -> @lexer.Lexer raise] = Ref(
-  (name, _) => raise ClassNotFound(name),
-)
-
-///|
-fn init {
-  lexer_lookup.val = (name, options) => get_lexer_by_name(name, options~)
-}
-
-///|
-/// `get_lexer_by_name` for use inside lexers (see `lexer_lookup`).
-fn lookup_lexer(
-  name : String,
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  (lexer_lookup.val)(name, options)
-}

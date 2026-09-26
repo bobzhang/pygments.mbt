@@ -37,8 +37,18 @@ let asn1_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(519, 8, Emit(tk_operator), None),
     r(520, 8, Emit(tk_punctuation), None),
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
-    r(521, 8, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]), None),
-    r(522, 8, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]), None),
+    r(
+      521,
+      8,
+      ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]),
+      None,
+    ),
+    r(
+      522,
+      8,
+      ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_affix)]),
+      None,
+    ),
     r(523, 8, Emit(tk_comment_multiline), None),
     r(506, 8, Emit(tk_comment_multiline), Some([Dup])),
     r(524, 8, Emit(tk_comment_multiline), Some([Pop])),
@@ -51,7 +61,11 @@ let asn1_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "Asn1Lexer",
     ["root", "comment", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [21, 22, 23, 24], [25, 26, 27]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      [21, 22, 23, 24],
+      [25, 26, 27],
+    ],
     extended=false,
   )
 })
@@ -59,5 +73,12 @@ let asn1_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Asn1Lexer` (ASN.1).
 pub fn asn1_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(asn1_lexer_info, options, opts => asn1_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, asn1_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    asn1_lexer_info,
+    options,
+    opts => asn1_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, asn1_lexer_def.force(), text, stack)
+    },
+  )
 }

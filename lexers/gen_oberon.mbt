@@ -45,15 +45,40 @@ let component_pascal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
   ]
   @lexer.RegexDef::new(
     "ComponentPascalLexer",
-    ["root", "whitespace", "comments", "punctuation", "numliterals", "strings", "operators", "builtins", "identifiers"],
+    [
+      "root", "whitespace", "comments", "punctuation", "numliterals", "strings",
+      "operators", "builtins", "identifiers",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [0, 1], [2], [3], [4, 5, 6, 7, 8], [9, 10], [11, 12, 13, 14, 15, 16, 17, 18, 19], [20, 21, 22], [23]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23,
+      ],
+      [0, 1],
+      [2],
+      [3],
+      [4, 5, 6, 7, 8],
+      [9, 10],
+      [11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [20, 21, 22],
+      [23],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ComponentPascalLexer` (Component Pascal).
-pub fn component_pascal_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(component_pascal_lexer_info, options, opts => component_pascal_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, component_pascal_lexer_def.force(), text, stack))
+pub fn component_pascal_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    component_pascal_lexer_info,
+    options,
+    opts => component_pascal_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, component_pascal_lexer_def.force(), text, stack)
+    },
+  )
 }

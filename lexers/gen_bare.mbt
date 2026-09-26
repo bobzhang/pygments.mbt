@@ -18,18 +18,78 @@ pub let bare_lexer_info : @lexer.LexerInfo = {
 ///|
 let bare_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(689, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_text)]), Some([Push("struct")])),
-    r(690, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_text)]), Some([Push("union")])),
-    r(691, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace)]), Some([Push("typedef")])),
-    r(692, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace)]), Some([Push("enum")])),
+    r(
+      689,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_text),
+      ]),
+      Some([Push("struct")]),
+    ),
+    r(
+      690,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_text),
+      ]),
+      Some([Push("union")]),
+    ),
+    r(
+      691,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("typedef")]),
+    ),
+    r(
+      692,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("enum")]),
+    ),
     r(693, 8, Emit(tk_comment), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(245, 8, Emit(tk_text), Some([Dup])),
     r(339, 8, Emit(tk_text), Some([Pop])),
-    r(694, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_text), Emit(tk_text_whitespace)]), Some([Push("typedef")])),
+    r(
+      694,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_text),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("typedef")]),
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(96, 8, Emit(tk_text), Some([Pop])),
-    r(695, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_text), Emit(tk_text_whitespace)]), None),
+    r(
+      695,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_text),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(696, 8, Emit(tk_name_class), None),
     r(697, 8, Emit(tk_keyword), None),
     r(0, 8, Emit(tk_text_whitespace), None),
@@ -39,7 +99,12 @@ let bare_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(700, 8, Emit(tk_text), None),
     r(138, 8, Emit(tk_text), Some([Push("union")])),
     r(701, 8, ByGroups([Emit(tk_text), Emit(tk_keyword), Emit(tk_text)]), None),
-    r(702, 8, ByGroups([Emit(tk_text), Emit(tk_name_class), Emit(tk_text)]), None),
+    r(
+      702,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_name_class), Emit(tk_text)]),
+      None,
+    ),
     r(703, 8, Emit(tk_name_class), None),
     r(697, 8, Emit(tk_keyword), None),
     r(264, 8, Emit(tk_text), Some([Pop])),
@@ -48,7 +113,12 @@ let bare_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(223, 8, Emit(tk_literal), None),
     r(245, 8, Emit(tk_text), Some([Dup])),
     r(339, 8, Emit(tk_text), Some([Pop])),
-    r(704, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_text), Emit(tk_literal)]), None),
+    r(
+      704,
+      8,
+      ByGroups([Emit(tk_name_attribute), Emit(tk_text), Emit(tk_literal)]),
+      None,
+    ),
     r(705, 8, ByGroups([Emit(tk_name_attribute)]), None),
     r(693, 8, Emit(tk_comment), None),
     r(0, 8, Emit(tk_text_whitespace), None),
@@ -57,7 +127,13 @@ let bare_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "BareLexer",
     ["root", "struct", "union", "typedef", "enum"],
     rules,
-    [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9], [10, 11, 12, 13, 14], [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [28, 29, 30, 31, 32, 33]],
+    [
+      [0, 1, 2, 3, 4, 5],
+      [6, 7, 8, 9],
+      [10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
+      [28, 29, 30, 31, 32, 33],
+    ],
     extended=false,
   )
 })
@@ -65,5 +141,12 @@ let bare_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BareLexer` (BARE).
 pub fn bare_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bare_lexer_info, options, opts => bare_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bare_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    bare_lexer_info,
+    options,
+    opts => bare_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, bare_lexer_def.force(), text, stack)
+    },
+  )
 }

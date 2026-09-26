@@ -17,8 +17,15 @@ pub let r_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `RConsoleLexer` (RConsole).
-pub fn r_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(r_console_lexer_info, options, opts => r_console_lexer(options=opts), r_console_lexer_tokenizer)
+pub fn r_console_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    r_console_lexer_info,
+    options,
+    opts => r_console_lexer(options=opts),
+    r_console_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -60,7 +67,11 @@ let rd_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RdLexer` (Rd).
 pub fn rd_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rd_lexer_info, options, opts => rd_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rd_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(rd_lexer_info, options, opts => rd_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, rd_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -70,7 +81,10 @@ pub let s_lexer_info : @lexer.LexerInfo = {
   aliases: ["splus", "s", "r"],
   filenames: ["*.S", "*.R", ".Rhistory", ".Rprofile", ".Renviron"],
   alias_filenames: [],
-  mimetypes: ["text/S-plus", "text/S", "text/x-r-source", "text/x-r", "text/x-R", "text/x-r-history", "text/x-r-profile"],
+  mimetypes: [
+    "text/S-plus", "text/S", "text/x-r-source", "text/x-r", "text/x-R", "text/x-r-history",
+    "text/x-r-profile",
+  ],
   priority: 0.0,
   url: "https://www.r-project.org",
   version_added: "0.10",
@@ -102,9 +116,25 @@ let s_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "SLexer",
-    ["comments", "valid_name", "function_name", "punctuation", "keywords", "operators", "builtin_symbols", "numbers", "statements", "root", "string_squote", "string_dquote"],
+    [
+      "comments", "valid_name", "function_name", "punctuation", "keywords", "operators",
+      "builtin_symbols", "numbers", "statements", "root", "string_squote", "string_dquote",
+    ],
     rules,
-    [[0], [1], [2], [3], [4], [5, 6], [7, 8], [9, 10], [0, 11, 12, 13, 7, 8, 4, 2, 1, 9, 10, 3, 5, 6], [0, 11, 12, 13, 7, 8, 4, 2, 1, 9, 10, 3, 5, 6, 14, 15], [16], [17]],
+    [
+      [0],
+      [1],
+      [2],
+      [3],
+      [4],
+      [5, 6],
+      [7, 8],
+      [9, 10],
+      [0, 11, 12, 13, 7, 8, 4, 2, 1, 9, 10, 3, 5, 6],
+      [0, 11, 12, 13, 7, 8, 4, 2, 1, 9, 10, 3, 5, 6, 14, 15],
+      [16],
+      [17],
+    ],
     extended=false,
   )
 })
@@ -112,5 +142,9 @@ let s_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SLexer` (S).
 pub fn s_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(s_lexer_info, options, opts => s_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, s_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(s_lexer_info, options, opts => s_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, s_lexer_def.force(), text, stack))
 }

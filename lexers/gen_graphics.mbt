@@ -32,14 +32,41 @@ let asymptote_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(564, 8, Emit(tk_literal_number_integer), None),
     r(411, 8, Emit(tk_operator), None),
     r(412, 8, Emit(tk_punctuation), None),
-    r(565, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_text)]), None),
+    r(
+      565,
+      8,
+      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_text)]),
+      None,
+    ),
     r(566, 8, Emit(tk_keyword), None),
     r(567, 8, Emit(tk_keyword_type), None),
     r(568, 8, Emit(tk_keyword_type), None),
     r(569, 8, Emit(tk_name_label), None),
     r(274, 8, Emit(tk_name), None),
-    r(570, 8, ByGroups([Using(This, None, []), Emit(tk_name_function), Using(This, None, []), Using(This, None, []), Emit(tk_punctuation)]), Some([Push("function")])),
-    r(571, 8, ByGroups([Using(This, None, []), Emit(tk_name_function), Using(This, None, []), Using(This, None, []), Emit(tk_punctuation)]), None),
+    r(
+      570,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Emit(tk_name_function),
+        Using(This, None, []),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("function")]),
+    ),
+    r(
+      571,
+      8,
+      ByGroups([
+        Using(This, None, []),
+        Emit(tk_name_function),
+        Using(This, None, []),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Push("statement")])),
     r(59, 8, Emit(tk_punctuation), None),
     r(139, 8, Emit(tk_punctuation), Some([Pop])),
@@ -58,15 +85,35 @@ let asymptote_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "AsymptoteLexer",
     ["whitespace", "statements", "root", "statement", "function", "string"],
     rules,
-    [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [0, 1, 2, 3, 4, 20, 21, 22], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23, 24], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 25, 26, 27], [28, 29, 30, 31, 32, 33, 34]],
+    [
+      [0, 1, 2, 3, 4],
+      [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [0, 1, 2, 3, 4, 20, 21, 22],
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23,
+        24,
+      ],
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 25,
+        26, 27,
+      ],
+      [28, 29, 30, 31, 32, 33, 34],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `AsymptoteLexer` (Asymptote).
-pub fn asymptote_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(asymptote_lexer_info, options, opts => asymptote_lexer(options=opts), asymptote_lexer_tokenizer)
+pub fn asymptote_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    asymptote_lexer_info,
+    options,
+    opts => asymptote_lexer(options=opts),
+    asymptote_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -119,8 +166,17 @@ let gl_shader_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GLShaderLexer` (GLSL).
-pub fn gl_shader_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gl_shader_lexer_info, options, opts => gl_shader_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gl_shader_lexer_def.force(), text, stack))
+pub fn gl_shader_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    gl_shader_lexer_info,
+    options,
+    opts => gl_shader_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, gl_shader_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -146,7 +202,12 @@ let gnuplot_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2847, 8, Emit(tk_keyword), Some([Push("bind")])),
     r(2848, 8, Emit(tk_keyword), Some([Push("quit")])),
     r(2849, 8, Emit(tk_keyword), Some([Push("fit")])),
-    r(2850, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_punctuation)]), Some([Push("if")])),
+    r(
+      2850,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_punctuation)]),
+      Some([Push("if")]),
+    ),
     r(2851, 8, Emit(tk_keyword), None),
     r(2852, 8, Emit(tk_keyword), Some([Push("pause")])),
     r(2853, 8, Emit(tk_keyword), Some([Push("plot")])),
@@ -155,8 +216,30 @@ let gnuplot_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2856, 8, Emit(tk_keyword), Some([Push("noargs"), Push("optionarg")])),
     r(2857, 8, Emit(tk_keyword), Some([Push("genericargs")])),
     r(2858, 8, Emit(tk_keyword), Some([Push("noargs")])),
-    r(2859, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_operator)]), Some([Push("genericargs")])),
-    r(2860, 8, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_operator)]), Some([Push("genericargs")])),
+    r(
+      2859,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      Some([Push("genericargs")]),
+    ),
+    r(
+      2860,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      Some([Push("genericargs")]),
+    ),
     r(275, 8, Emit(tk_name_constant), None),
     r(139, 8, Emit(tk_keyword), None),
     r(2217, 8, Emit(tk_comment), None),
@@ -185,7 +268,12 @@ let gnuplot_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2865, 8, Emit(tk_operator), None),
     r(2866, 8, Emit(tk_punctuation), None),
     r(2867, 8, Emit(tk_operator_word), None),
-    r(2868, 8, ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]), None),
+    r(
+      2868,
+      8,
+      ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]),
+      None,
+    ),
     r(274, 8, Emit(tk_name), None),
     r(275, 8, Emit(tk_name_constant), None),
     r(557, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace)]), None),
@@ -202,9 +290,28 @@ let gnuplot_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "GnuplotLexer",
-    ["root", "whitespace", "comment", "noargs", "dqstring", "sqstring", "genericargs", "optionarg", "bind", "quit", "fit", "plot", "if", "pause", "save"],
+    [
+      "root", "whitespace", "comment", "noargs", "dqstring", "sqstring", "genericargs",
+      "optionarg", "bind", "quit", "fit", "plot", "if", "pause", "save",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [0, 1], [18, 19, 20, 21], [0, 1, 22, 23], [24, 25, 26, 27, 28, 29], [30, 31, 32, 33, 34, 35], [0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47], [0, 1, 48], [49, 50, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47], [51, 0, 1, 22, 23], [52, 53, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47], [53, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47], [54, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47], [55, 56, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47], [57, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [0, 1],
+      [18, 19, 20, 21],
+      [0, 1, 22, 23],
+      [24, 25, 26, 27, 28, 29],
+      [30, 31, 32, 33, 34, 35],
+      [0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+      [0, 1, 48],
+      [49, 50, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+      [51, 0, 1, 22, 23],
+      [52, 53, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+      [53, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+      [54, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+      [55, 56, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+      [57, 0, 1, 22, 23, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+    ],
     extended=false,
   )
 })
@@ -212,7 +319,14 @@ let gnuplot_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GnuplotLexer` (Gnuplot).
 pub fn gnuplot_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gnuplot_lexer_info, options, opts => gnuplot_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gnuplot_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    gnuplot_lexer_info,
+    options,
+    opts => gnuplot_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, gnuplot_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -268,15 +382,30 @@ let hlsl_shader_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "HLSLShaderLexer",
     ["root", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [25, 26, 27, 28, 29]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24,
+      ],
+      [25, 26, 27, 28, 29],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `HLSLShaderLexer` (HLSL).
-pub fn hlsl_shader_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(hlsl_shader_lexer_info, options, opts => hlsl_shader_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, hlsl_shader_lexer_def.force(), text, stack))
+pub fn hlsl_shader_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    hlsl_shader_lexer_info,
+    options,
+    opts => hlsl_shader_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, hlsl_shader_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -324,15 +453,28 @@ let post_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PostScriptLexer",
     ["root", "stringliteral", "escape"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 19], [20, 21]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [16, 17, 18, 19],
+      [20, 21],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `PostScriptLexer` (PostScript).
-pub fn post_script_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(post_script_lexer_info, options, opts => post_script_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, post_script_lexer_def.force(), text, stack))
+pub fn post_script_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    post_script_lexer_info,
+    options,
+    opts => post_script_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, post_script_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -380,5 +522,12 @@ let povray_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PovrayLexer` (POVRay).
 pub fn povray_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(povray_lexer_info, options, opts => povray_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, povray_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    povray_lexer_info,
+    options,
+    opts => povray_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, povray_lexer_def.force(), text, stack)
+    },
+  )
 }

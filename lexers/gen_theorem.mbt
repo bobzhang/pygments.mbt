@@ -75,15 +75,33 @@ let isabelle_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "IsabelleLexer",
     ["root", "comment", "cartouche", "string", "fact"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [31, 32, 33, 34], [35, 36, 37, 38, 39, 40, 41], [42, 43, 44, 45, 46], [47, 48, 49, 50, 51]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+      [31, 32, 33, 34],
+      [35, 36, 37, 38, 39, 40, 41],
+      [42, 43, 44, 45, 46],
+      [47, 48, 49, 50, 51],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `IsabelleLexer` (Isabelle).
-pub fn isabelle_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(isabelle_lexer_info, options, opts => isabelle_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, isabelle_lexer_def.force(), text, stack))
+pub fn isabelle_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    isabelle_lexer_info,
+    options,
+    opts => isabelle_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, isabelle_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -109,7 +127,16 @@ let rocq_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(360, 0, Emit(tk_comment), Some([Push("comment")])),
     r(6153, 0, Emit(tk_name), None),
     r(6154, 0, Emit(tk_keyword_namespace), None),
-    r(6155, 0, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_keyword_namespace)]), None),
+    r(
+      6155,
+      0,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text),
+        Emit(tk_keyword_namespace),
+      ]),
+      None,
+    ),
     r(6156, 0, Emit(tk_keyword_namespace), Some([Push("set-options")])),
     r(6157, 0, Emit(tk_keyword_namespace), Some([Push("sn-notation")])),
     r(6158, 0, Emit(tk_keyword_namespace), None),
@@ -164,7 +191,17 @@ let rocq_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "RocqLexer",
     ["root", "set-options", "sn-notation", "comment", "string", "dotted"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [29, 30, 31, 32, 33], [34, 35, 36, 37, 38, 39, 40, 41], [42, 43, 44, 45], [46, 47, 48], [49, 50, 51, 52, 53, 54]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [29, 30, 31, 32, 33],
+      [34, 35, 36, 37, 38, 39, 40, 41],
+      [42, 43, 44, 45],
+      [46, 47, 48],
+      [49, 50, 51, 52, 53, 54],
+    ],
     extended=false,
   )
 })
@@ -172,5 +209,12 @@ let rocq_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RocqLexer` (Rocq Prover).
 pub fn rocq_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rocq_lexer_info, options, opts => rocq_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rocq_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    rocq_lexer_info,
+    options,
+    opts => rocq_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, rocq_lexer_def.force(), text, stack)
+    },
+  )
 }

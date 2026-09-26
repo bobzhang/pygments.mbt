@@ -27,10 +27,54 @@ let ampl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(285, 8, Emit(tk_literal_string_double), None),
     r(286, 8, Emit(tk_literal_string_single), None),
     r(287, 8, Emit(tk_punctuation), None),
-    r(288, 8, ByGroups([Emit(tk_name_variable), Emit(tk_punctuation), Emit(tk_keyword_reserved)]), None),
-    r(289, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
-    r(290, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
-    r(291, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Using(This, None, []), Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
+    r(
+      288,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_punctuation),
+        Emit(tk_keyword_reserved),
+      ]),
+      None,
+    ),
+    r(
+      289,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+      ]),
+      None,
+    ),
+    r(
+      290,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+      ]),
+      None,
+    ),
+    r(
+      291,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Using(This, None, []),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+      ]),
+      None,
+    ),
     r(292, 8, Emit(tk_name_builtin), None),
     r(293, 8, Emit(tk_operator), None),
     r(294, 8, Emit(tk_keyword_reserved), None),
@@ -51,5 +95,12 @@ let ampl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AmplLexer` (Ampl).
 pub fn ampl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ampl_lexer_info, options, opts => ampl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ampl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    ampl_lexer_info,
+    options,
+    opts => ampl_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, ampl_lexer_def.force(), text, stack)
+    },
+  )
 }

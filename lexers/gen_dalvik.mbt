@@ -20,13 +20,61 @@ let smali_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(281, 8, Emit(tk_comment), None),
     r(4995, 8, Emit(tk_name_label), None),
-    r(6600, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_variable), Emit(tk_punctuation)]), None),
+    r(
+      6600,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_variable),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(6601, 8, Emit(tk_name_function), None),
-    r(6602, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_function), Emit(tk_punctuation)]), None),
-    r(6603, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_text), Emit(tk_name_class), Emit(tk_text)]), None),
+    r(
+      6602,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      6603,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_text),
+        Emit(tk_name_class),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
     r(6604, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
-    r(6605, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
-    r(6606, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(
+      6605,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
+    r(
+      6606,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
     r(6607, 8, Emit(tk_keyword), None),
     r(6608, 8, Emit(tk_name_builtin), None),
     r(6609, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace)]), None),
@@ -42,9 +90,26 @@ let smali_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "SmaliLexer",
-    ["root", "comment", "label", "field", "method", "class", "directive", "access-modifier", "instruction", "literal", "punctuation", "type", "whitespace"],
+    [
+      "root", "comment", "label", "field", "method", "class", "directive", "access-modifier",
+      "instruction", "literal", "punctuation", "type", "whitespace",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [0], [1], [2], [3, 4], [5], [6, 7, 8], [9], [10, 11], [12, 13, 14, 15], [16, 17], [18], [19, 20]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      [0],
+      [1],
+      [2],
+      [3, 4],
+      [5],
+      [6, 7, 8],
+      [9],
+      [10, 11],
+      [12, 13, 14, 15],
+      [16, 17],
+      [18],
+      [19, 20],
+    ],
     extended=false,
   )
 })
@@ -52,5 +117,12 @@ let smali_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SmaliLexer` (Smali).
 pub fn smali_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(smali_lexer_info, options, opts => smali_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, smali_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    smali_lexer_info,
+    options,
+    opts => smali_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, smali_lexer_def.force(), text, stack)
+    },
+  )
 }

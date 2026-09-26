@@ -50,13 +50,23 @@ let futhark_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(239, 8, Emit(tk_literal_string_escape), Some([Pop])),
     r(240, 8, Emit(tk_literal_string_escape), Some([Pop])),
     r(223, 8, Emit(tk_literal_string_escape), Some([Pop])),
-    r(241, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_escape)]), Some([Pop])),
+    r(
+      241,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_escape)]),
+      Some([Pop]),
+    ),
   ]
   @lexer.RegexDef::new(
     "FutharkLexer",
     ["root", "character", "string", "escape"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [20, 21, 22], [23, 24, 25], [26, 27, 28, 29, 30, 31, 32]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [20, 21, 22],
+      [23, 24, 25],
+      [26, 27, 28, 29, 30, 31, 32],
+    ],
     extended=false,
   )
 })
@@ -64,5 +74,12 @@ let futhark_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FutharkLexer` (Futhark).
 pub fn futhark_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(futhark_lexer_info, options, opts => futhark_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, futhark_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    futhark_lexer_info,
+    options,
+    opts => futhark_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, futhark_lexer_def.force(), text, stack)
+    },
+  )
 }

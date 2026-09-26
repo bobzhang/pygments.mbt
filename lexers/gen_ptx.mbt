@@ -39,7 +39,11 @@ let ptx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PtxLexer",
     ["root", "whitespace", "keyword"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [0, 1], [3, 4, 5, 6]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [0, 1],
+      [3, 4, 5, 6],
+    ],
     extended=false,
   )
 })
@@ -47,5 +51,9 @@ let ptx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PtxLexer` (PTX).
 pub fn ptx_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ptx_lexer_info, options, opts => ptx_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ptx_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ptx_lexer_info, options, opts => ptx_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, ptx_lexer_def.force(), text, stack))
 }

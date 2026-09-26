@@ -11,17 +11,73 @@ pub let wo_w_toc_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://wowpedia.fandom.com/wiki/TOC_format",
   version_added: "2.14",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: wo_w_toc_lexer_analyse,
   doc: "\nLexer for World of Warcraft TOC files.\n",
 }
 
 ///|
 let wo_w_toc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(7916, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_builtin), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string), Emit(tk_text_whitespace)]), None),
-    r(7917, 10, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_builtin), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string), Emit(tk_text_whitespace)]), None),
-    r(7918, 10, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string), Emit(tk_text_whitespace)]), None),
-    r(7919, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_other), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string), Emit(tk_text_whitespace)]), None),
+    r(
+      7916,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_builtin),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      7917,
+      10,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_builtin),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      7918,
+      10,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      7919,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_other),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(2083, 8, Emit(tk_comment), None),
     r(7920, 8, Emit(tk_name), None),
   ]
@@ -36,6 +92,15 @@ let wo_w_toc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `WoWTocLexer` (World of Warcraft TOC).
-pub fn wo_w_toc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(wo_w_toc_lexer_info, options, opts => wo_w_toc_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, wo_w_toc_lexer_def.force(), text, stack))
+pub fn wo_w_toc_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    wo_w_toc_lexer_info,
+    options,
+    opts => wo_w_toc_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, wo_w_toc_lexer_def.force(), text, stack)
+    },
+  )
 }

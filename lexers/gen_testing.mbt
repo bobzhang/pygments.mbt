@@ -11,7 +11,7 @@ pub let gherkin_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://cucumber.io/docs/gherkin",
   version_added: "1.2",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: gherkin_lexer_analyse,
   doc: "\nFor Gherkin syntax.\n",
 }
 
@@ -29,7 +29,17 @@ let gherkin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1631, 8, Emit(tk_name_variable), None),
     r(2824, 8, Emit(tk_keyword), None),
     r(2825, 8, Emit(tk_name_variable), None),
-    r(2826, 8, ByGroups([Emit(tk_name_function), Emit(tk_keyword), Emit(tk_keyword), Emit(tk_name_function)]), Some([Push("feature_elements_on_stack")])),
+    r(
+      2826,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_keyword),
+        Emit(tk_keyword),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("feature_elements_on_stack")]),
+    ),
     r(2821, 8, Emit(tk_name_function), None),
     r(2827, 8, Emit(tk_name_variable), None),
     r(823, 8, Emit(tk_literal_string), None),
@@ -48,17 +58,70 @@ let gherkin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2822, 8, Emit(tk_keyword), Some([Push("table_content")])),
     r(173, 8, Emit(tk_name_function), Some([Push("double_string")])),
     r(2828, 8, ByGroups([Emit(tk_name_function), Emit(tk_name_tag)]), None),
-    r(2820, 8, ByGroups([Emit(tk_name_function), Emit(tk_keyword)]), Some([Push("step_content_root")])),
-    r(2829, 8, ByGroups([Emit(tk_keyword), Emit(tk_keyword), Emit(tk_name_function)]), Some([Push("narrative")])),
-    r(2826, 8, ByGroups([Emit(tk_name_function), Emit(tk_keyword), Emit(tk_keyword), Emit(tk_name_function)]), Some([Push("feature_elements")])),
-    r(2830, 8, ByGroups([Emit(tk_name_function), Emit(tk_keyword), Emit(tk_keyword), Emit(tk_name_function)]), Some([Push("examples_table")])),
+    r(
+      2820,
+      8,
+      ByGroups([Emit(tk_name_function), Emit(tk_keyword)]),
+      Some([Push("step_content_root")]),
+    ),
+    r(
+      2829,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_keyword), Emit(tk_name_function)]),
+      Some([Push("narrative")]),
+    ),
+    r(
+      2826,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_keyword),
+        Emit(tk_keyword),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("feature_elements")]),
+    ),
+    r(
+      2830,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_keyword),
+        Emit(tk_keyword),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("examples_table")]),
+    ),
     r(2821, 8, Emit(tk_name_function), None),
   ]
   @lexer.RegexDef::new(
     "GherkinLexer",
-    ["comments", "feature_elements", "feature_elements_on_stack", "examples_table", "examples_table_header", "scenario_sections_on_stack", "narrative", "table_vars", "numbers", "string", "py_string", "step_content_root", "step_content", "step_content_stack", "table_content", "double_string", "root"],
+    [
+      "comments", "feature_elements", "feature_elements_on_stack", "examples_table",
+      "examples_table_header", "scenario_sections_on_stack", "narrative", "table_vars",
+      "numbers", "string", "py_string", "step_content_root", "step_content", "step_content_stack",
+      "table_content", "double_string", "root",
+    ],
     rules,
-    [[0], [1, 0, 2], [3, 0, 4], [5, 0, 6], [7, 0, 8, 9, 10], [11], [11, 0, 12], [13], [14], [13, 15], [16, 13, 15], [17, 18, 13, 14, 0, 19], [18, 13, 14, 0, 19], [20, 18, 13, 14, 0, 19], [21, 0, 22, 23, 13, 15], [24, 13, 15], [25, 0, 26, 27, 28, 13, 14, 29, 30, 31, 32, 33, 34]],
+    [
+      [0],
+      [1, 0, 2],
+      [3, 0, 4],
+      [5, 0, 6],
+      [7, 0, 8, 9, 10],
+      [11],
+      [11, 0, 12],
+      [13],
+      [14],
+      [13, 15],
+      [16, 13, 15],
+      [17, 18, 13, 14, 0, 19],
+      [18, 13, 14, 0, 19],
+      [20, 18, 13, 14, 0, 19],
+      [21, 0, 22, 23, 13, 15],
+      [24, 13, 15],
+      [25, 0, 26, 27, 28, 13, 14, 29, 30, 31, 32, 33, 34],
+    ],
     extended=false,
   )
 })
@@ -66,7 +129,14 @@ let gherkin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GherkinLexer` (Gherkin).
 pub fn gherkin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gherkin_lexer_info, options, opts => gherkin_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gherkin_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    gherkin_lexer_info,
+    options,
+    opts => gherkin_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, gherkin_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -89,8 +159,26 @@ let tap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(6872, 8, Emit(tk_name_namespace), None),
     r(6873, 8, Emit(tk_keyword_declaration), Some([Push("plan")])),
-    r(6874, 8, ByGroups([Emit(tk_generic_error), Emit(tk_text), Emit(tk_literal_number_integer)]), Some([Push("test")])),
-    r(6875, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text), Emit(tk_literal_number_integer)]), Some([Push("test")])),
+    r(
+      6874,
+      8,
+      ByGroups([
+        Emit(tk_generic_error),
+        Emit(tk_text),
+        Emit(tk_literal_number_integer),
+      ]),
+      Some([Push("test")]),
+    ),
+    r(
+      6875,
+      8,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_text),
+        Emit(tk_literal_number_integer),
+      ]),
+      Some([Push("test")]),
+    ),
     r(2666, 8, Emit(tk_comment), None),
     r(6876, 8, Emit(tk_generic_error), None),
     r(168, 8, Emit(tk_text), None),
@@ -112,7 +200,12 @@ let tap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "TAPLexer",
     ["root", "plan", "test", "directive"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6], [7, 8, 9, 10], [11, 12, 13, 14], [15, 16, 17, 18, 19]],
+    [
+      [0, 1, 2, 3, 4, 5, 6],
+      [7, 8, 9, 10],
+      [11, 12, 13, 14],
+      [15, 16, 17, 18, 19],
+    ],
     extended=false,
   )
 })
@@ -120,5 +213,9 @@ let tap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TAPLexer` (TAP).
 pub fn tap_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tap_lexer_info, options, opts => tap_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tap_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(tap_lexer_info, options, opts => tap_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, tap_lexer_def.force(), text, stack))
 }

@@ -46,9 +46,19 @@ let kusto_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "KustoLexer",
-    ["root", "single_string", "double_string", "single_verbatim", "double_verbatim", "multi_string"],
+    [
+      "root", "single_string", "double_string", "single_verbatim", "double_verbatim",
+      "multi_string",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [12, 13, 14], [15, 16, 17], [18, 19], [20, 21], [22, 23, 24]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      [12, 13, 14],
+      [15, 16, 17],
+      [18, 19],
+      [20, 21],
+      [22, 23, 24],
+    ],
     extended=false,
   )
 })
@@ -56,5 +66,12 @@ let kusto_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `KustoLexer` (Kusto).
 pub fn kusto_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(kusto_lexer_info, options, opts => kusto_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, kusto_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    kusto_lexer_info,
+    options,
+    opts => kusto_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, kusto_lexer_def.force(), text, stack)
+    },
+  )
 }

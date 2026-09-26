@@ -26,15 +26,54 @@ let vcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(627, 8, Emit(tk_comment), None),
     r(506, 8, Emit(tk_comment_multiline), Some([Push("comment")])),
     r(317, 8, Emit(tk_comment), None),
-    r(7531, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Using(This, None, []), Emit(tk_punctuation)]), None),
+    r(
+      7531,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
     r(7532, 8, Emit(tk_operator), None),
     r(139, 8, Emit(tk_punctuation), None),
     r(223, 8, Emit(tk_literal_number), None),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
-    r(7533, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_name_variable_global), Emit(tk_punctuation)]), None),
-    r(7534, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_punctuation)]), Some([Push("probe")])),
-    r(7535, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Using(This, None, []), Emit(tk_punctuation)]), None),
+    r(
+      7533,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      7534,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("probe")]),
+    ),
+    r(
+      7535,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(245, 8, Emit(tk_punctuation), Some([Dup])),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
     r(7536, 8, Emit(tk_literal_date), None),
@@ -50,12 +89,63 @@ let vcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7545, 8, Emit(tk_name_variable), None),
     r(7546, 8, Emit(tk_name_builtin), None),
     r(734, 8, Emit(tk_literal_number), None),
-    r(7547, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_variable_global), Emit(tk_punctuation)]), Some([Push("backend")])),
-    r(7548, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_variable_global), Emit(tk_punctuation)]), Some([Push("probe")])),
-    r(7549, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_variable_global), Emit(tk_punctuation)]), Some([Push("acl")])),
-    r(7550, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_name_constant), Emit(tk_punctuation)]), None),
-    r(7551, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_function), Emit(tk_punctuation)]), None),
-    r(7552, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation), Emit(tk_name_function), Using(This, None, [])]), None),
+    r(
+      7547,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("backend")]),
+    ),
+    r(
+      7548,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("probe")]),
+    ),
+    r(
+      7549,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("acl")]),
+    ),
+    r(
+      7550,
+      8,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_name_constant),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      7551,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_name_function), Emit(tk_punctuation)]),
+      None,
+    ),
+    r(
+      7552,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+        Emit(tk_name_function),
+        Using(This, None, []),
+      ]),
+      None,
+    ),
     r(274, 8, Emit(tk_name), None),
     r(523, 8, Emit(tk_comment_multiline), None),
     r(506, 8, Emit(tk_comment_multiline), Some([Dup])),
@@ -70,9 +160,29 @@ let vcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "VCLLexer",
-    ["probe", "whitespace", "comments", "acl", "backend", "statements", "comment", "string", "multistring", "root"],
+    [
+      "probe", "whitespace", "comments", "acl", "backend", "statements", "comment",
+      "string", "multistring", "root",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 1, 2, 3, 4], [5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13], [0, 1, 2, 3, 4, 14, 15, 16, 17, 18], [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], [39, 40, 41, 42], [43, 44], [45, 46, 47], [0, 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 48]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      [0, 1, 2, 3, 4],
+      [5, 6, 7],
+      [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13],
+      [0, 1, 2, 3, 4, 14, 15, 16, 17, 18],
+      [
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+        38,
+      ],
+      [39, 40, 41, 42],
+      [43, 44],
+      [45, 46, 47],
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+        32, 33, 34, 35, 36, 37, 38, 48,
+      ],
+    ],
     extended=false,
   )
 })
@@ -80,7 +190,11 @@ let vcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VCLLexer` (VCL).
 pub fn vcl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(vcl_lexer_info, options, opts => vcl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, vcl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(vcl_lexer_info, options, opts => vcl_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, vcl_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -125,23 +239,113 @@ let vcl_snippet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7545, 8, Emit(tk_name_variable), None),
     r(7546, 8, Emit(tk_name_builtin), None),
     r(734, 8, Emit(tk_literal_number), None),
-    r(7547, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_variable_global), Emit(tk_punctuation)]), Some([Push("backend")])),
-    r(7548, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_variable_global), Emit(tk_punctuation)]), Some([Push("probe")])),
-    r(7549, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_variable_global), Emit(tk_punctuation)]), Some([Push("acl")])),
-    r(7550, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_name_constant), Emit(tk_punctuation)]), None),
-    r(7551, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_function), Emit(tk_punctuation)]), None),
-    r(7552, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation), Emit(tk_name_function), Using(This, None, [])]), None),
+    r(
+      7547,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("backend")]),
+    ),
+    r(
+      7548,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("probe")]),
+    ),
+    r(
+      7549,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("acl")]),
+    ),
+    r(
+      7550,
+      8,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_name_constant),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      7551,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_name_function), Emit(tk_punctuation)]),
+      None,
+    ),
+    r(
+      7552,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+        Emit(tk_name_function),
+        Using(This, None, []),
+      ]),
+      None,
+    ),
     r(274, 8, Emit(tk_name), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(7531, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Using(This, None, []), Emit(tk_punctuation)]), None),
+    r(
+      7531,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
     r(7532, 8, Emit(tk_operator), None),
     r(139, 8, Emit(tk_punctuation), None),
     r(223, 8, Emit(tk_literal_number), None),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
-    r(7533, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_name_variable_global), Emit(tk_punctuation)]), None),
-    r(7534, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_punctuation)]), Some([Push("probe")])),
-    r(7535, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Using(This, None, []), Emit(tk_punctuation)]), None),
+    r(
+      7533,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Emit(tk_name_variable_global),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      7534,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("probe")]),
+    ),
+    r(
+      7535,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+        Using(This, None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(245, 8, Emit(tk_punctuation), Some([Dup])),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
     r(523, 8, Emit(tk_comment_multiline), None),
@@ -156,15 +360,46 @@ let vcl_snippet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "VCLSnippetLexer",
-    ["snippetspre", "snippetspost", "root", "whitespace", "comments", "statements", "probe", "acl", "backend", "comment", "string", "multistring"],
+    [
+      "snippetspre", "snippetspost", "root", "whitespace", "comments", "statements",
+      "probe", "acl", "backend", "comment", "string", "multistring",
+    ],
     rules,
-    [[0, 1], [2], [0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 2], [3, 4, 5, 6, 7], [8, 9, 10], [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [3, 4, 5, 6, 7, 8, 9, 10, 32, 33], [3, 4, 5, 6, 7, 8, 9, 10, 34, 35, 36, 37], [3, 4, 5, 6, 7, 38, 39, 40, 41, 42], [43, 44, 45, 46], [47, 48], [49, 50, 51]],
+    [
+      [0, 1],
+      [2],
+      [
+        0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+        22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 2,
+      ],
+      [3, 4, 5, 6, 7],
+      [8, 9, 10],
+      [
+        11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+        30,
+      ],
+      [3, 4, 5, 6, 7, 8, 9, 10, 32, 33],
+      [3, 4, 5, 6, 7, 8, 9, 10, 34, 35, 36, 37],
+      [3, 4, 5, 6, 7, 38, 39, 40, 41, 42],
+      [43, 44, 45, 46],
+      [47, 48],
+      [49, 50, 51],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `VCLSnippetLexer` (VCLSnippets).
-pub fn vcl_snippet_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(vcl_snippet_lexer_info, options, opts => vcl_snippet_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, vcl_snippet_lexer_def.force(), text, stack))
+pub fn vcl_snippet_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    vcl_snippet_lexer_info,
+    options,
+    opts => vcl_snippet_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, vcl_snippet_lexer_def.force(), text, stack)
+    },
+  )
 }

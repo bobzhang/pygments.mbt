@@ -55,7 +55,13 @@ let zig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ZigLexer",
     ["root", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [29, 30, 31]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [29, 30, 31],
+    ],
     extended=false,
   )
 })
@@ -63,5 +69,9 @@ let zig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ZigLexer` (Zig).
 pub fn zig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(zig_lexer_info, options, opts => zig_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, zig_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(zig_lexer_info, options, opts => zig_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, zig_lexer_def.force(), text, stack))
 }

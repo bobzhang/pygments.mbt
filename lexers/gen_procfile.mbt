@@ -24,7 +24,16 @@ let procfile_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2151, 8, Emit(tk_literal_string), None),
     r(21, 8, Emit(tk_literal_number_integer), None),
     r(5728, 8, Emit(tk_name_variable), None),
-    r(5729, 8, ByGroups([Emit(tk_name_variable), Emit(tk_punctuation), Emit(tk_literal_string)]), None),
+    r(
+      5729,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_punctuation),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
     r(5730, 8, Emit(tk_text), None),
   ]
   @lexer.RegexDef::new(
@@ -38,6 +47,15 @@ let procfile_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ProcfileLexer` (Procfile).
-pub fn procfile_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(procfile_lexer_info, options, opts => procfile_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, procfile_lexer_def.force(), text, stack))
+pub fn procfile_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    procfile_lexer_info,
+    options,
+    opts => procfile_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, procfile_lexer_def.force(), text, stack)
+    },
+  )
 }

@@ -21,20 +21,78 @@ let bit_bake_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(175, 8, Emit(tk_text_whitespace), None),
     r(264, 8, Emit(tk_text_whitespace), None),
     r(627, 8, Emit(tk_comment_single), None),
-    r(864, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_keyword), Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_punctuation)]), None),
-    r(865, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_name_function), Emit(tk_name_decorator), Emit(tk_text), Emit(tk_punctuation), Using(Other(opts => bash_lexer(options=opts)), None, []), Emit(tk_punctuation)]), None),
+    r(
+      864,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_keyword),
+        Emit(tk_name_function),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      865,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_name_function),
+        Emit(tk_name_decorator),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Using(Other(opts => bash_lexer(options=opts)), None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(866, 8, Using(Other(opts => python_lexer(options=opts)), None, []), None),
     r(867, 8, Emit(tk_keyword_namespace), Some([Push("include-line")])),
     r(868, 8, Emit(tk_keyword), Some([Push("statement")])),
-    r(869, 8, ByGroups([Emit(tk_name_variable), Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_operator)]), Some([Push("value")])),
-    r(870, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_name_variable), Emit(tk_name_decorator), Emit(tk_text_whitespace), Emit(tk_operator)]), Some([Push("value")])),
+    r(
+      869,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_punctuation),
+        Emit(tk_name_attribute),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      Some([Push("value")]),
+    ),
+    r(
+      870,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_name_variable),
+        Emit(tk_name_decorator),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      Some([Push("value")]),
+    ),
     r(871, 8, Emit(tk_text), None),
     r(76, 8, Emit(tk_text), None),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(351, 8, Emit(tk_text), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(872, 8, Emit(tk_literal_string_interpol), Some([Push("py-interp")])),
-    r(873, 8, ByGroups([Emit(tk_literal_string_interpol), Emit(tk_name_variable), Emit(tk_literal_string_interpol)]), None),
+    r(
+      873,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_interpol),
+        Emit(tk_name_variable),
+        Emit(tk_literal_string_interpol),
+      ]),
+      None,
+    ),
     r(874, 8, Emit(tk_literal_string), None),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(351, 8, Emit(tk_text), None),
@@ -60,15 +118,36 @@ let bit_bake_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "BitBakeLexer",
-    ["root", "include-line", "interp", "statement", "value", "string-double", "string-single", "py-interp"],
+    [
+      "root", "include-line", "interp", "statement", "value", "string-double", "string-single",
+      "py-interp",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [12, 13, 14, 15, 16, 17], [15, 16], [18, 19, 20, 21, 15, 16, 22], [23, 24, 25, 26, 27, 15, 16, 28], [29, 30, 31, 15, 16, 32], [33, 34, 35, 15, 16, 36], [37, 38]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      [12, 13, 14, 15, 16, 17],
+      [15, 16],
+      [18, 19, 20, 21, 15, 16, 22],
+      [23, 24, 25, 26, 27, 15, 16, 28],
+      [29, 30, 31, 15, 16, 32],
+      [33, 34, 35, 15, 16, 36],
+      [37, 38],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `BitBakeLexer` (BitBake).
-pub fn bit_bake_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bit_bake_lexer_info, options, opts => bit_bake_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bit_bake_lexer_def.force(), text, stack))
+pub fn bit_bake_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    bit_bake_lexer_info,
+    options,
+    opts => bit_bake_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, bit_bake_lexer_def.force(), text, stack)
+    },
+  )
 }

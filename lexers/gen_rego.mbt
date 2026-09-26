@@ -43,5 +43,12 @@ let rego_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RegoLexer` (Rego).
 pub fn rego_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rego_lexer_info, options, opts => rego_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rego_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    rego_lexer_info,
+    options,
+    opts => rego_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, rego_lexer_def.force(), text, stack)
+    },
+  )
 }

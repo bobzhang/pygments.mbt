@@ -5,7 +5,9 @@ pub let apl_lexer_info : @lexer.LexerInfo = {
   class_name: "APLLexer",
   name: "APL",
   aliases: ["apl"],
-  filenames: ["*.apl", "*.aplf", "*.aplo", "*.apln", "*.aplc", "*.apli", "*.dyalog"],
+  filenames: [
+    "*.apl", "*.aplf", "*.aplo", "*.apln", "*.aplc", "*.apli", "*.dyalog",
+  ],
   alias_filenames: [],
   mimetypes: [],
   priority: 0.0,
@@ -47,5 +49,9 @@ let apl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `APLLexer` (APL).
 pub fn apl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(apl_lexer_info, options, opts => apl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, apl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(apl_lexer_info, options, opts => apl_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, apl_lexer_def.force(), text, stack))
 }

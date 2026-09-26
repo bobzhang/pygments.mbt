@@ -21,21 +21,71 @@ let ada_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(109, 10, Emit(tk_text), None),
     r(110, 10, Emit(tk_comment_single), None),
     r(111, 10, Emit(tk_keyword_declaration), Some([Push("subprogram")])),
-    r(112, 10, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text), Emit(tk_keyword_type)]), Some([Push("type_def")])),
+    r(
+      112,
+      10,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text),
+        Emit(tk_keyword_type),
+      ]),
+      Some([Push("type_def")]),
+    ),
     r(113, 10, Emit(tk_keyword_declaration), None),
     r(114, 10, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text)]), None),
-    r(115, 10, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text)]), Some([Push("end")])),
-    r(116, 10, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text), Emit(tk_comment_preproc)]), None),
+    r(
+      115,
+      10,
+      ByGroups([Emit(tk_keyword_reserved), Emit(tk_text)]),
+      Some([Push("end")]),
+    ),
+    r(
+      116,
+      10,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(117, 10, Emit(tk_keyword_constant), None),
     r(118, 10, Emit(tk_keyword_type), None),
     r(119, 10, Emit(tk_operator_word), None),
     r(120, 10, Emit(tk_keyword_declaration), None),
     r(121, 10, Emit(tk_keyword_declaration), Some([Push("package")])),
     r(122, 10, Emit(tk_keyword_reserved), Some([Push("array_def")])),
-    r(123, 10, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text)]), Some([Push("import")])),
-    r(124, 10, ByGroups([Emit(tk_name_constant), Emit(tk_text), Emit(tk_punctuation), Emit(tk_text), Emit(tk_keyword_reserved)]), None),
+    r(
+      123,
+      10,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text)]),
+      Some([Push("import")]),
+    ),
+    r(
+      124,
+      10,
+      ByGroups([
+        Emit(tk_name_constant),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_keyword_reserved),
+      ]),
+      None,
+    ),
     r(125, 10, Emit(tk_name_label), None),
-    r(126, 10, ByGroups([Emit(tk_name_label), Emit(tk_text), Emit(tk_punctuation), Emit(tk_text), Emit(tk_keyword_reserved)]), None),
+    r(
+      126,
+      10,
+      ByGroups([
+        Emit(tk_name_label),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_keyword_reserved),
+      ]),
+      None,
+    ),
     r(127, 10, Emit(tk_keyword_reserved), None),
     r(128, 10, Emit(tk_literal_string), None),
     r(129, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute)]), None),
@@ -61,9 +111,19 @@ let ada_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(145, 10, Emit(tk_keyword_reserved), None),
     r(122, 10, Emit(tk_keyword_reserved), Some([Pop, Push("array_def")])),
     r(146, 10, Emit(tk_keyword_reserved), Some([Push("record_def")])),
-    r(147, 10, ByGroups([Emit(tk_keyword_reserved), Emit(tk_punctuation)]), Some([Pop])),
+    r(
+      147,
+      10,
+      ByGroups([Emit(tk_keyword_reserved), Emit(tk_punctuation)]),
+      Some([Pop]),
+    ),
     r(139, 10, Emit(tk_punctuation), Some([Pop])),
-    r(148, 10, ByGroups([Emit(tk_keyword_type), Emit(tk_text), Emit(tk_keyword_reserved)]), None),
+    r(
+      148,
+      10,
+      ByGroups([Emit(tk_keyword_type), Emit(tk_text), Emit(tk_keyword_reserved)]),
+      None,
+    ),
     r(149, 10, Emit(tk_keyword_reserved), Some([Pop])),
     r(150, 10, Emit(tk_name), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
@@ -78,15 +138,60 @@ let ada_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(139, 10, Emit(tk_punctuation), Some([Pop])),
     r(138, 10, Emit(tk_punctuation), Some([Push("package_instantiation")])),
     r(158, 10, Emit(tk_name_class), None),
-    r(159, 10, ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_punctuation)]), None),
+    r(
+      159,
+      10,
+      ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_punctuation)]),
+      None,
+    ),
     r(160, 10, Emit(tk_text), None),
     r(96, 10, Emit(tk_punctuation), Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "AdaLexer",
-    ["root", "attribute", "numbers", "subprogram", "end", "type_def", "array_def", "record_def", "import", "formal_part", "package", "package_instantiation"],
+    [
+      "root", "attribute", "numbers", "subprogram", "end", "type_def", "array_def",
+      "record_def", "import", "formal_part", "package", "package_instantiation",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [20], [21, 22, 23], [29, 30, 31, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [33, 34, 35, 36], [37, 38, 39, 40, 41, 42, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [44, 45, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [46, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [47, 48], [49, 50, 51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [54, 55, 56, 57, 58, 59, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [60, 61, 62, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [20],
+      [21, 22, 23],
+      [
+        29, 30, 31, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+        17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [33, 34, 35, 36],
+      [
+        37, 38, 39, 40, 41, 42, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+        14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [
+        44, 45, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [
+        46, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [47, 48],
+      [
+        49, 50, 51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [
+        54, 55, 56, 57, 58, 59, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [
+        60, 61, 62, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+    ],
     extended=false,
   )
 })
@@ -94,5 +199,9 @@ let ada_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AdaLexer` (Ada).
 pub fn ada_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ada_lexer_info, options, opts => ada_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ada_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ada_lexer_info, options, opts => ada_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, ada_lexer_def.force(), text, stack))
 }

@@ -49,5 +49,12 @@ let code_ql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CodeQLLexer` (CodeQL).
 pub fn code_ql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(code_ql_lexer_info, options, opts => code_ql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, code_ql_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    code_ql_lexer_info,
+    options,
+    opts => code_ql_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, code_ql_lexer_def.force(), text, stack)
+    },
+  )
 }

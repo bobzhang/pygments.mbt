@@ -29,7 +29,16 @@ let yang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(8182, 8, Emit(tk_literal_string_single), None),
     r(506, 8, Emit(tk_comment), Some([Push("comments")])),
     r(248, 8, Emit(tk_comment), None),
-    r(8183, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation), Emit(tk_name_variable)]), None),
+    r(
+      8183,
+      8,
+      ByGroups([
+        Emit(tk_name_namespace),
+        Emit(tk_punctuation),
+        Emit(tk_name_variable),
+      ]),
+      None,
+    ),
     r(8184, 8, Emit(tk_name_label), None),
     r(8185, 8, Emit(tk_literal_number_float), None),
     r(8186, 8, Emit(tk_literal_number_integer), None),
@@ -49,7 +58,13 @@ let yang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "YangLexer",
     ["comments", "root"],
     rules,
-    [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]],
+    [
+      [0, 1, 2, 3],
+      [
+        4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+        24, 25,
+      ],
+    ],
     extended=false,
   )
 })
@@ -57,5 +72,12 @@ let yang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `YangLexer` (YANG).
 pub fn yang_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(yang_lexer_info, options, opts => yang_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, yang_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    yang_lexer_info,
+    options,
+    opts => yang_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, yang_lexer_def.force(), text, stack)
+    },
+  )
 }

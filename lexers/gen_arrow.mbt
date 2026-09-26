@@ -20,9 +20,34 @@ let arrow_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text_whitespace), None),
     r(445, 8, Emit(tk_punctuation), None),
-    r(446, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("fparams")])),
+    r(
+      446,
+      8,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("fparams")]),
+    ),
     r(447, 8, Emit(tk_punctuation), None),
-    r(448, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_variable)]), None),
+    r(
+      448,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_name_variable),
+      ]),
+      None,
+    ),
     r(144, 8, Emit(tk_punctuation), Some([Push("index")])),
     r(174, 8, Emit(tk_operator), None),
     r(449, 8, Emit(tk_keyword_reserved), None),
@@ -35,15 +60,39 @@ let arrow_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(245, 8, Emit(tk_punctuation), Some([Push("array")])),
     r(452, 8, Emit(tk_operator), None),
     r(453, 8, Emit(tk_operator_word), None),
-    r(454, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
-    r(455, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("fargs")])),
+    r(
+      454,
+      8,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
+    r(
+      455,
+      8,
+      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
+      Some([Push("fargs")]),
+    ),
     r(456, 8, Emit(tk_name_variable), None),
     r(144, 8, Emit(tk_punctuation), Some([Push("index")])),
     r(138, 8, Emit(tk_punctuation), Some([Push("expressions")])),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(100, 8, Emit(tk_punctuation), None),
     r(98, 0, Nop, Some([Pop])),
-    r(448, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
+    r(
+      448,
+      8,
+      ByGroups([
+        Emit(tk_keyword_type),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_variable),
+      ]),
+      None,
+    ),
     r(100, 8, Emit(tk_punctuation), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(457, 8, Emit(tk_literal_string_escape), None),
@@ -59,9 +108,28 @@ let arrow_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "ArrowLexer",
-    ["root", "blocks", "statements", "expressions", "print", "fparams", "escape", "char", "string", "array", "fargs", "index"],
+    [
+      "root", "blocks", "statements", "expressions", "print", "fparams", "escape",
+      "char", "string", "array", "fargs", "index",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [2, 3], [4, 5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [25, 26, 27], [28], [29, 28, 30], [31, 28, 32], [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 33, 34], [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 35, 36], [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 37]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22,
+      ],
+      [2, 3],
+      [4, 5, 6, 7, 8],
+      [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+      [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+      [25, 26, 27],
+      [28],
+      [29, 28, 30],
+      [31, 28, 32],
+      [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 33, 34],
+      [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 35, 36],
+      [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 37],
+    ],
     extended=false,
   )
 })
@@ -69,5 +137,12 @@ let arrow_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ArrowLexer` (Arrow).
 pub fn arrow_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(arrow_lexer_info, options, opts => arrow_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, arrow_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    arrow_lexer_info,
+    options,
+    opts => arrow_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, arrow_lexer_def.force(), text, stack)
+    },
+  )
 }

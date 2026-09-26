@@ -11,7 +11,7 @@ pub let bdd_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Behavior-driven_development",
   version_added: "2.11",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: bdd_lexer_analyse,
   doc: "\nLexer for BDD(Behavior-driven development), which highlights not only\nkeywords, but also comments, punctuations, strings, numbers, and variables.\n",
 }
 
@@ -40,5 +40,9 @@ let bdd_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BddLexer` (Bdd).
 pub fn bdd_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bdd_lexer_info, options, opts => bdd_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bdd_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(bdd_lexer_info, options, opts => bdd_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, bdd_lexer_def.force(), text, stack))
 }

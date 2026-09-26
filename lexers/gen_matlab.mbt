@@ -33,20 +33,65 @@ let matlab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4611, 8, Emit(tk_literal_string_other), None),
     r(4612, 8, Emit(tk_comment_multiline), Some([Push("blockcomment")])),
     r(4613, 8, Emit(tk_comment), None),
-    r(4614, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Push("deffunc")])),
-    r(4615, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("defprops"), Push("propattrs")])),
-    r(4616, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Push("defprops")])),
+    r(
+      4614,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      Some([Push("deffunc")]),
+    ),
+    r(
+      4615,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("defprops"), Push("propattrs")]),
+    ),
+    r(
+      4616,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      Some([Push("defprops")]),
+    ),
     r(4617, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
     r(4618, 8, Emit(tk_name_builtin), None),
     r(4619, 8, ByGroups([Emit(tk_keyword), Emit(tk_comment)]), None),
-    r(4620, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace)]), Some([Push("commandargs")])),
+    r(
+      4620,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("commandargs")]),
+    ),
     r(4621, 8, Emit(tk_comment_multiline), Some([Pop])),
     r(168, 8, Emit(tk_comment_multiline), None),
     r(76, 8, Emit(tk_comment_multiline), None),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(4622, 8, Emit(tk_comment), None),
-    r(4623, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
-    r(4624, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      4623,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      4624,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_text_whitespace), Emit(tk_punctuation)]),
+      None,
+    ),
     r(274, 8, Emit(tk_name_function), None),
     r(138, 8, Emit(tk_punctuation), Some([Push("deffunc_args")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
@@ -55,8 +100,30 @@ let matlab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(96, 8, Emit(tk_punctuation), Some([Pop, Pop])),
     r(4625, 8, Emit(tk_text), None),
     r(4626, 8, Emit(tk_text), None),
-    r(4627, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_number)]), None),
-    r(4628, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(
+      4627,
+      8,
+      ByGroups([
+        Emit(tk_name_builtin),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number),
+      ]),
+      None,
+    ),
+    r(
+      4628,
+      8,
+      ByGroups([
+        Emit(tk_name_builtin),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
     r(100, 8, Emit(tk_punctuation), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(0, 8, Emit(tk_text_whitespace), None),
@@ -75,9 +142,25 @@ let matlab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "MatlabLexer",
-    ["expressions", "root", "blockcomment", "deffunc", "deffunc_args", "propattrs", "defprops", "string", "commandargs"],
+    [
+      "expressions", "root", "blockcomment", "deffunc", "deffunc_args", "propattrs",
+      "defprops", "string", "commandargs",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [22, 23, 24], [25, 26, 27, 28, 29, 30, 31, 32], [33, 34, 35, 36], [37, 38, 39, 40, 41, 42], [43, 44, 45, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], [46], [47, 48, 49, 50, 51, 52, 53]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      [
+        12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11,
+      ],
+      [22, 23, 24],
+      [25, 26, 27, 28, 29, 30, 31, 32],
+      [33, 34, 35, 36],
+      [37, 38, 39, 40, 41, 42],
+      [43, 44, 45, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      [46],
+      [47, 48, 49, 50, 51, 52, 53],
+    ],
     extended=false,
   )
 })
@@ -85,7 +168,14 @@ let matlab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MatlabLexer` (Matlab).
 pub fn matlab_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(matlab_lexer_info, options, opts => matlab_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, matlab_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    matlab_lexer_info,
+    options,
+    opts => matlab_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, matlab_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -105,8 +195,15 @@ pub let matlab_session_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MatlabSessionLexer` (Matlab session).
-pub fn matlab_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(matlab_session_lexer_info, options, opts => matlab_session_lexer(options=opts), matlab_session_lexer_tokenizer)
+pub fn matlab_session_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    matlab_session_lexer_info,
+    options,
+    opts => matlab_session_lexer(options=opts),
+    matlab_session_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -158,8 +255,24 @@ let octave_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4630, 8, Emit(tk_literal_string), Some([Pop])),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(4622, 8, Emit(tk_comment), None),
-    r(4623, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
-    r(4624, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      4623,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      4624,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_text_whitespace), Emit(tk_punctuation)]),
+      None,
+    ),
     r(274, 8, Emit(tk_name_function), None),
     r(138, 8, Emit(tk_punctuation), Some([Push("deffunc_args")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
@@ -171,9 +284,21 @@ let octave_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "OctaveLexer",
-    ["root", "percentblockcomment", "hashblockcomment", "string", "deffunc", "deffunc_args"],
+    [
+      "root", "percentblockcomment", "hashblockcomment", "string", "deffunc", "deffunc_args",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [22, 23, 24], [25, 26, 27], [28], [29, 30, 31, 32, 33, 34, 35, 36], [37, 38, 39, 40]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21,
+      ],
+      [22, 23, 24],
+      [25, 26, 27],
+      [28],
+      [29, 30, 31, 32, 33, 34, 35, 36],
+      [37, 38, 39, 40],
+    ],
     extended=false,
   )
 })
@@ -181,7 +306,14 @@ let octave_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OctaveLexer` (Octave).
 pub fn octave_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(octave_lexer_info, options, opts => octave_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, octave_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    octave_lexer_info,
+    options,
+    opts => octave_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, octave_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -223,8 +355,24 @@ let scilab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(76, 8, Emit(tk_literal_string), Some([Pop])),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(4622, 8, Emit(tk_comment), None),
-    r(4623, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
-    r(4624, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      4623,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      4624,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_text_whitespace), Emit(tk_punctuation)]),
+      None,
+    ),
     r(274, 8, Emit(tk_name_function), None),
     r(138, 8, Emit(tk_punctuation), Some([Push("deffunc_args")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
@@ -238,7 +386,12 @@ let scilab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ScilabLexer",
     ["root", "string", "deffunc", "deffunc_args"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18], [19, 20, 21, 22, 23, 24, 25, 26], [27, 28, 29, 30]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [17, 18],
+      [19, 20, 21, 22, 23, 24, 25, 26],
+      [27, 28, 29, 30],
+    ],
     extended=false,
   )
 })
@@ -246,5 +399,12 @@ let scilab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ScilabLexer` (Scilab).
 pub fn scilab_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(scilab_lexer_info, options, opts => scilab_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, scilab_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    scilab_lexer_info,
+    options,
+    opts => scilab_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, scilab_lexer_def.force(), text, stack)
+    },
+  )
 }

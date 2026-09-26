@@ -11,22 +11,87 @@ pub let dns_zone_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://datatracker.ietf.org/doc/html/rfc1035",
   version_added: "2.16",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: dns_zone_lexer_analyse,
   doc: "\nLexer for DNS zone file\n",
 }
 
 ///|
 let dns_zone_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(2007, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      2007,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_single),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(2008, 8, Emit(tk_keyword), Some([Push("values")])),
     r(2009, 8, Emit(tk_keyword), Some([Push("values")])),
     r(2010, 8, Emit(tk_comment_preproc), Some([Push("include")])),
     r(2011, 8, Emit(tk_keyword), Some([Push("values")])),
-    r(2012, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_number_integer), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_text_whitespace)]), Some([Push("values")])),
-    r(2013, 8, ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_literal_number_integer), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_text_whitespace)]), Some([Push("values")])),
-    r(2014, 8, ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_literal_number_integer), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_text_whitespace)]), Some([Push("values")])),
-    r(2015, 8, ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_literal_number_integer), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_text_whitespace)]), Some([Push("values")])),
+    r(
+      2012,
+      8,
+      ByGroups([
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_integer),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("values")]),
+    ),
+    r(
+      2013,
+      8,
+      ByGroups([
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_integer),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("values")]),
+    ),
+    r(
+      2014,
+      8,
+      ByGroups([
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_integer),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("values")]),
+    ),
+    r(
+      2015,
+      8,
+      ByGroups([
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_integer),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("values")]),
+    ),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(138, 8, Emit(tk_punctuation), Some([Push("nested")])),
     r(2016, 8, ByGroups([Emit(tk_comment_single)]), None),
@@ -34,27 +99,73 @@ let dns_zone_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2017, 8, Emit(tk_operator), None),
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
     r(2018, 8, Emit(tk_literal_number_integer), None),
-    r(2019, 8, ByGroups([Emit(tk_literal_number_integer), Emit(tk_text_whitespace)]), None),
+    r(
+      2019,
+      8,
+      ByGroups([Emit(tk_literal_number_integer), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(502, 8, Emit(tk_literal), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(2020, 8, Emit(tk_text_whitespace), None),
-    r(2021, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preprocfile), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_comment_single)]), Some([Pop])),
-    r(2022, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preprocfile), Emit(tk_text_whitespace)]), Some([Pop])),
+    r(
+      2021,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preprocfile),
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_single),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      2022,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preprocfile),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
     r(556, 8, Emit(tk_literal_string), None),
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(920, 8, Emit(tk_literal_string), None),
   ]
   @lexer.RegexDef::new(
     "DnsZoneLexer",
-    ["root", "values", "simple-value", "nested", "multiple-simple-values", "include", "string"],
+    [
+      "root", "values", "simple-value", "nested", "multiple-simple-values", "include",
+      "string",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15, 16, 17], [11, 12, 13, 14, 15, 16, 17], [18, 11, 12, 13, 14, 15, 16, 17, 19], [11, 12, 13, 14, 15, 16, 17, 19], [20, 21], [22, 23, 24]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      [9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [11, 12, 13, 14, 15, 16, 17],
+      [18, 11, 12, 13, 14, 15, 16, 17, 19],
+      [11, 12, 13, 14, 15, 16, 17, 19],
+      [20, 21],
+      [22, 23, 24],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `DnsZoneLexer` (Zone).
-pub fn dns_zone_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dns_zone_lexer_info, options, opts => dns_zone_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dns_zone_lexer_def.force(), text, stack))
+pub fn dns_zone_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    dns_zone_lexer_info,
+    options,
+    opts => dns_zone_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, dns_zone_lexer_def.force(), text, stack)
+    },
+  )
 }

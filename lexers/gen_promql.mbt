@@ -32,7 +32,16 @@ let prom_ql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5737, 8, Emit(tk_operator), None),
     r(5738, 8, Emit(tk_operator_word), None),
     r(5739, 8, Emit(tk_name_variable), None),
-    r(5740, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation)]), None),
+    r(
+      5740,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_literal_string),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(138, 8, Emit(tk_operator), Some([Push("function")])),
     r(96, 8, Emit(tk_operator), None),
     r(245, 8, Emit(tk_punctuation), Some([Push("labels")])),
@@ -41,7 +50,20 @@ let prom_ql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(264, 8, Emit(tk_text_whitespace), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(100, 8, Emit(tk_punctuation), None),
-    r(5741, 8, ByGroups([Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation)]), None),
+    r(
+      5741,
+      8,
+      ByGroups([
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_literal_string),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
     r(5734, 8, Emit(tk_literal_string), None),
     r(96, 8, Emit(tk_operator), Some([Pop])),
@@ -52,7 +74,12 @@ let prom_ql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PromQLLexer",
     ["root", "labels", "range", "function"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 20, 21, 22, 23], [24, 25], [26, 27, 28]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [19, 20, 21, 22, 23],
+      [24, 25],
+      [26, 27, 28],
+    ],
     extended=false,
   )
 })
@@ -60,5 +87,12 @@ let prom_ql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PromQLLexer` (PromQL).
 pub fn prom_ql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(prom_ql_lexer_info, options, opts => prom_ql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, prom_ql_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    prom_ql_lexer_info,
+    options,
+    opts => prom_ql_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, prom_ql_lexer_def.force(), text, stack)
+    },
+  )
 }

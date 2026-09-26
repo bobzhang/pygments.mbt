@@ -43,13 +43,27 @@ let macaulay2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "Macaulay2Lexer",
     ["root", "block comment", "quote string", "slash string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18, 19]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      [10, 11, 12],
+      [13, 14, 15],
+      [16, 17, 18, 19],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `Macaulay2Lexer` (Macaulay2).
-pub fn macaulay2_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(macaulay2_lexer_info, options, opts => macaulay2_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, macaulay2_lexer_def.force(), text, stack))
+pub fn macaulay2_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    macaulay2_lexer_info,
+    options,
+    opts => macaulay2_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, macaulay2_lexer_def.force(), text, stack)
+    },
+  )
 }

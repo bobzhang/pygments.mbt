@@ -53,7 +53,12 @@ let wren_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "WrenLexer",
     ["root", "comment", "string", "interpolation"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 20, 21], [22, 23, 24, 25, 26, 27, 28], [29, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    ],
     extended=false,
   )
 })
@@ -61,5 +66,12 @@ let wren_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `WrenLexer` (Wren).
 pub fn wren_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(wren_lexer_info, options, opts => wren_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, wren_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    wren_lexer_info,
+    options,
+    opts => wren_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, wren_lexer_def.force(), text, stack)
+    },
+  )
 }

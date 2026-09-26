@@ -49,7 +49,14 @@ let boogie_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BoogieLexer` (Boogie).
 pub fn boogie_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(boogie_lexer_info, options, opts => boogie_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, boogie_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    boogie_lexer_info,
+    options,
+    opts => boogie_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, boogie_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -101,5 +108,12 @@ let silver_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SilverLexer` (Silver).
 pub fn silver_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(silver_lexer_info, options, opts => silver_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, silver_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    silver_lexer_info,
+    options,
+    opts => silver_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, silver_lexer_def.force(), text, stack)
+    },
+  )
 }

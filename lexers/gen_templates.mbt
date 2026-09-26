@@ -17,8 +17,22 @@ pub let angular2_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `Angular2HtmlLexer` (HTML + Angular2).
-pub fn angular2_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(angular2_html_lexer_info, options, opts => angular2_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), angular2_lexer(options=lx.options), text, needle=tk_other))
+pub fn angular2_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    angular2_html_lexer_info,
+    options,
+    opts => angular2_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        angular2_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -40,11 +54,54 @@ pub let angular2_lexer_info : @lexer.LexerInfo = {
 let angular2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(299, 8, Emit(tk_other), None),
-    r(300, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]), Some([Push("ngExpression")])),
-    r(301, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_punctuation), Emit(tk_text), Emit(tk_operator), Emit(tk_text)]), Some([Push("attr")])),
-    r(302, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_punctuation), Emit(tk_text)]), None),
-    r(303, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_text), Emit(tk_operator), Emit(tk_text)]), Some([Push("attr")])),
-    r(304, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_text)]), None),
+    r(
+      300,
+      8,
+      ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]),
+      Some([Push("ngExpression")]),
+    ),
+    r(
+      301,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_attribute),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_operator),
+        Emit(tk_text),
+      ]),
+      Some([Push("attr")]),
+    ),
+    r(
+      302,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_attribute),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
+    r(
+      303,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_attribute),
+        Emit(tk_text),
+        Emit(tk_operator),
+        Emit(tk_text),
+      ]),
+      Some([Push("attr")]),
+    ),
+    r(
+      304,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_text)]),
+      None,
+    ),
     r(305, 8, Emit(tk_text), None),
     r(306, 8, Emit(tk_comment_preproc), Some([Pop])),
     r(307, 8, Emit(tk_literal_string_boolean), None),
@@ -53,7 +110,21 @@ let angular2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(310, 8, Emit(tk_literal_number), None),
     r(311, 8, Emit(tk_name_variable), None),
     r(312, 8, Emit(tk_name_variable), None),
-    r(313, 8, ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_literal_string), Emit(tk_text), Emit(tk_operator), Emit(tk_text), Emit(tk_literal_string), Emit(tk_text)]), None),
+    r(
+      313,
+      8,
+      ByGroups([
+        Emit(tk_operator),
+        Emit(tk_text),
+        Emit(tk_literal_string),
+        Emit(tk_text),
+        Emit(tk_operator),
+        Emit(tk_text),
+        Emit(tk_literal_string),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
     r(314, 8, Emit(tk_literal_string), Some([Pop])),
     r(315, 8, Emit(tk_literal_string), Some([Pop])),
     r(316, 8, Emit(tk_literal_string), Some([Pop])),
@@ -69,8 +140,17 @@ let angular2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Angular2Lexer` (Angular2).
-pub fn angular2_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(angular2_lexer_info, options, opts => angular2_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, angular2_lexer_def.force(), text, stack))
+pub fn angular2_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    angular2_lexer_info,
+    options,
+    opts => angular2_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, angular2_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -90,18 +170,37 @@ pub let cheetah_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CheetahHtmlLexer` (HTML+Cheetah).
-pub fn cheetah_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cheetah_html_lexer_info, options, opts => cheetah_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), cheetah_lexer(options=lx.options), text, needle=tk_other))
+pub fn cheetah_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    cheetah_html_lexer_info,
+    options,
+    opts => cheetah_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        cheetah_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
 pub let cheetah_javascript_lexer_info : @lexer.LexerInfo = {
   class_name: "CheetahJavascriptLexer",
   name: "JavaScript+Cheetah",
-  aliases: ["javascript+cheetah", "js+cheetah", "javascript+spitfire", "js+spitfire"],
+  aliases: [
+    "javascript+cheetah", "js+cheetah", "javascript+spitfire", "js+spitfire",
+  ],
   filenames: [],
   alias_filenames: [],
-  mimetypes: ["application/x-javascript+cheetah", "text/x-javascript+cheetah", "text/javascript+cheetah", "application/x-javascript+spitfire", "text/x-javascript+spitfire", "text/javascript+spitfire"],
+  mimetypes: [
+    "application/x-javascript+cheetah", "text/x-javascript+cheetah", "text/javascript+cheetah",
+    "application/x-javascript+spitfire", "text/x-javascript+spitfire", "text/javascript+spitfire",
+  ],
   priority: 0.0,
   url: "http://www.cheetahtemplate.org/",
   version_added: "",
@@ -111,8 +210,22 @@ pub let cheetah_javascript_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CheetahJavascriptLexer` (JavaScript+Cheetah).
-pub fn cheetah_javascript_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cheetah_javascript_lexer_info, options, opts => cheetah_javascript_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), cheetah_lexer(options=lx.options), text, needle=tk_other))
+pub fn cheetah_javascript_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    cheetah_javascript_lexer_info,
+    options,
+    opts => cheetah_javascript_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        cheetah_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -137,9 +250,35 @@ let cheetah_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1272, 8, Emit(tk_comment), None),
     r(1273, 8, Emit(tk_comment_preproc), None),
     r(1274, 8, Emit(tk_comment_preproc), None),
-    r(1275, 8, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => cheetah_python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
-    r(1276, 8, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => cheetah_python_lexer(options=opts)), None, [])]), None),
-    r(1277, 24, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => cheetah_python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
+    r(
+      1275,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => cheetah_python_lexer(options=opts)), None, []),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      1276,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => cheetah_python_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
+    r(
+      1277,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => cheetah_python_lexer(options=opts)), None, []),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(1278, 88, Emit(tk_other), None),
     r(0, 8, Emit(tk_text), None),
   ]
@@ -155,7 +294,14 @@ let cheetah_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CheetahLexer` (Cheetah).
 pub fn cheetah_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cheetah_lexer_info, options, opts => cheetah_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cheetah_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    cheetah_lexer_info,
+    options,
+    opts => cheetah_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, cheetah_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -175,8 +321,22 @@ pub let cheetah_xml_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CheetahXmlLexer` (XML+Cheetah).
-pub fn cheetah_xml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cheetah_xml_lexer_info, options, opts => cheetah_xml_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), cheetah_lexer(options=lx.options), text, needle=tk_other))
+pub fn cheetah_xml_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    cheetah_xml_lexer_info,
+    options,
+    opts => cheetah_xml_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        cheetah_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -196,8 +356,22 @@ pub let coldfusion_cfc_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `ColdfusionCFCLexer` (Coldfusion CFC).
-pub fn coldfusion_cfc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(coldfusion_cfc_lexer_info, options, opts => coldfusion_cfc_lexer(options=opts), (lx, text, _) => @lexer.delegate(coldfusion_html_lexer(options=lx.options), coldfusion_lexer(options=lx.options), text, needle=tk_other))
+pub fn coldfusion_cfc_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    coldfusion_cfc_lexer_info,
+    options,
+    opts => coldfusion_cfc_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        coldfusion_html_lexer(options=lx.options),
+        coldfusion_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -217,8 +391,22 @@ pub let coldfusion_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `ColdfusionHtmlLexer` (Coldfusion HTML).
-pub fn coldfusion_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(coldfusion_html_lexer_info, options, opts => coldfusion_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), coldfusion_markup_lexer(options=lx.options), text, needle=tk_other))
+pub fn coldfusion_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    coldfusion_html_lexer_info,
+    options,
+    opts => coldfusion_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        coldfusion_markup_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -254,7 +442,12 @@ let coldfusion_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1400, 2, Emit(tk_keyword), None),
     r(117, 2, Emit(tk_keyword_constant), None),
     r(1401, 2, Emit(tk_name_constant), None),
-    r(1402, 2, ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]), None),
+    r(
+      1402,
+      2,
+      ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]),
+      None,
+    ),
     r(1403, 2, Emit(tk_name_variable), None),
     r(1404, 2, Emit(tk_punctuation), None),
     r(0, 2, Emit(tk_text), None),
@@ -268,15 +461,27 @@ let coldfusion_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ColdfusionLexer",
     ["root", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 20, 21, 22, 23]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [19, 20, 21, 22, 23],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ColdfusionLexer` (cfstatement).
-pub fn coldfusion_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(coldfusion_lexer_info, options, opts => coldfusion_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, coldfusion_lexer_def.force(), text, stack))
+pub fn coldfusion_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    coldfusion_lexer_info,
+    options,
+    opts => coldfusion_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, coldfusion_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -296,8 +501,22 @@ pub let css_django_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CssDjangoLexer` (CSS+Django/Jinja).
-pub fn css_django_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(css_django_lexer_info, options, opts => css_django_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), django_lexer(options=lx.options), text, needle=tk_other))
+pub fn css_django_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    css_django_lexer_info,
+    options,
+    opts => css_django_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        css_lexer(options=lx.options),
+        django_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -318,7 +537,19 @@ pub let css_erb_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CssErbLexer` (CSS+Ruby).
 pub fn css_erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(css_erb_lexer_info, options, opts => css_erb_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), erb_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(
+    css_erb_lexer_info,
+    options,
+    opts => css_erb_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        css_lexer(options=lx.options),
+        erb_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -338,8 +569,22 @@ pub let css_genshi_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CssGenshiLexer` (CSS+Genshi Text).
-pub fn css_genshi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(css_genshi_lexer_info, options, opts => css_genshi_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), genshi_text_lexer(options=lx.options), text, needle=tk_other))
+pub fn css_genshi_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    css_genshi_lexer_info,
+    options,
+    opts => css_genshi_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        css_lexer(options=lx.options),
+        genshi_text_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -360,7 +605,19 @@ pub let css_php_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CssPhpLexer` (CSS+PHP).
 pub fn css_php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(css_php_lexer_info, options, opts => css_php_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), php_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(
+    css_php_lexer_info,
+    options,
+    opts => css_php_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        css_lexer(options=lx.options),
+        php_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -380,8 +637,22 @@ pub let css_smarty_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CssSmartyLexer` (CSS+Smarty).
-pub fn css_smarty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(css_smarty_lexer_info, options, opts => css_smarty_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), smarty_lexer(options=lx.options), text, needle=tk_other))
+pub fn css_smarty_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    css_smarty_lexer_info,
+    options,
+    opts => css_smarty_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        css_lexer(options=lx.options),
+        smarty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -405,13 +676,79 @@ let django_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1993, 24, Emit(tk_other), None),
     r(1591, 24, Emit(tk_comment_preproc), Some([Push("var")])),
     r(1994, 24, Emit(tk_comment), None),
-    r(1995, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc), Emit(tk_comment), Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc)]), None),
-    r(1996, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc)]), None),
-    r(1997, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]), Some([Push("block")])),
-    r(1998, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword)]), Some([Push("block")])),
+    r(
+      1995,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+        Emit(tk_comment),
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      1996,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      1997,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("block")]),
+    ),
+    r(
+      1998,
+      24,
+      ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword)]),
+      Some([Push("block")]),
+    ),
     r(245, 24, Emit(tk_other), None),
-    r(1999, 24, ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_function)]), None),
-    r(2000, 24, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]), None),
+    r(
+      1999,
+      24,
+      ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_function)]),
+      None,
+    ),
+    r(
+      2000,
+      24,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_name_function),
+      ]),
+      None,
+    ),
     r(2001, 24, Emit(tk_keyword_pseudo), None),
     r(2002, 24, Emit(tk_keyword), None),
     r(2003, 24, Emit(tk_name_builtin), None),
@@ -422,16 +759,31 @@ let django_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2004, 24, Emit(tk_operator), None),
     r(310, 24, Emit(tk_literal_number), None),
     r(0, 24, Emit(tk_text), None),
-    r(2005, 24, ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]), Some([Pop])),
+    r(
+      2005,
+      24,
+      ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]),
+      Some([Pop]),
+    ),
     r(0, 24, Emit(tk_text), None),
-    r(2006, 24, ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]), Some([Pop])),
+    r(
+      2006,
+      24,
+      ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]),
+      Some([Pop]),
+    ),
     r(76, 24, Emit(tk_punctuation), None),
   ]
   @lexer.RegexDef::new(
     "DjangoLexer",
     ["root", "varnames", "var", "block"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 20, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [21, 22, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 23]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [19, 20, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [21, 22, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 23],
+    ],
     extended=false,
   )
 })
@@ -439,7 +791,14 @@ let django_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DjangoLexer` (Django/Jinja).
 pub fn django_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(django_lexer_info, options, opts => django_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, django_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    django_lexer_info,
+    options,
+    opts => django_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, django_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -460,7 +819,12 @@ pub let erb_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `ErbLexer` (ERB).
 pub fn erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(erb_lexer_info, options, opts => erb_lexer(options=opts), erb_lexer_tokenizer)
+  @lexer.Lexer::new(
+    erb_lexer_info,
+    options,
+    opts => erb_lexer(options=opts),
+    erb_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -480,8 +844,22 @@ pub let evoque_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `EvoqueHtmlLexer` (HTML+Evoque).
-pub fn evoque_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(evoque_html_lexer_info, options, opts => evoque_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), evoque_lexer(options=lx.options), text, needle=tk_other))
+pub fn evoque_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    evoque_html_lexer_info,
+    options,
+    opts => evoque_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        evoque_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -506,11 +884,61 @@ let evoque_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2346, 16, Emit(tk_comment_multiline), Some([Push("comment")])),
     r(2347, 16, Emit(tk_other), None),
     r(2348, 16, Emit(tk_comment_multiline), None),
-    r(2349, 16, ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin), Emit(tk_punctuation), Nop, Emit(tk_literal_string), Emit(tk_punctuation)]), None),
-    r(2350, 16, ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin), Emit(tk_punctuation), Nop, Emit(tk_literal_string), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_punctuation)]), None),
-    r(2351, 16, ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin), Emit(tk_punctuation), Nop, Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_punctuation)]), None),
+    r(
+      2349,
+      16,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_builtin),
+        Emit(tk_punctuation),
+        Nop,
+        Emit(tk_literal_string),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      2350,
+      16,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_builtin),
+        Emit(tk_punctuation),
+        Nop,
+        Emit(tk_literal_string),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      2351,
+      16,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_builtin),
+        Emit(tk_punctuation),
+        Nop,
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(2352, 16, ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin)]), None),
-    r(2353, 16, ByGroups([Emit(tk_punctuation), Nop, Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_name_builtin), Nop, Nop, Emit(tk_punctuation)]), None),
+    r(
+      2353,
+      16,
+      ByGroups([
+        Emit(tk_punctuation),
+        Nop,
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_name_builtin),
+        Nop,
+        Nop,
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(861, 16, Emit(tk_other), None),
     r(2354, 16, Emit(tk_comment_multiline), None),
     r(2346, 16, Emit(tk_comment_multiline), Some([Dup])),
@@ -529,7 +957,14 @@ let evoque_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EvoqueLexer` (Evoque).
 pub fn evoque_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(evoque_lexer_info, options, opts => evoque_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, evoque_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    evoque_lexer_info,
+    options,
+    opts => evoque_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, evoque_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -549,8 +984,22 @@ pub let evoque_xml_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `EvoqueXmlLexer` (XML+Evoque).
-pub fn evoque_xml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(evoque_xml_lexer_info, options, opts => evoque_xml_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), evoque_lexer(options=lx.options), text, needle=tk_other))
+pub fn evoque_xml_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    evoque_xml_lexer_info,
+    options,
+    opts => evoque_xml_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        evoque_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -571,7 +1020,19 @@ pub let genshi_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `GenshiLexer` (Genshi).
 pub fn genshi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(genshi_lexer_info, options, opts => genshi_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), genshi_markup_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(
+    genshi_lexer_info,
+    options,
+    opts => genshi_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        genshi_markup_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -594,15 +1055,48 @@ let genshi_text_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(2803, 8, Emit(tk_other), None),
     r(2804, 8, ByGroups([Emit(tk_text), Emit(tk_comment)]), None),
-    r(2805, 8, ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]), Some([Push("directive")])),
-    r(2806, 8, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
+    r(
+      2805,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]),
+      Some([Push("directive")]),
+    ),
+    r(
+      2806,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(2807, 8, Emit(tk_name_variable), None),
     r(2808, 8, Emit(tk_other), None),
     r(264, 8, Emit(tk_text), Some([Pop])),
-    r(2809, 8, Using(Other(opts => python_lexer(options=opts)), None, []), Some([Pop])),
-    r(2810, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Using(Other(opts => python_lexer(options=opts)), None, [])]), Some([Pop])),
+    r(
+      2809,
+      8,
+      Using(Other(opts => python_lexer(options=opts)), None, []),
+      Some([Pop]),
+    ),
+    r(
+      2810,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+      ]),
+      Some([Pop]),
+    ),
     r(2811, 8, Emit(tk_keyword), Some([Pop])),
-    r(2812, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_comment)]), Some([Pop])),
+    r(
+      2812,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_comment)]),
+      Some([Pop]),
+    ),
   ]
   @lexer.RegexDef::new(
     "GenshiTextLexer",
@@ -615,8 +1109,17 @@ let genshi_text_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GenshiTextLexer` (Genshi Text).
-pub fn genshi_text_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(genshi_text_lexer_info, options, opts => genshi_text_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, genshi_text_lexer_def.force(), text, stack))
+pub fn genshi_text_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    genshi_text_lexer_info,
+    options,
+    opts => genshi_text_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, genshi_text_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -636,8 +1139,22 @@ pub let handlebars_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `HandlebarsHtmlLexer` (HTML+Handlebars).
-pub fn handlebars_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(handlebars_html_lexer_info, options, opts => handlebars_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), handlebars_lexer(options=lx.options), text, needle=tk_other))
+pub fn handlebars_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    handlebars_html_lexer_info,
+    options,
+    opts => handlebars_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        handlebars_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -660,16 +1177,55 @@ let handlebars_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(1993, 8, Emit(tk_other), None),
     r(3039, 8, Emit(tk_comment), None),
-    r(3040, 8, ByGroups([Emit(tk_comment_special), Emit(tk_text)]), Some([Push("tag")])),
-    r(3041, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_literal_number_attribute), Emit(tk_literal_number_attribute)]), Some([Push("tag")])),
-    r(300, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]), Some([Push("tag")])),
+    r(
+      3040,
+      8,
+      ByGroups([Emit(tk_comment_special), Emit(tk_text)]),
+      Some([Push("tag")]),
+    ),
+    r(
+      3041,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_literal_number_attribute),
+        Emit(tk_literal_number_attribute),
+      ]),
+      Some([Push("tag")]),
+    ),
+    r(
+      300,
+      8,
+      ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]),
+      Some([Push("tag")]),
+    ),
     r(0, 8, Emit(tk_text), None),
     r(3042, 8, Emit(tk_comment_special), Some([Pop])),
-    r(3043, 8, ByGroups([Emit(tk_literal_number), Emit(tk_comment_preproc)]), Some([Pop])),
+    r(
+      3043,
+      8,
+      ByGroups([Emit(tk_literal_number), Emit(tk_comment_preproc)]),
+      Some([Pop]),
+    ),
     r(3044, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator)]), None),
-    r(3045, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword)]), None),
-    r(3046, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_variable)]), None),
-    r(3047, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_punctuation)]), Some([Push("dynamic-partial")])),
+    r(
+      3045,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword)]),
+      None,
+    ),
+    r(
+      3046,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_variable)]),
+      None,
+    ),
+    r(
+      3047,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_punctuation)]),
+      Some([Push("dynamic-partial")]),
+    ),
     r(3048, 8, Emit(tk_name_variable), None),
     r(3049, 8, Emit(tk_name_variable), None),
     r(3050, 8, Emit(tk_name_variable), None),
@@ -678,23 +1234,57 @@ let handlebars_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(310, 8, Emit(tk_literal_number), None),
     r(0, 8, Emit(tk_text), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
-    r(3051, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_variable), Emit(tk_text)]), None),
-    r(3052, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Using(This, Some(["root", "variable"]), [])]), None),
+    r(
+      3051,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_name_variable),
+        Emit(tk_text),
+      ]),
+      None,
+    ),
+    r(
+      3052,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Using(This, Some(["root", "variable"]), []),
+      ]),
+      None,
+    ),
     r(1717, 8, Emit(tk_name_function), None),
   ]
   @lexer.RegexDef::new(
     "HandlebarsLexer",
     ["root", "tag", "generic", "variable", "dynamic-partial"],
     rules,
-    [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [12, 13, 14, 15, 16, 17], [12, 13, 14], [18, 19, 20, 21, 22, 12, 13, 14, 15, 16, 17]],
+    [
+      [0, 1, 2, 3, 4],
+      [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [12, 13, 14, 15, 16, 17],
+      [12, 13, 14],
+      [18, 19, 20, 21, 22, 12, 13, 14, 15, 16, 17],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `HandlebarsLexer` (Handlebars).
-pub fn handlebars_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(handlebars_lexer_info, options, opts => handlebars_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, handlebars_lexer_def.force(), text, stack))
+pub fn handlebars_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    handlebars_lexer_info,
+    options,
+    opts => handlebars_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, handlebars_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -702,7 +1292,9 @@ pub let html_django_lexer_info : @lexer.LexerInfo = {
   class_name: "HtmlDjangoLexer",
   name: "HTML+Django/Jinja",
   aliases: ["html+django", "html+jinja", "htmldjango"],
-  filenames: ["*.html.j2", "*.htm.j2", "*.xhtml.j2", "*.html.jinja2", "*.htm.jinja2", "*.xhtml.jinja2"],
+  filenames: [
+    "*.html.j2", "*.htm.j2", "*.xhtml.j2", "*.html.jinja2", "*.htm.jinja2", "*.xhtml.jinja2",
+  ],
   alias_filenames: ["*.html", "*.htm", "*.xhtml"],
   mimetypes: ["text/html+django", "text/html+jinja"],
   priority: 0.0,
@@ -714,8 +1306,22 @@ pub let html_django_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `HtmlDjangoLexer` (HTML+Django/Jinja).
-pub fn html_django_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(html_django_lexer_info, options, opts => html_django_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), django_lexer(options=lx.options), text, needle=tk_other))
+pub fn html_django_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    html_django_lexer_info,
+    options,
+    opts => html_django_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        django_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -735,8 +1341,22 @@ pub let html_genshi_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `HtmlGenshiLexer` (HTML+Genshi).
-pub fn html_genshi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(html_genshi_lexer_info, options, opts => html_genshi_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), genshi_markup_lexer(options=lx.options), text, needle=tk_other))
+pub fn html_genshi_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    html_genshi_lexer_info,
+    options,
+    opts => html_genshi_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        genshi_markup_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -746,7 +1366,10 @@ pub let html_php_lexer_info : @lexer.LexerInfo = {
   aliases: ["html+php"],
   filenames: ["*.phtml"],
   alias_filenames: ["*.php", "*.html", "*.htm", "*.xhtml", "*.php[345]"],
-  mimetypes: ["application/x-php", "application/x-httpd-php", "application/x-httpd-php3", "application/x-httpd-php4", "application/x-httpd-php5"],
+  mimetypes: [
+    "application/x-php", "application/x-httpd-php", "application/x-httpd-php3", "application/x-httpd-php4",
+    "application/x-httpd-php5",
+  ],
   priority: 0.0,
   url: "https://www.php.net",
   version_added: "",
@@ -756,8 +1379,22 @@ pub let html_php_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `HtmlPhpLexer` (HTML+PHP).
-pub fn html_php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(html_php_lexer_info, options, opts => html_php_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), php_lexer(options=lx.options), text, needle=tk_other))
+pub fn html_php_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    html_php_lexer_info,
+    options,
+    opts => html_php_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        php_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -777,8 +1414,22 @@ pub let html_smarty_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `HtmlSmartyLexer` (HTML+Smarty).
-pub fn html_smarty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(html_smarty_lexer_info, options, opts => html_smarty_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), smarty_lexer(options=lx.options), text, needle=tk_other))
+pub fn html_smarty_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    html_smarty_lexer_info,
+    options,
+    opts => html_smarty_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        smarty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -788,7 +1439,10 @@ pub let javascript_django_lexer_info : @lexer.LexerInfo = {
   aliases: ["javascript+django", "js+django", "javascript+jinja", "js+jinja"],
   filenames: ["*.js.j2", "*.js.jinja2"],
   alias_filenames: ["*.js"],
-  mimetypes: ["application/x-javascript+django", "application/x-javascript+jinja", "text/x-javascript+django", "text/x-javascript+jinja", "text/javascript+django", "text/javascript+jinja"],
+  mimetypes: [
+    "application/x-javascript+django", "application/x-javascript+jinja", "text/x-javascript+django",
+    "text/x-javascript+jinja", "text/javascript+django", "text/javascript+jinja",
+  ],
   priority: 0.0,
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
@@ -798,8 +1452,22 @@ pub let javascript_django_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JavascriptDjangoLexer` (JavaScript+Django/Jinja).
-pub fn javascript_django_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(javascript_django_lexer_info, options, opts => javascript_django_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), django_lexer(options=lx.options), text, needle=tk_other))
+pub fn javascript_django_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    javascript_django_lexer_info,
+    options,
+    opts => javascript_django_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        django_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -809,7 +1477,9 @@ pub let javascript_erb_lexer_info : @lexer.LexerInfo = {
   aliases: ["javascript+ruby", "js+ruby", "javascript+erb", "js+erb"],
   filenames: [],
   alias_filenames: ["*.js"],
-  mimetypes: ["application/x-javascript+ruby", "text/x-javascript+ruby", "text/javascript+ruby"],
+  mimetypes: [
+    "application/x-javascript+ruby", "text/x-javascript+ruby", "text/javascript+ruby",
+  ],
   priority: 0.0,
   url: "https://github.com/ruby/erb",
   version_added: "",
@@ -819,18 +1489,36 @@ pub let javascript_erb_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JavascriptErbLexer` (JavaScript+Ruby).
-pub fn javascript_erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(javascript_erb_lexer_info, options, opts => javascript_erb_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), erb_lexer(options=lx.options), text, needle=tk_other))
+pub fn javascript_erb_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    javascript_erb_lexer_info,
+    options,
+    opts => javascript_erb_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        erb_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
 pub let javascript_genshi_lexer_info : @lexer.LexerInfo = {
   class_name: "JavascriptGenshiLexer",
   name: "JavaScript+Genshi Text",
-  aliases: ["js+genshitext", "js+genshi", "javascript+genshitext", "javascript+genshi"],
+  aliases: [
+    "js+genshitext", "js+genshi", "javascript+genshitext", "javascript+genshi",
+  ],
   filenames: [],
   alias_filenames: ["*.js"],
-  mimetypes: ["application/x-javascript+genshi", "text/x-javascript+genshi", "text/javascript+genshi"],
+  mimetypes: [
+    "application/x-javascript+genshi", "text/x-javascript+genshi", "text/javascript+genshi",
+  ],
   priority: 0.0,
   url: "https://genshi.edgewall.org",
   version_added: "",
@@ -840,8 +1528,22 @@ pub let javascript_genshi_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JavascriptGenshiLexer` (JavaScript+Genshi Text).
-pub fn javascript_genshi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(javascript_genshi_lexer_info, options, opts => javascript_genshi_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), genshi_text_lexer(options=lx.options), text, needle=tk_other))
+pub fn javascript_genshi_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    javascript_genshi_lexer_info,
+    options,
+    opts => javascript_genshi_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        genshi_text_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -851,7 +1553,9 @@ pub let javascript_php_lexer_info : @lexer.LexerInfo = {
   aliases: ["javascript+php", "js+php"],
   filenames: [],
   alias_filenames: ["*.js"],
-  mimetypes: ["application/x-javascript+php", "text/x-javascript+php", "text/javascript+php"],
+  mimetypes: [
+    "application/x-javascript+php", "text/x-javascript+php", "text/javascript+php",
+  ],
   priority: 0.0,
   url: "https://www.php.net",
   version_added: "",
@@ -861,8 +1565,22 @@ pub let javascript_php_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JavascriptPhpLexer` (JavaScript+PHP).
-pub fn javascript_php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(javascript_php_lexer_info, options, opts => javascript_php_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), php_lexer(options=lx.options), text, needle=tk_other))
+pub fn javascript_php_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    javascript_php_lexer_info,
+    options,
+    opts => javascript_php_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        php_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -872,7 +1590,9 @@ pub let javascript_smarty_lexer_info : @lexer.LexerInfo = {
   aliases: ["javascript+smarty", "js+smarty"],
   filenames: [],
   alias_filenames: ["*.js", "*.tpl"],
-  mimetypes: ["application/x-javascript+smarty", "text/x-javascript+smarty", "text/javascript+smarty"],
+  mimetypes: [
+    "application/x-javascript+smarty", "text/x-javascript+smarty", "text/javascript+smarty",
+  ],
   priority: 0.0,
   url: "https://www.smarty.net/",
   version_added: "",
@@ -882,8 +1602,22 @@ pub let javascript_smarty_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JavascriptSmartyLexer` (JavaScript+Smarty).
-pub fn javascript_smarty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(javascript_smarty_lexer_info, options, opts => javascript_smarty_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), smarty_lexer(options=lx.options), text, needle=tk_other))
+pub fn javascript_smarty_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    javascript_smarty_lexer_info,
+    options,
+    opts => javascript_smarty_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        smarty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -904,7 +1638,18 @@ pub let jsp_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JspLexer` (Java Server Page).
 pub fn jsp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(jsp_lexer_info, options, opts => jsp_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), jsp_root_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(jsp_lexer_info, options, opts => jsp_lexer(options=opts), (
+    lx,
+    text,
+    _,
+  ) => {
+    @lexer.delegate(
+      xml_lexer(options=lx.options),
+      jsp_root_lexer(options=lx.options),
+      text,
+      needle=tk_other,
+    )
+  })
 }
 
 ///|
@@ -924,8 +1669,15 @@ pub let lasso_css_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `LassoCssLexer` (CSS+Lasso).
-pub fn lasso_css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lasso_css_lexer_info, options, opts => lasso_css_lexer(options=opts), lasso_css_lexer_tokenizer)
+pub fn lasso_css_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    lasso_css_lexer_info,
+    options,
+    opts => lasso_css_lexer(options=opts),
+    lasso_css_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -934,8 +1686,12 @@ pub let lasso_html_lexer_info : @lexer.LexerInfo = {
   name: "HTML+Lasso",
   aliases: ["html+lasso"],
   filenames: [],
-  alias_filenames: ["*.html", "*.htm", "*.xhtml", "*.lasso", "*.lasso[89]", "*.incl", "*.inc", "*.las"],
-  mimetypes: ["text/html+lasso", "application/x-httpd-lasso", "application/x-httpd-lasso[89]"],
+  alias_filenames: [
+    "*.html", "*.htm", "*.xhtml", "*.lasso", "*.lasso[89]", "*.incl", "*.inc", "*.las",
+  ],
+  mimetypes: [
+    "text/html+lasso", "application/x-httpd-lasso", "application/x-httpd-lasso[89]",
+  ],
   priority: 0.0,
   url: "https://www.lassosoft.com",
   version_added: "1.6",
@@ -945,8 +1701,22 @@ pub let lasso_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `LassoHtmlLexer` (HTML+Lasso).
-pub fn lasso_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lasso_html_lexer_info, options, opts => lasso_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), lasso_lexer(options=lx.options), text, needle=tk_other))
+pub fn lasso_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    lasso_html_lexer_info,
+    options,
+    opts => lasso_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        lasso_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -956,7 +1726,9 @@ pub let lasso_javascript_lexer_info : @lexer.LexerInfo = {
   aliases: ["javascript+lasso", "js+lasso"],
   filenames: [],
   alias_filenames: ["*.js"],
-  mimetypes: ["application/x-javascript+lasso", "text/x-javascript+lasso", "text/javascript+lasso"],
+  mimetypes: [
+    "application/x-javascript+lasso", "text/x-javascript+lasso", "text/javascript+lasso",
+  ],
   priority: 0.0,
   url: "https://www.lassosoft.com",
   version_added: "1.6",
@@ -966,8 +1738,15 @@ pub let lasso_javascript_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `LassoJavascriptLexer` (JavaScript+Lasso).
-pub fn lasso_javascript_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lasso_javascript_lexer_info, options, opts => lasso_javascript_lexer(options=opts), lasso_javascript_lexer_tokenizer)
+pub fn lasso_javascript_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    lasso_javascript_lexer_info,
+    options,
+    opts => lasso_javascript_lexer(options=opts),
+    lasso_javascript_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -976,7 +1755,9 @@ pub let lasso_xml_lexer_info : @lexer.LexerInfo = {
   name: "XML+Lasso",
   aliases: ["xml+lasso"],
   filenames: [],
-  alias_filenames: ["*.xml", "*.lasso", "*.lasso[89]", "*.incl", "*.inc", "*.las"],
+  alias_filenames: [
+    "*.xml", "*.lasso", "*.lasso[89]", "*.incl", "*.inc", "*.las",
+  ],
   mimetypes: ["application/xml+lasso"],
   priority: 0.0,
   url: "https://www.lassosoft.com",
@@ -987,8 +1768,22 @@ pub let lasso_xml_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `LassoXmlLexer` (XML+Lasso).
-pub fn lasso_xml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lasso_xml_lexer_info, options, opts => lasso_xml_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), lasso_lexer(options=lx.options), text, needle=tk_other))
+pub fn lasso_xml_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    lasso_xml_lexer_info,
+    options,
+    opts => lasso_xml_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        lasso_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1010,19 +1805,112 @@ pub let liquid_lexer_info : @lexer.LexerInfo = {
 let liquid_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(1993, 8, Emit(tk_text), None),
-    r(4172, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("tag-or-block")])),
-    r(4173, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Using(This, Some(["root", "generic"]), [])]), Some([Push("output")])),
+    r(
+      4172,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]),
+      Some([Push("tag-or-block")]),
+    ),
+    r(
+      4173,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Using(This, Some(["root", "generic"]), []),
+      ]),
+      Some([Push("output")]),
+    ),
     r(245, 8, Emit(tk_text), None),
     r(4174, 8, Emit(tk_keyword_reserved), Some([Push("condition")])),
-    r(4175, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text_whitespace)]), Some([Push("_tmp_0")])),
-    r(4176, 8, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
-    r(4177, 8, ByGroups([Emit(tk_name_tag), Emit(tk_text_whitespace), Using(This, Some(["root", "variable"]), []), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
-    r(4178, 8, ByGroups([Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("comment")])),
-    r(4179, 8, ByGroups([Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("raw")])),
-    r(4180, 8, ByGroups([Emit(tk_keyword_reserved), Nop, Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
-    r(4181, 8, ByGroups([Emit(tk_name_tag), Nop, Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
-    r(4182, 8, ByGroups([Emit(tk_name_tag), Emit(tk_text_whitespace), Using(This, Some(["root", "generic"]), []), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("variable-tag-markup")])),
-    r(4183, 8, ByGroups([Emit(tk_name_tag), Emit(tk_text_whitespace)]), Some([Push("tag-markup")])),
+    r(
+      4175,
+      8,
+      ByGroups([Emit(tk_keyword_reserved), Emit(tk_text_whitespace)]),
+      Some([Push("_tmp_0")]),
+    ),
+    r(
+      4176,
+      8,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      4177,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_text_whitespace),
+        Using(This, Some(["root", "variable"]), []),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      4178,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("comment")]),
+    ),
+    r(
+      4179,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("raw")]),
+    ),
+    r(
+      4180,
+      8,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Nop,
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      4181,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Nop,
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      4182,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_text_whitespace),
+        Using(This, Some(["root", "generic"]), []),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("variable-tag-markup")]),
+    ),
+    r(
+      4183,
+      8,
+      ByGroups([Emit(tk_name_tag), Emit(tk_text_whitespace)]),
+      Some([Push("tag-markup")]),
+    ),
     r(1607, 8, Emit(tk_punctuation), Some([Pop, Pop])),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(4184, 8, Emit(tk_keyword_constant), None),
@@ -1035,34 +1923,160 @@ let liquid_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(306, 8, Emit(tk_punctuation), Some([Pop])),
     r(194, 8, Emit(tk_punctuation), Some([Push("filters")])),
     r(306, 8, Emit(tk_punctuation), Some([Pop, Pop])),
-    r(4186, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("filter-markup")])),
+    r(
+      4186,
+      8,
+      ByGroups([
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("filter-markup")]),
+    ),
     r(194, 8, Emit(tk_punctuation), Some([Pop])),
     r(306, 8, Emit(tk_punctuation), Some([Pop])),
-    r(4187, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
-    r(4188, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Using(This, Some(["root", "variable"]), []), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      4187,
+      8,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
+    r(
+      4188,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Using(This, Some(["root", "variable"]), []),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(100, 8, Emit(tk_punctuation), None),
     r(76, 8, Emit(tk_text), None),
-    r(4189, 8, ByGroups([Using(This, Some(["root", "generic"]), []), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Using(This, Some(["root", "generic"]), []), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      4189,
+      8,
+      ByGroups([
+        Using(This, Some(["root", "generic"]), []),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Using(This, Some(["root", "generic"]), []),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(4190, 8, Emit(tk_operator), None),
     r(4191, 8, Emit(tk_operator_word), None),
-    r(4192, 8, ByGroups([Using(This, Some(["root", "generic"]), []), Emit(tk_text_whitespace), Emit(tk_operator_word), Emit(tk_text_whitespace), Using(This, Some(["root", "generic"]), [])]), None),
+    r(
+      4192,
+      8,
+      ByGroups([
+        Using(This, Some(["root", "generic"]), []),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator_word),
+        Emit(tk_text_whitespace),
+        Using(This, Some(["root", "generic"]), []),
+      ]),
+      None,
+    ),
     r(0, 8, Emit(tk_text_whitespace), Some([Pop])),
-    r(4193, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator), Nop, Emit(tk_text_whitespace)]), Some([Pop])),
-    r(4194, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator_word), Emit(tk_text_whitespace)]), Some([Pop])),
+    r(
+      4193,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Nop,
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      4194,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_operator_word),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
     r(76, 8, Emit(tk_text), None),
     r(1607, 8, Emit(tk_punctuation), Some([Pop, Pop])),
     r(1607, 8, Emit(tk_punctuation), Some([Pop, Pop])),
-    r(4195, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop, Pop])),
+    r(
+      4195,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_tag),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Pop, Pop]),
+    ),
     r(76, 8, Emit(tk_comment), None),
     r(1993, 8, Emit(tk_text), None),
-    r(4196, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(
+      4196,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_tag),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      Some([Pop]),
+    ),
     r(245, 8, Emit(tk_text), None),
   ]
   @lexer.RegexDef::new(
     "LiquidLexer",
-    ["root", "tag-or-block", "end-of-block", "whitespace", "generic", "keyword", "string", "number", "variable", "_tmp_0", "output", "filters", "filter-markup", "end-of-tag", "default-param-markup", "param-markup", "condition", "generic-value", "end-at-whitespace", "operator", "variable-param-markup", "tag-markup", "variable-tag-markup", "comment", "raw"],
+    [
+      "root", "tag-or-block", "end-of-block", "whitespace", "generic", "keyword",
+      "string", "number", "variable", "_tmp_0", "output", "filters", "filter-markup",
+      "end-of-tag", "default-param-markup", "param-markup", "condition", "generic-value",
+      "end-at-whitespace", "operator", "variable-param-markup", "tag-markup", "variable-tag-markup",
+      "comment", "raw",
+    ],
     rules,
-    [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14], [15], [16, 17, 18, 19, 20, 21, 22], [16], [17, 18], [19, 20], [21, 22], [14, 15, 16, 17, 18, 19, 20, 21, 22], [15, 23, 24], [15, 25, 26], [27, 28, 15, 29, 30, 17, 18, 19, 20, 16, 31, 32], [28], [15, 29, 30, 17, 18, 19, 20, 16, 31, 32], [15, 29, 30, 17, 18, 19, 20, 16, 31], [14, 15, 33, 34, 35, 36, 16, 17, 18, 19, 20, 21, 22, 15], [16, 17, 18, 19, 20, 21, 22, 37], [37], [38, 39], [15, 29, 30, 17, 18, 19, 20, 16, 31, 21, 22, 40], [41, 15, 29, 30, 17, 18, 19, 20, 16, 31, 32], [42, 15, 29, 30, 17, 18, 19, 20, 16, 31, 21, 22, 40], [43, 44], [45, 46, 47]],
+    [
+      [0, 1, 2, 3],
+      [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      [14],
+      [15],
+      [16, 17, 18, 19, 20, 21, 22],
+      [16],
+      [17, 18],
+      [19, 20],
+      [21, 22],
+      [14, 15, 16, 17, 18, 19, 20, 21, 22],
+      [15, 23, 24],
+      [15, 25, 26],
+      [27, 28, 15, 29, 30, 17, 18, 19, 20, 16, 31, 32],
+      [28],
+      [15, 29, 30, 17, 18, 19, 20, 16, 31, 32],
+      [15, 29, 30, 17, 18, 19, 20, 16, 31],
+      [14, 15, 33, 34, 35, 36, 16, 17, 18, 19, 20, 21, 22, 15],
+      [16, 17, 18, 19, 20, 21, 22, 37],
+      [37],
+      [38, 39],
+      [15, 29, 30, 17, 18, 19, 20, 16, 31, 21, 22, 40],
+      [41, 15, 29, 30, 17, 18, 19, 20, 16, 31, 32],
+      [42, 15, 29, 30, 17, 18, 19, 20, 16, 31, 21, 22, 40],
+      [43, 44],
+      [45, 46, 47],
+    ],
     extended=false,
   )
 })
@@ -1070,7 +2084,14 @@ let liquid_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LiquidLexer` (liquid).
 pub fn liquid_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(liquid_lexer_info, options, opts => liquid_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, liquid_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    liquid_lexer_info,
+    options,
+    opts => liquid_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, liquid_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1090,8 +2111,22 @@ pub let mako_css_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MakoCssLexer` (CSS+Mako).
-pub fn mako_css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mako_css_lexer_info, options, opts => mako_css_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), mako_lexer(options=lx.options), text, needle=tk_other))
+pub fn mako_css_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    mako_css_lexer_info,
+    options,
+    opts => mako_css_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        css_lexer(options=lx.options),
+        mako_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1111,8 +2146,22 @@ pub let mako_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MakoHtmlLexer` (HTML+Mako).
-pub fn mako_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mako_html_lexer_info, options, opts => mako_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), mako_lexer(options=lx.options), text, needle=tk_other))
+pub fn mako_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    mako_html_lexer_info,
+    options,
+    opts => mako_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        mako_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1122,7 +2171,9 @@ pub let mako_javascript_lexer_info : @lexer.LexerInfo = {
   aliases: ["javascript+mako", "js+mako"],
   filenames: [],
   alias_filenames: [],
-  mimetypes: ["application/x-javascript+mako", "text/x-javascript+mako", "text/javascript+mako"],
+  mimetypes: [
+    "application/x-javascript+mako", "text/x-javascript+mako", "text/javascript+mako",
+  ],
   priority: 0.0,
   url: "http://www.makotemplates.org/",
   version_added: "0.7",
@@ -1132,8 +2183,22 @@ pub let mako_javascript_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MakoJavascriptLexer` (JavaScript+Mako).
-pub fn mako_javascript_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mako_javascript_lexer_info, options, opts => mako_javascript_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), mako_lexer(options=lx.options), text, needle=tk_other))
+pub fn mako_javascript_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    mako_javascript_lexer_info,
+    options,
+    opts => mako_javascript_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        mako_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1154,20 +2219,86 @@ pub let mako_lexer_info : @lexer.LexerInfo = {
 ///|
 let mako_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(4512, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preproc), Emit(tk_keyword), Emit(tk_other)]), None),
-    r(4513, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_other)]), None),
-    r(4514, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      4512,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+        Emit(tk_keyword),
+        Emit(tk_other),
+      ]),
+      None,
+    ),
+    r(
+      4513,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_other),
+      ]),
+      None,
+    ),
+    r(
+      4514,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_single),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(4515, 24, Emit(tk_comment_multiline), None),
-    r(4516, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_name_builtin)]), Some([Push("tag")])),
-    r(4517, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_name_builtin), Emit(tk_comment_preproc)]), None),
+    r(
+      4516,
+      8,
+      ByGroups([Emit(tk_comment_preproc), Emit(tk_name_builtin)]),
+      Some([Push("tag")]),
+    ),
+    r(
+      4517,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_name_builtin),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(4518, 8, Emit(tk_comment_preproc), Some([Push("ondeftags")])),
-    r(4519, 24, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
-    r(1888, 8, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
+    r(
+      4519,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      1888,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(4520, 88, ByGroups([Emit(tk_other), Emit(tk_operator)]), None),
     r(0, 8, Emit(tk_text), None),
     r(4521, 8, Emit(tk_comment_preproc), None),
     r(4522, 8, Emit(tk_name_builtin), None),
-    r(4523, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_text), Emit(tk_literal_string)]), None),
+    r(
+      4523,
+      8,
+      ByGroups([Emit(tk_name_attribute), Emit(tk_text), Emit(tk_literal_string)]),
+      None,
+    ),
     r(1650, 8, Emit(tk_comment_preproc), Some([Pop])),
     r(0, 8, Emit(tk_text), None),
     r(314, 8, Emit(tk_literal_string), Some([Pop])),
@@ -1178,7 +2309,12 @@ let mako_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "MakoLexer",
     ["root", "ondeftags", "tag", "attr"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [13, 14, 15], [16, 17, 18]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      [11, 12, 13, 14, 15],
+      [13, 14, 15],
+      [16, 17, 18],
+    ],
     extended=false,
   )
 })
@@ -1186,7 +2322,14 @@ let mako_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MakoLexer` (Mako).
 pub fn mako_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mako_lexer_info, options, opts => mako_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mako_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    mako_lexer_info,
+    options,
+    opts => mako_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, mako_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1206,8 +2349,22 @@ pub let mako_xml_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MakoXmlLexer` (XML+Mako).
-pub fn mako_xml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mako_xml_lexer_info, options, opts => mako_xml_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), mako_lexer(options=lx.options), text, needle=tk_other))
+pub fn mako_xml_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    mako_xml_lexer_info,
+    options,
+    opts => mako_xml_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        mako_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1229,16 +2386,95 @@ pub let mason_lexer_info : @lexer.LexerInfo = {
 let mason_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(4583, 24, ByGroups([Emit(tk_name_tag), Emit(tk_comment_multiline), Emit(tk_name_tag)]), None),
-    r(4584, 24, ByGroups([Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_name_function), Emit(tk_name_tag), Using(This, None, []), Emit(tk_name_tag)]), None),
-    r(4585, 24, ByGroups([Emit(tk_name_tag), Nop, Nop, Nop, Using(Other(opts => perl_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
-    r(4586, 24, ByGroups([Emit(tk_name_tag), Emit(tk_name_function), Using(Other(opts => perl_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
-    r(4587, 24, ByGroups([Emit(tk_name_tag), Emit(tk_name_function), Using(Other(opts => perl_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
+    r(
+      4583,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_comment_multiline),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
+    r(
+      4584,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+        Emit(tk_name_tag),
+        Using(This, None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
+    r(
+      4585,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Nop,
+        Nop,
+        Nop,
+        Using(Other(opts => perl_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
+    r(
+      4586,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_name_function),
+        Using(Other(opts => perl_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
+    r(
+      4587,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_name_function),
+        Using(Other(opts => perl_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
     r(4588, 8, Emit(tk_name_tag), None),
-    r(4589, 24, ByGroups([Emit(tk_name_tag), Using(Other(opts => perl_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
+    r(
+      4589,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Using(Other(opts => perl_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
     r(4590, 8, Emit(tk_comment), None),
-    r(4591, 8, ByGroups([Emit(tk_name_tag), Using(Other(opts => perl_lexer(options=opts)), None, []), Emit(tk_other)]), None),
-    r(4592, 88, ByGroups([Using(Other(opts => html_lexer(options=opts)), None, []), Emit(tk_operator)]), None),
+    r(
+      4591,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Using(Other(opts => perl_lexer(options=opts)), None, []),
+        Emit(tk_other),
+      ]),
+      None,
+    ),
+    r(
+      4592,
+      88,
+      ByGroups([
+        Using(Other(opts => html_lexer(options=opts)), None, []),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
   ]
   @lexer.RegexDef::new(
     "MasonLexer",
@@ -1252,7 +2488,14 @@ let mason_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MasonLexer` (Mason).
 pub fn mason_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mason_lexer_info, options, opts => mason_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mason_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    mason_lexer_info,
+    options,
+    opts => mason_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, mason_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1272,8 +2515,22 @@ pub let myghty_css_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MyghtyCssLexer` (CSS+Myghty).
-pub fn myghty_css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(myghty_css_lexer_info, options, opts => myghty_css_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), myghty_lexer(options=lx.options), text, needle=tk_other))
+pub fn myghty_css_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    myghty_css_lexer_info,
+    options,
+    opts => myghty_css_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        css_lexer(options=lx.options),
+        myghty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1293,8 +2550,22 @@ pub let myghty_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MyghtyHtmlLexer` (HTML+Myghty).
-pub fn myghty_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(myghty_html_lexer_info, options, opts => myghty_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), myghty_lexer(options=lx.options), text, needle=tk_other))
+pub fn myghty_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    myghty_html_lexer_info,
+    options,
+    opts => myghty_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        myghty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1304,7 +2575,9 @@ pub let myghty_javascript_lexer_info : @lexer.LexerInfo = {
   aliases: ["javascript+myghty", "js+myghty"],
   filenames: [],
   alias_filenames: [],
-  mimetypes: ["application/x-javascript+myghty", "text/x-javascript+myghty", "text/javascript+mygthy"],
+  mimetypes: [
+    "application/x-javascript+myghty", "text/x-javascript+myghty", "text/javascript+mygthy",
+  ],
   priority: 0.0,
   url: "http://www.myghty.org/",
   version_added: "0.6",
@@ -1314,8 +2587,22 @@ pub let myghty_javascript_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MyghtyJavascriptLexer` (JavaScript+Myghty).
-pub fn myghty_javascript_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(myghty_javascript_lexer_info, options, opts => myghty_javascript_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), myghty_lexer(options=lx.options), text, needle=tk_other))
+pub fn myghty_javascript_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    myghty_javascript_lexer_info,
+    options,
+    opts => myghty_javascript_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        javascript_lexer(options=lx.options),
+        myghty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1337,14 +2624,75 @@ pub let myghty_lexer_info : @lexer.LexerInfo = {
 let myghty_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text), None),
-    r(4584, 24, ByGroups([Emit(tk_name_tag), Emit(tk_text), Emit(tk_name_function), Emit(tk_name_tag), Using(This, None, []), Emit(tk_name_tag)]), None),
-    r(4881, 24, ByGroups([Emit(tk_name_tag), Emit(tk_name_function), Emit(tk_name_tag), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
-    r(4882, 8, ByGroups([Emit(tk_name_tag), Emit(tk_name_function), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
-    r(4587, 24, ByGroups([Emit(tk_name_tag), Emit(tk_name_function), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
+    r(
+      4584,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_text),
+        Emit(tk_name_function),
+        Emit(tk_name_tag),
+        Using(This, None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
+    r(
+      4881,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_name_function),
+        Emit(tk_name_tag),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
+    r(
+      4882,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_name_function),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
+    r(
+      4587,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Emit(tk_name_function),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
     r(4588, 8, Emit(tk_name_tag), None),
-    r(4589, 24, ByGroups([Emit(tk_name_tag), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_name_tag)]), None),
+    r(
+      4589,
+      24,
+      ByGroups([
+        Emit(tk_name_tag),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_name_tag),
+      ]),
+      None,
+    ),
     r(4590, 8, Emit(tk_comment), None),
-    r(4591, 8, ByGroups([Emit(tk_name_tag), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_other)]), None),
+    r(
+      4591,
+      8,
+      ByGroups([
+        Emit(tk_name_tag),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_other),
+      ]),
+      None,
+    ),
     r(4592, 88, ByGroups([Emit(tk_other), Emit(tk_operator)]), None),
   ]
   @lexer.RegexDef::new(
@@ -1359,7 +2707,14 @@ let myghty_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MyghtyLexer` (Myghty).
 pub fn myghty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(myghty_lexer_info, options, opts => myghty_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, myghty_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    myghty_lexer_info,
+    options,
+    opts => myghty_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, myghty_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1379,8 +2734,22 @@ pub let myghty_xml_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MyghtyXmlLexer` (XML+Myghty).
-pub fn myghty_xml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(myghty_xml_lexer_info, options, opts => myghty_xml_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), myghty_lexer(options=lx.options), text, needle=tk_other))
+pub fn myghty_xml_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    myghty_xml_lexer_info,
+    options,
+    opts => myghty_xml_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        myghty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1401,7 +2770,19 @@ pub let rhtml_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RhtmlLexer` (RHTML).
 pub fn rhtml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rhtml_lexer_info, options, opts => rhtml_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), erb_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(
+    rhtml_lexer_info,
+    options,
+    opts => rhtml_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        erb_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1423,9 +2804,34 @@ pub let smarty_lexer_info : @lexer.LexerInfo = {
 let smarty_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(1993, 24, Emit(tk_other), None),
-    r(6653, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_comment), Emit(tk_comment_preproc)]), None),
-    r(6654, 24, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => php_lexer(options=opts)), None, [("startinline", "true")]), Emit(tk_comment_preproc)]), None),
-    r(6655, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_name_function), Emit(tk_text)]), Some([Push("smarty")])),
+    r(
+      6653,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_comment),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      6654,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => php_lexer(options=opts)), None, [
+          ("startinline", "true"),
+        ]),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      6655,
+      24,
+      ByGroups([Emit(tk_comment_preproc), Emit(tk_name_function), Emit(tk_text)]),
+      Some([Push("smarty")]),
+    ),
     r(245, 24, Emit(tk_comment_preproc), Some([Push("smarty")])),
     r(0, 24, Emit(tk_text), None),
     r(245, 24, Emit(tk_comment_preproc), Some([Dup])),
@@ -1451,7 +2857,14 @@ let smarty_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SmartyLexer` (Smarty).
 pub fn smarty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(smarty_lexer_info, options, opts => smarty_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, smarty_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    smarty_lexer_info,
+    options,
+    opts => smarty_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, smarty_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1471,8 +2884,22 @@ pub let sql_jinja_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `SqlJinjaLexer` (SQL+Jinja).
-pub fn sql_jinja_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sql_jinja_lexer_info, options, opts => sql_jinja_lexer(options=opts), (lx, text, _) => @lexer.delegate(sql_lexer(options=lx.options), django_lexer(options=lx.options), text, needle=tk_other))
+pub fn sql_jinja_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    sql_jinja_lexer_info,
+    options,
+    opts => sql_jinja_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        sql_lexer(options=lx.options),
+        django_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1493,7 +2920,18 @@ pub let ssp_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `SspLexer` (Scalate Server Page).
 pub fn ssp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ssp_lexer_info, options, opts => ssp_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), jsp_root_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(ssp_lexer_info, options, opts => ssp_lexer(options=opts), (
+    lx,
+    text,
+    _,
+  ) => {
+    @lexer.delegate(
+      xml_lexer(options=lx.options),
+      jsp_root_lexer(options=lx.options),
+      text,
+      needle=tk_other,
+    )
+  })
 }
 
 ///|
@@ -1513,8 +2951,22 @@ pub let tea_template_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `TeaTemplateLexer` (Tea).
-pub fn tea_template_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tea_template_lexer_info, options, opts => tea_template_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), tea_template_root_lexer(options=lx.options), text, needle=tk_other))
+pub fn tea_template_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    tea_template_lexer_info,
+    options,
+    opts => tea_template_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        tea_template_root_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1534,8 +2986,22 @@ pub let twig_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `TwigHtmlLexer` (HTML+Twig).
-pub fn twig_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(twig_html_lexer_info, options, opts => twig_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), twig_lexer(options=lx.options), text, needle=tk_other))
+pub fn twig_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    twig_html_lexer_info,
+    options,
+    opts => twig_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        twig_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1559,13 +3025,79 @@ let twig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1993, 24, Emit(tk_other), None),
     r(1591, 24, Emit(tk_comment_preproc), Some([Push("var")])),
     r(7290, 24, Emit(tk_comment), None),
-    r(1996, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc), Emit(tk_other), Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc)]), None),
-    r(7291, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc), Emit(tk_other), Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_comment_preproc)]), None),
-    r(7292, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]), Some([Push("tag")])),
-    r(1998, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword)]), Some([Push("tag")])),
+    r(
+      1996,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+        Emit(tk_other),
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      7291,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+        Emit(tk_other),
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      7292,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_name_function),
+      ]),
+      Some([Push("tag")]),
+    ),
+    r(
+      1998,
+      24,
+      ByGroups([Emit(tk_comment_preproc), Emit(tk_text), Emit(tk_keyword)]),
+      Some([Push("tag")]),
+    ),
     r(245, 24, Emit(tk_other), None),
-    r(7293, 24, ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_function)]), None),
-    r(7294, 24, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]), None),
+    r(
+      7293,
+      24,
+      ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_function)]),
+      None,
+    ),
+    r(
+      7294,
+      24,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_keyword),
+        Emit(tk_text),
+        Emit(tk_name_function),
+      ]),
+      None,
+    ),
     r(7295, 26, Emit(tk_keyword_pseudo), None),
     r(7296, 24, Emit(tk_keyword), None),
     r(7297, 24, Emit(tk_name_builtin), None),
@@ -1577,16 +3109,31 @@ let twig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7300, 24, Emit(tk_operator), None),
     r(310, 24, Emit(tk_literal_number), None),
     r(0, 24, Emit(tk_text), None),
-    r(2005, 24, ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]), Some([Pop])),
+    r(
+      2005,
+      24,
+      ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]),
+      Some([Pop]),
+    ),
     r(0, 24, Emit(tk_text), None),
-    r(2006, 24, ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]), Some([Pop])),
+    r(
+      2006,
+      24,
+      ByGroups([Emit(tk_text), Emit(tk_comment_preproc)]),
+      Some([Pop]),
+    ),
     r(76, 24, Emit(tk_punctuation), None),
   ]
   @lexer.RegexDef::new(
     "TwigLexer",
     ["root", "varnames", "var", "tag"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [20, 21, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [22, 23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 24]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [20, 21, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [22, 23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 24],
+    ],
     extended=false,
   )
 })
@@ -1594,7 +3141,14 @@ let twig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TwigLexer` (Twig).
 pub fn twig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(twig_lexer_info, options, opts => twig_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, twig_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    twig_lexer_info,
+    options,
+    opts => twig_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, twig_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1614,8 +3168,22 @@ pub let velocity_html_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `VelocityHtmlLexer` (HTML+Velocity).
-pub fn velocity_html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(velocity_html_lexer_info, options, opts => velocity_html_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), velocity_lexer(options=lx.options), text, needle=tk_other))
+pub fn velocity_html_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    velocity_html_lexer_info,
+    options,
+    opts => velocity_html_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        html_lexer(options=lx.options),
+        velocity_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1637,14 +3205,47 @@ pub let velocity_lexer_info : @lexer.LexerInfo = {
 let velocity_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(7606, 24, Emit(tk_other), None),
-    r(7607, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_comment), Emit(tk_comment_preproc)]), None),
+    r(
+      7607,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_comment),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(7608, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_comment)]), None),
-    r(7609, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_name_function), Emit(tk_comment_preproc), Emit(tk_punctuation)]), Some([Push("directiveparams")])),
-    r(7610, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_name_function), Emit(tk_comment_preproc)]), None),
+    r(
+      7609,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_name_function),
+        Emit(tk_comment_preproc),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("directiveparams")]),
+    ),
+    r(
+      7610,
+      24,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_name_function),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(7611, 24, Emit(tk_punctuation), Some([Push("variable")])),
     r(274, 24, Emit(tk_name_variable), None),
     r(138, 24, Emit(tk_punctuation), Some([Push("funcparams")])),
-    r(3001, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_variable)]), Some([Dup])),
+    r(
+      3001,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_variable)]),
+      Some([Dup]),
+    ),
     r(339, 24, Emit(tk_punctuation), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
     r(7612, 24, Emit(tk_operator), None),
@@ -1671,15 +3272,30 @@ let velocity_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "VelocityLexer",
     ["root", "variable", "directiveparams", "funcparams", "rangeoperator"],
     rules,
-    [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [28, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29]],
+    [
+      [0, 1, 2, 3, 4, 5],
+      [6, 7, 8, 9, 10],
+      [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
+      [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
+      [28, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `VelocityLexer` (Velocity).
-pub fn velocity_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(velocity_lexer_info, options, opts => velocity_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, velocity_lexer_def.force(), text, stack))
+pub fn velocity_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    velocity_lexer_info,
+    options,
+    opts => velocity_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, velocity_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1699,8 +3315,22 @@ pub let velocity_xml_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `VelocityXmlLexer` (XML+Velocity).
-pub fn velocity_xml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(velocity_xml_lexer_info, options, opts => velocity_xml_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), velocity_lexer(options=lx.options), text, needle=tk_other))
+pub fn velocity_xml_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    velocity_xml_lexer_info,
+    options,
+    opts => velocity_xml_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        velocity_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1720,8 +3350,22 @@ pub let xml_django_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `XmlDjangoLexer` (XML+Django/Jinja).
-pub fn xml_django_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(xml_django_lexer_info, options, opts => xml_django_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), django_lexer(options=lx.options), text, needle=tk_other))
+pub fn xml_django_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    xml_django_lexer_info,
+    options,
+    opts => xml_django_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        django_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1742,7 +3386,19 @@ pub let xml_erb_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `XmlErbLexer` (XML+Ruby).
 pub fn xml_erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(xml_erb_lexer_info, options, opts => xml_erb_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), erb_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(
+    xml_erb_lexer_info,
+    options,
+    opts => xml_erb_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        erb_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1763,7 +3419,19 @@ pub let xml_php_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `XmlPhpLexer` (XML+PHP).
 pub fn xml_php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(xml_php_lexer_info, options, opts => xml_php_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), php_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(
+    xml_php_lexer_info,
+    options,
+    opts => xml_php_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        php_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1783,8 +3451,22 @@ pub let xml_smarty_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `XmlSmartyLexer` (XML+Smarty).
-pub fn xml_smarty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(xml_smarty_lexer_info, options, opts => xml_smarty_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), smarty_lexer(options=lx.options), text, needle=tk_other))
+pub fn xml_smarty_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    xml_smarty_lexer_info,
+    options,
+    opts => xml_smarty_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        xml_lexer(options=lx.options),
+        smarty_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1804,8 +3486,22 @@ pub let yaml_jinja_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `YamlJinjaLexer` (YAML+Jinja).
-pub fn yaml_jinja_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(yaml_jinja_lexer_info, options, opts => yaml_jinja_lexer(options=opts), (lx, text, _) => @lexer.delegate(yaml_lexer(options=lx.options), django_lexer(options=lx.options), text, needle=tk_other))
+pub fn yaml_jinja_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    yaml_jinja_lexer_info,
+    options,
+    opts => yaml_jinja_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        yaml_lexer(options=lx.options),
+        django_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -1825,8 +3521,15 @@ let cheetah_python_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CheetahPythonLexer` (CheetahPythonLexer).
-fn cheetah_python_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cheetah_python_lexer_info, options, opts => cheetah_python_lexer(options=opts), cheetah_python_lexer_tokenizer)
+fn cheetah_python_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    cheetah_python_lexer_info,
+    options,
+    opts => cheetah_python_lexer(options=opts),
+    cheetah_python_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -1851,11 +3554,38 @@ let coldfusion_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
     r(8278, 8, Emit(tk_comment_multiline), Some([Push("cfcomment")])),
     r(8279, 24, Emit(tk_comment), None),
     r(8280, 8, Emit(tk_name_builtin), Some([Push("cfoutput")])),
-    r(8281, 24, ByGroups([Emit(tk_name_builtin), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_name_builtin)]), None),
-    r(8282, 24, ByGroups([Emit(tk_name_builtin), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_name_builtin)]), None),
+    r(
+      8281,
+      24,
+      ByGroups([
+        Emit(tk_name_builtin),
+        Using(Other(opts => coldfusion_lexer(options=opts)), None, []),
+        Emit(tk_name_builtin),
+      ]),
+      None,
+    ),
+    r(
+      8282,
+      24,
+      ByGroups([
+        Emit(tk_name_builtin),
+        Using(Other(opts => coldfusion_lexer(options=opts)), None, []),
+        Emit(tk_name_builtin),
+      ]),
+      None,
+    ),
     r(8283, 8, Emit(tk_other), None),
     r(8284, 8, Emit(tk_other), None),
-    r(8285, 8, ByGroups([Emit(tk_punctuation), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_punctuation)]), None),
+    r(
+      8285,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Using(Other(opts => coldfusion_lexer(options=opts)), None, []),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(8286, 8, Emit(tk_name_builtin), Some([Pop])),
     r(8287, 24, Emit(tk_other), None),
     r(861, 8, Emit(tk_other), None),
@@ -1867,15 +3597,29 @@ let coldfusion_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
     "ColdfusionMarkupLexer",
     ["root", "tags", "cfoutput", "cfcomment"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5], [7, 8, 9, 1, 2, 3, 4, 5, 10, 11], [12, 13, 14]],
+    [
+      [0, 1, 2, 3, 4, 5, 6],
+      [1, 2, 3, 4, 5],
+      [7, 8, 9, 1, 2, 3, 4, 5, 10, 11],
+      [12, 13, 14],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ColdfusionMarkupLexer` (Coldfusion).
-fn coldfusion_markup_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(coldfusion_markup_lexer_info, options, opts => coldfusion_markup_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, coldfusion_markup_lexer_def.force(), text, stack))
+fn coldfusion_markup_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    coldfusion_markup_lexer_info,
+    options,
+    opts => coldfusion_markup_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, coldfusion_markup_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1897,18 +3641,54 @@ let genshi_markup_lexer_info : @lexer.LexerInfo = {
 let genshi_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(8313, 16, Emit(tk_other), None),
-    r(8314, 16, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
+    r(
+      8314,
+      16,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(8315, 16, Emit(tk_other), None),
     r(8316, 16, Emit(tk_name_tag), Some([Push("pytag")])),
     r(8317, 16, Emit(tk_name_tag), Some([Push("tag")])),
-    r(2806, 16, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
+    r(
+      2806,
+      16,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(8318, 16, Emit(tk_name_variable), None),
     r(8319, 16, Emit(tk_other), None),
     r(0, 16, Emit(tk_text), None),
     r(8320, 16, Emit(tk_name_attribute), Some([Push("pyattr")])),
     r(1650, 16, Emit(tk_name_tag), Some([Pop])),
-    r(8321, 16, ByGroups([Emit(tk_literal_string), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_literal_string)]), Some([Pop])),
-    r(8322, 16, ByGroups([Emit(tk_literal_string), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_literal_string)]), Some([Pop])),
+    r(
+      8321,
+      16,
+      ByGroups([
+        Emit(tk_literal_string),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_literal_string),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      8322,
+      16,
+      ByGroups([
+        Emit(tk_literal_string),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_literal_string),
+      ]),
+      Some([Pop]),
+    ),
     r(316, 16, Emit(tk_literal_string), Some([Pop])),
     r(0, 16, Emit(tk_text), None),
     r(8323, 16, Emit(tk_name_attribute), Some([Push("pyattr")])),
@@ -1925,17 +3705,39 @@ let genshi_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "GenshiMarkupLexer",
-    ["root", "variable", "pytag", "pyattr", "tag", "attr", "attr-dstring", "strings", "attr-sstring"],
+    [
+      "root", "variable", "pytag", "pyattr", "tag", "attr", "attr-dstring", "strings",
+      "attr-sstring",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7], [5, 6], [8, 9, 10], [11, 12, 13], [14, 15, 16, 17], [18, 19, 20], [21, 22, 5, 6, 23], [22, 5, 6], [24, 22, 5, 6, 25]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      [5, 6],
+      [8, 9, 10],
+      [11, 12, 13],
+      [14, 15, 16, 17],
+      [18, 19, 20],
+      [21, 22, 5, 6, 23],
+      [22, 5, 6],
+      [24, 22, 5, 6, 25],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `GenshiMarkupLexer` (GenshiMarkupLexer).
-fn genshi_markup_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(genshi_markup_lexer_info, options, opts => genshi_markup_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, genshi_markup_lexer_def.force(), text, stack))
+fn genshi_markup_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    genshi_markup_lexer_info,
+    options,
+    opts => genshi_markup_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, genshi_markup_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -1975,7 +3777,14 @@ let jsp_root_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JspRootLexer` (JspRootLexer).
 fn jsp_root_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(jsp_root_lexer_info, options, opts => jsp_root_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, jsp_root_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    jsp_root_lexer_info,
+    options,
+    opts => jsp_root_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, jsp_root_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -2000,7 +3809,12 @@ let tea_template_root_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
     r(5499, 8, Emit(tk_other), None),
     r(736, 8, Emit(tk_other), None),
     r(2963, 8, Emit(tk_keyword), Some([Pop])),
-    r(8328, 8, Using(Other(opts => tea_lang_lexer(options=opts)), None, []), None),
+    r(
+      8328,
+      8,
+      Using(Other(opts => tea_lang_lexer(options=opts)), None, []),
+      None,
+    ),
   ]
   @lexer.RegexDef::new(
     "TeaTemplateRootLexer",
@@ -2013,6 +3827,15 @@ let tea_template_root_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
 
 ///|
 /// Creates a `TeaTemplateRootLexer` (TeaTemplateRootLexer).
-fn tea_template_root_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tea_template_root_lexer_info, options, opts => tea_template_root_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tea_template_root_lexer_def.force(), text, stack))
+fn tea_template_root_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    tea_template_root_lexer_info,
+    options,
+    opts => tea_template_root_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, tea_template_root_lexer_def.force(), text, stack)
+    },
+  )
 }

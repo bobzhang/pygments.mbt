@@ -47,13 +47,27 @@ let super_collider_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "SuperColliderLexer",
     ["commentsandwhitespace", "slashstartsregex", "badregex", "root"],
     rules,
-    [[0, 1, 2, 3], [0, 1, 2, 3, 4, 5, 6], [7], [8, 0, 1, 2, 3, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]],
+    [
+      [0, 1, 2, 3],
+      [0, 1, 2, 3, 4, 5, 6],
+      [7],
+      [8, 0, 1, 2, 3, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `SuperColliderLexer` (SuperCollider).
-pub fn super_collider_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(super_collider_lexer_info, options, opts => super_collider_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, super_collider_lexer_def.force(), text, stack))
+pub fn super_collider_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    super_collider_lexer_info,
+    options,
+    opts => super_collider_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, super_collider_lexer_def.force(), text, stack)
+    },
+  )
 }

@@ -55,7 +55,14 @@ let lean3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "Lean3Lexer",
     ["expression", "root", "attribute", "comment", "docstring", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19, 20, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [22, 23, 24, 25], [26, 27, 28], [29, 30, 31]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [17, 18, 19, 20, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [22, 23, 24, 25],
+      [26, 27, 28],
+      [29, 30, 31],
+    ],
     extended=false,
   )
 })
@@ -63,7 +70,14 @@ let lean3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Lean3Lexer` (Lean).
 pub fn lean3_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lean3_lexer_info, options, opts => lean3_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, lean3_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    lean3_lexer_info,
+    options,
+    opts => lean3_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, lean3_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -119,7 +133,14 @@ let lean4_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "Lean4Lexer",
     ["expression", "root", "attribute", "comment", "docstring", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [20, 21, 22, 23], [24, 25, 26], [27, 28, 29]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [16, 17, 18, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [20, 21, 22, 23],
+      [24, 25, 26],
+      [27, 28, 29],
+    ],
     extended=false,
   )
 })
@@ -127,5 +148,12 @@ let lean4_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Lean4Lexer` (Lean4).
 pub fn lean4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lean4_lexer_info, options, opts => lean4_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, lean4_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    lean4_lexer_info,
+    options,
+    opts => lean4_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, lean4_lexer_def.force(), text, stack)
+    },
+  )
 }

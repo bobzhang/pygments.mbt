@@ -48,7 +48,14 @@ let cpsa_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CPSALexer` (CPSA).
 pub fn cpsa_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cpsa_lexer_info, options, opts => cpsa_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cpsa_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    cpsa_lexer_info,
+    options,
+    opts => cpsa_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, cpsa_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -102,9 +109,24 @@ let common_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1440, 10, Emit(tk_literal_number_oct), None),
     r(1441, 10, Emit(tk_literal_number_hex), None),
     r(1442, 10, Emit(tk_literal_number), None),
-    r(1443, 10, ByGroups([Emit(tk_literal_number), Emit(tk_punctuation)]), Some([Push("body")])),
-    r(1444, 10, ByGroups([Emit(tk_literal_other), Emit(tk_punctuation)]), Some([Push("body")])),
-    r(1445, 10, ByGroups([Emit(tk_literal_other), Emit(tk_punctuation)]), Some([Push("body")])),
+    r(
+      1443,
+      10,
+      ByGroups([Emit(tk_literal_number), Emit(tk_punctuation)]),
+      Some([Push("body")]),
+    ),
+    r(
+      1444,
+      10,
+      ByGroups([Emit(tk_literal_other), Emit(tk_punctuation)]),
+      Some([Push("body")]),
+    ),
+    r(
+      1445,
+      10,
+      ByGroups([Emit(tk_literal_other), Emit(tk_punctuation)]),
+      Some([Push("body")]),
+    ),
     r(1446, 10, Emit(tk_literal_other), None),
     r(1447, 10, Emit(tk_operator), None),
     r(1448, 10, Emit(tk_operator), None),
@@ -121,15 +143,31 @@ let common_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "CommonLispLexer",
     ["root", "multiline-comment", "commented-form", "body"],
     rules,
-    [[0], [1, 2, 3, 4], [5, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]],
+    [
+      [0],
+      [1, 2, 3, 4],
+      [5, 6, 7],
+      [
+        8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+        27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
+        46,
+      ],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `CommonLispLexer` (Common Lisp).
-pub fn common_lisp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(common_lisp_lexer_info, options, opts => common_lisp_lexer(options=opts), common_lisp_lexer_tokenizer)
+pub fn common_lisp_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    common_lisp_lexer_info,
+    options,
+    opts => common_lisp_lexer(options=opts),
+    common_lisp_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -191,15 +229,29 @@ let emacs_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "EmacsLispLexer",
     ["root", "body", "string"],
     rules,
-    [[0], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], [30, 31, 32, 33, 34, 35]],
+    [
+      [0],
+      [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+        22, 23, 24, 25, 26, 27, 28, 29,
+      ],
+      [30, 31, 32, 33, 34, 35],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `EmacsLispLexer` (EmacsLisp).
-pub fn emacs_lisp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(emacs_lisp_lexer_info, options, opts => emacs_lisp_lexer(options=opts), emacs_lisp_lexer_tokenizer)
+pub fn emacs_lisp_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    emacs_lisp_lexer_info,
+    options,
+    opts => emacs_lisp_lexer(options=opts),
+    emacs_lisp_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -251,7 +303,14 @@ let fennel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FennelLexer` (Fennel).
 pub fn fennel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(fennel_lexer_info, options, opts => fennel_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, fennel_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    fennel_lexer_info,
+    options,
+    opts => fennel_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, fennel_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -303,7 +362,14 @@ let hy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "HyLexer",
     ["root", "py-keywords", "py-builtins"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], [13, 14], [15, 16, 17]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25,
+      ],
+      [13, 14],
+      [15, 16, 17],
+    ],
     extended=false,
   )
 })
@@ -311,7 +377,11 @@ let hy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `HyLexer` (Hy).
 pub fn hy_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(hy_lexer_info, options, opts => hy_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, hy_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(hy_lexer_info, options, opts => hy_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, hy_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -361,7 +431,10 @@ let janet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "JanetLexer",
     ["root", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 20, 21, 22, 23]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [19, 20, 21, 22, 23],
+    ],
     extended=false,
   )
 })
@@ -369,7 +442,14 @@ let janet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JanetLexer` (Janet).
 pub fn janet_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(janet_lexer_info, options, opts => janet_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, janet_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    janet_lexer_info,
+    options,
+    opts => janet_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, janet_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -418,8 +498,17 @@ let new_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NewLispLexer` (NewLisp).
-pub fn new_lisp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(new_lisp_lexer_info, options, opts => new_lisp_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, new_lisp_lexer_def.force(), text, stack))
+pub fn new_lisp_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    new_lisp_lexer_info,
+    options,
+    opts => new_lisp_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, new_lisp_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -462,7 +551,12 @@ let racket_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5980, 24, Emit(tk_literal_string_regex), Some([Pop])),
     r(5981, 8, Emit(tk_name_constant), Some([Pop])),
     r(5982, 8, Emit(tk_keyword_declaration), Some([Pop])),
-    r(5983, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_name_namespace)]), None),
+    r(
+      5983,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_name_namespace)]),
+      None,
+    ),
     r(5984, 8, Emit(tk_keyword_namespace), Some([Push("quoted-datum")])),
     r(5985, 10, Emit(tk_operator), None),
     r(5986, 8, Emit(tk_operator), Some([Pop, Push("quoted-datum")])),
@@ -494,9 +588,37 @@ let racket_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "RacketLexer",
-    ["root", "datum", "datum*", "list", "unquoted-datum", "unquoted-list", "quasiquoted-datum", "quasiquoted-list", "quoted-datum", "quoted-list", "block-comment", "string"],
+    [
+      "root", "datum", "datum*", "list", "unquoted-datum", "unquoted-list", "quasiquoted-datum",
+      "quasiquoted-list", "quoted-datum", "quoted-list", "block-comment", "string",
+    ],
     rules,
-    [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], [26, 27, 28, 29], [30], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 31, 32, 33, 34, 35, 36, 37, 26, 27, 28, 29], [30, 38], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 39, 40, 41, 26, 27, 28, 29], [30, 42], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 43, 26, 27, 28, 29], [30, 44], [45, 46, 47], [48, 49, 50]],
+    [
+      [0, 1],
+      [
+        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24, 25,
+      ],
+      [26, 27, 28, 29],
+      [30],
+      [
+        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24, 25, 31, 32, 33, 34, 35, 36, 37, 26, 27, 28, 29,
+      ],
+      [30, 38],
+      [
+        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24, 25, 39, 40, 41, 26, 27, 28, 29,
+      ],
+      [30, 42],
+      [
+        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23, 24, 25, 43, 26, 27, 28, 29,
+      ],
+      [30, 44],
+      [45, 46, 47],
+      [48, 49, 50],
+    ],
     extended=false,
   )
 })
@@ -504,7 +626,14 @@ let racket_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RacketLexer` (Racket).
 pub fn racket_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(racket_lexer_info, options, opts => racket_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, racket_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    racket_lexer_info,
+    options,
+    opts => racket_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, racket_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -567,9 +696,23 @@ let scheme_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "SchemeLexer",
-    ["root", "scheme-root", "value", "multiline-comment", "commented-form", "commented-datum", "string"],
+    [
+      "root", "scheme-root", "value", "multiline-comment", "commented-form", "commented-datum",
+      "string",
+    ],
     rules,
-    [[0], [1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [24, 25, 26, 27], [28, 29, 30], [31], [32, 33, 34, 35, 36, 37, 38]],
+    [
+      [0],
+      [1],
+      [
+        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+        23,
+      ],
+      [24, 25, 26, 27],
+      [28, 29, 30],
+      [31],
+      [32, 33, 34, 35, 36, 37, 38],
+    ],
     extended=false,
   )
 })
@@ -577,7 +720,12 @@ let scheme_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SchemeLexer` (Scheme).
 pub fn scheme_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(scheme_lexer_info, options, opts => scheme_lexer(options=opts), scheme_lexer_tokenizer)
+  @lexer.Lexer::new(
+    scheme_lexer_info,
+    options,
+    opts => scheme_lexer(options=opts),
+    scheme_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -629,7 +777,12 @@ let shen_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ShenLexer` (Shen).
 pub fn shen_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(shen_lexer_info, options, opts => shen_lexer(options=opts), shen_lexer_tokenizer)
+  @lexer.Lexer::new(
+    shen_lexer_info,
+    options,
+    opts => shen_lexer(options=opts),
+    shen_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -688,7 +841,15 @@ let xtlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "XtlangLexer",
     ["xtlang", "common", "scheme", "root"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], [15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [26, 27, 28, 29, 30, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 31], [32, 26, 27, 28, 29, 30, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 31]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25,
+      ],
+      [15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+      [26, 27, 28, 29, 30, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 31],
+      [32, 26, 27, 28, 29, 30, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 31],
+    ],
     extended=false,
   )
 })
@@ -696,5 +857,12 @@ let xtlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `XtlangLexer` (xtlang).
 pub fn xtlang_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(xtlang_lexer_info, options, opts => xtlang_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, xtlang_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    xtlang_lexer_info,
+    options,
+    opts => xtlang_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, xtlang_lexer_def.force(), text, stack)
+    },
+  )
 }

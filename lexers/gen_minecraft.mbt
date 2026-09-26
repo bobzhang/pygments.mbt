@@ -18,14 +18,24 @@ pub let mc_function_lexer_info : @lexer.LexerInfo = {
 ///|
 let mc_function_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(4446, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_builtin)]), None),
+    r(
+      4446,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_name_builtin)]),
+      None,
+    ),
     r(4447, 8, Emit(tk_name_builtin), None),
     r(4448, 8, Emit(tk_name_variable), None),
     r(4449, 8, Emit(tk_name_function), None),
     r(4450, 8, Emit(tk_name_function), None),
     r(4451, 8, Emit(tk_keyword_constant), None),
     r(4452, 8, Emit(tk_name_variable_magic), None),
-    r(4453, 8, Emit(tk_comment_multiline), Some([Push("comments.block"), Push("comments.block.emphasized")])),
+    r(
+      4453,
+      8,
+      Emit(tk_comment_multiline),
+      Some([Push("comments.block"), Push("comments.block.emphasized")]),
+    ),
     r(627, 8, Emit(tk_comment_single), None),
     r(203, 8, Emit(tk_literal), None),
     r(4454, 8, Emit(tk_keyword_pseudo), None),
@@ -33,15 +43,45 @@ let mc_function_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4456, 8, Emit(tk_literal_number_byte), None),
     r(4457, 8, Emit(tk_literal_number_float), None),
     r(4458, 8, Emit(tk_literal_number_integer), None),
-    r(173, 8, Emit(tk_literal_string_double), Some([Push("literals.string-double")])),
-    r(224, 8, Emit(tk_literal_string_single), Some([Push("literals.string-single")])),
+    r(
+      173,
+      8,
+      Emit(tk_literal_string_double),
+      Some([Push("literals.string-double")]),
+    ),
+    r(
+      224,
+      8,
+      Emit(tk_literal_string_single),
+      Some([Push("literals.string-single")]),
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(245, 8, Emit(tk_punctuation), Some([Push("property.curly"), Push("property.key")])),
-    r(144, 8, Emit(tk_punctuation), Some([Push("property.square"), Push("property.key")])),
+    r(
+      245,
+      8,
+      Emit(tk_punctuation),
+      Some([Push("property.curly"), Push("property.key")]),
+    ),
+    r(
+      144,
+      8,
+      Emit(tk_punctuation),
+      Some([Push("property.square"), Push("property.key")]),
+    ),
     r(4459, 8, Emit(tk_operator), None),
     r(4460, 8, Emit(tk_name_variable), None),
-    r(4461, 8, Emit(tk_comment_multiline), Some([Push("comments.block.emphasized")])),
-    r(4462, 8, Emit(tk_comment_multiline), Some([Push("comments.block.normal")])),
+    r(
+      4461,
+      8,
+      Emit(tk_comment_multiline),
+      Some([Push("comments.block.emphasized")]),
+    ),
+    r(
+      4462,
+      8,
+      Emit(tk_comment_multiline),
+      Some([Push("comments.block.normal")]),
+    ),
     r(98, 0, Nop, Some([Pop])),
     r(4463, 8, Emit(tk_name_decorator), None),
     r(4452, 8, Emit(tk_name_variable_magic), None),
@@ -63,7 +103,12 @@ let mc_function_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4466, 8, Emit(tk_name_attribute), Some([Push("property.delimiter")])),
     r(173, 8, Emit(tk_name_attribute), Some([Push("property.delimiter")])),
     r(224, 8, Emit(tk_name_attribute), Some([Push("property.delimiter")])),
-    r(809, 8, Emit(tk_literal_number_integer), Some([Push("property.delimiter")])),
+    r(
+      809,
+      8,
+      Emit(tk_literal_number_integer),
+      Some([Push("property.delimiter")]),
+    ),
     r(98, 0, Nop, Some([Pop])),
     r(583, 8, Emit(tk_literal_string_escape), None),
     r(434, 8, Emit(tk_name_attribute), None),
@@ -80,17 +125,58 @@ let mc_function_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "MCFunctionLexer",
-    ["root", "names", "resource-name", "comments", "literals", "whitespace", "property", "operators", "selectors", "comments.block", "comments.block.normal", "comments.block.special", "comments.block.emphasized", "literals.string-double", "literals.string-single", "property.curly", "property.square", "property.key", "property.key.string-double", "property.key.string-single", "property.delimiter", "property.value"],
+    [
+      "root", "names", "resource-name", "comments", "literals", "whitespace", "property",
+      "operators", "selectors", "comments.block", "comments.block.normal", "comments.block.special",
+      "comments.block.emphasized", "literals.string-double", "literals.string-single",
+      "property.curly", "property.square", "property.key", "property.key.string-double",
+      "property.key.string-single", "property.delimiter", "property.value",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [0, 1, 2, 3, 4, 5, 6], [3, 4], [7, 8], [9, 10, 11, 12, 13, 14, 15, 16], [17], [18, 19], [20], [21], [22, 23, 24], [25, 3, 4, 26, 27, 28, 17], [25, 3, 4, 26], [25, 3, 4, 26, 29, 30, 17], [31, 32, 33], [34, 35, 36], [17, 18, 19, 37], [17, 18, 19, 38, 39], [17, 40, 41, 42, 43, 44, 45, 46], [47, 48, 49], [50, 51, 52], [17, 53, 54, 55], [17, 56, 57, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 58]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21,
+      ],
+      [0, 1, 2, 3, 4, 5, 6],
+      [3, 4],
+      [7, 8],
+      [9, 10, 11, 12, 13, 14, 15, 16],
+      [17],
+      [18, 19],
+      [20],
+      [21],
+      [22, 23, 24],
+      [25, 3, 4, 26, 27, 28, 17],
+      [25, 3, 4, 26],
+      [25, 3, 4, 26, 29, 30, 17],
+      [31, 32, 33],
+      [34, 35, 36],
+      [17, 18, 19, 37],
+      [17, 18, 19, 38, 39],
+      [17, 40, 41, 42, 43, 44, 45, 46],
+      [47, 48, 49],
+      [50, 51, 52],
+      [17, 53, 54, 55],
+      [17, 56, 57, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 58],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `MCFunctionLexer` (MCFunction).
-pub fn mc_function_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mc_function_lexer_info, options, opts => mc_function_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mc_function_lexer_def.force(), text, stack))
+pub fn mc_function_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    mc_function_lexer_info,
+    options,
+    opts => mc_function_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, mc_function_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -139,22 +225,61 @@ let mc_schema_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(224, 8, Emit(tk_literal_string_single), Some([Push("singlestring")])),
     r(173, 8, Emit(tk_literal_string_double), Some([Push("doublestring")])),
     r(4473, 8, Emit(tk_literal_string_symbol), None),
-    r(4474, 8, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_operator), Emit(tk_literal_number_integer), Emit(tk_operator), Emit(tk_literal_number_integer), Emit(tk_operator), Emit(tk_literal_number_integer), Emit(tk_operator), Emit(tk_literal_string), Emit(tk_operator), Emit(tk_literal_string)]), None),
+    r(
+      4474,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_symbol),
+        Emit(tk_operator),
+        Emit(tk_literal_number_integer),
+        Emit(tk_operator),
+        Emit(tk_literal_number_integer),
+        Emit(tk_operator),
+        Emit(tk_literal_number_integer),
+        Emit(tk_operator),
+        Emit(tk_literal_string),
+        Emit(tk_operator),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
     r(1915, 8, Emit(tk_text), None),
   ]
   @lexer.RegexDef::new(
     "MCSchemaLexer",
-    ["commentsandwhitespace", "slashstartsregex", "badregex", "singlestring", "doublestring", "root"],
+    [
+      "commentsandwhitespace", "slashstartsregex", "badregex", "singlestring", "doublestring",
+      "root",
+    ],
     rules,
-    [[0, 1, 2], [0, 1, 2, 3, 4, 5], [6], [7, 8, 9], [10, 11, 12], [13, 0, 1, 2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]],
+    [
+      [0, 1, 2],
+      [0, 1, 2, 3, 4, 5],
+      [6],
+      [7, 8, 9],
+      [10, 11, 12],
+      [
+        13, 0, 1, 2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+        29,
+      ],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `MCSchemaLexer` (MCSchema).
-pub fn mc_schema_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mc_schema_lexer_info, options, opts => mc_schema_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mc_schema_lexer_def.force(), text, stack))
+pub fn mc_schema_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    mc_schema_lexer_info,
+    options,
+    opts => mc_schema_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, mc_schema_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -183,8 +308,18 @@ let snbt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6387, 8, Emit(tk_literal_number_float), None),
     r(6388, 8, Emit(tk_literal_number_float), None),
     r(6389, 8, Emit(tk_literal_number_integer), None),
-    r(173, 8, Emit(tk_literal_string_double), Some([Push("literals.string_double")])),
-    r(224, 8, Emit(tk_literal_string_single), Some([Push("literals.string_single")])),
+    r(
+      173,
+      8,
+      Emit(tk_literal_string_double),
+      Some([Push("literals.string_double")]),
+    ),
+    r(
+      224,
+      8,
+      Emit(tk_literal_string_single),
+      Some([Push("literals.string_single")]),
+    ),
     r(583, 8, Emit(tk_literal_string_escape), None),
     r(434, 8, Emit(tk_literal_string_double), None),
     r(173, 8, Emit(tk_literal_string_double), Some([Pop])),
@@ -202,9 +337,21 @@ let snbt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "SNBTLexer",
-    ["root", "whitespace", "operators", "literals", "literals.string_double", "literals.string_single", "compound", "list"],
+    [
+      "root", "whitespace", "operators", "literals", "literals.string_double", "literals.string_single",
+      "compound", "list",
+    ],
     rules,
-    [[0, 1], [2], [3], [4, 5, 6, 7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 3, 2, 4, 5, 6, 7, 8, 9, 17, 18, 19], [20, 4, 5, 6, 7, 8, 9, 3, 2, 21, 22, 23]],
+    [
+      [0, 1],
+      [2],
+      [3],
+      [4, 5, 6, 7, 8, 9],
+      [10, 11, 12],
+      [13, 14, 15],
+      [16, 3, 2, 4, 5, 6, 7, 8, 9, 17, 18, 19],
+      [20, 4, 5, 6, 7, 8, 9, 3, 2, 21, 22, 23],
+    ],
     extended=false,
   )
 })
@@ -212,5 +359,12 @@ let snbt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SNBTLexer` (SNBT).
 pub fn snbt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(snbt_lexer_info, options, opts => snbt_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, snbt_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    snbt_lexer_info,
+    options,
+    opts => snbt_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, snbt_lexer_def.force(), text, stack)
+    },
+  )
 }

@@ -50,9 +50,28 @@ let auto_it_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "AutoItLexer",
-    ["root", "commands", "labels", "builtInFunctions", "builtInMarcros", "stringescape", "dqs", "strings", "_tmp_0", "numbers", "garbage", "sqs"],
+    [
+      "root", "commands", "labels", "builtInFunctions", "builtInMarcros", "stringescape",
+      "dqs", "strings", "_tmp_0", "numbers", "garbage", "sqs",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [6], [7], [8], [9], [23], [24, 25], [25], [23, 24, 25], [12, 13, 14, 15, 16, 17], [22], [26, 27, 28]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22,
+      ],
+      [6],
+      [7],
+      [8],
+      [9],
+      [23],
+      [24, 25],
+      [25],
+      [23, 24, 25],
+      [12, 13, 14, 15, 16, 17],
+      [22],
+      [26, 27, 28],
+    ],
     extended=false,
   )
 })
@@ -60,7 +79,14 @@ let auto_it_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AutoItLexer` (AutoIt).
 pub fn auto_it_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(auto_it_lexer_info, options, opts => auto_it_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, auto_it_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    auto_it_lexer_info,
+    options,
+    opts => auto_it_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, auto_it_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -81,8 +107,18 @@ pub let autohotkey_lexer_info : @lexer.LexerInfo = {
 ///|
 let autohotkey_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(610, 8, ByGroups([Emit(tk_text), Emit(tk_comment_multiline)]), Some([Push("incomment")])),
-    r(611, 8, ByGroups([Emit(tk_text), Emit(tk_generic)]), Some([Push("incontinuation")])),
+    r(
+      610,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_comment_multiline)]),
+      Some([Push("incomment")]),
+    ),
+    r(
+      611,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_generic)]),
+      Some([Push("incontinuation")]),
+    ),
     r(612, 8, Emit(tk_comment_single), None),
     r(613, 8, Emit(tk_comment_single), None),
     r(614, 8, Emit(tk_punctuation), None),
@@ -117,15 +153,44 @@ let autohotkey_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "AutohotkeyLexer",
-    ["root", "commands", "labels", "builtInFunctions", "builtInVariables", "stringescape", "dqs", "strings", "_tmp_0", "numbers", "garbage", "incomment", "incontinuation"],
+    [
+      "root", "commands", "labels", "builtInFunctions", "builtInVariables", "stringescape",
+      "dqs", "strings", "_tmp_0", "numbers", "garbage", "incomment", "incontinuation",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [8], [9, 10], [11], [12], [24], [25, 26], [26], [24, 25, 26], [14, 15, 16, 17, 18, 19], [23], [27, 28, 29], [30, 31, 32]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23,
+      ],
+      [8],
+      [9, 10],
+      [11],
+      [12],
+      [24],
+      [25, 26],
+      [26],
+      [24, 25, 26],
+      [14, 15, 16, 17, 18, 19],
+      [23],
+      [27, 28, 29],
+      [30, 31, 32],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `AutohotkeyLexer` (autohotkey).
-pub fn autohotkey_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(autohotkey_lexer_info, options, opts => autohotkey_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, autohotkey_lexer_def.force(), text, stack))
+pub fn autohotkey_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    autohotkey_lexer_info,
+    options,
+    opts => autohotkey_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, autohotkey_lexer_def.force(), text, stack)
+    },
+  )
 }

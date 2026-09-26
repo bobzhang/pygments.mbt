@@ -17,8 +17,22 @@ pub let c_objdump_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CObjdumpLexer` (c-objdump).
-pub fn c_objdump_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(c_objdump_lexer_info, options, opts => c_objdump_lexer(options=opts), (lx, text, _) => @lexer.delegate(c_lexer(options=lx.options), objdump_lexer(options=lx.options), text, needle=tk_other))
+pub fn c_objdump_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    c_objdump_lexer_info,
+    options,
+    opts => c_objdump_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        c_lexer(options=lx.options),
+        objdump_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -65,7 +79,14 @@ let ca65_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Ca65Lexer` (ca65 assembler).
 pub fn ca65_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ca65_lexer_info, options, opts => ca65_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ca65_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    ca65_lexer_info,
+    options,
+    opts => ca65_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, ca65_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -85,8 +106,22 @@ pub let cpp_objdump_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CppObjdumpLexer` (cpp-objdump).
-pub fn cpp_objdump_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cpp_objdump_lexer_info, options, opts => cpp_objdump_lexer(options=opts), (lx, text, _) => @lexer.delegate(cpp_lexer(options=lx.options), objdump_lexer(options=lx.options), text, needle=tk_other))
+pub fn cpp_objdump_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    cpp_objdump_lexer_info,
+    options,
+    opts => cpp_objdump_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        cpp_lexer(options=lx.options),
+        objdump_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -106,8 +141,22 @@ pub let d_objdump_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `DObjdumpLexer` (d-objdump).
-pub fn d_objdump_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(d_objdump_lexer_info, options, opts => d_objdump_lexer(options=opts), (lx, text, _) => @lexer.delegate(d_lexer(options=lx.options), objdump_lexer(options=lx.options), text, needle=tk_other))
+pub fn d_objdump_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    d_objdump_lexer_info,
+    options,
+    opts => d_objdump_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        d_lexer(options=lx.options),
+        objdump_lexer(options=lx.options),
+        text,
+        needle=tk_other,
+      )
+    },
+  )
 }
 
 ///|
@@ -151,9 +200,21 @@ let dasm16_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "Dasm16Lexer",
-    ["root", "whitespace", "numeric", "arg", "deref", "instruction-line", "instruction-args", "data-args"],
+    [
+      "root", "whitespace", "numeric", "arg", "deref", "instruction-line", "instruction-args",
+      "data-args",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2], [8, 9, 10], [11, 8, 9, 10], [12, 13, 11, 8, 9, 10, 0, 1, 2], [14, 15, 0, 1, 2], [16, 17, 11, 8, 9, 10, 14, 15, 0, 1, 2], [18, 8, 9, 10, 19, 14, 15, 0, 1, 2]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      [0, 1, 2],
+      [8, 9, 10],
+      [11, 8, 9, 10],
+      [12, 13, 11, 8, 9, 10, 0, 1, 2],
+      [14, 15, 0, 1, 2],
+      [16, 17, 11, 8, 9, 10, 14, 15, 0, 1, 2],
+      [18, 8, 9, 10, 19, 14, 15, 0, 1, 2],
+    ],
     extended=false,
   )
 })
@@ -161,7 +222,20 @@ let dasm16_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Dasm16Lexer` (DASM16).
 pub fn dasm16_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dasm16_lexer_info, options, opts => dasm16_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dasm16_lexer_def.force(), text, stack, callbacks=dasm16_lexer_callbacks(lx)))
+  @lexer.Lexer::new(
+    dasm16_lexer_info,
+    options,
+    opts => dasm16_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(
+        lx,
+        dasm16_lexer_def.force(),
+        text,
+        stack,
+        callbacks=dasm16_lexer_callbacks(lx),
+      )
+    },
+  )
 }
 
 ///|
@@ -201,8 +275,32 @@ let gas_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1065, 8, Emit(tk_comment_multiline), None),
     r(2795, 8, Emit(tk_comment_multiline), Some([Pop])),
     r(2796, 8, Emit(tk_punctuation), None),
-    r(2797, 8, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_constant), Emit(tk_punctuation)]), None),
-    r(2798, 8, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_constant), Emit(tk_punctuation), Emit(tk_literal_number_integer), Emit(tk_punctuation)]), None),
+    r(
+      2797,
+      8,
+      ByGroups([
+        Emit(tk_literal_number_hex),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_name_constant),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      2798,
+      8,
+      ByGroups([
+        Emit(tk_literal_number_hex),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_name_constant),
+        Emit(tk_punctuation),
+        Emit(tk_literal_number_integer),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(2791, 8, Emit(tk_name_constant), None),
     r(2793, 8, Emit(tk_literal_number_integer), None),
     r(2794, 8, Emit(tk_name_variable), None),
@@ -217,7 +315,13 @@ let gas_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "GasLexer",
     ["root", "whitespace", "directive-args", "punctuation", "instruction-args"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8], [0, 1, 2, 3], [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0, 1, 2, 3], [18], [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 18, 0, 1, 2, 3]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      [0, 1, 2, 3],
+      [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0, 1, 2, 3],
+      [18],
+      [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 18, 0, 1, 2, 3],
+    ],
     extended=false,
   )
 })
@@ -225,7 +329,11 @@ let gas_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GasLexer` (GAS).
 pub fn gas_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gas_lexer_info, options, opts => gas_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gas_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(gas_lexer_info, options, opts => gas_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, gas_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -275,7 +383,15 @@ let hsail_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "HsailLexer",
     ["root", "whitespace", "comments", "keyword"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [0], [1, 2], [6, 7, 8, 9, 10, 11, 12, 13, 14, 15]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23,
+      ],
+      [0],
+      [1, 2],
+      [6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    ],
     extended=false,
   )
 })
@@ -283,7 +399,14 @@ let hsail_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `HsailLexer` (HSAIL).
 pub fn hsail_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(hsail_lexer_info, options, opts => hsail_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, hsail_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    hsail_lexer_info,
+    options,
+    opts => hsail_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, hsail_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -330,7 +453,12 @@ let llvm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "LlvmLexer",
     ["root", "whitespace", "keyword", "c-comment"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [0, 1, 2], [4, 5, 6], [18, 19, 20]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+      [0, 1, 2],
+      [4, 5, 6],
+      [18, 19, 20],
+    ],
     extended=false,
   )
 })
@@ -338,7 +466,14 @@ let llvm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LlvmLexer` (LLVM).
 pub fn llvm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(llvm_lexer_info, options, opts => llvm_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, llvm_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    llvm_lexer_info,
+    options,
+    opts => llvm_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, llvm_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -375,25 +510,70 @@ let llvm_mir_body_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4235, 8, Emit(tk_name_builtin), None),
     r(4236, 8, Emit(tk_name_builtin), None),
     r(4237, 8, Emit(tk_keyword), None),
-    r(4238, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace)]), Some([Push("constantint")])),
+    r(
+      4238,
+      8,
+      ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace)]),
+      Some([Push("constantint")]),
+    ),
     r(4239, 8, Emit(tk_keyword_type), Some([Push("constantfloat")])),
     r(4240, 8, Emit(tk_literal_number_integer), None),
-    r(4241, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace)]), Some([Push("mmo")])),
+    r(
+      4241,
+      8,
+      ByGroups([Emit(tk_operator), Emit(tk_text_whitespace)]),
+      Some([Push("mmo")]),
+    ),
     r(1091, 8, Emit(tk_comment), None),
     r(4242, 8, Emit(tk_name), None),
     r(4243, 8, Emit(tk_text), None),
     r(3096, 8, Emit(tk_text), Some([Pop])),
     r(4244, 8, Emit(tk_literal_number_float), None),
     r(3096, 8, Emit(tk_text), Some([Pop])),
-    r(4245, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Pop, Push("vreg_bank_or_class")])),
-    r(4246, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_text)]), Some([Push("vreg_type")])),
+    r(
+      4245,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      Some([Pop, Push("vreg_bank_or_class")]),
+    ),
+    r(
+      4246,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_text)]),
+      Some([Push("vreg_type")]),
+    ),
     r(3096, 8, Emit(tk_text), Some([Pop])),
-    r(4247, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_variable_magic)]), None),
-    r(4248, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
-    r(4246, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_text)]), Some([Push("vreg_type")])),
+    r(
+      4247,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_name_variable_magic)]),
+      None,
+    ),
+    r(
+      4248,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_name_variable)]),
+      None,
+    ),
+    r(
+      4246,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_text)]),
+      Some([Push("vreg_type")]),
+    ),
     r(3096, 8, Emit(tk_text), Some([Pop])),
-    r(4249, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
-    r(4250, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
+    r(
+      4249,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_type)]),
+      None,
+    ),
+    r(
+      4250,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_type)]),
+      None,
+    ),
     r(96, 8, Emit(tk_text), Some([Pop])),
     r(3096, 8, Emit(tk_text), Some([Pop])),
     r(138, 8, Emit(tk_text), None),
@@ -408,17 +588,43 @@ let llvm_mir_body_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "LlvmMirBodyLexer",
-    ["root", "global", "integer", "constantint", "constantfloat", "float", "vreg", "vreg_bank_or_class", "vreg_type", "mmo"],
+    [
+      "root", "global", "integer", "constantint", "constantfloat", "float", "vreg",
+      "vreg_bank_or_class", "vreg_type", "mmo",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [7], [18], [18, 23], [24, 25], [24], [26, 27, 28], [29, 30, 31, 32], [33, 34, 35, 36], [37, 38, 39, 40, 41, 42, 18, 7, 43, 44, 45]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22,
+      ],
+      [7],
+      [18],
+      [18, 23],
+      [24, 25],
+      [24],
+      [26, 27, 28],
+      [29, 30, 31, 32],
+      [33, 34, 35, 36],
+      [37, 38, 39, 40, 41, 42, 18, 7, 43, 44, 45],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `LlvmMirBodyLexer` (LLVM-MIR Body).
-pub fn llvm_mir_body_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(llvm_mir_body_lexer_info, options, opts => llvm_mir_body_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, llvm_mir_body_lexer_def.force(), text, stack))
+pub fn llvm_mir_body_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    llvm_mir_body_lexer_info,
+    options,
+    opts => llvm_mir_body_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, llvm_mir_body_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -444,7 +650,12 @@ let llvm_mir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4258, 8, Emit(tk_keyword), Some([Push("llvm_mir")])),
     r(4259, 8, Emit(tk_text), None),
     r(4260, 8, Emit(tk_keyword), Some([Pop])),
-    r(4261, 8, ByGroups([Using(Other(opts => llvm_lexer(options=opts)), None, [])]), None),
+    r(
+      4261,
+      8,
+      ByGroups([Using(Other(opts => llvm_lexer(options=opts)), None, [])]),
+      None,
+    ),
     r(1103, 8, Emit(tk_comment), None),
     r(4260, 8, Emit(tk_keyword), Some([Pop])),
     r(4262, 8, Emit(tk_keyword), Some([Push("name")])),
@@ -461,22 +672,55 @@ let llvm_mir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4269, 8, Emit(tk_literal_number), None),
     r(98, 0, Nop, Some([Pop])),
     r(4260, 8, Emit(tk_keyword), Some([Pop, Pop])),
-    r(4270, 8, ByGroups([Using(Other(opts => llvm_mir_body_lexer(options=opts)), None, [])]), None),
-    r(4271, 8, ByGroups([Using(Other(opts => llvm_mir_body_lexer(options=opts)), None, [])]), None),
+    r(
+      4270,
+      8,
+      ByGroups([
+        Using(Other(opts => llvm_mir_body_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
+    r(
+      4271,
+      8,
+      ByGroups([
+        Using(Other(opts => llvm_mir_body_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
   ]
   @lexer.RegexDef::new(
     "LlvmMirLexer",
-    ["root", "llvm_ir", "llvm_mir", "name", "boolean", "number", "llvm_mir_body"],
+    [
+      "root", "llvm_ir", "llvm_mir", "name", "boolean", "number", "llvm_mir_body",
+    ],
     rules,
-    [[0, 1, 2, 3], [4, 5], [6, 7, 8, 9, 10, 11, 12, 13, 14], [15, 16], [17, 18], [19, 20], [21, 22, 23]],
+    [
+      [0, 1, 2, 3],
+      [4, 5],
+      [6, 7, 8, 9, 10, 11, 12, 13, 14],
+      [15, 16],
+      [17, 18],
+      [19, 20],
+      [21, 22, 23],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `LlvmMirLexer` (LLVM-MIR).
-pub fn llvm_mir_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(llvm_mir_lexer_info, options, opts => llvm_mir_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, llvm_mir_lexer_def.force(), text, stack))
+pub fn llvm_mir_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    llvm_mir_lexer_info,
+    options,
+    opts => llvm_mir_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, llvm_mir_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -503,7 +747,16 @@ let nasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1091, 10, Emit(tk_comment_single), None),
     r(1103, 10, Emit(tk_comment_single), None),
     r(4913, 10, Emit(tk_name_label), None),
-    r(4914, 10, ByGroups([Emit(tk_name_constant), Emit(tk_text_whitespace), Emit(tk_keyword_declaration)]), Some([Push("instruction-args")])),
+    r(
+      4914,
+      10,
+      ByGroups([
+        Emit(tk_name_constant),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_declaration),
+      ]),
+      Some([Push("instruction-args")]),
+    ),
     r(4915, 10, Emit(tk_keyword), Some([Push("instruction-args")])),
     r(4916, 10, Emit(tk_keyword_declaration), Some([Push("instruction-args")])),
     r(4917, 10, Emit(tk_name_function), Some([Push("instruction-args")])),
@@ -530,7 +783,13 @@ let nasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "NasmLexer",
     ["root", "whitespace", "instruction-args", "punctuation", "preproc"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4], [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 1, 2, 3, 4], [17, 18, 19, 20, 21], [25, 26, 27]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      [1, 2, 3, 4],
+      [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 1, 2, 3, 4],
+      [17, 18, 19, 20, 21],
+      [25, 26, 27],
+    ],
     extended=false,
   )
 })
@@ -538,7 +797,14 @@ let nasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NasmLexer` (NASM).
 pub fn nasm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(nasm_lexer_info, options, opts => nasm_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nasm_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    nasm_lexer_info,
+    options,
+    opts => nasm_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, nasm_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -559,17 +825,126 @@ pub let nasm_objdump_lexer_info : @lexer.LexerInfo = {
 ///|
 let nasm_objdump_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(4929, 8, ByGroups([Emit(tk_name_label), Emit(tk_punctuation), Emit(tk_text), Emit(tk_literal_string)]), None),
-    r(4930, 8, ByGroups([Emit(tk_text), Emit(tk_name_label), Emit(tk_punctuation)]), None),
-    r(4931, 8, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name_function), Emit(tk_punctuation), Emit(tk_literal_number_hex), Emit(tk_punctuation)]), None),
-    r(4932, 8, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name_function), Emit(tk_punctuation)]), None),
-    r(4933, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Using(Other(opts => nasm_lexer(options=opts)), None, [])]), None),
-    r(4934, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Using(Other(opts => nasm_lexer(options=opts)), None, [])]), None),
-    r(4935, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
-    r(4936, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_literal_number_hex)]), None),
+    r(
+      4929,
+      8,
+      ByGroups([
+        Emit(tk_name_label),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
+    r(
+      4930,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_name_label), Emit(tk_punctuation)]),
+      None,
+    ),
+    r(
+      4931,
+      8,
+      ByGroups([
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+        Emit(tk_literal_number_hex),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      4932,
+      8,
+      ByGroups([
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      4933,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Using(Other(opts => nasm_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
+    r(
+      4934,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Using(Other(opts => nasm_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
+    r(
+      4935,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
+    r(
+      4936,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_hex),
+      ]),
+      None,
+    ),
     r(4937, 8, Emit(tk_text), None),
-    r(4938, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_name_property), Emit(tk_text_whitespace), Emit(tk_name_constant), Emit(tk_punctuation), Emit(tk_literal_number_hex)]), None),
-    r(4939, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_name_property), Emit(tk_text_whitespace), Emit(tk_name_constant)]), None),
+    r(
+      4938,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_property),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_constant),
+        Emit(tk_punctuation),
+        Emit(tk_literal_number_hex),
+      ]),
+      None,
+    ),
+    r(
+      4939,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_property),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_constant),
+      ]),
+      None,
+    ),
     r(4940, 8, Emit(tk_other), None),
   ]
   @lexer.RegexDef::new(
@@ -583,8 +958,17 @@ let nasm_objdump_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NasmObjdumpLexer` (objdump-nasm).
-pub fn nasm_objdump_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(nasm_objdump_lexer_info, options, opts => nasm_objdump_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nasm_objdump_lexer_def.force(), text, stack))
+pub fn nasm_objdump_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    nasm_objdump_lexer_info,
+    options,
+    opts => nasm_objdump_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, nasm_objdump_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -605,17 +989,126 @@ pub let objdump_lexer_info : @lexer.LexerInfo = {
 ///|
 let objdump_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(4929, 8, ByGroups([Emit(tk_name_label), Emit(tk_punctuation), Emit(tk_text), Emit(tk_literal_string)]), None),
-    r(4930, 8, ByGroups([Emit(tk_text), Emit(tk_name_label), Emit(tk_punctuation)]), None),
-    r(4931, 8, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name_function), Emit(tk_punctuation), Emit(tk_literal_number_hex), Emit(tk_punctuation)]), None),
-    r(4932, 8, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name_function), Emit(tk_punctuation)]), None),
-    r(4933, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Using(Other(opts => gas_lexer(options=opts)), None, [])]), None),
-    r(4934, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Using(Other(opts => gas_lexer(options=opts)), None, [])]), None),
-    r(4935, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
-    r(4936, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_literal_number_hex)]), None),
+    r(
+      4929,
+      8,
+      ByGroups([
+        Emit(tk_name_label),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
+    r(
+      4930,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_name_label), Emit(tk_punctuation)]),
+      None,
+    ),
+    r(
+      4931,
+      8,
+      ByGroups([
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+        Emit(tk_literal_number_hex),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      4932,
+      8,
+      ByGroups([
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_name_function),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      4933,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Using(Other(opts => gas_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
+    r(
+      4934,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Using(Other(opts => gas_lexer(options=opts)), None, []),
+      ]),
+      None,
+    ),
+    r(
+      4935,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_hex),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
+    r(
+      4936,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_hex),
+      ]),
+      None,
+    ),
     r(4937, 8, Emit(tk_text), None),
-    r(4938, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_name_property), Emit(tk_text_whitespace), Emit(tk_name_constant), Emit(tk_punctuation), Emit(tk_literal_number_hex)]), None),
-    r(4939, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_name_property), Emit(tk_text_whitespace), Emit(tk_name_constant)]), None),
+    r(
+      4938,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_property),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_constant),
+        Emit(tk_punctuation),
+        Emit(tk_literal_number_hex),
+      ]),
+      None,
+    ),
+    r(
+      4939,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_label),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_property),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_constant),
+      ]),
+      None,
+    ),
     r(4940, 8, Emit(tk_other), None),
   ]
   @lexer.RegexDef::new(
@@ -630,7 +1123,14 @@ let objdump_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ObjdumpLexer` (objdump).
 pub fn objdump_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(objdump_lexer_info, options, opts => objdump_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, objdump_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    objdump_lexer_info,
+    options,
+    opts => objdump_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, objdump_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -658,7 +1158,16 @@ let tasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1091, 10, Emit(tk_comment_single), None),
     r(7096, 10, Emit(tk_name_label), None),
     r(7097, 10, Emit(tk_keyword), Some([Push("instruction-args")])),
-    r(7098, 10, ByGroups([Emit(tk_name_constant), Emit(tk_text_whitespace), Emit(tk_keyword_declaration)]), Some([Push("instruction-args")])),
+    r(
+      7098,
+      10,
+      ByGroups([
+        Emit(tk_name_constant),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_declaration),
+      ]),
+      Some([Push("instruction-args")]),
+    ),
     r(4916, 10, Emit(tk_keyword_declaration), Some([Push("instruction-args")])),
     r(7099, 10, Emit(tk_name_function), Some([Push("instruction-args")])),
     r(29, 10, Emit(tk_text_whitespace), None),
@@ -675,7 +1184,17 @@ let tasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4926, 10, Emit(tk_keyword_type), None),
     r(7103, 10, Emit(tk_name_builtin), None),
     r(7099, 10, Emit(tk_name_variable), None),
-    r(7104, 10, ByGroups([Emit(tk_text), Emit(tk_text_whitespace), Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      7104,
+      10,
+      ByGroups([
+        Emit(tk_text),
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_single),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(29, 10, Emit(tk_text_whitespace), Some([Pop])),
     r(4928, 10, Emit(tk_comment_preproc), None),
     r(881, 10, Emit(tk_comment_single), Some([Pop])),
@@ -685,7 +1204,13 @@ let tasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "TasmLexer",
     ["root", "whitespace", "instruction-args", "punctuation", "preproc"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4], [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 1, 2, 3, 4], [17, 18, 19, 20, 21], [26, 27, 28]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      [1, 2, 3, 4],
+      [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 1, 2, 3, 4],
+      [17, 18, 19, 20, 21],
+      [26, 27, 28],
+    ],
     extended=false,
   )
 })
@@ -693,5 +1218,12 @@ let tasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TasmLexer` (TASM).
 pub fn tasm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tasm_lexer_info, options, opts => tasm_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tasm_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    tasm_lexer_info,
+    options,
+    opts => tasm_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, tasm_lexer_def.force(), text, stack)
+    },
+  )
 }

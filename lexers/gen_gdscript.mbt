@@ -19,8 +19,26 @@ pub let gd_script_lexer_info : @lexer.LexerInfo = {
 let gd_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(2744, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
-    r(2745, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
+    r(
+      2744,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
+    r(
+      2745,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
     r(109, 8, Emit(tk_text_whitespace), None),
     r(627, 8, Emit(tk_comment_single), None),
     r(1771, 8, Emit(tk_punctuation), None),
@@ -29,19 +47,69 @@ let gd_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2746, 8, Emit(tk_operator_word), None),
     r(2747, 8, Emit(tk_operator), None),
     r(2748, 8, Emit(tk_keyword), None),
-    r(2749, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
-    r(966, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
+    r(
+      2749,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("funcname")]),
+    ),
+    r(
+      966,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
     r(2750, 8, Emit(tk_name_builtin), None),
     r(2751, 8, Emit(tk_name_builtin_pseudo), None),
     r(2752, 8, Emit(tk_name_builtin_type), None),
-    r(2753, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("tdqs")])),
-    r(2754, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("tsqs")])),
-    r(2755, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("dqs")])),
-    r(2756, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("sqs")])),
-    r(2757, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_0")])),
-    r(2758, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_1")])),
-    r(2759, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_2")])),
-    r(2760, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_3")])),
+    r(
+      2753,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("tdqs")]),
+    ),
+    r(
+      2754,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("tsqs")]),
+    ),
+    r(
+      2755,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("dqs")]),
+    ),
+    r(
+      2756,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("sqs")]),
+    ),
+    r(
+      2757,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_0")]),
+    ),
+    r(
+      2758,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_1")]),
+    ),
+    r(
+      2759,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_2")]),
+    ),
+    r(
+      2760,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_3")]),
+    ),
     r(274, 8, Emit(tk_name), None),
     r(2644, 8, Emit(tk_literal_number_float), None),
     r(2645, 8, Emit(tk_literal_number_float), None),
@@ -70,15 +138,50 @@ let gd_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "GDScriptLexer",
-    ["root", "keywords", "builtins", "stringescape", "tdqs", "strings-double", "_tmp_0", "tsqs", "strings-single", "_tmp_1", "dqs", "_tmp_2", "sqs", "_tmp_3", "name", "numbers", "funcname", "classname"],
+    [
+      "root", "keywords", "builtins", "stringescape", "tdqs", "strings-double", "_tmp_0",
+      "tsqs", "strings-single", "_tmp_1", "dqs", "_tmp_2", "sqs", "_tmp_3", "name",
+      "numbers", "funcname", "classname",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [10], [13, 14, 15], [29], [30, 31, 32, 33, 34, 35], [31, 32, 33, 34], [29, 30, 31, 32, 33, 34, 35], [36, 37, 38, 39, 40, 41], [37, 38, 39, 40], [29, 36, 37, 38, 39, 40, 41], [42, 43, 31, 32, 33, 34], [29, 42, 43, 31, 32, 33, 34], [44, 45, 37, 38, 39, 40], [29, 44, 45, 37, 38, 39, 40], [24], [25, 26, 27, 28], [46, 47], [48]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [10],
+      [13, 14, 15],
+      [29],
+      [30, 31, 32, 33, 34, 35],
+      [31, 32, 33, 34],
+      [29, 30, 31, 32, 33, 34, 35],
+      [36, 37, 38, 39, 40, 41],
+      [37, 38, 39, 40],
+      [29, 36, 37, 38, 39, 40, 41],
+      [42, 43, 31, 32, 33, 34],
+      [29, 42, 43, 31, 32, 33, 34],
+      [44, 45, 37, 38, 39, 40],
+      [29, 44, 45, 37, 38, 39, 40],
+      [24],
+      [25, 26, 27, 28],
+      [46, 47],
+      [48],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `GDScriptLexer` (GDScript).
-pub fn gd_script_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gd_script_lexer_info, options, opts => gd_script_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gd_script_lexer_def.force(), text, stack))
+pub fn gd_script_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    gd_script_lexer_info,
+    options,
+    opts => gd_script_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, gd_script_lexer_def.force(), text, stack)
+    },
+  )
 }

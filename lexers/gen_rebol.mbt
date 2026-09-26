@@ -102,9 +102,28 @@ let rebol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "RebolLexer",
-    ["root", "string", "string2", "stringFile", "char", "tag", "tagString", "tuple", "bin2", "commentString1", "commentString2", "commentBlock"],
+    [
+      "root", "string", "string2", "stringFile", "char", "tag", "tagString", "tuple",
+      "bin2", "commentString1", "commentString2", "commentBlock",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], [33, 34, 35, 36, 37], [38, 39, 40, 41, 42, 43], [44, 45, 46, 47], [48, 49, 50], [51, 52, 53, 54], [55, 56, 57, 58, 59], [60, 61], [62, 63, 64], [65, 66, 67, 68, 69], [70, 71, 72, 73, 74, 75], [76, 77, 78, 79, 80]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+      ],
+      [33, 34, 35, 36, 37],
+      [38, 39, 40, 41, 42, 43],
+      [44, 45, 46, 47],
+      [48, 49, 50],
+      [51, 52, 53, 54],
+      [55, 56, 57, 58, 59],
+      [60, 61],
+      [62, 63, 64],
+      [65, 66, 67, 68, 69],
+      [70, 71, 72, 73, 74, 75],
+      [76, 77, 78, 79, 80],
+    ],
     extended=false,
   )
 })
@@ -112,7 +131,20 @@ let rebol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RebolLexer` (REBOL).
 pub fn rebol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rebol_lexer_info, options, opts => rebol_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rebol_lexer_def.force(), text, stack, callbacks=rebol_lexer_callbacks(lx)))
+  @lexer.Lexer::new(
+    rebol_lexer_info,
+    options,
+    opts => rebol_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(
+        lx,
+        rebol_lexer_def.force(),
+        text,
+        stack,
+        callbacks=rebol_lexer_callbacks(lx),
+      )
+    },
+  )
 }
 
 ///|
@@ -138,7 +170,16 @@ let red_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6073, 10, Emit(tk_literal_number_hex), None),
     r(6035, 10, Emit(tk_literal_number_hex), Some([Push("bin2")])),
     r(6036, 10, Emit(tk_literal_number_hex), None),
-    r(6074, 10, ByGroups([Emit(tk_literal_number_hex), Emit(tk_name_variable), Emit(tk_text_whitespace)]), None),
+    r(
+      6074,
+      10,
+      ByGroups([
+        Emit(tk_literal_number_hex),
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(173, 10, Emit(tk_literal_string), Some([Push("string")])),
     r(245, 10, Emit(tk_literal_string), Some([Push("string2")])),
     r(6037, 10, Emit(tk_comment_special), None),
@@ -218,9 +259,28 @@ let red_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "RedLexer",
-    ["root", "string", "string2", "stringFile", "char", "tag", "tagString", "tuple", "bin2", "commentString1", "commentString2", "commentBlock"],
+    [
+      "root", "string", "string2", "stringFile", "char", "tag", "tagString", "tuple",
+      "bin2", "commentString1", "commentString2", "commentBlock",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], [34, 35, 36, 37, 38], [39, 40, 41, 42, 43, 44], [45, 46, 47, 48], [49, 50, 51], [52, 53, 54, 55], [56, 57, 58, 59, 60], [61, 62], [63, 64, 65], [66, 67, 68, 69, 70], [71, 72, 73, 74, 75, 76], [77, 78, 79, 80, 81]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+      ],
+      [34, 35, 36, 37, 38],
+      [39, 40, 41, 42, 43, 44],
+      [45, 46, 47, 48],
+      [49, 50, 51],
+      [52, 53, 54, 55],
+      [56, 57, 58, 59, 60],
+      [61, 62],
+      [63, 64, 65],
+      [66, 67, 68, 69, 70],
+      [71, 72, 73, 74, 75, 76],
+      [77, 78, 79, 80, 81],
+    ],
     extended=false,
   )
 })
@@ -228,5 +288,17 @@ let red_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RedLexer` (Red).
 pub fn red_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(red_lexer_info, options, opts => red_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, red_lexer_def.force(), text, stack, callbacks=red_lexer_callbacks(lx)))
+  @lexer.Lexer::new(red_lexer_info, options, opts => red_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => {
+    @lexer.run_regex(
+      lx,
+      red_lexer_def.force(),
+      text,
+      stack,
+      callbacks=red_lexer_callbacks(lx),
+    )
+  })
 }

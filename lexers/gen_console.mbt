@@ -27,7 +27,16 @@ let py_py_log_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5843, 8, Emit(tk_comment), None),
     r(5844, 8, Emit(tk_name), None),
     r(5845, 8, Emit(tk_name), None),
-    r(5846, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin), Emit(tk_punctuation)]), None),
+    r(
+      5846,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_name_builtin),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(5847, 8, Emit(tk_punctuation), None),
     r(5848, 8, Emit(tk_literal_number_float), None),
     r(809, 8, Emit(tk_literal_number_integer), None),
@@ -44,15 +53,29 @@ let py_py_log_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PyPyLogLexer",
     ["root", "extra-stuff", "jit-log", "jit-backend-counts"],
     rules,
-    [[0, 1, 2, 3], [2, 3], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 2, 3], [18, 19, 20, 2, 3]],
+    [
+      [0, 1, 2, 3],
+      [2, 3],
+      [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 2, 3],
+      [18, 19, 20, 2, 3],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `PyPyLogLexer` (PyPy Log).
-pub fn py_py_log_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(py_py_log_lexer_info, options, opts => py_py_log_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, py_py_log_lexer_def.force(), text, stack))
+pub fn py_py_log_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    py_py_log_lexer_info,
+    options,
+    opts => py_py_log_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, py_py_log_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -94,6 +117,15 @@ let vc_tree_status_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `VCTreeStatusLexer` (VCTreeStatus).
-pub fn vc_tree_status_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(vc_tree_status_lexer_info, options, opts => vc_tree_status_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, vc_tree_status_lexer_def.force(), text, stack))
+pub fn vc_tree_status_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    vc_tree_status_lexer_info,
+    options,
+    opts => vc_tree_status_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, vc_tree_status_lexer_def.force(), text, stack)
+    },
+  )
 }

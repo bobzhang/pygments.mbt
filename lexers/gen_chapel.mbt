@@ -28,10 +28,30 @@ let chapel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1244, 8, Emit(tk_keyword_type), None),
     r(1245, 8, Emit(tk_keyword), None),
     r(665, 8, Emit(tk_keyword), Some([Push("attributename")])),
-    r(1246, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("procname")])),
-    r(1247, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("procname")])),
-    r(1248, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("procname")])),
-    r(1249, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
+    r(
+      1246,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("procname")]),
+    ),
+    r(
+      1247,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("procname")]),
+    ),
+    r(
+      1248,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("procname")]),
+    ),
+    r(
+      1249,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
     r(1250, 8, Emit(tk_literal_number), None),
     r(1251, 8, Emit(tk_literal_number), None),
     r(1252, 8, Emit(tk_literal_number), None),
@@ -60,7 +80,16 @@ let chapel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ChapelLexer",
     ["root", "classname", "procname", "receivertype", "attributename"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [29], [30, 31, 32], [33, 34, 35], [36]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [29],
+      [30, 31, 32],
+      [33, 34, 35],
+      [36],
+    ],
     extended=false,
   )
 })
@@ -68,5 +97,12 @@ let chapel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ChapelLexer` (Chapel).
 pub fn chapel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(chapel_lexer_info, options, opts => chapel_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, chapel_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    chapel_lexer_info,
+    options,
+    opts => chapel_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, chapel_lexer_def.force(), text, stack)
+    },
+  )
 }

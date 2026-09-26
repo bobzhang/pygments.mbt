@@ -24,8 +24,24 @@ let clean_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1297, 8, Emit(tk_keyword), None),
     r(1298, 8, Emit(tk_keyword_namespace), None),
     r(1299, 8, Emit(tk_keyword_namespace), Some([Push("module.name")])),
-    r(1300, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("import.module")])),
-    r(1301, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Push("import.what")])),
+    r(
+      1300,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("import.module")]),
+    ),
+    r(
+      1301,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+      ]),
+      Some([Push("import.what")]),
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(1302, 8, Emit(tk_literal_char), None),
     r(1303, 8, Emit(tk_literal_number_oct), None),
@@ -37,7 +53,12 @@ let clean_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1308, 8, Emit(tk_operator), None),
     r(1309, 8, Emit(tk_operator), None),
     r(1310, 8, Emit(tk_punctuation), None),
-    r(1311, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_class), Emit(tk_punctuation)]), None),
+    r(
+      1311,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_class), Emit(tk_punctuation)]),
+      None,
+    ),
     r(1312, 8, Emit(tk_name), None),
     r(1313, 8, Emit(tk_name), None),
     r(1314, 8, Emit(tk_name_function), None),
@@ -50,17 +71,60 @@ let clean_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(438, 8, Emit(tk_comment_multiline), None),
     r(1319, 8, Emit(tk_name_class), Some([Pop])),
     r(1320, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), None),
-    r(1321, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Pop, Push("import.module.as")])),
+    r(
+      1321,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      Some([Pop, Push("import.module.as")]),
+    ),
     r(1319, 8, Emit(tk_name_class), None),
-    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
+    r(
+      208,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(98, 0, Nop, Some([Pop])),
     r(1312, 8, Emit(tk_name_class), Some([Pop])),
     r(1315, 8, Emit(tk_name_class), Some([Pop])),
-    r(1322, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]), Some([Push("import.what.class")])),
-    r(1323, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace)]), Some([Push("import.what.instance")])),
-    r(1324, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_class)]), Some([Push("import.what.type")])),
-    r(1325, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name)]), None),
+    r(
+      1322,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]),
+      Some([Push("import.what.class")]),
+    ),
+    r(
+      1323,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("import.what.instance")]),
+    ),
+    r(
+      1324,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+      ]),
+      Some([Push("import.what.type")]),
+    ),
+    r(
+      1325,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name)]),
+      None,
+    ),
     r(1326, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(1327, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(100, 8, Emit(tk_punctuation), Some([Pop])),
@@ -73,7 +137,12 @@ let clean_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(138, 8, Emit(tk_punctuation), Some([Push("import.what.instance")])),
     r(1327, 8, Emit(tk_text_whitespace), Some([Pop, Pop])),
     r(100, 8, Emit(tk_punctuation), Some([Pop])),
-    r(1329, 8, Emit(tk_punctuation), Some([Push("import.what.type.consesandfields")])),
+    r(
+      1329,
+      8,
+      Emit(tk_punctuation),
+      Some([Push("import.what.type.consesandfields")]),
+    ),
     r(1327, 8, Emit(tk_text_whitespace), Some([Pop, Pop])),
     r(100, 8, Emit(tk_punctuation), None),
     r(203, 8, Emit(tk_punctuation), None),
@@ -85,9 +154,40 @@ let clean_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "CleanLexer",
-    ["root", "comments", "keywords", "module", "import", "whitespace", "literals", "operators", "delimiters", "names", "comments.in", "module.name", "import.module", "import.module.as", "import.what", "import.what.class", "import.what.class.members", "import.what.instance", "import.what.type", "import.what.type.consesandfields", "literals.stringd"],
+    [
+      "root", "comments", "keywords", "module", "import", "whitespace", "literals",
+      "operators", "delimiters", "names", "comments.in", "module.name", "import.module",
+      "import.module.as", "import.what", "import.what.class", "import.what.class.members",
+      "import.what.instance", "import.what.type", "import.what.type.consesandfields",
+      "literals.stringd",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [0, 1, 2], [3], [4, 5], [6, 7], [8], [9, 10, 11, 12, 13, 14, 15], [16, 17], [18, 19], [20, 21, 22, 23, 24], [25, 26, 27, 28, 29], [8, 30], [31, 32, 33, 34, 35, 36], [8, 37, 38], [39, 40, 41, 42, 20, 21, 22, 23, 24, 43, 44, 8], [45, 46, 47, 8], [48, 49, 50, 20, 21, 22, 23, 24], [51, 52, 53, 8, 20, 21, 22, 23, 24], [54, 55, 56, 8], [57, 58, 59, 20, 21, 22, 23, 24], [60, 61, 62, 63]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24,
+      ],
+      [0, 1, 2],
+      [3],
+      [4, 5],
+      [6, 7],
+      [8],
+      [9, 10, 11, 12, 13, 14, 15],
+      [16, 17],
+      [18, 19],
+      [20, 21, 22, 23, 24],
+      [25, 26, 27, 28, 29],
+      [8, 30],
+      [31, 32, 33, 34, 35, 36],
+      [8, 37, 38],
+      [39, 40, 41, 42, 20, 21, 22, 23, 24, 43, 44, 8],
+      [45, 46, 47, 8],
+      [48, 49, 50, 20, 21, 22, 23, 24],
+      [51, 52, 53, 8, 20, 21, 22, 23, 24],
+      [54, 55, 56, 8],
+      [57, 58, 59, 20, 21, 22, 23, 24],
+      [60, 61, 62, 63],
+    ],
     extended=true,
   )
 })
@@ -95,5 +195,12 @@ let clean_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CleanLexer` (Clean).
 pub fn clean_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(clean_lexer_info, options, opts => clean_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, clean_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    clean_lexer_info,
+    options,
+    opts => clean_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, clean_lexer_def.force(), text, stack)
+    },
+  )
 }

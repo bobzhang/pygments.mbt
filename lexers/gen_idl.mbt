@@ -18,7 +18,16 @@ pub let idl_lexer_info : @lexer.LexerInfo = {
 ///|
 let idl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(3234, 10, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
+    r(
+      3234,
+      10,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_single),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(3235, 10, Emit(tk_keyword), None),
     r(3236, 10, Emit(tk_name_builtin), None),
     r(3237, 10, Emit(tk_operator), None),
@@ -49,5 +58,9 @@ let idl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `IDLLexer` (IDL).
 pub fn idl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(idl_lexer_info, options, opts => idl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, idl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(idl_lexer_info, options, opts => idl_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, idl_lexer_def.force(), text, stack))
 }

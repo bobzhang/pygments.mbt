@@ -21,19 +21,20 @@ let aheui_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(242, 8, Emit(tk_operator), None),
     r(76, 8, Emit(tk_comment), None),
   ]
-  @lexer.RegexDef::new(
-    "AheuiLexer",
-    ["root"],
-    rules,
-    [[0, 1]],
-    extended=false,
-  )
+  @lexer.RegexDef::new("AheuiLexer", ["root"], rules, [[0, 1]], extended=false)
 })
 
 ///|
 /// Creates a `AheuiLexer` (Aheui).
 pub fn aheui_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(aheui_lexer_info, options, opts => aheui_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, aheui_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    aheui_lexer_info,
+    options,
+    opts => aheui_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, aheui_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -79,7 +80,14 @@ let befunge_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BefungeLexer` (Befunge).
 pub fn befunge_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(befunge_lexer_info, options, opts => befunge_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, befunge_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    befunge_lexer_info,
+    options,
+    opts => befunge_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, befunge_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -120,8 +128,17 @@ let brainfuck_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BrainfuckLexer` (Brainfuck).
-pub fn brainfuck_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(brainfuck_lexer_info, options, opts => brainfuck_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, brainfuck_lexer_def.force(), text, stack))
+pub fn brainfuck_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    brainfuck_lexer_info,
+    options,
+    opts => brainfuck_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, brainfuck_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -142,7 +159,16 @@ pub let c_amk_es_lexer_info : @lexer.LexerInfo = {
 ///|
 let c_amk_es_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(996, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preproc), Emit(tk_text_whitespace)]), None),
+    r(
+      996,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(318, 8, Emit(tk_comment), None),
     r(317, 8, Emit(tk_comment), None),
@@ -152,8 +178,26 @@ let c_amk_es_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(999, 8, Emit(tk_keyword_type), None),
     r(1000, 8, Emit(tk_keyword_reserved), None),
     r(1001, 8, Emit(tk_keyword_reserved), None),
-    r(1002, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_comment_preproc)]), None),
-    r(1003, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_comment_preproc)]), None),
+    r(
+      1002,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
+    r(
+      1003,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+      ]),
+      None,
+    ),
     r(222, 8, Emit(tk_literal_number_hex), None),
     r(1004, 8, Emit(tk_literal_number), None),
     r(1005, 8, Emit(tk_literal_number_float), None),
@@ -172,8 +216,17 @@ let c_amk_es_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CAmkESLexer` (CAmkES).
-pub fn c_amk_es_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(c_amk_es_lexer_info, options, opts => c_amk_es_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, c_amk_es_lexer_def.force(), text, stack))
+pub fn c_amk_es_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    c_amk_es_lexer_info,
+    options,
+    opts => c_amk_es_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, c_amk_es_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -194,7 +247,16 @@ pub let cap_dl_lexer_info : @lexer.LexerInfo = {
 ///|
 let cap_dl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(996, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preproc), Emit(tk_text_whitespace)]), None),
+    r(
+      996,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(318, 8, Emit(tk_comment), None),
     r(1127, 8, Emit(tk_comment), None),
@@ -221,7 +283,14 @@ let cap_dl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CapDLLexer` (CapDL).
 pub fn cap_dl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cap_dl_lexer_info, options, opts => cap_dl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cap_dl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    cap_dl_lexer_info,
+    options,
+    opts => cap_dl_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, cap_dl_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -264,5 +333,12 @@ let redcode_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RedcodeLexer` (Redcode).
 pub fn redcode_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(redcode_lexer_info, options, opts => redcode_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, redcode_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    redcode_lexer_info,
+    options,
+    opts => redcode_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, redcode_lexer_def.force(), text, stack)
+    },
+  )
 }

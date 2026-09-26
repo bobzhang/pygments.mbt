@@ -49,7 +49,13 @@ let tal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "TalLexer",
     ["comment", "root"],
     rules,
-    [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]],
+    [
+      [0, 1, 2, 3],
+      [
+        4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+        24, 25,
+      ],
+    ],
     extended=false,
   )
 })
@@ -57,5 +63,9 @@ let tal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TalLexer` (Tal).
 pub fn tal_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tal_lexer_info, options, opts => tal_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tal_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(tal_lexer_info, options, opts => tal_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, tal_lexer_def.force(), text, stack))
 }

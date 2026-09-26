@@ -24,7 +24,12 @@ let stata_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6794, 24, Emit(tk_comment_special), Some([Push("comments-triple-slash")])),
     r(6795, 24, Emit(tk_literal_string), Some([Push("string-compound")])),
     r(6796, 24, Emit(tk_literal_string), Some([Push("string-regular")])),
-    r(6797, 24, Emit(tk_name_variable_global), Some([Push("macro-global-nested")])),
+    r(
+      6797,
+      24,
+      Emit(tk_name_variable_global),
+      Some([Push("macro-global-nested")]),
+    ),
     r(715, 24, Emit(tk_name_variable_global), Some([Push("macro-global-name")])),
     r(729, 24, Emit(tk_name_variable), Some([Push("macro-local")])),
     r(6798, 24, Emit(tk_literal_number), None),
@@ -41,8 +46,18 @@ let stata_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6807, 24, Emit(tk_comment_multiline), None),
     r(6808, 24, Emit(tk_comment_multiline), Some([Pop])),
     r(76, 24, Emit(tk_comment_multiline), None),
-    r(6809, 24, Emit(tk_comment_single), Some([Pop, Push("comments-triple-slash")])),
-    r(6792, 24, Emit(tk_comment_single), Some([Pop, Push("comments-double-slash")])),
+    r(
+      6809,
+      24,
+      Emit(tk_comment_single),
+      Some([Pop, Push("comments-triple-slash")]),
+    ),
+    r(
+      6792,
+      24,
+      Emit(tk_comment_single),
+      Some([Pop, Push("comments-double-slash")]),
+    ),
     r(506, 24, Emit(tk_comment_multiline), Some([Push("comments-block")])),
     r(6810, 24, Emit(tk_comment_single), Some([Pop])),
     r(76, 24, Emit(tk_comment_single), None),
@@ -60,7 +75,12 @@ let stata_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(76, 24, Emit(tk_literal_string), None),
     r(729, 24, Emit(tk_name_variable), Some([Dup])),
     r(224, 24, Emit(tk_name_variable), Some([Pop])),
-    r(6797, 24, Emit(tk_name_variable_global), Some([Push("macro-global-nested")])),
+    r(
+      6797,
+      24,
+      Emit(tk_name_variable_global),
+      Some([Push("macro-global-nested")]),
+    ),
     r(715, 24, Emit(tk_name_variable_global), Some([Push("macro-global-name")])),
     r(76, 24, Emit(tk_name_variable), None),
     r(6797, 24, Emit(tk_name_variable_global), Some([Dup])),
@@ -69,16 +89,44 @@ let stata_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(729, 24, Emit(tk_name_variable), Some([Push("macro-local")])),
     r(6815, 24, Emit(tk_name_variable_global), None),
     r(98, 0, Nop, Some([Pop])),
-    r(6797, 24, Emit(tk_name_variable_global), Some([Push("macro-global-nested")])),
+    r(
+      6797,
+      24,
+      Emit(tk_name_variable_global),
+      Some([Push("macro-global-nested")]),
+    ),
     r(715, 24, Emit(tk_name_variable_global), Some([Push("macro-global-name")])),
     r(729, 24, Emit(tk_name_variable), Some([Push("macro-local")])),
     r(6816, 24, Emit(tk_name_variable_global), Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "StataLexer",
-    ["root", "comments", "strings", "macros", "numbers", "keywords", "operators", "format", "comments-block", "comments-star", "comments-triple-slash", "comments-double-slash", "string-compound", "string-regular", "macro-local", "macro-global-nested", "macro-global-name"],
+    [
+      "root", "comments", "strings", "macros", "numbers", "keywords", "operators",
+      "format", "comments-block", "comments-star", "comments-triple-slash", "comments-double-slash",
+      "string-compound", "string-regular", "macro-local", "macro-global-nested",
+      "macro-global-name",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [0, 1, 2, 3], [4, 5], [6, 7, 8], [9], [10, 11], [12, 13], [14, 15, 16, 17], [19, 20, 21, 22], [23, 24, 25, 26, 27], [28, 29, 30], [31, 32], [33, 34, 35, 6, 7, 8, 36], [37, 38, 6, 7, 8, 39], [40, 41, 42, 43, 44], [45, 46, 47, 48, 49, 50], [51, 52, 53, 54]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [0, 1, 2, 3],
+      [4, 5],
+      [6, 7, 8],
+      [9],
+      [10, 11],
+      [12, 13],
+      [14, 15, 16, 17],
+      [19, 20, 21, 22],
+      [23, 24, 25, 26, 27],
+      [28, 29, 30],
+      [31, 32],
+      [33, 34, 35, 6, 7, 8, 36],
+      [37, 38, 6, 7, 8, 39],
+      [40, 41, 42, 43, 44],
+      [45, 46, 47, 48, 49, 50],
+      [51, 52, 53, 54],
+    ],
     extended=false,
   )
 })
@@ -86,5 +134,12 @@ let stata_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `StataLexer` (Stata).
 pub fn stata_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(stata_lexer_info, options, opts => stata_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, stata_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    stata_lexer_info,
+    options,
+    opts => stata_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, stata_lexer_def.force(), text, stack)
+    },
+  )
 }

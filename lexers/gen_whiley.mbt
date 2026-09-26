@@ -25,11 +25,44 @@ let whiley_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2524, 24, Emit(tk_comment_multiline), None),
     r(7798, 8, Emit(tk_keyword_reserved), None),
     r(7799, 8, Emit(tk_keyword_declaration), None),
-    r(7800, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text), Emit(tk_name), Emit(tk_text), Emit(tk_keyword_reserved)]), None),
+    r(
+      7800,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text),
+        Emit(tk_name),
+        Emit(tk_text),
+        Emit(tk_keyword_reserved),
+      ]),
+      None,
+    ),
     r(117, 8, Emit(tk_keyword_constant), None),
     r(7801, 8, Emit(tk_keyword_type), None),
-    r(7802, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_punctuation), Emit(tk_text), Emit(tk_keyword_namespace)]), None),
-    r(7803, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_name), Emit(tk_text), Emit(tk_keyword_namespace)]), None),
+    r(
+      7802,
+      8,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_keyword_namespace),
+      ]),
+      None,
+    ),
+    r(
+      7803,
+      8,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text),
+        Emit(tk_name),
+        Emit(tk_text),
+        Emit(tk_keyword_namespace),
+      ]),
+      None,
+    ),
     r(7804, 8, Emit(tk_keyword_namespace), None),
     r(7805, 8, Emit(tk_name_builtin), None),
     r(3791, 8, Emit(tk_literal_number_bin), None),
@@ -38,7 +71,16 @@ let whiley_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(189, 8, Emit(tk_literal_number_hex), None),
     r(21, 8, Emit(tk_literal_number_integer), None),
     r(3063, 8, Emit(tk_literal_string_char), None),
-    r(7807, 8, ByGroups([Emit(tk_literal_string_char), Emit(tk_literal_string_escape), Emit(tk_literal_string_char)]), None),
+    r(
+      7807,
+      8,
+      ByGroups([
+        Emit(tk_literal_string_char),
+        Emit(tk_literal_string_escape),
+        Emit(tk_literal_string_char),
+      ]),
+      None,
+    ),
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
     r(2091, 8, Emit(tk_punctuation), None),
     r(7808, 8, Emit(tk_operator), None),
@@ -53,7 +95,13 @@ let whiley_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "WhileyLexer",
     ["root", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [25, 26, 27, 28, 29]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24,
+      ],
+      [25, 26, 27, 28, 29],
+    ],
     extended=false,
   )
 })
@@ -61,5 +109,12 @@ let whiley_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `WhileyLexer` (Whiley).
 pub fn whiley_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(whiley_lexer_info, options, opts => whiley_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, whiley_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    whiley_lexer_info,
+    options,
+    opts => whiley_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, whiley_lexer_def.force(), text, stack)
+    },
+  )
 }

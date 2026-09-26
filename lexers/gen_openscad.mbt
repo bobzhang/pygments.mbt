@@ -26,9 +26,32 @@ let open_scad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5291, 8, Emit(tk_operator), None),
     r(5292, 8, Emit(tk_operator), None),
     r(5293, 8, Emit(tk_keyword_constant), None),
-    r(5294, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text)]), Some([Push("includes")])),
-    r(5295, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace), Emit(tk_name_namespace)]), None),
-    r(5296, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(
+      5294,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text)]),
+      Some([Push("includes")]),
+    ),
+    r(
+      5295,
+      8,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_namespace),
+      ]),
+      None,
+    ),
+    r(
+      5296,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      None,
+    ),
     r(2706, 8, Emit(tk_literal), None),
     r(5297, 8, Emit(tk_keyword), None),
     r(5298, 8, Emit(tk_name_builtin), None),
@@ -37,7 +60,16 @@ let open_scad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(92, 8, Emit(tk_literal_string_double), None),
     r(5300, 8, Emit(tk_literal_number), None),
     r(152, 8, Emit(tk_name), None),
-    r(5301, 8, ByGroups([Emit(tk_punctuation), Emit(tk_comment_preprocfile), Emit(tk_punctuation)]), None),
+    r(
+      5301,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_comment_preprocfile),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(5302, 8, Emit(tk_comment_special), None),
     r(264, 8, Emit(tk_text), Some([Pop])),
     r(4267, 8, Emit(tk_comment_single), None),
@@ -50,13 +82,28 @@ let open_scad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "OpenScadLexer",
     ["root", "includes", "comment", "comment-single", "comment-multi"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19], [20], [21, 20, 22], [20, 23, 24, 25, 26]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [19],
+      [20],
+      [21, 20, 22],
+      [20, 23, 24, 25, 26],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `OpenScadLexer` (OpenSCAD).
-pub fn open_scad_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(open_scad_lexer_info, options, opts => open_scad_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, open_scad_lexer_def.force(), text, stack))
+pub fn open_scad_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    open_scad_lexer_info,
+    options,
+    opts => open_scad_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, open_scad_lexer_def.force(), text, stack)
+    },
+  )
 }

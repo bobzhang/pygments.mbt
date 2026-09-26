@@ -22,8 +22,26 @@ let elm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2245, 8, Emit(tk_comment_single), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(173, 8, Emit(tk_literal_string), Some([Push("doublequote")])),
-    r(2246, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("imports")])),
-    r(2247, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("imports")])),
+    r(
+      2246,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("imports")]),
+    ),
+    r(
+      2247,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("imports")]),
+    ),
     r(2248, 8, Emit(tk_name_entity), Some([Push("shader")])),
     r(2249, 8, Emit(tk_keyword_reserved), None),
     r(1369, 8, Emit(tk_keyword_type), None),
@@ -51,7 +69,14 @@ let elm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ElmLexer",
     ["root", "numbers", "comment", "doublequote", "imports", "shader"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [12, 13], [16, 17, 18, 19], [20, 21, 22, 23], [24], [25, 26, 27]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [12, 13],
+      [16, 17, 18, 19],
+      [20, 21, 22, 23],
+      [24],
+      [25, 26, 27],
+    ],
     extended=false,
   )
 })
@@ -59,5 +84,9 @@ let elm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ElmLexer` (Elm).
 pub fn elm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(elm_lexer_info, options, opts => elm_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, elm_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(elm_lexer_info, options, opts => elm_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, elm_lexer_def.force(), text, stack))
 }

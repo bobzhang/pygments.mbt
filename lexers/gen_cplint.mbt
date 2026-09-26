@@ -20,7 +20,12 @@ let cplint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(1470, 8, Emit(tk_keyword), None),
     r(1471, 8, Emit(tk_name_builtin), None),
-    r(1472, 8, ByGroups([Emit(tk_literal_string_atom), Emit(tk_punctuation)]), None),
+    r(
+      1472,
+      8,
+      ByGroups([Emit(tk_literal_string_atom), Emit(tk_punctuation)]),
+      None,
+    ),
     r(1473, 8, Emit(tk_operator), None),
     r(1399, 8, Emit(tk_name_builtin), None),
     r(506, 8, Emit(tk_comment_multiline), Some([Push("nested-comment")])),
@@ -41,8 +46,18 @@ let cplint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1482, 8, Emit(tk_operator), None),
     r(1483, 8, Emit(tk_keyword), None),
     r(1472, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation)]), None),
-    r(1484, 8, ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_operator)]), None),
-    r(1485, 8, ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]), None),
+    r(
+      1484,
+      8,
+      ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_operator)]),
+      None,
+    ),
+    r(
+      1485,
+      8,
+      ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]),
+      None,
+    ),
     r(1486, 8, Emit(tk_literal_string_atom), None),
     r(1487, 8, Emit(tk_literal_string_atom), None),
     r(1488, 8, Emit(tk_name_variable), None),
@@ -56,7 +71,13 @@ let cplint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "CplintLexer",
     ["root", "nested-comment"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [29, 30, 31, 32]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28,
+      ],
+      [29, 30, 31, 32],
+    ],
     extended=false,
   )
 })
@@ -64,5 +85,12 @@ let cplint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CplintLexer` (cplint).
 pub fn cplint_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cplint_lexer_info, options, opts => cplint_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cplint_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    cplint_lexer_info,
+    options,
+    opts => cplint_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, cplint_lexer_def.force(), text, stack)
+    },
+  )
 }

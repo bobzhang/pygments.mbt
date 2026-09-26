@@ -44,13 +44,27 @@ let flo_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "FloScriptLexer",
     ["root", "name", "numbers", "string"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [9, 10], [11, 12, 13, 14, 15, 16, 17], [19, 20]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [9, 10],
+      [11, 12, 13, 14, 15, 16, 17],
+      [19, 20],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `FloScriptLexer` (FloScript).
-pub fn flo_script_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(flo_script_lexer_info, options, opts => flo_script_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, flo_script_lexer_def.force(), text, stack))
+pub fn flo_script_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    flo_script_lexer_info,
+    options,
+    opts => flo_script_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, flo_script_lexer_def.force(), text, stack)
+    },
+  )
 }

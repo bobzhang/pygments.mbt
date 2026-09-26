@@ -24,21 +24,49 @@ let savi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6436, 8, Emit(tk_literal_string_double), Some([Push("string.double")])),
     r(224, 8, Emit(tk_literal_string_char), Some([Push("string.char")])),
     r(6437, 8, Emit(tk_name_class), None),
-    r(6438, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
-    r(6439, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_tag)]), Some([Push("decl")])),
+    r(
+      6438,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+      ]),
+      None,
+    ),
+    r(
+      6439,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_name_tag)]),
+      Some([Push("decl")]),
+    ),
     r(6440, 8, Emit(tk_generic_deleted), None),
     r(6441, 8, Emit(tk_literal_number), None),
     r(6442, 8, Emit(tk_literal_number_hex), None),
     r(6443, 8, Emit(tk_literal_number_bin), None),
     r(6444, 8, Emit(tk_name_function), None),
-    r(6445, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(
+      6445,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_function),
+      ]),
+      None,
+    ),
     r(6446, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_function)]), None),
     r(138, 8, Emit(tk_punctuation), Some([Push("root")])),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(245, 8, Emit(tk_punctuation), Some([Push("root")])),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
     r(144, 8, Emit(tk_punctuation), Some([Push("root")])),
-    r(6447, 8, ByGroups([Emit(tk_punctuation), Emit(tk_generic_deleted)]), Some([Pop])),
+    r(
+      6447,
+      8,
+      ByGroups([Emit(tk_punctuation), Emit(tk_generic_deleted)]),
+      Some([Pop]),
+    ),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
     r(6448, 8, Emit(tk_punctuation), None),
     r(6449, 8, Emit(tk_operator), None),
@@ -52,7 +80,12 @@ let savi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6456, 8, Emit(tk_keyword_declaration), None),
     r(333, 8, Emit(tk_punctuation), Some([Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
-    r(1621, 8, Emit(tk_literal_string_interpol), Some([Push("string.interpolation")])),
+    r(
+      1621,
+      8,
+      Emit(tk_literal_string_interpol),
+      Some([Push("string.interpolation")]),
+    ),
     r(2259, 8, Emit(tk_literal_string_escape), None),
     r(2410, 8, Emit(tk_literal_string_escape), None),
     r(6457, 8, Emit(tk_literal_string_escape), None),
@@ -73,7 +106,22 @@ let savi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "SaviLexer",
     ["root", "decl", "string.double", "string.char", "string.interpolation"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [31, 32, 33, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [34, 35, 36, 37, 38, 39, 40, 41], [42, 43, 44, 45, 46, 47, 48], [49, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+      [
+        31, 32, 33, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+      [34, 35, 36, 37, 38, 39, 40, 41],
+      [42, 43, 44, 45, 46, 47, 48],
+      [
+        49, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+      ],
+    ],
     extended=false,
   )
 })
@@ -81,5 +129,12 @@ let savi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SaviLexer` (Savi).
 pub fn savi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(savi_lexer_info, options, opts => savi_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, savi_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    savi_lexer_info,
+    options,
+    opts => savi_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, savi_lexer_def.force(), text, stack)
+    },
+  )
 }

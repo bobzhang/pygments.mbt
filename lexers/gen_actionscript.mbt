@@ -7,7 +7,9 @@ pub let action_script3_lexer_info : @lexer.LexerInfo = {
   aliases: ["actionscript3", "as3"],
   filenames: ["*.as"],
   alias_filenames: [],
-  mimetypes: ["application/x-actionscript3", "text/x-actionscript3", "text/actionscript3"],
+  mimetypes: [
+    "application/x-actionscript3", "text/x-actionscript3", "text/actionscript3",
+  ],
   priority: 0.0,
   url: "https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/index.html",
   version_added: "0.11",
@@ -19,10 +21,54 @@ pub let action_script3_lexer_info : @lexer.LexerInfo = {
 let action_script3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 24, Emit(tk_text_whitespace), None),
-    r(77, 24, ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_function), Emit(tk_text), Emit(tk_operator)]), Some([Push("funcparams")])),
-    r(78, 24, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
-    r(79, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace), Emit(tk_text_whitespace)]), None),
-    r(80, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(
+      77,
+      24,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_name_function),
+        Emit(tk_text),
+        Emit(tk_operator),
+      ]),
+      Some([Push("funcparams")]),
+    ),
+    r(
+      78,
+      24,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
+    r(
+      79,
+      24,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      80,
+      24,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
     r(81, 24, Emit(tk_comment_single), None),
     r(82, 24, Emit(tk_comment_multiline), None),
     r(83, 24, Emit(tk_literal_string_regex), None),
@@ -39,12 +85,47 @@ let action_script3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(93, 24, Emit(tk_literal_string_single), None),
     r(94, 24, Emit(tk_operator), None),
     r(0, 24, Emit(tk_text_whitespace), None),
-    r(95, 24, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_text_whitespace)]), Some([Push("defval")])),
+    r(
+      95,
+      24,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("defval")]),
+    ),
     r(96, 24, Emit(tk_operator), Some([Push("type")])),
-    r(97, 24, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), Some([Pop, Pop])),
+    r(
+      97,
+      24,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+      ]),
+      Some([Pop, Pop]),
+    ),
     r(0, 24, Emit(tk_text), Some([Pop, Pop])),
     r(98, 0, Nop, Some([Pop, Pop])),
-    r(99, 24, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Using(This, None, []), Emit(tk_text_whitespace), Emit(tk_operator)]), Some([Pop])),
+    r(
+      99,
+      24,
+      ByGroups([
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Using(This, None, []),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      Some([Pop]),
+    ),
     r(100, 24, Emit(tk_operator), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
   ]
@@ -52,15 +133,29 @@ let action_script3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ActionScript3Lexer",
     ["root", "funcparams", "type", "defval"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [20, 21, 22], [23, 24, 25], [26, 27, 28]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [20, 21, 22],
+      [23, 24, 25],
+      [26, 27, 28],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ActionScript3Lexer` (ActionScript 3).
-pub fn action_script3_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(action_script3_lexer_info, options, opts => action_script3_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, action_script3_lexer_def.force(), text, stack))
+pub fn action_script3_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    action_script3_lexer_info,
+    options,
+    opts => action_script3_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, action_script3_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -70,7 +165,9 @@ pub let action_script_lexer_info : @lexer.LexerInfo = {
   aliases: ["actionscript", "as"],
   filenames: ["*.as"],
   alias_filenames: [],
-  mimetypes: ["application/x-actionscript", "text/x-actionscript", "text/actionscript"],
+  mimetypes: [
+    "application/x-actionscript", "text/x-actionscript", "text/actionscript",
+  ],
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/ActionScript",
   version_added: "0.9",
@@ -110,8 +207,17 @@ let action_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ActionScriptLexer` (ActionScript).
-pub fn action_script_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(action_script_lexer_info, options, opts => action_script_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, action_script_lexer_def.force(), text, stack))
+pub fn action_script_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    action_script_lexer_info,
+    options,
+    opts => action_script_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, action_script_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -134,7 +240,16 @@ let mxml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(3181, 24, Emit(tk_text), None),
     r(3182, 24, Emit(tk_name_entity), None),
-    r(4871, 24, ByGroups([Emit(tk_literal_string), Using(Other(opts => action_script3_lexer(options=opts)), None, []), Emit(tk_literal_string)]), None),
+    r(
+      4871,
+      24,
+      ByGroups([
+        Emit(tk_literal_string),
+        Using(Other(opts => action_script3_lexer(options=opts)), None, []),
+        Emit(tk_literal_string),
+      ]),
+      None,
+    ),
     r(2032, 24, Emit(tk_comment), Some([Push("comment")])),
     r(3185, 24, Emit(tk_comment_preproc), None),
     r(3186, 24, Emit(tk_comment_preproc), None),
@@ -163,5 +278,12 @@ let mxml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MxmlLexer` (MXML).
 pub fn mxml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mxml_lexer_info, options, opts => mxml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mxml_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    mxml_lexer_info,
+    options,
+    opts => mxml_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, mxml_lexer_def.force(), text, stack)
+    },
+  )
 }

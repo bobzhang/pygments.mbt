@@ -19,9 +19,24 @@ pub let jsx_lexer_info : @lexer.LexerInfo = {
 let jsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(3702, 24, Emit(tk_punctuation), None),
-    r(3703, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]), Some([Push("tag")])),
-    r(3704, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]), None),
-    r(3705, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("fragment")])),
+    r(
+      3703,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]),
+      Some([Push("tag")]),
+    ),
+    r(
+      3704,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]),
+      None,
+    ),
+    r(
+      3705,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
+      Some([Push("fragment")]),
+    ),
     r(3626, 24, Emit(tk_comment_hashbang), None),
     r(3627, 24, Emit(tk_text), Some([Push("slashstartsregex")])),
     r(0, 24, Emit(tk_text_whitespace), None),
@@ -45,7 +60,12 @@ let jsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(3640, 24, Emit(tk_keyword_constant), None),
     r(3641, 24, Emit(tk_name_builtin), None),
     r(3642, 24, Emit(tk_name_exception), None),
-    r(3643, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("slashstartsregex")])),
+    r(
+      3643,
+      24,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("slashstartsregex")]),
+    ),
     r(3644, 24, Emit(tk_name_other), Some([Push("slashstartsregex")])),
     r(3645, 24, Emit(tk_name_other), None),
     r(92, 24, Emit(tk_literal_string_double), None),
@@ -54,10 +74,25 @@ let jsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(3646, 24, Emit(tk_name), None),
     r(224, 24, Emit(tk_text), None),
     r(0, 24, Emit(tk_text_whitespace), None),
-    r(3706, 24, ByGroups([Emit(tk_name_attribute), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace)]), Some([Push("attr")])),
+    r(
+      3706,
+      24,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("attr")]),
+    ),
     r(3707, 24, Emit(tk_punctuation), None),
     r(3708, 24, Emit(tk_name_attribute), None),
-    r(3192, 24, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation)]), Some([Pop])),
+    r(
+      3192,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation)]),
+      Some([Pop]),
+    ),
     r(3709, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute)]), None),
     r(3710, 24, ByGroups([Emit(tk_punctuation)]), Some([Pop])),
     r(245, 24, Emit(tk_punctuation), Some([Push("expression")])),
@@ -79,9 +114,33 @@ let jsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "JsxLexer",
-    ["root", "jsx", "commentsandwhitespace", "tag", "fragment", "attr", "expression", "slashstartsregex", "badregex", "interp", "interp-inside"],
+    [
+      "root", "jsx", "commentsandwhitespace", "tag", "fragment", "attr", "expression",
+      "slashstartsregex", "badregex", "interp", "interp-inside",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], [0, 1, 2, 3], [6, 7, 8, 9], [35, 36, 37, 38, 39], [40, 41], [42, 43, 44, 45], [46, 47, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], [6, 7, 8, 9, 48, 49, 50], [51], [52, 53, 54, 55, 56], [57, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+      ],
+      [0, 1, 2, 3],
+      [6, 7, 8, 9],
+      [35, 36, 37, 38, 39],
+      [40, 41],
+      [42, 43, 44, 45],
+      [
+        46, 47, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+      ],
+      [6, 7, 8, 9, 48, 49, 50],
+      [51],
+      [52, 53, 54, 55, 56],
+      [
+        57, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+      ],
+    ],
     extended=false,
   )
 })
@@ -89,7 +148,11 @@ let jsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JsxLexer` (JSX).
 pub fn jsx_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(jsx_lexer_info, options, opts => jsx_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, jsx_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(jsx_lexer_info, options, opts => jsx_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, jsx_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -111,15 +174,51 @@ pub let tsx_lexer_info : @lexer.LexerInfo = {
 let tsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(3702, 24, Emit(tk_punctuation), None),
-    r(3703, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]), Some([Push("tag")])),
-    r(3704, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]), None),
-    r(3705, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("fragment")])),
+    r(
+      3703,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]),
+      Some([Push("tag")]),
+    ),
+    r(
+      3704,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]),
+      None,
+    ),
+    r(
+      3705,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
+      Some([Push("fragment")]),
+    ),
     r(7271, 24, Emit(tk_keyword), Some([Push("slashstartsregex")])),
     r(7272, 24, Emit(tk_keyword_declaration), Some([Push("slashstartsregex")])),
     r(7273, 24, Emit(tk_keyword_reserved), None),
     r(7274, 24, Emit(tk_keyword_type), None),
-    r(7275, 24, ByGroups([Emit(tk_keyword_reserved), Emit(tk_text_whitespace), Emit(tk_name_other), Emit(tk_text_whitespace)]), Some([Push("slashstartsregex")])),
-    r(7276, 24, ByGroups([Emit(tk_name_other), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), None),
+    r(
+      7275,
+      24,
+      ByGroups([
+        Emit(tk_keyword_reserved),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_other),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("slashstartsregex")]),
+    ),
+    r(
+      7276,
+      24,
+      ByGroups([
+        Emit(tk_name_other),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_type),
+      ]),
+      None,
+    ),
     r(7277, 24, Emit(tk_keyword_declaration), None),
     r(3626, 24, Emit(tk_comment_hashbang), None),
     r(3627, 24, Emit(tk_text), Some([Push("slashstartsregex")])),
@@ -144,7 +243,12 @@ let tsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(3640, 24, Emit(tk_keyword_constant), None),
     r(3641, 24, Emit(tk_name_builtin), None),
     r(3642, 24, Emit(tk_name_exception), None),
-    r(3643, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("slashstartsregex")])),
+    r(
+      3643,
+      24,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("slashstartsregex")]),
+    ),
     r(3644, 24, Emit(tk_name_other), Some([Push("slashstartsregex")])),
     r(3645, 24, Emit(tk_name_other), None),
     r(92, 24, Emit(tk_literal_string_double), None),
@@ -154,10 +258,25 @@ let tsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(3646, 24, Emit(tk_name), None),
     r(224, 24, Emit(tk_text), None),
     r(0, 24, Emit(tk_text_whitespace), None),
-    r(3706, 24, ByGroups([Emit(tk_name_attribute), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace)]), Some([Push("attr")])),
+    r(
+      3706,
+      24,
+      ByGroups([
+        Emit(tk_name_attribute),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("attr")]),
+    ),
     r(3707, 24, Emit(tk_punctuation), None),
     r(3708, 24, Emit(tk_name_attribute), None),
-    r(3192, 24, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation)]), Some([Pop])),
+    r(
+      3192,
+      24,
+      ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_punctuation)]),
+      Some([Pop]),
+    ),
     r(3709, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute)]), None),
     r(3710, 24, ByGroups([Emit(tk_punctuation)]), Some([Pop])),
     r(245, 24, Emit(tk_punctuation), Some([Push("expression")])),
@@ -179,9 +298,36 @@ let tsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "TsxLexer",
-    ["root", "jsx", "commentsandwhitespace", "tag", "fragment", "attr", "expression", "slashstartsregex", "badregex", "interp", "interp-inside"],
+    [
+      "root", "jsx", "commentsandwhitespace", "tag", "fragment", "attr", "expression",
+      "slashstartsregex", "badregex", "interp", "interp-inside",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], [0, 1, 2, 3], [13, 14, 15, 16], [43, 44, 45, 46, 47], [48, 49], [50, 51, 52, 53], [54, 55, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], [13, 14, 15, 16, 56, 57, 58], [59], [60, 61, 62, 63, 64], [65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+        40, 41, 42,
+      ],
+      [0, 1, 2, 3],
+      [13, 14, 15, 16],
+      [43, 44, 45, 46, 47],
+      [48, 49],
+      [50, 51, 52, 53],
+      [
+        54, 55, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+        38, 39, 40, 41, 42,
+      ],
+      [13, 14, 15, 16, 56, 57, 58],
+      [59],
+      [60, 61, 62, 63, 64],
+      [
+        65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+        39, 40, 41, 42,
+      ],
+    ],
     extended=false,
   )
 })
@@ -189,5 +335,9 @@ let tsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TsxLexer` (TSX).
 pub fn tsx_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tsx_lexer_info, options, opts => tsx_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tsx_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(tsx_lexer_info, options, opts => tsx_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, tsx_lexer_def.force(), text, stack))
 }

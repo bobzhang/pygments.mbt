@@ -20,17 +20,109 @@ let ldaprc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(1103, 10, Emit(tk_comment_single), None),
     r(0, 10, Emit(tk_text_whitespace), None),
-    r(4046, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_constant)]), None),
-    r(4047, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal_number_integer)]), None),
-    r(4048, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal_number_integer)]), None),
-    r(4049, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_constant)]), None),
-    r(4050, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_constant)]), None),
-    r(4051, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_constant)]), None),
-    r(4052, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_constant)]), None),
-    r(4053, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword_constant)]), None),
-    r(4054, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal)]), None),
-    r(4055, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal), Emit(tk_literal_number_integer)]), None),
-    r(4056, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal)]), None),
+    r(
+      4046,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_constant),
+      ]),
+      None,
+    ),
+    r(
+      4047,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_integer),
+      ]),
+      None,
+    ),
+    r(
+      4048,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_integer),
+      ]),
+      None,
+    ),
+    r(
+      4049,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_constant),
+      ]),
+      None,
+    ),
+    r(
+      4050,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_constant),
+      ]),
+      None,
+    ),
+    r(
+      4051,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_constant),
+      ]),
+      None,
+    ),
+    r(
+      4052,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_constant),
+      ]),
+      None,
+    ),
+    r(
+      4053,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_constant),
+      ]),
+      None,
+    ),
+    r(
+      4054,
+      10,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal)]),
+      None,
+    ),
+    r(
+      4055,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal),
+        Emit(tk_literal_number_integer),
+      ]),
+      None,
+    ),
+    r(
+      4056,
+      10,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal)]),
+      None,
+    ),
   ]
   @lexer.RegexDef::new(
     "LdaprcLexer",
@@ -44,7 +136,14 @@ let ldaprc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LdaprcLexer` (LDAP configuration file).
 pub fn ldaprc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ldaprc_lexer_info, options, opts => ldaprc_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ldaprc_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    ldaprc_lexer_info,
+    options,
+    opts => ldaprc_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, ldaprc_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -67,43 +166,225 @@ let ldif_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(161, 8, Emit(tk_text_whitespace), None),
     r(4057, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
-    r(4058, 8, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
-    r(4059, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_number_integer), Emit(tk_text_whitespace)]), None),
-    r(4060, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_other), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("after-control")])),
-    r(4061, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_number), Emit(tk_text_whitespace)]), None),
-    r(4062, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_attribute), Emit(tk_text_whitespace)]), None),
-    r(4063, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace)]), None),
-    r(4064, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]), Some([Push("base64-dn")])),
-    r(4065, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]), Some([Push("dn")])),
-    r(4066, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace)]), None),
-    r(4067, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_punctuation)]), Some([Push("property")])),
-    r(4068, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_punctuation)]), Some([Push("url")])),
-    r(4069, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_punctuation)]), Some([Push("value")])),
+    r(
+      4058,
+      8,
+      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      4059,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number_integer),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4060,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_other),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("after-control")]),
+    ),
+    r(
+      4061,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_number),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4062,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_attribute),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4063,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4064,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]),
+      Some([Push("base64-dn")]),
+    ),
+    r(
+      4065,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]),
+      Some([Push("dn")]),
+    ),
+    r(
+      4066,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_punctuation),
+        Emit(tk_text_whitespace),
+        Emit(tk_name_class),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4067,
+      8,
+      ByGroups([Emit(tk_name_attribute), Emit(tk_punctuation)]),
+      Some([Push("property")]),
+    ),
+    r(
+      4068,
+      8,
+      ByGroups([Emit(tk_name_attribute), Emit(tk_punctuation)]),
+      Some([Push("url")]),
+    ),
+    r(
+      4069,
+      8,
+      ByGroups([Emit(tk_name_attribute), Emit(tk_punctuation)]),
+      Some([Push("value")]),
+    ),
     r(4070, 8, Emit(tk_punctuation), Some([Pop, Push("url")])),
     r(4071, 8, Emit(tk_punctuation), Some([Pop, Push("value")])),
     r(98, 0, Nop, Some([Pop])),
     r(4072, 8, ByGroups([Emit(tk_name_property), Emit(tk_punctuation)]), None),
-    r(4073, 8, ByGroups([Emit(tk_name_property), Emit(tk_punctuation)]), Some([Pop, Push("url")])),
-    r(4074, 8, ByGroups([Emit(tk_name_property), Emit(tk_punctuation)]), Some([Pop, Push("value")])),
-    r(4075, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string), Emit(tk_text_whitespace)]), None),
-    r(4076, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string), Emit(tk_text_whitespace)]), Some([Pop])),
-    r(4077, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preprocfile), Emit(tk_text_whitespace)]), None),
-    r(4078, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_preprocfile), Emit(tk_text_whitespace)]), Some([Pop])),
-    r(4079, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_attribute), Emit(tk_operator)]), Some([Pop, Push("dn-value")])),
+    r(
+      4073,
+      8,
+      ByGroups([Emit(tk_name_property), Emit(tk_punctuation)]),
+      Some([Pop, Push("url")]),
+    ),
+    r(
+      4074,
+      8,
+      ByGroups([Emit(tk_name_property), Emit(tk_punctuation)]),
+      Some([Pop, Push("value")]),
+    ),
+    r(
+      4075,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4076,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      4077,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preprocfile),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4078,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preprocfile),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      4079,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name_attribute),
+        Emit(tk_operator),
+      ]),
+      Some([Pop, Push("dn-value")]),
+    ),
     r(4080, 8, Emit(tk_escape), None),
     r(100, 8, Emit(tk_punctuation), Some([Pop, Push("dn")])),
     r(1860, 8, Emit(tk_operator), Some([Pop, Push("dn")])),
     r(4081, 8, Emit(tk_literal_string), None),
     r(4082, 8, Emit(tk_text_whitespace), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
-    r(4083, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace)]), None),
-    r(4084, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace)]), Some([Pop])),
+    r(
+      4083,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      4084,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
   ]
   @lexer.RegexDef::new(
     "LdifLexer",
-    ["root", "after-control", "property", "value", "url", "dn", "dn-value", "base64-dn"],
+    [
+      "root", "after-control", "property", "value", "url", "dn", "dn-value", "base64-dn",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16], [17, 18, 19], [20, 21], [22, 23], [24], [25, 26, 27, 28, 29, 30], [31, 32]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      [14, 15, 16],
+      [17, 18, 19],
+      [20, 21],
+      [22, 23],
+      [24],
+      [25, 26, 27, 28, 29, 30],
+      [31, 32],
+    ],
     extended=false,
   )
 })
@@ -111,5 +392,12 @@ let ldif_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LdifLexer` (LDIF).
 pub fn ldif_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ldif_lexer_info, options, opts => ldif_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ldif_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    ldif_lexer_info,
+    options,
+    opts => ldif_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, ldif_lexer_def.force(), text, stack)
+    },
+  )
 }

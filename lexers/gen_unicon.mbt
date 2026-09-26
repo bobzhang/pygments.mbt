@@ -21,7 +21,16 @@ let icon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(109, 8, Emit(tk_text), None),
     r(281, 8, Emit(tk_comment_single), None),
     r(3248, 8, Emit(tk_keyword_declaration), Some([Push("subprogram")])),
-    r(3249, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text), Emit(tk_keyword_type)]), Some([Push("type_def")])),
+    r(
+      3249,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text),
+        Emit(tk_keyword_type),
+      ]),
+      Some([Push("type_def")]),
+    ),
     r(3250, 8, Emit(tk_keyword_preproc), None),
     r(3251, 8, Emit(tk_keyword_constant), None),
     r(3252, 8, Emit(tk_keyword_reserved), None),
@@ -54,7 +63,22 @@ let icon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "IconLexer",
     ["root", "numbers", "subprogram", "type_def", "formal_part"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [12, 13, 14], [23, 24, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [26], [27, 28, 29, 30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22,
+      ],
+      [12, 13, 14],
+      [
+        23, 24, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22,
+      ],
+      [26],
+      [
+        27, 28, 29, 30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+        17, 18, 19, 20, 21, 22,
+      ],
+    ],
     extended=false,
   )
 })
@@ -62,7 +86,14 @@ let icon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `IconLexer` (Icon).
 pub fn icon_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(icon_lexer_info, options, opts => icon_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, icon_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    icon_lexer_info,
+    options,
+    opts => icon_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, icon_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -107,7 +138,14 @@ let ucode_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `UcodeLexer` (ucode).
 pub fn ucode_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ucode_lexer_info, options, opts => ucode_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ucode_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    ucode_lexer_info,
+    options,
+    opts => ucode_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, ucode_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -131,7 +169,16 @@ let unicon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(109, 8, Emit(tk_text), None),
     r(281, 8, Emit(tk_comment_single), None),
     r(3248, 8, Emit(tk_keyword_declaration), Some([Push("subprogram")])),
-    r(3249, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text), Emit(tk_keyword_type)]), Some([Push("type_def")])),
+    r(
+      3249,
+      8,
+      ByGroups([
+        Emit(tk_keyword_declaration),
+        Emit(tk_text),
+        Emit(tk_keyword_type),
+      ]),
+      Some([Push("type_def")]),
+    ),
     r(3250, 8, Emit(tk_keyword_preproc), None),
     r(3251, 8, Emit(tk_keyword_constant), None),
     r(3252, 8, Emit(tk_keyword_reserved), None),
@@ -165,7 +212,22 @@ let unicon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "UniconLexer",
     ["root", "numbers", "subprogram", "type_def", "formal_part"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [12, 13, 14], [24, 25, 26, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], [27], [28, 29, 30, 31, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23,
+      ],
+      [12, 13, 14],
+      [
+        24, 25, 26, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23,
+      ],
+      [27],
+      [
+        28, 29, 30, 31, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+        17, 18, 19, 20, 21, 22, 23,
+      ],
+    ],
     extended=false,
   )
 })
@@ -173,5 +235,12 @@ let unicon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `UniconLexer` (Unicon).
 pub fn unicon_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(unicon_lexer_info, options, opts => unicon_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, unicon_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    unicon_lexer_info,
+    options,
+    opts => unicon_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, unicon_lexer_def.force(), text, stack)
+    },
+  )
 }

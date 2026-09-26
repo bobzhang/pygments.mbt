@@ -44,9 +44,24 @@ let func_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "FuncLexer",
-    ["root", "keywords", "strings", "directives", "numeric", "comments", "storage", "functions", "variables", "directive", "comment"],
+    [
+      "root", "keywords", "strings", "directives", "numeric", "comments", "storage",
+      "functions", "variables", "directive", "comment",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [2, 3, 4], [5], [6], [7], [8, 9], [10, 11], [12], [13], [5, 15, 16, 17, 18], [19, 20, 21, 22]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+      [2, 3, 4],
+      [5],
+      [6],
+      [7],
+      [8, 9],
+      [10, 11],
+      [12],
+      [13],
+      [5, 15, 16, 17, 18],
+      [19, 20, 21, 22],
+    ],
     extended=false,
   )
 })
@@ -54,5 +69,12 @@ let func_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FuncLexer` (FunC).
 pub fn func_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(func_lexer_info, options, opts => func_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, func_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    func_lexer_info,
+    options,
+    opts => func_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, func_lexer_def.force(), text, stack)
+    },
+  )
 }

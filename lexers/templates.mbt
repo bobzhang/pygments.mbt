@@ -603,4 +603,3 @@ fn lasso_javascript_lexer_tokenizer(
     text,
   )
 }
-

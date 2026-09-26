@@ -22,7 +22,12 @@ let ecl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2077, 10, Emit(tk_comment_single), None),
     r(559, 10, Emit(tk_comment_multiline), None),
     r(2078, 10, Emit(tk_keyword_declaration), None),
-    r(2079, 10, ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace)]), None),
+    r(
+      2079,
+      10,
+      ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(2080, 10, Emit(tk_keyword_reserved), None),
     r(2081, 10, Emit(tk_keyword_reserved), None),
     r(2082, 10, Emit(tk_name_function), None),
@@ -43,9 +48,21 @@ let ecl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "ECLLexer",
-    ["root", "whitespace", "statements", "types", "keywords", "functions", "hash", "string"],
+    [
+      "root", "whitespace", "statements", "types", "keywords", "functions", "hash",
+      "string",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [0, 1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [3, 4], [5, 6], [7], [8], [19, 20, 21]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [0, 1, 2],
+      [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [3, 4],
+      [5, 6],
+      [7],
+      [8],
+      [19, 20, 21],
+    ],
     extended=false,
   )
 })
@@ -53,5 +70,9 @@ let ecl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ECLLexer` (ECL).
 pub fn ecl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ecl_lexer_info, options, opts => ecl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ecl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ecl_lexer_info, options, opts => ecl_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, ecl_lexer_def.force(), text, stack))
 }

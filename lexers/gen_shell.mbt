@@ -5,9 +5,15 @@ pub let bash_lexer_info : @lexer.LexerInfo = {
   class_name: "BashLexer",
   name: "Bash",
   aliases: ["bash", "sh", "ksh", "zsh", "shell", "openrc"],
-  filenames: ["*.sh", "*.ksh", "*.bash", "*.ebuild", "*.eclass", "*.exheres-0", "*.exlib", "*.zsh", ".bashrc", "bashrc", ".bash_*", "bash_*", "zshrc", ".zshrc", ".kshrc", "kshrc", "PKGBUILD"],
+  filenames: [
+    "*.sh", "*.ksh", "*.bash", "*.ebuild", "*.eclass", "*.exheres-0", "*.exlib",
+    "*.zsh", ".bashrc", "bashrc", ".bash_*", "bash_*", "zshrc", ".zshrc", ".kshrc",
+    "kshrc", "PKGBUILD",
+  ],
   alias_filenames: [],
-  mimetypes: ["application/x-sh", "application/x-shellscript", "text/x-shellscript"],
+  mimetypes: [
+    "application/x-sh", "application/x-shellscript", "text/x-shellscript",
+  ],
   priority: 0.0,
   url: "https://www.gnu.org/software/bash/manual/bash.html",
   version_added: "0.6",
@@ -23,7 +29,16 @@ let bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(721, 8, Emit(tk_comment_hashbang), None),
     r(722, 8, Emit(tk_comment_single), None),
     r(723, 8, Emit(tk_literal_string_escape), None),
-    r(724, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(
+      724,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
     r(725, 8, Emit(tk_operator), None),
     r(726, 8, Emit(tk_operator), None),
     r(727, 8, Emit(tk_literal_string), None),
@@ -65,9 +80,36 @@ let bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "BashLexer",
-    ["root", "basic", "data", "interp", "string", "curly", "paren", "math", "backticks"],
+    [
+      "root", "basic", "data", "interp", "string", "curly", "paren", "math", "backticks",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [22, 23, 24, 25, 26, 27], [28, 29, 22, 23, 24, 25, 26, 27], [30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [36, 37, 38, 39, 40, 41, 42, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27,
+      ],
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27],
+      [28, 29, 22, 23, 24, 25, 26, 27],
+      [
+        30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+      [
+        35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+      [
+        36, 37, 38, 39, 40, 41, 42, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+        14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+      [
+        43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+    ],
     extended=false,
   )
 })
@@ -75,7 +117,14 @@ let bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BashLexer` (Bash).
 pub fn bash_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bash_lexer_info, options, opts => bash_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bash_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    bash_lexer_info,
+    options,
+    opts => bash_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, bash_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -95,8 +144,15 @@ pub let bash_session_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `BashSessionLexer` (Bash Session).
-pub fn bash_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bash_session_lexer_info, options, opts => bash_session_lexer(options=opts), bash_session_lexer_tokenizer)
+pub fn bash_session_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    bash_session_lexer_info,
+    options,
+    opts => bash_session_lexer(options=opts),
+    bash_session_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -120,26 +176,135 @@ let batch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(748, 10, Emit(tk_comment_single), None),
     r(749, 10, Emit(tk_text), Some([Push("follow")])),
     r(750, 10, Using(This, Some(["root", "text"]), []), None),
-    r(751, 10, ByGroups([Emit(tk_literal_number_integer), Emit(tk_punctuation), Emit(tk_text), Emit(tk_literal_number_integer)]), None),
-    r(752, 10, ByGroups([Emit(tk_literal_number_integer), Emit(tk_punctuation), Using(This, Some(["root", "text"]), [])]), None),
+    r(
+      751,
+      10,
+      ByGroups([
+        Emit(tk_literal_number_integer),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_literal_number_integer),
+      ]),
+      None,
+    ),
+    r(
+      752,
+      10,
+      ByGroups([
+        Emit(tk_literal_number_integer),
+        Emit(tk_punctuation),
+        Using(This, Some(["root", "text"]), []),
+      ]),
+      None,
+    ),
     r(753, 10, Emit(tk_text), None),
     r(138, 10, Emit(tk_punctuation), Some([Push("root/compound")])),
     r(754, 10, Emit(tk_punctuation), None),
-    r(755, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]), Some([Push("follow")])),
-    r(756, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]), Some([Push("follow")])),
+    r(
+      755,
+      10,
+      ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]),
+      Some([Push("follow")]),
+    ),
+    r(
+      756,
+      10,
+      ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]),
+      Some([Push("follow")]),
+    ),
     r(757, 10, Emit(tk_keyword), Some([Push("follow")])),
-    r(758, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_punctuation)]), Some([Push("call")])),
+    r(
+      758,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("call")]),
+    ),
     r(759, 10, Emit(tk_keyword), None),
-    r(760, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]), Some([Push("for/f"), Push("for")])),
-    r(761, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]), Some([Push("for/l"), Push("for")])),
+    r(
+      760,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+      ]),
+      Some([Push("for/f"), Push("for")]),
+    ),
+    r(
+      761,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+      ]),
+      Some([Push("for/l"), Push("for")]),
+    ),
     r(762, 10, Emit(tk_keyword), Some([Push("for2"), Push("for")])),
-    r(763, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_punctuation)]), Some([Push("label")])),
-    r(764, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]), Some([Push("(?"), Push("if")])),
+    r(
+      763,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("label")]),
+    ),
+    r(
+      764,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+      ]),
+      Some([Push("(?"), Push("if")]),
+    ),
     r(765, 10, Emit(tk_comment_single), Some([Push("follow")])),
-    r(766, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]), Some([Push("arithmetic")])),
-    r(767, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Using(This, Some(["root", "variable"]), []), Emit(tk_punctuation)]), Some([Push("follow")])),
+    r(
+      766,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+      ]),
+      Some([Push("arithmetic")]),
+    ),
+    r(
+      767,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Using(This, Some(["root", "variable"]), []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("follow")]),
+    ),
     r(98, 0, Nop, Some([Push("follow")])),
-    r(768, 10, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_label), Emit(tk_comment_single)]), None),
+    r(
+      768,
+      10,
+      ByGroups([
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_name_label),
+        Emit(tk_comment_single),
+      ]),
+      None,
+    ),
     r(769, 10, Emit(tk_text), Some([Pop])),
     r(770, 10, Emit(tk_punctuation), Some([Pop])),
     r(173, 10, Emit(tk_literal_string_double), Some([Push("string")])),
@@ -153,32 +318,151 @@ let batch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(777, 10, Emit(tk_operator), None),
     r(778, 10, Using(This, Some(["root", "variable"]), []), None),
     r(779, 10, Emit(tk_text), Some([Pop])),
-    r(780, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_label)]), Some([Pop])),
-    r(781, 10, ByGroups([Emit(tk_name_label), Emit(tk_comment_single)]), Some([Pop])),
+    r(
+      780,
+      10,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_label)]),
+      Some([Pop]),
+    ),
+    r(
+      781,
+      10,
+      ByGroups([Emit(tk_name_label), Emit(tk_comment_single)]),
+      Some([Pop]),
+    ),
     r(96, 10, Emit(tk_punctuation), Some([Pop])),
     r(749, 10, Emit(tk_text), Some([Push("follow/compound")])),
     r(750, 10, Using(This, Some(["root", "text"]), []), None),
-    r(751, 10, ByGroups([Emit(tk_literal_number_integer), Emit(tk_punctuation), Emit(tk_text), Emit(tk_literal_number_integer)]), None),
-    r(782, 10, ByGroups([Emit(tk_literal_number_integer), Emit(tk_punctuation), Using(This, Some(["root", "text"]), [])]), None),
+    r(
+      751,
+      10,
+      ByGroups([
+        Emit(tk_literal_number_integer),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_literal_number_integer),
+      ]),
+      None,
+    ),
+    r(
+      782,
+      10,
+      ByGroups([
+        Emit(tk_literal_number_integer),
+        Emit(tk_punctuation),
+        Using(This, Some(["root", "text"]), []),
+      ]),
+      None,
+    ),
     r(753, 10, Emit(tk_text), None),
     r(138, 10, Emit(tk_punctuation), Some([Push("root/compound")])),
     r(754, 10, Emit(tk_punctuation), None),
-    r(783, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]), Some([Push("follow/compound")])),
-    r(784, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]), Some([Push("follow/compound")])),
+    r(
+      783,
+      10,
+      ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]),
+      Some([Push("follow/compound")]),
+    ),
+    r(
+      784,
+      10,
+      ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]),
+      Some([Push("follow/compound")]),
+    ),
     r(785, 10, Emit(tk_keyword), Some([Push("follow/compound")])),
-    r(758, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_punctuation)]), Some([Push("call/compound")])),
+    r(
+      758,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("call/compound")]),
+    ),
     r(786, 10, Emit(tk_keyword), None),
-    r(787, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]), Some([Push("for/f"), Push("for")])),
-    r(788, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]), Some([Push("for/l"), Push("for")])),
+    r(
+      787,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+      ]),
+      Some([Push("for/f"), Push("for")]),
+    ),
+    r(
+      788,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+      ]),
+      Some([Push("for/l"), Push("for")]),
+    ),
     r(789, 10, Emit(tk_keyword), Some([Push("for2"), Push("for")])),
-    r(790, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_punctuation)]), Some([Push("label/compound")])),
-    r(791, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]), Some([Push("(?"), Push("if")])),
+    r(
+      790,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("label/compound")]),
+    ),
+    r(
+      791,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+      ]),
+      Some([Push("(?"), Push("if")]),
+    ),
     r(792, 10, Emit(tk_comment_single), Some([Push("follow/compound")])),
-    r(793, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]), Some([Push("arithmetic/compound")])),
-    r(794, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Using(This, Some(["root", "variable"]), []), Emit(tk_punctuation)]), Some([Push("follow/compound")])),
+    r(
+      793,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+      ]),
+      Some([Push("arithmetic/compound")]),
+    ),
+    r(
+      794,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Using(This, Some(["root", "variable"]), []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Push("follow/compound")]),
+    ),
     r(98, 0, Nop, Some([Push("follow/compound")])),
     r(795, 10, Emit(tk_text), Some([Pop])),
-    r(796, 10, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_label), Emit(tk_comment_single)]), None),
+    r(
+      796,
+      10,
+      ByGroups([
+        Emit(tk_text),
+        Emit(tk_punctuation),
+        Emit(tk_text),
+        Emit(tk_name_label),
+        Emit(tk_comment_single),
+      ]),
+      None,
+    ),
     r(769, 10, Emit(tk_text), Some([Pop])),
     r(770, 10, Emit(tk_punctuation), Some([Pop])),
     r(795, 10, Emit(tk_text), Some([Pop])),
@@ -190,9 +474,19 @@ let batch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(797, 10, Using(This, Some(["root", "variable"]), []), None),
     r(779, 10, Emit(tk_text), Some([Pop])),
     r(795, 10, Emit(tk_text), Some([Pop])),
-    r(798, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_label)]), Some([Pop])),
+    r(
+      798,
+      10,
+      ByGroups([Emit(tk_punctuation), Emit(tk_name_label)]),
+      Some([Pop]),
+    ),
     r(795, 10, Emit(tk_text), Some([Pop])),
-    r(799, 10, ByGroups([Emit(tk_name_label), Emit(tk_comment_single)]), Some([Pop])),
+    r(
+      799,
+      10,
+      ByGroups([Emit(tk_name_label), Emit(tk_comment_single)]),
+      Some([Pop]),
+    ),
     r(173, 10, Emit(tk_literal_string_double), Some([Pop])),
     r(771, 10, Emit(tk_name_variable), None),
     r(800, 10, Emit(tk_literal_string_escape), None),
@@ -202,24 +496,132 @@ let batch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(802, 10, Emit(tk_literal_string_backtick), None),
     r(173, 10, Emit(tk_literal_string_double), Some([Push("string")])),
     r(803, 10, Emit(tk_name_variable), None),
-    r(804, 10, ByGroups([Using(This, Some(["root", "text"]), []), Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_punctuation)]), Some([Pop])),
+    r(
+      804,
+      10,
+      ByGroups([
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_punctuation),
+      ]),
+      Some([Pop]),
+    ),
     r(96, 10, Emit(tk_punctuation), None),
-    r(805, 10, ByGroups([Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]), Some([Pop])),
+    r(
+      805,
+      10,
+      ByGroups([Using(This, Some(["root", "text"]), []), Emit(tk_keyword)]),
+      Some([Pop]),
+    ),
     r(753, 10, Emit(tk_text), None),
-    r(806, 10, ByGroups([Emit(tk_literal_string_double), Using(This, Some(["root", "string"]), []), Emit(tk_text), Emit(tk_punctuation)]), None),
-    r(173, 10, Emit(tk_literal_string_double), Some([Pop, Push("for2"), Push("string")])),
-    r(807, 10, ByGroups([Using(This, Some(["root", "sqstring"]), []), Emit(tk_text), Emit(tk_punctuation)]), None),
-    r(808, 10, ByGroups([Using(This, Some(["root", "bqstring"]), []), Emit(tk_text), Emit(tk_punctuation)]), None),
+    r(
+      806,
+      10,
+      ByGroups([
+        Emit(tk_literal_string_double),
+        Using(This, Some(["root", "string"]), []),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      173,
+      10,
+      Emit(tk_literal_string_double),
+      Some([Pop, Push("for2"), Push("string")]),
+    ),
+    r(
+      807,
+      10,
+      ByGroups([
+        Using(This, Some(["root", "sqstring"]), []),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
+    r(
+      808,
+      10,
+      ByGroups([
+        Using(This, Some(["root", "bqstring"]), []),
+        Emit(tk_text),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(809, 10, Emit(tk_literal_number_integer), None),
-    r(810, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Emit(tk_literal_number_integer)]), Some([Pop])),
-    r(811, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), []), Using(This, Some(["root", "variable"]), [])]), Some([Pop])),
-    r(812, 10, ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]), Some([Pop])),
-    r(813, 10, ByGroups([Using(This, Some(["root", "arithmetic"]), []), Emit(tk_operator_word), Using(This, Some(["root", "arithmetic"]), [])]), Some([Pop])),
-    r(814, 10, Using(This, Some(["root", "text"]), []), Some([Pop, Push("if2")])),
-    r(815, 10, ByGroups([Using(This, Some(["root", "text"]), []), Emit(tk_operator), Using(This, Some(["root", "text"]), [])]), Some([Pop])),
-    r(816, 10, ByGroups([Using(This, Some(["root", "text"]), []), Emit(tk_operator_word), Using(This, Some(["root", "text"]), [])]), Some([Pop])),
+    r(
+      810,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_literal_number_integer),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      811,
+      10,
+      ByGroups([
+        Emit(tk_keyword),
+        Using(This, Some(["root", "text"]), []),
+        Using(This, Some(["root", "variable"]), []),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      812,
+      10,
+      ByGroups([Emit(tk_keyword), Using(This, Some(["root", "text"]), [])]),
+      Some([Pop]),
+    ),
+    r(
+      813,
+      10,
+      ByGroups([
+        Using(This, Some(["root", "arithmetic"]), []),
+        Emit(tk_operator_word),
+        Using(This, Some(["root", "arithmetic"]), []),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      814,
+      10,
+      Using(This, Some(["root", "text"]), []),
+      Some([Pop, Push("if2")]),
+    ),
+    r(
+      815,
+      10,
+      ByGroups([
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_operator),
+        Using(This, Some(["root", "text"]), []),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      816,
+      10,
+      ByGroups([
+        Using(This, Some(["root", "text"]), []),
+        Emit(tk_operator_word),
+        Using(This, Some(["root", "text"]), []),
+      ]),
+      Some([Pop]),
+    ),
     r(750, 10, Using(This, Some(["root", "text"]), []), None),
-    r(138, 10, Emit(tk_punctuation), Some([Pop, Push("else?"), Push("root/compound")])),
+    r(
+      138,
+      10,
+      Emit(tk_punctuation),
+      Some([Pop, Push("else?"), Push("root/compound")]),
+    ),
     r(98, 0, Nop, Some([Pop])),
     r(750, 10, Using(This, Some(["root", "text"]), []), None),
     r(817, 10, Emit(tk_keyword), Some([Pop])),
@@ -227,9 +629,47 @@ let batch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "BatchLexer",
-    ["root", "redirect", "follow", "text", "variable-or-escape", "arithmetic", "call", "label", "root/compound", "redirect/compound", "follow/compound", "arithmetic/compound", "call/compound", "label/compound", "string", "sqstring", "bqstring", "variable", "for", "for2", "for/f", "for/l", "if", "if2", "(?", "else?"],
+    [
+      "root", "redirect", "follow", "text", "variable-or-escape", "arithmetic", "call",
+      "label", "root/compound", "redirect/compound", "follow/compound", "arithmetic/compound",
+      "call/compound", "label/compound", "string", "sqstring", "bqstring", "variable",
+      "for", "for2", "for/f", "for/l", "if", "if2", "(?", "else?",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [3, 4], [22, 3, 4, 23, 24, 25, 26, 27, 28], [25, 26, 27, 28], [26, 27], [29, 30, 31, 32, 33, 34, 35, 22, 3, 4, 23, 24, 25, 26, 27, 28], [36], [37], [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59], [41, 42], [60, 61, 41, 42, 62, 63, 25, 26, 27, 28], [64, 65, 66, 67, 68, 69, 70, 71, 22, 3, 4, 23, 24, 25, 26, 27, 28], [72, 73], [74, 75], [76, 77, 78, 79, 80], [26, 27, 81], [26, 27, 82], [83, 26, 27, 84], [85, 22, 3, 4, 23, 24, 25, 26, 27, 28], [86, 87, 88, 22, 3, 4, 23, 24, 25, 26, 27, 28], [89, 90, 91, 92, 86, 87, 88, 22, 3, 4, 23, 24, 25, 26, 27, 28], [93, 86, 87, 88, 22, 3, 4, 23, 24, 25, 26, 27, 28], [94, 95, 96, 97, 98], [99, 100], [101, 102, 103], [104, 105, 106]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21,
+      ],
+      [3, 4],
+      [22, 3, 4, 23, 24, 25, 26, 27, 28],
+      [25, 26, 27, 28],
+      [26, 27],
+      [29, 30, 31, 32, 33, 34, 35, 22, 3, 4, 23, 24, 25, 26, 27, 28],
+      [36],
+      [37],
+      [
+        38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56,
+        57, 58, 59,
+      ],
+      [41, 42],
+      [60, 61, 41, 42, 62, 63, 25, 26, 27, 28],
+      [64, 65, 66, 67, 68, 69, 70, 71, 22, 3, 4, 23, 24, 25, 26, 27, 28],
+      [72, 73],
+      [74, 75],
+      [76, 77, 78, 79, 80],
+      [26, 27, 81],
+      [26, 27, 82],
+      [83, 26, 27, 84],
+      [85, 22, 3, 4, 23, 24, 25, 26, 27, 28],
+      [86, 87, 88, 22, 3, 4, 23, 24, 25, 26, 27, 28],
+      [89, 90, 91, 92, 86, 87, 88, 22, 3, 4, 23, 24, 25, 26, 27, 28],
+      [93, 86, 87, 88, 22, 3, 4, 23, 24, 25, 26, 27, 28],
+      [94, 95, 96, 97, 98],
+      [99, 100],
+      [101, 102, 103],
+      [104, 105, 106],
+    ],
     extended=false,
   )
 })
@@ -237,7 +677,14 @@ let batch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BatchLexer` (Batchfile).
 pub fn batch_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(batch_lexer_info, options, opts => batch_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, batch_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    batch_lexer_info,
+    options,
+    opts => batch_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, batch_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -278,15 +725,31 @@ let execline_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ExeclineLexer",
     ["root", "basic", "data", "interp", "string", "curly"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10], [11, 12, 8, 9, 10], [13, 14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      [0, 1, 2, 3],
+      [4, 5, 6, 7],
+      [8, 9, 10],
+      [11, 12, 8, 9, 10],
+      [13, 14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ExeclineLexer` (execline).
-pub fn execline_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(execline_lexer_info, options, opts => execline_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, execline_lexer_def.force(), text, stack))
+pub fn execline_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    execline_lexer_info,
+    options,
+    opts => execline_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, execline_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -311,7 +774,16 @@ let fish_shell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2623, 8, Emit(tk_name_builtin), None),
     r(722, 8, Emit(tk_comment), None),
     r(723, 8, Emit(tk_literal_string_escape), None),
-    r(2624, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(
+      2624,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
     r(2625, 8, Emit(tk_operator), None),
     r(727, 8, Emit(tk_literal_string), None),
     r(2626, 24, Emit(tk_literal_string_double), None),
@@ -339,15 +811,35 @@ let fish_shell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "FishShellLexer",
     ["root", "basic", "data", "interp", "string", "paren", "math"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [0, 1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18], [19, 20, 16, 17, 18], [21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [22, 23, 24, 25, 26, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [0, 1, 2, 3, 4, 5, 6],
+      [7, 8, 9, 10, 11, 12, 13, 14, 15],
+      [16, 17, 18],
+      [19, 20, 16, 17, 18],
+      [21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [
+        22, 23, 24, 25, 26, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+        16, 17, 18,
+      ],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `FishShellLexer` (Fish).
-pub fn fish_shell_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(fish_shell_lexer_info, options, opts => fish_shell_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, fish_shell_lexer_def.force(), text, stack))
+pub fn fish_shell_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    fish_shell_lexer_info,
+    options,
+    opts => fish_shell_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, fish_shell_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -367,8 +859,15 @@ pub let msdos_session_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MSDOSSessionLexer` (MSDOS Session).
-pub fn msdos_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(msdos_session_lexer_info, options, opts => msdos_session_lexer(options=opts), msdos_session_lexer_tokenizer)
+pub fn msdos_session_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    msdos_session_lexer_info,
+    options,
+    opts => msdos_session_lexer(options=opts),
+    msdos_session_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -391,7 +890,12 @@ let power_shell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(138, 26, Emit(tk_punctuation), Some([Push("child")])),
     r(0, 26, Emit(tk_text), None),
-    r(5659, 26, ByGroups([Emit(tk_comment), Emit(tk_literal_string_doc), Emit(tk_comment)]), None),
+    r(
+      5659,
+      26,
+      ByGroups([Emit(tk_comment), Emit(tk_literal_string_doc), Emit(tk_comment)]),
+      None,
+    ),
     r(5660, 26, Emit(tk_comment), None),
     r(5661, 26, Emit(tk_comment_multiline), Some([Push("multline")])),
     r(5662, 26, Emit(tk_literal_string_heredoc), Some([Push("heredoc-double")])),
@@ -428,15 +932,30 @@ let power_shell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PowerShellLexer",
     ["root", "child", "multline", "string", "heredoc-double"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [20, 21, 22, 23], [24, 25, 26, 27, 28, 29], [30, 31, 32, 33]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+      [20, 21, 22, 23],
+      [24, 25, 26, 27, 28, 29],
+      [30, 31, 32, 33],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `PowerShellLexer` (PowerShell).
-pub fn power_shell_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(power_shell_lexer_info, options, opts => power_shell_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, power_shell_lexer_def.force(), text, stack))
+pub fn power_shell_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    power_shell_lexer_info,
+    options,
+    opts => power_shell_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, power_shell_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -456,8 +975,15 @@ pub let power_shell_session_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `PowerShellSessionLexer` (PowerShell Session).
-pub fn power_shell_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(power_shell_session_lexer_info, options, opts => power_shell_session_lexer(options=opts), power_shell_session_lexer_tokenizer)
+pub fn power_shell_session_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    power_shell_session_lexer_info,
+    options,
+    opts => power_shell_session_lexer(options=opts),
+    power_shell_session_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -483,7 +1009,16 @@ let slurm_bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(721, 8, Emit(tk_comment_hashbang), None),
     r(722, 8, Emit(tk_comment_single), None),
     r(723, 8, Emit(tk_literal_string_escape), None),
-    r(724, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(
+      724,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+      ]),
+      None,
+    ),
     r(725, 8, Emit(tk_operator), None),
     r(726, 8, Emit(tk_operator), None),
     r(727, 8, Emit(tk_literal_string), None),
@@ -525,17 +1060,51 @@ let slurm_bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "SlurmBashLexer",
-    ["root", "basic", "data", "interp", "string", "curly", "paren", "math", "backticks"],
+    [
+      "root", "basic", "data", "interp", "string", "curly", "paren", "math", "backticks",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [22, 23, 24, 25, 26, 27], [28, 29, 22, 23, 24, 25, 26, 27], [30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [36, 37, 38, 39, 40, 41, 42, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27,
+      ],
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27],
+      [28, 29, 22, 23, 24, 25, 26, 27],
+      [
+        30, 31, 32, 33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+      [
+        35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+      [
+        36, 37, 38, 39, 40, 41, 42, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+        14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+      [
+        43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26, 27,
+      ],
+    ],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `SlurmBashLexer` (Slurm).
-pub fn slurm_bash_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(slurm_bash_lexer_info, options, opts => slurm_bash_lexer(options=opts), slurm_bash_lexer_tokenizer)
+pub fn slurm_bash_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    slurm_bash_lexer_info,
+    options,
+    opts => slurm_bash_lexer(options=opts),
+    slurm_bash_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -560,7 +1129,12 @@ let tcsh_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7119, 8, Emit(tk_name_builtin), None),
     r(1103, 8, Emit(tk_comment), None),
     r(723, 8, Emit(tk_literal_string_escape), None),
-    r(2624, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_operator)]), None),
+    r(
+      2624,
+      8,
+      ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_operator)]),
+      None,
+    ),
     r(5348, 8, Emit(tk_operator), None),
     r(5349, 8, Emit(tk_literal_string), None),
     r(139, 8, Emit(tk_punctuation), None),
@@ -585,7 +1159,17 @@ let tcsh_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "TcshLexer",
     ["root", "basic", "data", "curly", "paren", "backticks"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [0, 1, 2, 3, 4, 5, 6, 7], [11, 12, 13, 14, 15, 16], [17, 18, 19, 20, 21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [22, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      [11, 12, 13, 14, 15, 16],
+      [
+        17, 18, 19, 20, 21, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+        16,
+      ],
+      [22, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+      [23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+    ],
     extended=false,
   )
 })
@@ -593,7 +1177,14 @@ let tcsh_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TcshLexer` (Tcsh).
 pub fn tcsh_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tcsh_lexer_info, options, opts => tcsh_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tcsh_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    tcsh_lexer_info,
+    options,
+    opts => tcsh_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, tcsh_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -613,6 +1204,13 @@ pub let tcsh_session_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `TcshSessionLexer` (Tcsh Session).
-pub fn tcsh_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tcsh_session_lexer_info, options, opts => tcsh_session_lexer(options=opts), tcsh_session_lexer_tokenizer)
+pub fn tcsh_session_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    tcsh_session_lexer_info,
+    options,
+    opts => tcsh_session_lexer(options=opts),
+    tcsh_session_lexer_tokenizer,
+  )
 }

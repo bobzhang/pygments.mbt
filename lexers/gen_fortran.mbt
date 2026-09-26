@@ -22,12 +22,34 @@ let fortran_fixed_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(722, 2, Emit(tk_comment_preproc), None),
     r(2661, 2, Emit(tk_comment), None),
     r(2662, 2, Emit(tk_name_label), Some([Push("cont-char")])),
-    r(1915, 2, Using(Other(opts => fortran_lexer(options=opts)), None, []), None),
+    r(
+      1915,
+      2,
+      Using(Other(opts => fortran_lexer(options=opts)), None, []),
+      None,
+    ),
     r(2663, 2, Emit(tk_text), Some([Push("code")])),
     r(2664, 2, Emit(tk_comment), Some([Push("code")])),
     r(76, 2, Emit(tk_generic_strong), Some([Push("code")])),
-    r(2665, 2, ByGroups([Call("FortranFixedLexer._lex_fortran", []), Emit(tk_comment), Emit(tk_text_whitespace)]), Some([Push("root")])),
-    r(1862, 2, ByGroups([Call("FortranFixedLexer._lex_fortran", []), Emit(tk_text_whitespace)]), Some([Push("root")])),
+    r(
+      2665,
+      2,
+      ByGroups([
+        Call("FortranFixedLexer._lex_fortran", []),
+        Emit(tk_comment),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("root")]),
+    ),
+    r(
+      1862,
+      2,
+      ByGroups([
+        Call("FortranFixedLexer._lex_fortran", []),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("root")]),
+    ),
     r(98, 0, Nop, Some([Push("root")])),
   ]
   @lexer.RegexDef::new(
@@ -41,8 +63,23 @@ let fortran_fixed_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FortranFixedLexer` (FortranFixed).
-pub fn fortran_fixed_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(fortran_fixed_lexer_info, options, opts => fortran_fixed_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, fortran_fixed_lexer_def.force(), text, stack, callbacks=fortran_fixed_lexer_callbacks(lx)))
+pub fn fortran_fixed_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    fortran_fixed_lexer_info,
+    options,
+    opts => fortran_fixed_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(
+        lx,
+        fortran_fixed_lexer_def.force(),
+        text,
+        stack,
+        callbacks=fortran_fixed_lexer_callbacks(lx),
+      )
+    },
+  )
 }
 
 ///|
@@ -67,8 +104,18 @@ let fortran_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2667, 10, Emit(tk_comment), None),
     r(2668, 10, Emit(tk_literal_string_double), None),
     r(2669, 10, Emit(tk_literal_string_single), None),
-    r(2670, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
-    r(2671, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(
+      2670,
+      10,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      None,
+    ),
+    r(
+      2671,
+      10,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      None,
+    ),
     r(2672, 10, Emit(tk_keyword), None),
     r(2673, 10, Emit(tk_keyword_type), None),
     r(2674, 10, Emit(tk_operator), None),
@@ -88,7 +135,12 @@ let fortran_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "FortranLexer",
     ["root", "strings", "core", "nums"],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [2, 3], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [15, 16, 17, 18]],
+    [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      [2, 3],
+      [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      [15, 16, 17, 18],
+    ],
     extended=false,
   )
 })
@@ -96,5 +148,12 @@ let fortran_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FortranLexer` (Fortran).
 pub fn fortran_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(fortran_lexer_info, options, opts => fortran_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, fortran_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    fortran_lexer_info,
+    options,
+    opts => fortran_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, fortran_lexer_def.force(), text, stack)
+    },
+  )
 }

@@ -49,5 +49,12 @@ let fift_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FiftLexer` (Fift).
 pub fn fift_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(fift_lexer_info, options, opts => fift_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, fift_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    fift_lexer_info,
+    options,
+    opts => fift_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, fift_lexer_def.force(), text, stack)
+    },
+  )
 }

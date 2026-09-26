@@ -21,7 +21,18 @@ let felix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(0, 8, Emit(tk_text_whitespace), None),
     r(2568, 8, Emit(tk_comment_single), None),
     r(958, 8, Emit(tk_comment_multiline), Some([Push("comment2")])),
-    r(2569, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_comment_preproc)]), Some([Push("if0")])),
+    r(
+      2569,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+        Emit(tk_comment_preproc),
+      ]),
+      Some([Push("if0")]),
+    ),
     r(861, 8, Emit(tk_comment_preproc), Some([Push("macro")])),
     r(2570, 8, Emit(tk_keyword), Some([Push("funcname")])),
     r(2571, 8, Emit(tk_keyword), Some([Push("classname")])),
@@ -69,12 +80,57 @@ let felix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(958, 8, Emit(tk_comment_multiline), Some([Dup])),
     r(973, 8, Emit(tk_comment_multiline), Some([Pop])),
     r(1916, 8, Emit(tk_comment_multiline), None),
-    r(2599, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment), Emit(tk_text_whitespace)]), Some([Dup])),
-    r(2600, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment), Emit(tk_text_whitespace)]), Some([Pop])),
+    r(
+      2599,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Dup]),
+    ),
+    r(
+      2600,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
     r(2601, 8, ByGroups([Emit(tk_comment), Emit(tk_text_whitespace)]), None),
-    r(2602, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_literal_string)]), Some([Pop])),
-    r(2603, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_literal_string)]), Some([Pop])),
-    r(2604, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_literal_string)]), Some([Pop])),
+    r(
+      2602,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      2603,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      2604,
+      8,
+      ByGroups([
+        Emit(tk_comment_preproc),
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string),
+      ]),
+      Some([Pop]),
+    ),
     r(437, 8, Emit(tk_comment_preproc), None),
     r(438, 8, Emit(tk_comment_preproc), None),
     r(439, 8, Emit(tk_comment_preproc), None),
@@ -83,7 +139,12 @@ let felix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1083, 8, Emit(tk_text), Some([Pop])),
     r(274, 8, Emit(tk_name_class), Some([Pop])),
     r(2605, 8, Emit(tk_text), Some([Pop])),
-    r(144, 8, Emit(tk_punctuation), Some([Push("modulename2"), Push("tvarlist")])),
+    r(
+      144,
+      8,
+      Emit(tk_punctuation),
+      Some([Push("modulename2"), Push("tvarlist")]),
+    ),
     r(98, 0, Nop, Some([Push("modulename2")])),
     r(2606, 8, Emit(tk_name_namespace), Some([Pop, Pop])),
     r(144, 8, Emit(tk_punctuation), Some([Dup])),
@@ -94,9 +155,40 @@ let felix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "FelixLexer",
-    ["root", "whitespace", "comment", "operators", "stringescape", "tdqs", "strings", "nl", "_tmp_0", "tsqs", "_tmp_1", "dqs", "_tmp_2", "sqs", "_tmp_3", "comment2", "if0", "macro", "funcname", "classname", "modulename", "modulename2", "tvarlist"],
+    [
+      "root", "whitespace", "comment", "operators", "stringescape", "tdqs", "strings",
+      "nl", "_tmp_0", "tsqs", "_tmp_1", "dqs", "_tmp_2", "sqs", "_tmp_3", "comment2",
+      "if0", "macro", "funcname", "classname", "modulename", "modulename2", "tvarlist",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], [0, 1, 2, 3, 4], [1, 2], [13, 14], [35], [36, 37, 38, 39, 40, 41], [37, 38, 39, 40], [41], [35, 36, 37, 38, 39, 40, 41], [42, 37, 38, 39, 40, 41], [35, 42, 37, 38, 39, 40, 41], [43, 44, 37, 38, 39, 40], [35, 43, 44, 37, 38, 39, 40], [45, 46, 37, 38, 39, 40], [35, 45, 46, 37, 38, 39, 40], [47, 48, 49, 50], [51, 52, 53], [1, 2, 54, 55, 56, 57, 58, 59, 60], [0, 1, 2, 3, 4, 61, 62], [0, 1, 2, 3, 4, 63, 64], [0, 1, 2, 3, 4, 65, 66], [0, 1, 2, 3, 4, 67], [0, 1, 2, 3, 4, 13, 14, 68, 69, 70, 71, 72]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+      ],
+      [0, 1, 2, 3, 4],
+      [1, 2],
+      [13, 14],
+      [35],
+      [36, 37, 38, 39, 40, 41],
+      [37, 38, 39, 40],
+      [41],
+      [35, 36, 37, 38, 39, 40, 41],
+      [42, 37, 38, 39, 40, 41],
+      [35, 42, 37, 38, 39, 40, 41],
+      [43, 44, 37, 38, 39, 40],
+      [35, 43, 44, 37, 38, 39, 40],
+      [45, 46, 37, 38, 39, 40],
+      [35, 45, 46, 37, 38, 39, 40],
+      [47, 48, 49, 50],
+      [51, 52, 53],
+      [1, 2, 54, 55, 56, 57, 58, 59, 60],
+      [0, 1, 2, 3, 4, 61, 62],
+      [0, 1, 2, 3, 4, 63, 64],
+      [0, 1, 2, 3, 4, 65, 66],
+      [0, 1, 2, 3, 4, 67],
+      [0, 1, 2, 3, 4, 13, 14, 68, 69, 70, 71, 72],
+    ],
     extended=false,
   )
 })
@@ -104,5 +196,12 @@ let felix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FelixLexer` (Felix).
 pub fn felix_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(felix_lexer_info, options, opts => felix_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, felix_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    felix_lexer_info,
+    options,
+    opts => felix_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, felix_lexer_def.force(), text, stack)
+    },
+  )
 }

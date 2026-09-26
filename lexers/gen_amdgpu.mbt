@@ -48,5 +48,12 @@ let amdgpu_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AMDGPULexer` (AMDGPU).
 pub fn amdgpu_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(amdgpu_lexer_info, options, opts => amdgpu_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, amdgpu_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    amdgpu_lexer_info,
+    options,
+    opts => amdgpu_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, amdgpu_lexer_def.force(), text, stack)
+    },
+  )
 }

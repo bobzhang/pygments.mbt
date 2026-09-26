@@ -19,26 +19,83 @@ pub let cython_lexer_info : @lexer.LexerInfo = {
 let cython_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(1769, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_doc)]), None),
-    r(1770, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_doc)]), None),
+    r(
+      1769,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_doc)]),
+      None,
+    ),
+    r(
+      1770,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_doc)]),
+      None,
+    ),
     r(109, 8, Emit(tk_text), None),
     r(627, 8, Emit(tk_comment), None),
     r(1771, 8, Emit(tk_punctuation), None),
     r(351, 8, Emit(tk_text_whitespace), None),
     r(200, 8, Emit(tk_text), None),
     r(615, 8, Emit(tk_operator_word), None),
-    r(1772, 8, ByGroups([Emit(tk_punctuation), Emit(tk_keyword_type), Emit(tk_punctuation)]), None),
+    r(
+      1772,
+      8,
+      ByGroups([
+        Emit(tk_punctuation),
+        Emit(tk_keyword_type),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(1773, 8, Emit(tk_operator), None),
-    r(1774, 8, ByGroups([Emit(tk_keyword), Emit(tk_literal_number_integer), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_name), Emit(tk_punctuation)]), None),
+    r(
+      1774,
+      8,
+      ByGroups([
+        Emit(tk_keyword),
+        Emit(tk_literal_number_integer),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_name),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(1775, 8, Emit(tk_keyword), None),
     r(1776, 8, Emit(tk_keyword_constant), None),
     r(1777, 8, Emit(tk_comment_preproc), None),
-    r(1778, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
-    r(1779, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("cdef")])),
+    r(
+      1778,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("funcname")]),
+    ),
+    r(
+      1779,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("cdef")]),
+    ),
     r(1780, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]), None),
-    r(1781, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
-    r(1782, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("fromimport")])),
-    r(1783, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("import")])),
+    r(
+      1781,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
+    r(
+      1782,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("fromimport")]),
+    ),
+    r(
+      1783,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("import")]),
+    ),
     r(1784, 8, Emit(tk_name_builtin), None),
     r(1785, 8, Emit(tk_name_builtin_pseudo), None),
     r(1786, 8, Emit(tk_name_exception), None),
@@ -72,10 +129,34 @@ let cython_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1802, 8, Emit(tk_literal_string_escape), None),
     r(274, 8, Emit(tk_name_function), Some([Pop])),
     r(1803, 8, Emit(tk_keyword_reserved), None),
-    r(1804, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]), Some([Pop])),
-    r(1805, 8, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace)]), Some([Pop])),
-    r(1806, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace)]), Some([Pop])),
-    r(1807, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(
+      1804,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]),
+      Some([Pop]),
+    ),
+    r(
+      1805,
+      8,
+      ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace)]),
+      Some([Pop]),
+    ),
+    r(
+      1806,
+      8,
+      ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace)]),
+      Some([Pop]),
+    ),
+    r(
+      1807,
+      8,
+      ByGroups([
+        Emit(tk_name_variable),
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation),
+      ]),
+      None,
+    ),
     r(1808, 8, Emit(tk_keyword), Some([Pop])),
     r(1809, 8, Emit(tk_keyword), None),
     r(333, 8, Emit(tk_punctuation), Some([Pop])),
@@ -83,19 +164,72 @@ let cython_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(274, 8, Emit(tk_keyword_type), None),
     r(76, 8, Emit(tk_text), None),
     r(274, 8, Emit(tk_name_class), Some([Pop])),
-    r(1811, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace)]), None),
+    r(
+      1811,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(975, 8, Emit(tk_name_namespace), None),
-    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace)]), None),
+    r(
+      208,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Pop])),
-    r(1812, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Pop])),
+    r(
+      1812,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword)]),
+      Some([Pop]),
+    ),
     r(1813, 8, Emit(tk_name_namespace), None),
     r(98, 0, Nop, Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "CythonLexer",
-    ["root", "keywords", "builtins", "backtick", "stringescape", "tdqs", "strings", "nl", "_tmp_0", "tsqs", "_tmp_1", "dqs", "_tmp_2", "sqs", "_tmp_3", "name", "numbers", "funcname", "cdef", "classname", "import", "fromimport"],
+    [
+      "root", "keywords", "builtins", "backtick", "stringescape", "tdqs", "strings",
+      "nl", "_tmp_0", "tsqs", "_tmp_1", "dqs", "_tmp_2", "sqs", "_tmp_3", "name",
+      "numbers", "funcname", "cdef", "classname", "import", "fromimport",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39], [12, 13, 14], [21, 22, 23], [24], [40], [41, 42, 43, 44, 45, 46], [42, 43, 44, 45], [46], [40, 41, 42, 43, 44, 45, 46], [47, 42, 43, 44, 45, 46], [40, 47, 42, 43, 44, 45, 46], [48, 49, 42, 43, 44, 45], [40, 48, 49, 42, 43, 44, 45], [50, 51, 42, 43, 44, 45], [40, 50, 51, 42, 43, 44, 45], [33, 34], [35, 36, 37, 38, 39], [52], [53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [64], [65, 66, 67, 68], [69, 70, 71]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+      ],
+      [12, 13, 14],
+      [21, 22, 23],
+      [24],
+      [40],
+      [41, 42, 43, 44, 45, 46],
+      [42, 43, 44, 45],
+      [46],
+      [40, 41, 42, 43, 44, 45, 46],
+      [47, 42, 43, 44, 45, 46],
+      [40, 47, 42, 43, 44, 45, 46],
+      [48, 49, 42, 43, 44, 45],
+      [40, 48, 49, 42, 43, 44, 45],
+      [50, 51, 42, 43, 44, 45],
+      [40, 50, 51, 42, 43, 44, 45],
+      [33, 34],
+      [35, 36, 37, 38, 39],
+      [52],
+      [53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63],
+      [64],
+      [65, 66, 67, 68],
+      [69, 70, 71],
+    ],
     extended=false,
   )
 })
@@ -103,7 +237,14 @@ let cython_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CythonLexer` (Cython).
 pub fn cython_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cython_lexer_info, options, opts => cython_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cython_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    cython_lexer_info,
+    options,
+    opts => cython_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, cython_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -163,9 +304,27 @@ let dg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "DgLexer",
-    ["root", "stringescape", "tsqs", "string", "_tmp_0", "tdqs", "_tmp_1", "sqs", "_tmp_2", "dqs", "_tmp_3"],
+    [
+      "root", "stringescape", "tsqs", "string", "_tmp_0", "tdqs", "_tmp_1", "sqs",
+      "_tmp_2", "dqs", "_tmp_3",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], [26], [27], [28, 29, 30, 31, 32], [26, 27, 28, 29, 30, 31, 32], [33], [26, 33, 28, 29, 30, 31, 32], [34], [26, 34, 28, 29, 30, 31, 32], [35], [26, 35, 28, 29, 30, 31, 32]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25,
+      ],
+      [26],
+      [27],
+      [28, 29, 30, 31, 32],
+      [26, 27, 28, 29, 30, 31, 32],
+      [33],
+      [26, 33, 28, 29, 30, 31, 32],
+      [34],
+      [26, 34, 28, 29, 30, 31, 32],
+      [35],
+      [26, 35, 28, 29, 30, 31, 32],
+    ],
     extended=false,
   )
 })
@@ -173,7 +332,11 @@ let dg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DgLexer` (dg).
 pub fn dg_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dg_lexer_info, options, opts => dg_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dg_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(dg_lexer_info, options, opts => dg_lexer(options=opts), (
+    lx,
+    text,
+    stack,
+  ) => @lexer.run_regex(lx, dg_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -195,41 +358,204 @@ pub let num_py_lexer_info : @lexer.LexerInfo = {
 let num_py_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(2744, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
-    r(2745, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
+    r(
+      2744,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
+    r(
+      2745,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
     r(4713, 8, Emit(tk_comment_hashbang), None),
     r(627, 8, Emit(tk_comment_single), None),
     r(351, 8, Emit(tk_text), None),
     r(200, 8, Emit(tk_text), None),
     r(3215, 8, Emit(tk_keyword), None),
     r(3216, 8, Emit(tk_keyword_constant), None),
-    r(4715, 8, ByGroups([Emit(tk_text), Emit(tk_keyword)]), Some([Push("soft-keywords-inner")])),
-    r(5131, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
-    r(5132, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
-    r(5133, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("fromimport")])),
-    r(5134, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("import")])),
-    r(5135, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("fromimport")])),
-    r(5136, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("import")])),
-    r(5137, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_0")])),
-    r(5138, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_1")])),
-    r(5139, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_2")])),
-    r(5140, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_3")])),
-    r(5141, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_4")])),
-    r(5142, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_5")])),
-    r(5143, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_6")])),
-    r(5144, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_7")])),
-    r(4727, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("tdqs")])),
-    r(4728, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("tsqs")])),
-    r(4729, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("dqs")])),
-    r(4730, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("sqs")])),
-    r(4731, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_8")])),
-    r(4732, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_9")])),
-    r(4733, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_10")])),
-    r(4734, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_11")])),
-    r(4735, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_12")])),
-    r(4736, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_13")])),
-    r(4737, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_14")])),
-    r(4738, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_15")])),
+    r(
+      4715,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_keyword)]),
+      Some([Push("soft-keywords-inner")]),
+    ),
+    r(
+      5131,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("funcname")]),
+    ),
+    r(
+      5132,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
+    r(
+      5133,
+      8,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("fromimport")]),
+    ),
+    r(
+      5134,
+      8,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("import")]),
+    ),
+    r(
+      5135,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]),
+      Some([Push("fromimport")]),
+    ),
+    r(
+      5136,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]),
+      Some([Push("import")]),
+    ),
+    r(
+      5137,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_0")]),
+    ),
+    r(
+      5138,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_1")]),
+    ),
+    r(
+      5139,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_2")]),
+    ),
+    r(
+      5140,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_3")]),
+    ),
+    r(
+      5141,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_4")]),
+    ),
+    r(
+      5142,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_5")]),
+    ),
+    r(
+      5143,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_6")]),
+    ),
+    r(
+      5144,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_7")]),
+    ),
+    r(
+      4727,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("tdqs")]),
+    ),
+    r(
+      4728,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("tsqs")]),
+    ),
+    r(
+      4729,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("dqs")]),
+    ),
+    r(
+      4730,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("sqs")]),
+    ),
+    r(
+      4731,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_8")]),
+    ),
+    r(
+      4732,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_9")]),
+    ),
+    r(
+      4733,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_10")]),
+    ),
+    r(
+      4734,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_11")]),
+    ),
+    r(
+      4735,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_12")]),
+    ),
+    r(
+      4736,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_13")]),
+    ),
+    r(
+      4737,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_14")]),
+    ),
+    r(
+      4738,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_15")]),
+    ),
     r(109, 8, Emit(tk_text), None),
     r(4739, 8, Emit(tk_literal_number_float), None),
     r(4740, 8, Emit(tk_literal_number_float), None),
@@ -254,13 +580,23 @@ let num_py_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(306, 8, Emit(tk_literal_string_escape), None),
     r(554, 8, Emit(tk_literal_string_double), Some([Pop])),
     r(339, 8, Emit(tk_literal_string_interpol), None),
-    r(245, 8, Emit(tk_literal_string_interpol), Some([Push("expr-inside-fstring")])),
+    r(
+      245,
+      8,
+      Emit(tk_literal_string_interpol),
+      Some([Push("expr-inside-fstring")]),
+    ),
     r(4754, 8, Emit(tk_literal_string_double), None),
     r(1800, 8, Emit(tk_literal_string_double), None),
     r(264, 8, Emit(tk_literal_string_double), None),
     r(1027, 8, Emit(tk_literal_string_single), Some([Pop])),
     r(339, 8, Emit(tk_literal_string_interpol), None),
-    r(245, 8, Emit(tk_literal_string_interpol), Some([Push("expr-inside-fstring")])),
+    r(
+      245,
+      8,
+      Emit(tk_literal_string_interpol),
+      Some([Push("expr-inside-fstring")]),
+    ),
     r(4754, 8, Emit(tk_literal_string_single), None),
     r(1800, 8, Emit(tk_literal_string_single), None),
     r(264, 8, Emit(tk_literal_string_single), None),
@@ -295,17 +631,49 @@ let num_py_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4761, 8, Emit(tk_punctuation), Some([Push("expr-inside-fstring-inner")])),
     r(4764, 8, Emit(tk_punctuation), Some([Pop])),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(4765, 8, ByGroups([Emit(tk_text_whitespace), Using(This, None, []), Emit(tk_keyword)]), None),
+    r(
+      4765,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Using(This, None, []),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Pop])),
     r(4753, 8, Emit(tk_name_function), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
     r(4753, 8, Emit(tk_name_class), Some([Pop])),
-    r(1811, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace)]), None),
+    r(
+      1811,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(2154, 8, Emit(tk_name_namespace), None),
     r(4753, 8, Emit(tk_name_namespace), None),
-    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace)]), None),
+    r(
+      208,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Pop])),
-    r(4766, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace)]), Some([Pop])),
+    r(
+      4766,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace)]),
+      Some([Pop]),
+    ),
     r(2154, 8, Emit(tk_name_namespace), None),
     r(4767, 8, Emit(tk_keyword_constant), Some([Pop])),
     r(4753, 8, Emit(tk_name_namespace), None),
@@ -313,9 +681,84 @@ let num_py_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "NumPyLexer",
-    ["root", "keywords", "soft-keywords", "expr", "rfstringescape", "tdqf", "fstrings-double", "_tmp_0", "tsqf", "fstrings-single", "_tmp_1", "dqf", "_tmp_2", "sqf", "_tmp_3", "fstringescape", "stringescape", "bytesescape", "_tmp_4", "_tmp_5", "_tmp_6", "_tmp_7", "tdqs", "strings-double", "_tmp_8", "tsqs", "strings-single", "_tmp_9", "dqs", "_tmp_10", "sqs", "_tmp_11", "_tmp_12", "_tmp_13", "_tmp_14", "_tmp_15", "numbers", "expr-keywords", "builtins", "magicfuncs", "magicvars", "name", "expr-inside-fstring", "expr-inside-fstring-inner", "soft-keywords-inner", "funcname", "classname", "import", "fromimport"],
+    [
+      "root", "keywords", "soft-keywords", "expr", "rfstringescape", "tdqf", "fstrings-double",
+      "_tmp_0", "tsqf", "fstrings-single", "_tmp_1", "dqf", "_tmp_2", "sqf", "_tmp_3",
+      "fstringescape", "stringescape", "bytesescape", "_tmp_4", "_tmp_5", "_tmp_6",
+      "_tmp_7", "tdqs", "strings-double", "_tmp_8", "tsqs", "strings-single", "_tmp_9",
+      "dqs", "_tmp_10", "sqs", "_tmp_11", "_tmp_12", "_tmp_13", "_tmp_14", "_tmp_15",
+      "numbers", "expr-keywords", "builtins", "magicfuncs", "magicvars", "name",
+      "expr-inside-fstring", "expr-inside-fstring-inner", "soft-keywords-inner",
+      "funcname", "classname", "import", "fromimport",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [7, 8], [9], [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [56, 57], [58, 59, 60, 61, 62, 63], [59, 60, 61, 62], [56, 57, 58, 59, 60, 61, 62, 63], [64, 65, 66, 67, 68, 69], [65, 66, 67, 68], [56, 57, 64, 65, 66, 67, 68, 69], [70, 71, 59, 60, 61, 62], [56, 57, 70, 71, 59, 60, 61, 62], [72, 73, 65, 66, 67, 68], [56, 57, 72, 73, 65, 66, 67, 68], [56, 57, 74, 75], [74, 75], [75], [56, 57, 74, 75, 58, 59, 60, 61, 62, 63], [56, 57, 74, 75, 64, 65, 66, 67, 68, 69], [56, 57, 74, 75, 70, 71, 59, 60, 61, 62], [56, 57, 74, 75, 72, 73, 65, 66, 67, 68], [76, 77, 78, 79, 80, 81, 82], [77, 78, 79, 80, 81], [74, 75, 76, 77, 78, 79, 80, 81, 82], [83, 84, 85, 86, 87, 88, 89], [84, 85, 86, 87, 88], [74, 75, 83, 84, 85, 86, 87, 88, 89], [90, 91, 77, 78, 79, 80, 81], [74, 75, 90, 91, 77, 78, 79, 80, 81], [92, 93, 84, 85, 86, 87, 88], [74, 75, 92, 93, 84, 85, 86, 87, 88], [75, 76, 77, 78, 79, 80, 81, 82], [75, 83, 84, 85, 86, 87, 88, 89], [75, 90, 91, 77, 78, 79, 80, 81], [75, 92, 93, 84, 85, 86, 87, 88], [37, 38, 39, 40, 41, 42], [46, 47], [48, 49, 50], [51], [52], [53, 54, 55], [94, 95, 96, 97, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [98, 99, 100, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [101, 102], [51, 103, 104], [105], [106, 107, 108, 109, 110], [111, 112, 113, 114, 115]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+      ],
+      [7, 8],
+      [9],
+      [
+        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+        35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
+        54, 55,
+      ],
+      [56, 57],
+      [58, 59, 60, 61, 62, 63],
+      [59, 60, 61, 62],
+      [56, 57, 58, 59, 60, 61, 62, 63],
+      [64, 65, 66, 67, 68, 69],
+      [65, 66, 67, 68],
+      [56, 57, 64, 65, 66, 67, 68, 69],
+      [70, 71, 59, 60, 61, 62],
+      [56, 57, 70, 71, 59, 60, 61, 62],
+      [72, 73, 65, 66, 67, 68],
+      [56, 57, 72, 73, 65, 66, 67, 68],
+      [56, 57, 74, 75],
+      [74, 75],
+      [75],
+      [56, 57, 74, 75, 58, 59, 60, 61, 62, 63],
+      [56, 57, 74, 75, 64, 65, 66, 67, 68, 69],
+      [56, 57, 74, 75, 70, 71, 59, 60, 61, 62],
+      [56, 57, 74, 75, 72, 73, 65, 66, 67, 68],
+      [76, 77, 78, 79, 80, 81, 82],
+      [77, 78, 79, 80, 81],
+      [74, 75, 76, 77, 78, 79, 80, 81, 82],
+      [83, 84, 85, 86, 87, 88, 89],
+      [84, 85, 86, 87, 88],
+      [74, 75, 83, 84, 85, 86, 87, 88, 89],
+      [90, 91, 77, 78, 79, 80, 81],
+      [74, 75, 90, 91, 77, 78, 79, 80, 81],
+      [92, 93, 84, 85, 86, 87, 88],
+      [74, 75, 92, 93, 84, 85, 86, 87, 88],
+      [75, 76, 77, 78, 79, 80, 81, 82],
+      [75, 83, 84, 85, 86, 87, 88, 89],
+      [75, 90, 91, 77, 78, 79, 80, 81],
+      [75, 92, 93, 84, 85, 86, 87, 88],
+      [37, 38, 39, 40, 41, 42],
+      [46, 47],
+      [48, 49, 50],
+      [51],
+      [52],
+      [53, 54, 55],
+      [
+        94, 95, 96, 97, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+        31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+        50, 51, 52, 53, 54, 55,
+      ],
+      [
+        98, 99, 100, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+        31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+        50, 51, 52, 53, 54, 55,
+      ],
+      [101, 102],
+      [51, 103, 104],
+      [105],
+      [106, 107, 108, 109, 110],
+      [111, 112, 113, 114, 115],
+    ],
     extended=false,
   )
 })
@@ -323,7 +766,12 @@ let num_py_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NumPyLexer` (NumPy).
 pub fn num_py_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(num_py_lexer_info, options, opts => num_py_lexer(options=opts), num_py_lexer_tokenizer)
+  @lexer.Lexer::new(
+    num_py_lexer_info,
+    options,
+    opts => num_py_lexer(options=opts),
+    num_py_lexer_tokenizer,
+  )
 }
 
 ///|
@@ -345,8 +793,26 @@ pub let python2_lexer_info : @lexer.LexerInfo = {
 let python2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(2744, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
-    r(2745, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
+    r(
+      2744,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
+    r(
+      2745,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
     r(109, 8, Emit(tk_text), None),
     r(4713, 8, Emit(tk_comment_hashbang), None),
     r(627, 8, Emit(tk_comment_single), None),
@@ -356,24 +822,84 @@ let python2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(615, 8, Emit(tk_operator_word), None),
     r(2640, 8, Emit(tk_operator), None),
     r(5855, 8, Emit(tk_keyword), None),
-    r(5131, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
-    r(5132, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
-    r(5135, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("fromimport")])),
-    r(5136, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("import")])),
+    r(
+      5131,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("funcname")]),
+    ),
+    r(
+      5132,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
+    r(
+      5135,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]),
+      Some([Push("fromimport")]),
+    ),
+    r(
+      5136,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]),
+      Some([Push("import")]),
+    ),
     r(5856, 8, Emit(tk_name_builtin), None),
     r(5857, 8, Emit(tk_name_builtin_pseudo), None),
     r(5858, 8, Emit(tk_name_exception), None),
     r(5859, 8, Emit(tk_name_function_magic), None),
     r(5860, 8, Emit(tk_name_variable_magic), None),
     r(1787, 8, Emit(tk_literal_string_backtick), None),
-    r(2753, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("tdqs")])),
-    r(2754, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("tsqs")])),
-    r(2755, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("dqs")])),
-    r(2756, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("sqs")])),
-    r(2757, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_0")])),
-    r(2758, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_1")])),
-    r(2759, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_2")])),
-    r(2760, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_3")])),
+    r(
+      2753,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("tdqs")]),
+    ),
+    r(
+      2754,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("tsqs")]),
+    ),
+    r(
+      2755,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("dqs")]),
+    ),
+    r(
+      2756,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("sqs")]),
+    ),
+    r(
+      2757,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_0")]),
+    ),
+    r(
+      2758,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_1")]),
+    ),
+    r(
+      2759,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_2")]),
+    ),
+    r(
+      2760,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_3")]),
+    ),
     r(2643, 8, Emit(tk_name_decorator), None),
     r(274, 8, Emit(tk_name), None),
     r(2644, 8, Emit(tk_literal_number_float), None),
@@ -416,9 +942,41 @@ let python2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "Python2Lexer",
-    ["root", "keywords", "builtins", "magicfuncs", "magicvars", "backtick", "stringescape", "tdqs", "strings-double", "_tmp_0", "tsqs", "strings-single", "_tmp_1", "dqs", "_tmp_2", "sqs", "_tmp_3", "name", "numbers", "funcname", "classname", "import", "fromimport"],
+    [
+      "root", "keywords", "builtins", "magicfuncs", "magicvars", "backtick", "stringescape",
+      "tdqs", "strings-double", "_tmp_0", "tsqs", "strings-single", "_tmp_1", "dqs",
+      "_tmp_2", "sqs", "_tmp_3", "name", "numbers", "funcname", "classname", "import",
+      "fromimport",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], [11], [16, 17, 18], [19], [20], [21], [39], [40, 41, 42, 43, 44, 45], [41, 42, 43, 44], [39, 40, 41, 42, 43, 44, 45], [46, 47, 48, 49, 50, 51], [47, 48, 49, 50], [39, 46, 47, 48, 49, 50, 51], [52, 53, 41, 42, 43, 44], [39, 52, 53, 41, 42, 43, 44], [54, 55, 47, 48, 49, 50], [39, 54, 55, 47, 48, 49, 50], [30, 31], [32, 33, 34, 35, 36, 37, 38], [19, 56, 57], [58], [59, 60, 61, 62, 63], [64, 65, 66, 67, 68]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+      ],
+      [11],
+      [16, 17, 18],
+      [19],
+      [20],
+      [21],
+      [39],
+      [40, 41, 42, 43, 44, 45],
+      [41, 42, 43, 44],
+      [39, 40, 41, 42, 43, 44, 45],
+      [46, 47, 48, 49, 50, 51],
+      [47, 48, 49, 50],
+      [39, 46, 47, 48, 49, 50, 51],
+      [52, 53, 41, 42, 43, 44],
+      [39, 52, 53, 41, 42, 43, 44],
+      [54, 55, 47, 48, 49, 50],
+      [39, 54, 55, 47, 48, 49, 50],
+      [30, 31],
+      [32, 33, 34, 35, 36, 37, 38],
+      [19, 56, 57],
+      [58],
+      [59, 60, 61, 62, 63],
+      [64, 65, 66, 67, 68],
+    ],
     extended=false,
   )
 })
@@ -426,7 +984,14 @@ let python2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Python2Lexer` (Python 2.x).
 pub fn python2_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(python2_lexer_info, options, opts => python2_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, python2_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    python2_lexer_info,
+    options,
+    opts => python2_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, python2_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -447,16 +1012,79 @@ pub let python2_traceback_lexer_info : @lexer.LexerInfo = {
 ///|
 let python2_traceback_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(5863, 8, ByGroups([Emit(tk_text), Emit(tk_generic_traceback)]), Some([Push("intb")])),
+    r(
+      5863,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_generic_traceback)]),
+      Some([Push("intb")]),
+    ),
     r(5864, 8, Emit(tk_generic_traceback), Some([Push("intb")])),
     r(168, 8, Emit(tk_other), None),
-    r(5865, 8, ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text), Emit(tk_literal_number), Emit(tk_text), Emit(tk_name), Emit(tk_text_whitespace)]), None),
-    r(5866, 8, ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text), Emit(tk_literal_number), Emit(tk_text_whitespace)]), None),
-    r(5867, 8, ByGroups([Emit(tk_text), Using(Other(opts => python2_lexer(options=opts)), None, []), Emit(tk_text_whitespace)]), Some([Push("marker")])),
-    r(5868, 8, ByGroups([Emit(tk_text), Emit(tk_comment), Emit(tk_text_whitespace)]), None),
-    r(5869, 8, ByGroups([Emit(tk_generic_error), Emit(tk_text), Emit(tk_name), Emit(tk_text_whitespace)]), Some([Pop])),
-    r(5870, 8, ByGroups([Emit(tk_generic_error), Emit(tk_text_whitespace)]), Some([Pop])),
-    r(5871, 8, ByGroups([Emit(tk_text), Emit(tk_punctuation_marker)]), Some([Pop])),
+    r(
+      5865,
+      8,
+      ByGroups([
+        Emit(tk_text),
+        Emit(tk_name_builtin),
+        Emit(tk_text),
+        Emit(tk_literal_number),
+        Emit(tk_text),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      5866,
+      8,
+      ByGroups([
+        Emit(tk_text),
+        Emit(tk_name_builtin),
+        Emit(tk_text),
+        Emit(tk_literal_number),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      5867,
+      8,
+      ByGroups([
+        Emit(tk_text),
+        Using(Other(opts => python2_lexer(options=opts)), None, []),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("marker")]),
+    ),
+    r(
+      5868,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_comment), Emit(tk_text_whitespace)]),
+      None,
+    ),
+    r(
+      5869,
+      8,
+      ByGroups([
+        Emit(tk_generic_error),
+        Emit(tk_text),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      5870,
+      8,
+      ByGroups([Emit(tk_generic_error), Emit(tk_text_whitespace)]),
+      Some([Pop]),
+    ),
+    r(
+      5871,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_punctuation_marker)]),
+      Some([Pop]),
+    ),
     r(98, 0, Nop, Some([Pop])),
   ]
   @lexer.RegexDef::new(
@@ -470,8 +1098,17 @@ let python2_traceback_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
 
 ///|
 /// Creates a `Python2TracebackLexer` (Python 2.x Traceback).
-pub fn python2_traceback_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(python2_traceback_lexer_info, options, opts => python2_traceback_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, python2_traceback_lexer_def.force(), text, stack))
+pub fn python2_traceback_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    python2_traceback_lexer_info,
+    options,
+    opts => python2_traceback_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, python2_traceback_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -491,18 +1128,39 @@ pub let python_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `PythonConsoleLexer` (Python console session).
-pub fn python_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(python_console_lexer_info, options, opts => python_console_lexer(options=opts), (lx, text, _) => @lexer.delegate(python_traceback_lexer(options=lx.options), _replace_inner_code(options=lx.options), text, needle=tk_other_traceback))
+pub fn python_console_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    python_console_lexer_info,
+    options,
+    opts => python_console_lexer(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        python_traceback_lexer(options=lx.options),
+        _replace_inner_code(options=lx.options),
+        text,
+        needle=tk_other_traceback,
+      )
+    },
+  )
 }
 
 ///|
 pub let python_lexer_info : @lexer.LexerInfo = {
   class_name: "PythonLexer",
   name: "Python",
-  aliases: ["python", "py", "sage", "python3", "py3", "bazel", "starlark", "pyi"],
-  filenames: ["*.py", "*.pyw", "*.pyi", "*.jy", "*.sage", "*.sc", "SConstruct", "SConscript", "*.bzl", "BUCK", "BUILD", "BUILD.bazel", "WORKSPACE", "*.tac", "*.pye"],
+  aliases: [
+    "python", "py", "sage", "python3", "py3", "bazel", "starlark", "pyi",
+  ],
+  filenames: [
+    "*.py", "*.pyw", "*.pyi", "*.jy", "*.sage", "*.sc", "SConstruct", "SConscript",
+    "*.bzl", "BUCK", "BUILD", "BUILD.bazel", "WORKSPACE", "*.tac", "*.pye",
+  ],
   alias_filenames: [],
-  mimetypes: ["text/x-python", "application/x-python", "text/x-python3", "application/x-python3"],
+  mimetypes: [
+    "text/x-python", "application/x-python", "text/x-python3", "application/x-python3",
+  ],
   priority: 0.0,
   url: "https://www.python.org",
   version_added: "0.10",
@@ -514,41 +1172,204 @@ pub let python_lexer_info : @lexer.LexerInfo = {
 let python_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(2744, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
-    r(2745, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_affix), Emit(tk_literal_string_doc)]), None),
+    r(
+      2744,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
+    r(
+      2745,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_literal_string_affix),
+        Emit(tk_literal_string_doc),
+      ]),
+      None,
+    ),
     r(4713, 8, Emit(tk_comment_hashbang), None),
     r(627, 8, Emit(tk_comment_single), None),
     r(351, 8, Emit(tk_text), None),
     r(200, 8, Emit(tk_text), None),
     r(3215, 8, Emit(tk_keyword), None),
     r(3216, 8, Emit(tk_keyword_constant), None),
-    r(4715, 8, ByGroups([Emit(tk_text), Emit(tk_keyword)]), Some([Push("soft-keywords-inner")])),
-    r(5131, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
-    r(5132, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
-    r(5133, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("fromimport")])),
-    r(5134, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace), Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("import")])),
-    r(5135, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("fromimport")])),
-    r(5136, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("import")])),
-    r(5137, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_0")])),
-    r(5138, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_1")])),
-    r(5139, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_2")])),
-    r(5140, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_3")])),
-    r(5141, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_4")])),
-    r(5142, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_5")])),
-    r(5143, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_6")])),
-    r(5144, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_7")])),
-    r(4727, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("tdqs")])),
-    r(4728, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("tsqs")])),
-    r(4729, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("dqs")])),
-    r(4730, 10, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("sqs")])),
-    r(4731, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_8")])),
-    r(4732, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_9")])),
-    r(4733, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_10")])),
-    r(4734, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_11")])),
-    r(4735, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_12")])),
-    r(4736, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_13")])),
-    r(4737, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]), Some([Push("_tmp_14")])),
-    r(4738, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("_tmp_15")])),
+    r(
+      4715,
+      8,
+      ByGroups([Emit(tk_text), Emit(tk_keyword)]),
+      Some([Push("soft-keywords-inner")]),
+    ),
+    r(
+      5131,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("funcname")]),
+    ),
+    r(
+      5132,
+      8,
+      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
+      Some([Push("classname")]),
+    ),
+    r(
+      5133,
+      8,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("fromimport")]),
+    ),
+    r(
+      5134,
+      8,
+      ByGroups([
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword_namespace),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("import")]),
+    ),
+    r(
+      5135,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]),
+      Some([Push("fromimport")]),
+    ),
+    r(
+      5136,
+      8,
+      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]),
+      Some([Push("import")]),
+    ),
+    r(
+      5137,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_0")]),
+    ),
+    r(
+      5138,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_1")]),
+    ),
+    r(
+      5139,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_2")]),
+    ),
+    r(
+      5140,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_3")]),
+    ),
+    r(
+      5141,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_4")]),
+    ),
+    r(
+      5142,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_5")]),
+    ),
+    r(
+      5143,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_6")]),
+    ),
+    r(
+      5144,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_7")]),
+    ),
+    r(
+      4727,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("tdqs")]),
+    ),
+    r(
+      4728,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("tsqs")]),
+    ),
+    r(
+      4729,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("dqs")]),
+    ),
+    r(
+      4730,
+      10,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("sqs")]),
+    ),
+    r(
+      4731,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_8")]),
+    ),
+    r(
+      4732,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_9")]),
+    ),
+    r(
+      4733,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_10")]),
+    ),
+    r(
+      4734,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_11")]),
+    ),
+    r(
+      4735,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_12")]),
+    ),
+    r(
+      4736,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_13")]),
+    ),
+    r(
+      4737,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_double)]),
+      Some([Push("_tmp_14")]),
+    ),
+    r(
+      4738,
+      8,
+      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
+      Some([Push("_tmp_15")]),
+    ),
     r(109, 8, Emit(tk_text), None),
     r(4739, 8, Emit(tk_literal_number_float), None),
     r(4740, 8, Emit(tk_literal_number_float), None),
@@ -573,13 +1394,23 @@ let python_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(306, 8, Emit(tk_literal_string_escape), None),
     r(554, 8, Emit(tk_literal_string_double), Some([Pop])),
     r(339, 8, Emit(tk_literal_string_interpol), None),
-    r(245, 8, Emit(tk_literal_string_interpol), Some([Push("expr-inside-fstring")])),
+    r(
+      245,
+      8,
+      Emit(tk_literal_string_interpol),
+      Some([Push("expr-inside-fstring")]),
+    ),
     r(4754, 8, Emit(tk_literal_string_double), None),
     r(1800, 8, Emit(tk_literal_string_double), None),
     r(264, 8, Emit(tk_literal_string_double), None),
     r(1027, 8, Emit(tk_literal_string_single), Some([Pop])),
     r(339, 8, Emit(tk_literal_string_interpol), None),
-    r(245, 8, Emit(tk_literal_string_interpol), Some([Push("expr-inside-fstring")])),
+    r(
+      245,
+      8,
+      Emit(tk_literal_string_interpol),
+      Some([Push("expr-inside-fstring")]),
+    ),
     r(4754, 8, Emit(tk_literal_string_single), None),
     r(1800, 8, Emit(tk_literal_string_single), None),
     r(264, 8, Emit(tk_literal_string_single), None),
@@ -614,17 +1445,49 @@ let python_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4761, 8, Emit(tk_punctuation), Some([Push("expr-inside-fstring-inner")])),
     r(4764, 8, Emit(tk_punctuation), Some([Pop])),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(4765, 8, ByGroups([Emit(tk_text_whitespace), Using(This, None, []), Emit(tk_keyword)]), None),
+    r(
+      4765,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Using(This, None, []),
+        Emit(tk_keyword),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Pop])),
     r(4753, 8, Emit(tk_name_function), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
     r(4753, 8, Emit(tk_name_class), Some([Pop])),
-    r(1811, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace)]), None),
+    r(
+      1811,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_keyword),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(2154, 8, Emit(tk_name_namespace), None),
     r(4753, 8, Emit(tk_name_namespace), None),
-    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace)]), None),
+    r(
+      208,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_operator),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
     r(98, 0, Nop, Some([Pop])),
-    r(4766, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace)]), Some([Pop])),
+    r(
+      4766,
+      8,
+      ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_namespace)]),
+      Some([Pop]),
+    ),
     r(2154, 8, Emit(tk_name_namespace), None),
     r(4767, 8, Emit(tk_keyword_constant), Some([Pop])),
     r(4753, 8, Emit(tk_name_namespace), None),
@@ -632,9 +1495,84 @@ let python_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "PythonLexer",
-    ["root", "keywords", "soft-keywords", "expr", "rfstringescape", "tdqf", "fstrings-double", "_tmp_0", "tsqf", "fstrings-single", "_tmp_1", "dqf", "_tmp_2", "sqf", "_tmp_3", "fstringescape", "stringescape", "bytesescape", "_tmp_4", "_tmp_5", "_tmp_6", "_tmp_7", "tdqs", "strings-double", "_tmp_8", "tsqs", "strings-single", "_tmp_9", "dqs", "_tmp_10", "sqs", "_tmp_11", "_tmp_12", "_tmp_13", "_tmp_14", "_tmp_15", "numbers", "expr-keywords", "builtins", "magicfuncs", "magicvars", "name", "expr-inside-fstring", "expr-inside-fstring-inner", "soft-keywords-inner", "funcname", "classname", "import", "fromimport"],
+    [
+      "root", "keywords", "soft-keywords", "expr", "rfstringescape", "tdqf", "fstrings-double",
+      "_tmp_0", "tsqf", "fstrings-single", "_tmp_1", "dqf", "_tmp_2", "sqf", "_tmp_3",
+      "fstringescape", "stringescape", "bytesescape", "_tmp_4", "_tmp_5", "_tmp_6",
+      "_tmp_7", "tdqs", "strings-double", "_tmp_8", "tsqs", "strings-single", "_tmp_9",
+      "dqs", "_tmp_10", "sqs", "_tmp_11", "_tmp_12", "_tmp_13", "_tmp_14", "_tmp_15",
+      "numbers", "expr-keywords", "builtins", "magicfuncs", "magicvars", "name",
+      "expr-inside-fstring", "expr-inside-fstring-inner", "soft-keywords-inner",
+      "funcname", "classname", "import", "fromimport",
+    ],
     rules,
-    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [7, 8], [9], [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [56, 57], [58, 59, 60, 61, 62, 63], [59, 60, 61, 62], [56, 57, 58, 59, 60, 61, 62, 63], [64, 65, 66, 67, 68, 69], [65, 66, 67, 68], [56, 57, 64, 65, 66, 67, 68, 69], [70, 71, 59, 60, 61, 62], [56, 57, 70, 71, 59, 60, 61, 62], [72, 73, 65, 66, 67, 68], [56, 57, 72, 73, 65, 66, 67, 68], [56, 57, 74, 75], [74, 75], [75], [56, 57, 74, 75, 58, 59, 60, 61, 62, 63], [56, 57, 74, 75, 64, 65, 66, 67, 68, 69], [56, 57, 74, 75, 70, 71, 59, 60, 61, 62], [56, 57, 74, 75, 72, 73, 65, 66, 67, 68], [76, 77, 78, 79, 80, 81, 82], [77, 78, 79, 80, 81], [74, 75, 76, 77, 78, 79, 80, 81, 82], [83, 84, 85, 86, 87, 88, 89], [84, 85, 86, 87, 88], [74, 75, 83, 84, 85, 86, 87, 88, 89], [90, 91, 77, 78, 79, 80, 81], [74, 75, 90, 91, 77, 78, 79, 80, 81], [92, 93, 84, 85, 86, 87, 88], [74, 75, 92, 93, 84, 85, 86, 87, 88], [75, 76, 77, 78, 79, 80, 81, 82], [75, 83, 84, 85, 86, 87, 88, 89], [75, 90, 91, 77, 78, 79, 80, 81], [75, 92, 93, 84, 85, 86, 87, 88], [37, 38, 39, 40, 41, 42], [46, 47], [48, 49, 50], [51], [52], [53, 54, 55], [94, 95, 96, 97, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [98, 99, 100, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [101, 102], [51, 103, 104], [105], [106, 107, 108, 109, 110], [111, 112, 113, 114, 115]],
+    [
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+      ],
+      [7, 8],
+      [9],
+      [
+        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+        35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
+        54, 55,
+      ],
+      [56, 57],
+      [58, 59, 60, 61, 62, 63],
+      [59, 60, 61, 62],
+      [56, 57, 58, 59, 60, 61, 62, 63],
+      [64, 65, 66, 67, 68, 69],
+      [65, 66, 67, 68],
+      [56, 57, 64, 65, 66, 67, 68, 69],
+      [70, 71, 59, 60, 61, 62],
+      [56, 57, 70, 71, 59, 60, 61, 62],
+      [72, 73, 65, 66, 67, 68],
+      [56, 57, 72, 73, 65, 66, 67, 68],
+      [56, 57, 74, 75],
+      [74, 75],
+      [75],
+      [56, 57, 74, 75, 58, 59, 60, 61, 62, 63],
+      [56, 57, 74, 75, 64, 65, 66, 67, 68, 69],
+      [56, 57, 74, 75, 70, 71, 59, 60, 61, 62],
+      [56, 57, 74, 75, 72, 73, 65, 66, 67, 68],
+      [76, 77, 78, 79, 80, 81, 82],
+      [77, 78, 79, 80, 81],
+      [74, 75, 76, 77, 78, 79, 80, 81, 82],
+      [83, 84, 85, 86, 87, 88, 89],
+      [84, 85, 86, 87, 88],
+      [74, 75, 83, 84, 85, 86, 87, 88, 89],
+      [90, 91, 77, 78, 79, 80, 81],
+      [74, 75, 90, 91, 77, 78, 79, 80, 81],
+      [92, 93, 84, 85, 86, 87, 88],
+      [74, 75, 92, 93, 84, 85, 86, 87, 88],
+      [75, 76, 77, 78, 79, 80, 81, 82],
+      [75, 83, 84, 85, 86, 87, 88, 89],
+      [75, 90, 91, 77, 78, 79, 80, 81],
+      [75, 92, 93, 84, 85, 86, 87, 88],
+      [37, 38, 39, 40, 41, 42],
+      [46, 47],
+      [48, 49, 50],
+      [51],
+      [52],
+      [53, 54, 55],
+      [
+        94, 95, 96, 97, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+        31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+        50, 51, 52, 53, 54, 55,
+      ],
+      [
+        98, 99, 100, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+        31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+        50, 51, 52, 53, 54, 55,
+      ],
+      [101, 102],
+      [51, 103, 104],
+      [105],
+      [106, 107, 108, 109, 110],
+      [111, 112, 113, 114, 115],
+    ],
     extended=false,
   )
 })
@@ -642,7 +1580,14 @@ let python_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PythonLexer` (Python).
 pub fn python_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(python_lexer_info, options, opts => python_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, python_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(
+    python_lexer_info,
+    options,
+    opts => python_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, python_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -669,14 +1614,80 @@ let python_traceback_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(5874, 8, Emit(tk_generic_traceback), None),
     r(5864, 8, Emit(tk_generic_traceback), Some([Push("intb")])),
     r(168, 8, Emit(tk_other), None),
-    r(5865, 8, ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text), Emit(tk_literal_number), Emit(tk_text), Emit(tk_name), Emit(tk_text_whitespace)]), None),
-    r(5866, 8, ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text), Emit(tk_literal_number), Emit(tk_text_whitespace)]), None),
-    r(5867, 8, ByGroups([Emit(tk_text_whitespace), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_text_whitespace)]), Some([Push("markers")])),
-    r(5868, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment), Emit(tk_text_whitespace)]), None),
-    r(5869, 8, ByGroups([Emit(tk_generic_error), Emit(tk_text), Emit(tk_name), Emit(tk_text_whitespace)]), Some([Pop])),
-    r(5875, 8, ByGroups([Emit(tk_generic_error), Emit(tk_text_whitespace)]), Some([Pop])),
+    r(
+      5865,
+      8,
+      ByGroups([
+        Emit(tk_text),
+        Emit(tk_name_builtin),
+        Emit(tk_text),
+        Emit(tk_literal_number),
+        Emit(tk_text),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      5866,
+      8,
+      ByGroups([
+        Emit(tk_text),
+        Emit(tk_name_builtin),
+        Emit(tk_text),
+        Emit(tk_literal_number),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      5867,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Using(Other(opts => python_lexer(options=opts)), None, []),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Push("markers")]),
+    ),
+    r(
+      5868,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_comment),
+        Emit(tk_text_whitespace),
+      ]),
+      None,
+    ),
+    r(
+      5869,
+      8,
+      ByGroups([
+        Emit(tk_generic_error),
+        Emit(tk_text),
+        Emit(tk_name),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
+    r(
+      5875,
+      8,
+      ByGroups([Emit(tk_generic_error), Emit(tk_text_whitespace)]),
+      Some([Pop]),
+    ),
     r(98, 0, Nop, Some([Pop])),
-    r(5876, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation_marker), Emit(tk_text_whitespace)]), Some([Pop])),
+    r(
+      5876,
+      8,
+      ByGroups([
+        Emit(tk_text_whitespace),
+        Emit(tk_punctuation_marker),
+        Emit(tk_text_whitespace),
+      ]),
+      Some([Pop]),
+    ),
     r(98, 0, Nop, Some([Pop])),
   ]
   @lexer.RegexDef::new(
@@ -690,8 +1701,17 @@ let python_traceback_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
 
 ///|
 /// Creates a `PythonTracebackLexer` (Python Traceback).
-pub fn python_traceback_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(python_traceback_lexer_info, options, opts => python_traceback_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, python_traceback_lexer_def.force(), text, stack))
+pub fn python_traceback_lexer(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    python_traceback_lexer_info,
+    options,
+    opts => python_traceback_lexer(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, python_traceback_lexer_def.force(), text, stack)
+    },
+  )
 }
 
 ///|
@@ -711,8 +1731,22 @@ let _replace_inner_code_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `_ReplaceInnerCode` (_ReplaceInnerCode).
-fn _replace_inner_code(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(_replace_inner_code_info, options, opts => _replace_inner_code(options=opts), (lx, text, _) => @lexer.delegate(python_lexer(options=lx.options), _python_console_lexer_base(options=lx.options), text, needle=tk_other_code))
+fn _replace_inner_code(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    _replace_inner_code_info,
+    options,
+    opts => _replace_inner_code(options=opts),
+    (lx, text, _) => {
+      @lexer.delegate(
+        python_lexer(options=lx.options),
+        _python_console_lexer_base(options=lx.options),
+        text,
+        needle=tk_other_code,
+      )
+    },
+  )
 }
 
 ///|
@@ -733,13 +1767,28 @@ let _python_console_lexer_base_info : @lexer.LexerInfo = {
 ///|
 let _python_console_lexer_base_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(8411, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_other_code)]), Some([Push("continuations")])),
-    r(8412, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]), None),
+    r(
+      8411,
+      8,
+      ByGroups([Emit(tk_generic_prompt), Emit(tk_other_code)]),
+      Some([Push("continuations")]),
+    ),
+    r(
+      8412,
+      8,
+      ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(8413, 8, Emit(tk_other_traceback), Some([Push("traceback")])),
     r(8414, 8, Emit(tk_other_traceback), Some([Push("traceback")])),
     r(1915, 8, Emit(tk_generic_output), None),
     r(8415, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_other_code)]), None),
-    r(8416, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]), None),
+    r(
+      8416,
+      8,
+      ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]),
+      None,
+    ),
     r(98, 0, Nop, Some([Pop])),
     r(8417, 8, Emit(tk_text), Some([Pop])),
     r(8418, 8, ByGroups([Emit(tk_name_class), Emit(tk_text_whitespace)]), None),
@@ -756,6 +1805,15 @@ let _python_console_lexer_base_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(()
 
 ///|
 /// Creates a `_PythonConsoleLexerBase` (Python console session).
-fn _python_console_lexer_base(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(_python_console_lexer_base_info, options, opts => _python_console_lexer_base(options=opts), (lx, text, stack) => @lexer.run_regex(lx, _python_console_lexer_base_def.force(), text, stack))
+fn _python_console_lexer_base(
+  options? : @lexer.Options = Map([]),
+) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(
+    _python_console_lexer_base_info,
+    options,
+    opts => _python_console_lexer_base(options=opts),
+    (lx, text, stack) => {
+      @lexer.run_regex(lx, _python_console_lexer_base_def.force(), text, stack)
+    },
+  )
 }
