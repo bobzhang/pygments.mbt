@@ -1,0 +1,196 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/formatters"
+
+import {
+  "bobzhang/pygments/styles",
+  "bobzhang/pygments/token",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn ansiformat(String, String) -> String raise FormatterError
+
+pub fn bbcode_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let bbcode_info : FormatterInfo
+
+pub fn colorize(String, String) -> String raise FormatterError
+
+pub let console_codes : Map[String, String]
+
+pub fn escape_tex(String, String) -> String
+
+pub fn find_formatter_class(String) -> (FormatterInfo, (Map[String, String], @styles.Style?) -> Formatter raise)?
+
+pub fn get_all_formatters() -> Array[FormatterInfo]
+
+pub fn get_formatter_by_name(String, options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub fn get_formatter_for_filename(String, options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub fn groff_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let groff_info : FormatterInfo
+
+pub let html_info : FormatterInfo
+
+pub fn irc_colors() -> Map[@token.TokenType, (String, String)]
+
+pub fn irc_formatter(options? : Map[String, String], style? : @styles.Style, colorscheme? : Map[@token.TokenType, (String, String)]) -> Formatter raise
+
+pub let irc_info : FormatterInfo
+
+pub fn ircformat(String, String) -> String raise FormatterError
+
+pub let latex_info : FormatterInfo
+
+pub fn null_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let null_info : FormatterInfo
+
+pub let pango_info : FormatterInfo
+
+pub fn pango_markup_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub fn py_int(String) -> Int?
+
+pub fn raw_token_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let raw_token_info : FormatterInfo
+
+pub fn rtf_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let rtf_info : FormatterInfo
+
+pub fn svg_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let svg_info : FormatterInfo
+
+pub fn terminal256_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let terminal256_info : FormatterInfo
+
+pub fn terminal_colors() -> Map[@token.TokenType, (String, String)]
+
+pub fn terminal_formatter(options? : Map[String, String], style? : @styles.Style, colorscheme? : Map[@token.TokenType, (String, String)]) -> Formatter raise
+
+pub let terminal_info : FormatterInfo
+
+pub fn terminal_true_color_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let terminal_true_color_info : FormatterInfo
+
+pub fn testcase_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
+
+pub let testcase_info : FormatterInfo
+
+pub fn ttype_class(@token.TokenType) -> String
+
+pub fn webify(String) -> String
+
+// Errors
+pub suberror ClassNotFound {
+  ClassNotFound(String)
+} derive(@debug.Debug)
+
+pub suberror FormatterError {
+  FormatterError(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub struct BaseOptions {
+  style : @styles.Style
+  full : Bool
+  title : String
+  encoding : String?
+  options : Map[String, String]
+}
+pub fn BaseOptions::new(Map[String, String], style? : @styles.Style) -> Self raise
+
+pub struct Formatter {
+  info : FormatterInfo
+  base : BaseOptions
+  // private fields
+}
+pub fn Formatter::aliases(Self) -> Array[String]
+pub fn Formatter::filenames(Self) -> Array[String]
+pub fn Formatter::format(Self, Array[(@token.TokenType, String)]) -> String raise
+pub fn Formatter::get_style_defs(Self, arg? : String) -> String raise
+pub fn Formatter::name(Self) -> String
+pub fn Formatter::new(FormatterInfo, BaseOptions, (Array[(@token.TokenType, String)]) -> String raise, style_defs? : (String?) -> String raise) -> Self
+pub fn Formatter::options(Self) -> Map[String, String]
+pub fn Formatter::style(Self) -> @styles.Style
+
+pub(all) struct FormatterInfo {
+  class_name : String
+  name : String
+  aliases : Array[String]
+  filenames : Array[String]
+  description : String
+} derive(@debug.Debug)
+
+pub struct HtmlFormatter {
+  base : BaseOptions
+  nowrap : Bool
+  noclasses : Bool
+  classprefix : String
+  cssclass : String
+  cssstyles : String
+  prestyles : String
+  cssfile : String
+  noclobber_cssfile : Bool
+  tagurlformat : String
+  filename : String
+  wrapcode : Bool
+  debug_token_types : Bool
+  linenos : Int
+  linenostart : Int
+  linenostep : Int
+  linenospecial : Int
+  nobackground : Bool
+  lineseparator : String
+  lineanchors : String
+  linespans : String
+  anchorlinenos : Bool
+  hl_lines : Array[Int]
+  // private fields
+}
+pub fn HtmlFormatter::cssfile_contents(Self) -> String
+pub fn HtmlFormatter::format(Self, Array[(@token.TokenType, String)]) -> String raise FormatterError
+pub fn HtmlFormatter::get_background_style_defs(Self, arg? : String) -> Array[String]
+pub fn HtmlFormatter::get_css_prefix(Self, String, arg? : String) -> String
+pub fn HtmlFormatter::get_linenos_style_defs(Self) -> Array[String]
+pub fn HtmlFormatter::get_style_defs(Self, arg? : String) -> String
+pub fn HtmlFormatter::get_style_defs_for(Self, Array[String]) -> String
+pub fn HtmlFormatter::get_token_style_defs(Self, arg? : String) -> Array[String]
+pub fn HtmlFormatter::new(options? : Map[String, String], style? : @styles.Style) -> Self raise
+pub fn HtmlFormatter::to_formatter(Self) -> Formatter
+
+pub struct LatexFormatter {
+  base : BaseOptions
+  nowrap : Bool
+  docclass : String
+  preamble : String
+  linenos : Bool
+  linenostart : Int
+  linenostep : Int
+  verboptions : String
+  nobackground : Bool
+  commandprefix : String
+  texcomments : Bool
+  mathescape : Bool
+  escapeinside : String
+  envname : String
+  // private fields
+}
+pub fn LatexFormatter::format(Self, Array[(@token.TokenType, String)]) -> String
+pub fn LatexFormatter::get_style_defs(Self) -> String
+pub fn LatexFormatter::new(options? : Map[String, String], style? : @styles.Style) -> Self raise
+pub fn LatexFormatter::to_formatter(Self) -> Formatter
+
+// Type aliases
+pub type FormatterClass = (FormatterInfo, (Map[String, String], @styles.Style?) -> Formatter raise)
+
+pub type Tokens = Array[(@token.TokenType, String)]
+
+// Traits

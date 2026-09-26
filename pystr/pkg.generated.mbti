@@ -1,0 +1,45 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/pystr"
+
+// Values
+pub fn ascii(String) -> String
+
+pub fn capitalize(String) -> String
+
+pub fn expandtabs(String, tabsize? : Int) -> String
+
+pub fn html_escape(String, quote? : Bool) -> String
+
+pub fn is_case_ignorable(Char) -> Bool
+
+pub fn is_cased(Char) -> Bool
+
+pub fn is_line_break(Char) -> Bool
+
+pub fn is_printable(Char) -> Bool
+
+pub fn lower(String) -> String
+
+pub fn py_len(String) -> Int
+
+pub fn repr(String) -> String
+
+pub fn rjust(String, Int, fill? : Char) -> String
+
+pub fn rstrip_newlines(String) -> String
+
+pub fn slice(String, Int, end? : Int) -> String
+
+pub fn split(String, String) -> Array[String]
+
+pub fn splitlines(String, keepends? : Bool) -> Array[String]
+
+pub fn upper(String) -> String
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

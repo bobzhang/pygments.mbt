@@ -1,0 +1,16 @@
+import {
+  "bobzhang/pygments/filters",
+  "bobzhang/pygments/formatters",
+  "bobzhang/pygments/styles",
+  "bobzhang/pygments/token",
+  "moonbitlang/async",
+  "moonbitlang/async/fs",
+  "moonbitlang/core/json",
+  "moonbitlang/core/env",
+}
+
+supported_targets = "native"
+
+warnings = "-implicit_impl_as_method"
+
+pkgtype(kind: "executable")

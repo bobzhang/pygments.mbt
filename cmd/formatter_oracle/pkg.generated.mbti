@@ -1,0 +1,13 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/cmd/formatter_oracle"
+
+// Values
+
+// Errors
+
+// Types and methods
+type Tally
+
+// Type aliases
+
+// Traits

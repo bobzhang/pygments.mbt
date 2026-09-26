@@ -1,0 +1,182 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/styles"
+
+import {
+  "bobzhang/pygments/token",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn abap_style() -> Style
+
+pub fn algol_nu_style() -> Style
+
+pub fn algol_style() -> Style
+
+pub let ansimap : Map[String, String]
+
+pub fn arduino_style() -> Style
+
+pub fn autumn_style() -> Style
+
+pub fn black_white_style() -> Style
+
+pub fn borland_style() -> Style
+
+pub fn coffee_style() -> Style
+
+pub fn colorformat(String) -> String raise StyleError
+
+pub fn colorful_style() -> Style
+
+pub fn default_style() -> Style
+
+pub let deprecated_ansicolors : Map[String, String]
+
+pub fn dracula_style() -> Style
+
+pub fn emacs_style() -> Style
+
+pub fn friendly_grayscale_style() -> Style
+
+pub fn friendly_style() -> Style
+
+pub fn fruity_style() -> Style
+
+pub fn get_all_styles() -> Array[String]
+
+pub fn get_style_by_name(String) -> Style raise ClassNotFound
+
+pub fn gh_dark_style() -> Style
+
+pub fn gruvbox_dark_style() -> Style
+
+pub fn gruvbox_light_style() -> Style
+
+pub fn igor_style() -> Style
+
+pub fn ink_pot_style() -> Style
+
+pub fn is_ansicolor(String) -> Bool
+
+pub fn lightbulb_style() -> Style
+
+pub fn lily_pond_style() -> Style
+
+pub fn lovelace_style() -> Style
+
+pub fn manni_style() -> Style
+
+pub fn material_style() -> Style
+
+pub fn monokai_style() -> Style
+
+pub fn murphy_style() -> Style
+
+pub fn native_style() -> Style
+
+pub fn night_owl_style() -> Style
+
+pub fn nord_darker_style() -> Style
+
+pub fn nord_style() -> Style
+
+pub fn one_dark_style() -> Style
+
+pub fn paraiso_dark_style() -> Style
+
+pub fn paraiso_light_style() -> Style
+
+pub fn pastie_style() -> Style
+
+pub fn perldoc_style() -> Style
+
+pub fn rainbow_dash_style() -> Style
+
+pub fn rrt_style() -> Style
+
+pub fn sas_style() -> Style
+
+pub fn solarized_dark_style() -> Style
+
+pub fn solarized_light_style() -> Style
+
+pub fn staroffice_style() -> Style
+
+pub fn stata_dark_style() -> Style
+
+pub fn stata_light_style() -> Style
+
+pub fn tango_style() -> Style
+
+pub fn trac_style() -> Style
+
+pub fn vim_style() -> Style
+
+pub fn visual_studio_style() -> Style
+
+pub fn xcode_style() -> Style
+
+pub fn zenburn_style() -> Style
+
+// Errors
+pub suberror ClassNotFound {
+  ClassNotFound(String)
+} derive(@debug.Debug)
+
+pub suberror StyleError {
+  WrongColorFormat(String)
+  UnknownToken(@token.TokenType)
+} derive(@debug.Debug)
+
+// Types and methods
+pub struct Style {
+  name : String
+  aliases : Array[String]
+  background_color : String?
+  highlight_color : String?
+  line_number_color : String
+  line_number_background_color : String
+  line_number_special_color : String
+  line_number_special_background_color : String
+  web_style_gallery_exclude : Bool
+  styles : Map[@token.TokenType, String]
+  // private fields
+}
+pub fn Style::iter(Self) -> Iter[(@token.TokenType, TokenStyle)]
+pub fn Style::length(Self) -> Int
+pub fn Style::list_styles(Self) -> Array[(@token.TokenType, TokenStyle)]
+pub fn Style::new(Array[(@token.TokenType, String)], name? : String, aliases? : Array[String], background_color? : String?, highlight_color? : String?, line_number_color? : String, line_number_background_color? : String, line_number_special_color? : String, line_number_special_background_color? : String, web_style_gallery_exclude? : Bool) -> Self raise StyleError
+pub fn Style::style_def(Self, @token.TokenType) -> StyleDef?
+pub fn Style::style_for_token(Self, @token.TokenType) -> TokenStyle raise StyleError
+pub fn Style::styles_token(Self, @token.TokenType) -> Bool
+
+pub(all) struct StyleDef {
+  color : String
+  bold : Bool
+  italic : Bool
+  underline : Bool
+  bgcolor : String
+  border : String
+  roman : Bool
+  sans : Bool
+  mono : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) struct TokenStyle {
+  color : String?
+  bold : Bool
+  italic : Bool
+  underline : Bool
+  bgcolor : String?
+  border : String?
+  roman : Bool
+  sans : Bool
+  mono : Bool
+  ansicolor : String?
+  bgansicolor : String?
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
