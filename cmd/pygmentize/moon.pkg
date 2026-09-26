@@ -14,7 +14,6 @@ import {
   "moonbitlang/x/sys",
 }
 
-
 supported_targets = "native+wasm"
 
 warnings = "-implicit_impl_as_method"
