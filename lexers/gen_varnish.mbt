@@ -11,7 +11,7 @@ pub let vcl_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.varnish-software.com/developers/tutorials/varnish-configuration-language-vcl",
   version_added: "2.2",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: vcl_lexer_analyse,
 }
 
 ///|
@@ -93,7 +93,7 @@ pub let vcl_snippet_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.varnish-software.com/developers/tutorials/varnish-configuration-language-vcl",
   version_added: "2.2",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: vcl_snippet_lexer_analyse,
 }
 
 ///|

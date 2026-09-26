@@ -11,7 +11,7 @@ pub let action_script3_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/index.html",
   version_added: "0.11",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: action_script3_lexer_analyse,
 }
 
 ///|
@@ -73,7 +73,7 @@ pub let action_script_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/ActionScript",
   version_added: "0.9",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: action_script_lexer_analyse,
 }
 
 ///|

@@ -11,7 +11,7 @@ pub let asc_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.openpgp.org",
   version_added: "2.10",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: asc_lexer_analyse,
 }
 
 ///|

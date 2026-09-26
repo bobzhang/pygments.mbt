@@ -11,7 +11,7 @@ pub let tal_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://wiki.xxiivv.com/site/uxntal.html",
   version_added: "2.12",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: tal_lexer_analyse,
 }
 
 ///|

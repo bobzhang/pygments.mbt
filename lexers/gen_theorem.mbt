@@ -96,7 +96,7 @@ pub let rocq_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://rocq-prover.org/",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: rocq_lexer_analyse,
 }
 
 ///|

@@ -11,7 +11,7 @@ pub let visual_prolog_grammar_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.visual-prolog.com/",
   version_added: "2.17",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: visual_prolog_grammar_lexer_analyse,
 }
 
 ///|
@@ -83,7 +83,7 @@ pub let visual_prolog_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.visual-prolog.com/",
   version_added: "2.17",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: visual_prolog_lexer_analyse,
 }
 
 ///|

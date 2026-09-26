@@ -11,7 +11,7 @@ pub let logtalk_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://logtalk.org/",
   version_added: "0.10",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: logtalk_lexer_analyse,
 }
 
 ///|
@@ -167,7 +167,7 @@ pub let prolog_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Prolog",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: prolog_lexer_analyse,
 }
 
 ///|

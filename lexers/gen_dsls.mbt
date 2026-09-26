@@ -386,7 +386,7 @@ pub let rsl_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://en.wikipedia.org/wiki/RAISE",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: rsl_lexer_analyse,
 }
 
 ///|
@@ -476,7 +476,7 @@ let snowball_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SnowballLexer` (Snowball).
 pub fn snowball_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(snowball_lexer_info, options, opts => snowball_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, snowball_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(snowball_lexer_info, options, opts => snowball_lexer(options=opts), snowball_lexer_tokenizer)
 }
 
 ///|

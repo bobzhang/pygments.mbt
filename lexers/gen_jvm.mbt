@@ -408,7 +408,7 @@ pub let gosu_template_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `GosuTemplateLexer` (Gosu Template).
 pub fn gosu_template_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gosu_template_lexer_info, options, opts => gosu_template_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(gosu_template_lexer_info, options, opts => gosu_template_lexer(options=opts), gosu_template_lexer_tokenizer)
 }
 
 ///|

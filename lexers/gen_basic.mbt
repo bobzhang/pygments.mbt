@@ -11,7 +11,7 @@ pub let bbc_basic_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.bbcbasic.co.uk/bbcbasic.html",
   version_added: "2.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: bbc_basic_lexer_analyse,
 }
 
 ///|
@@ -189,7 +189,7 @@ pub let cbm_basic_v2_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Commodore_BASIC",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: cbm_basic_v2_lexer_analyse,
 }
 
 ///|
@@ -326,7 +326,7 @@ pub let q_basic_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/QBasic",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: q_basic_lexer_analyse,
 }
 
 ///|

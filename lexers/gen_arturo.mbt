@@ -94,5 +94,5 @@ let arturo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ArturoLexer` (Arturo).
 pub fn arturo_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(arturo_lexer_info, options, opts => arturo_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, arturo_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(arturo_lexer_info, options, opts => arturo_lexer(options=opts), arturo_lexer_tokenizer)
 }

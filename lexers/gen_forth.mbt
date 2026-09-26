@@ -11,7 +11,7 @@ pub let forth_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.forth.com/forth/",
   version_added: "2.2",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: forth_lexer_analyse,
 }
 
 ///|

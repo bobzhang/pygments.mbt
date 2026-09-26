@@ -11,7 +11,7 @@ pub let haxe_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://haxe.org/",
   version_added: "1.3",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: haxe_lexer_analyse,
 }
 
 ///|
@@ -312,7 +312,7 @@ let haxe_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `HaxeLexer` (Haxe).
 pub fn haxe_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(haxe_lexer_info, options, opts => haxe_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, haxe_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(haxe_lexer_info, options, opts => haxe_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, haxe_lexer_def.force(), text, stack, callbacks=haxe_lexer_callbacks(lx)))
 }
 
 ///|

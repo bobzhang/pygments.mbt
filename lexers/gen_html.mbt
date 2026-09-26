@@ -11,7 +11,7 @@ pub let dtd_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Document_type_definition",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: dtd_lexer_analyse,
 }
 
 ///|
@@ -133,7 +133,7 @@ let haml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `HamlLexer` (Haml).
 pub fn haml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(haml_lexer_info, options, opts => haml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, haml_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(haml_lexer_info, options, opts => haml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, haml_lexer_def.force(), text, stack, callbacks=haml_lexer_callbacks(lx)))
 }
 
 ///|
@@ -147,7 +147,7 @@ pub let html_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://html.spec.whatwg.org/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: html_lexer_analyse,
 }
 
 ///|
@@ -265,7 +265,7 @@ let pug_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PugLexer` (Pug).
 pub fn pug_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(pug_lexer_info, options, opts => pug_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pug_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(pug_lexer_info, options, opts => pug_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pug_lexer_def.force(), text, stack, callbacks=pug_lexer_callbacks(lx)))
 }
 
 ///|
@@ -338,7 +338,7 @@ let scaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ScamlLexer` (Scaml).
 pub fn scaml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(scaml_lexer_info, options, opts => scaml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, scaml_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(scaml_lexer_info, options, opts => scaml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, scaml_lexer_def.force(), text, stack, callbacks=scaml_lexer_callbacks(lx)))
 }
 
 ///|
@@ -386,7 +386,7 @@ pub let vue_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://vuejs.org/api/sfc-spec.html",
   version_added: "2.19",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: vue_lexer_analyse,
 }
 
 ///|
@@ -452,7 +452,7 @@ pub let xml_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.w3.org/XML",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: xml_lexer_analyse,
 }
 
 ///|
@@ -501,7 +501,7 @@ pub let xslt_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.w3.org/TR/xslt-30",
   version_added: "0.10",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: xslt_lexer_analyse,
 }
 
 ///|
@@ -536,5 +536,5 @@ let xslt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `XsltLexer` (XSLT).
 pub fn xslt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(xslt_lexer_info, options, opts => xslt_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, xslt_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(xslt_lexer_info, options, opts => xslt_lexer(options=opts), xslt_lexer_tokenizer)
 }

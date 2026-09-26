@@ -61,7 +61,7 @@ pub let common_lisp_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://lisp-lang.org/",
   version_added: "0.9",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: common_lisp_lexer_analyse,
 }
 
 ///|
@@ -127,7 +127,7 @@ let common_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CommonLispLexer` (Common Lisp).
 pub fn common_lisp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(common_lisp_lexer_info, options, opts => common_lisp_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, common_lisp_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(common_lisp_lexer_info, options, opts => common_lisp_lexer(options=opts), common_lisp_lexer_tokenizer)
 }
 
 ///|
@@ -196,7 +196,7 @@ let emacs_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EmacsLispLexer` (EmacsLisp).
 pub fn emacs_lisp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(emacs_lisp_lexer_info, options, opts => emacs_lisp_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, emacs_lisp_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(emacs_lisp_lexer_info, options, opts => emacs_lisp_lexer(options=opts), emacs_lisp_lexer_tokenizer)
 }
 
 ///|
@@ -261,7 +261,7 @@ pub let hy_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://hylang.org/",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: hy_lexer_analyse,
 }
 
 ///|
@@ -568,7 +568,7 @@ let scheme_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SchemeLexer` (Scheme).
 pub fn scheme_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(scheme_lexer_info, options, opts => scheme_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, scheme_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(scheme_lexer_info, options, opts => scheme_lexer(options=opts), scheme_lexer_tokenizer)
 }
 
 ///|
@@ -619,7 +619,7 @@ let shen_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ShenLexer` (Shen).
 pub fn shen_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(shen_lexer_info, options, opts => shen_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, shen_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(shen_lexer_info, options, opts => shen_lexer(options=opts), shen_lexer_tokenizer)
 }
 
 ///|

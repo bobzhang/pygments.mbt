@@ -11,7 +11,7 @@ pub let super_collider_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://supercollider.github.io/",
   version_added: "2.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: super_collider_lexer_analyse,
 }
 
 ///|

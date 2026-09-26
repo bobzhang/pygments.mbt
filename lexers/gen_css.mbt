@@ -326,7 +326,7 @@ let sass_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SassLexer` (Sass).
 pub fn sass_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sass_lexer_info, options, opts => sass_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sass_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(sass_lexer_info, options, opts => sass_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sass_lexer_def.force(), text, stack, callbacks=sass_lexer_callbacks(lx)))
 }
 
 ///|

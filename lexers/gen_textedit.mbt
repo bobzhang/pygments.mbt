@@ -145,5 +145,5 @@ let vim_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VimLexer` (VimL).
 pub fn vim_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(vim_lexer_info, options, opts => vim_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, vim_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(vim_lexer_info, options, opts => vim_lexer(options=opts), vim_lexer_tokenizer)
 }

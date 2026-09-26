@@ -163,7 +163,7 @@ let cryptol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CryptolLexer` (Cryptol).
 pub fn cryptol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cryptol_lexer_info, options, opts => cryptol_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cryptol_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(cryptol_lexer_info, options, opts => cryptol_lexer(options=opts), cryptol_lexer_tokenizer)
 }
 
 ///|
@@ -566,7 +566,7 @@ pub let literate_agda_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateAgdaLexer` (Literate Agda).
 pub fn literate_agda_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(literate_agda_lexer_info, options, opts => literate_agda_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(literate_agda_lexer_info, options, opts => literate_agda_lexer(options=opts), literate_agda_lexer_tokenizer)
 }
 
 ///|
@@ -586,7 +586,7 @@ pub let literate_cryptol_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateCryptolLexer` (Literate Cryptol).
 pub fn literate_cryptol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(literate_cryptol_lexer_info, options, opts => literate_cryptol_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(literate_cryptol_lexer_info, options, opts => literate_cryptol_lexer(options=opts), literate_cryptol_lexer_tokenizer)
 }
 
 ///|
@@ -606,7 +606,7 @@ pub let literate_haskell_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateHaskellLexer` (Literate Haskell).
 pub fn literate_haskell_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(literate_haskell_lexer_info, options, opts => literate_haskell_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(literate_haskell_lexer_info, options, opts => literate_haskell_lexer(options=opts), literate_haskell_lexer_tokenizer)
 }
 
 ///|
@@ -626,5 +626,5 @@ pub let literate_idris_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateIdrisLexer` (Literate Idris).
 pub fn literate_idris_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(literate_idris_lexer_info, options, opts => literate_idris_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(literate_idris_lexer_info, options, opts => literate_idris_lexer(options=opts), literate_idris_lexer_tokenizer)
 }

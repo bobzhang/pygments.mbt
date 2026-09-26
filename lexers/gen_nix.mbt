@@ -11,7 +11,7 @@ pub let nix_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://nixos.org/nix/",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: nix_lexer_analyse,
 }
 
 ///|

@@ -422,6 +422,14 @@ class _Loader:
         return importlib.import_module('pygments.lexers.' + name)
 
 
+def wrap_list(items):
+    """An array literal with one element per line."""
+    items = list(items)
+    if not items:
+        return '[]'
+    return '[\n' + ''.join(f'  {x},\n' for x in items) + ']'
+
+
 def data_value(v):
     if isinstance(v, bool):
         return 'Bool', 'true' if v else 'false'
@@ -430,9 +438,9 @@ def data_value(v):
     if isinstance(v, str):
         return 'String', mbt_str(v)
     if isinstance(v, (set, frozenset)):
-        return '@set.Set[String]', '@set.Set([' + ', '.join(mbt_str(x) for x in sorted(v)) + '])'
+        return '@set.Set[String]', '@set.Set(' + wrap_list(mbt_str(x) for x in sorted(v)) + ')'
     if isinstance(v, (list, tuple)):
-        return 'Array[String]', '[' + ', '.join(mbt_str(x) for x in v) + ']'
+        return 'Array[String]', wrap_list(mbt_str(x) for x in v)
     if isinstance(v, dict):
         if all(isinstance(x, str) for x in v.values()):
             return 'Map[String, String]', 'Map::from_array([' + ', '.join(

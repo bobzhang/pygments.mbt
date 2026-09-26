@@ -1,18 +1,6 @@
 // Hand-written parts of pygments/lexers/arturo.py.
 
 ///|
-/// `get_lexer_by_name`, installed at start-up: referencing it directly from
-/// a lexer constructor would form a definition cycle through `all_lexers`.
-let arturo_get_lexer_by_name : Ref[(String) -> @lexer.Lexer raise] = Ref(name => {
-  raise ClassNotFound(name)
-})
-
-///|
-fn init {
-  arturo_get_lexer_by_name.val = name => get_lexer_by_name(name)
-}
-
-///|
 /// Callbacks of `ArturoLexer`: annotated strings (`{!lang ...}`) are lexed
 /// with the lexer named by the annotation when `handle_annotateds` is set.
 fn arturo_lexer_callbacks(
@@ -33,7 +21,7 @@ fn arturo_lexer_callbacks(
         ctx.emit(m.start(group=3), @token.string_interpol, g(3))
         ctx.emit(m.start(group=4), @token.text_whitespace, g(4))
         let lexer = if handle_annotateds {
-          Some((arturo_get_lexer_by_name.val)(g(3).trim().to_owned())) catch {
+          Some(lookup_lexer(g(3).trim().to_owned())) catch {
             ClassNotFound(_) => None
             e => raise e
           }

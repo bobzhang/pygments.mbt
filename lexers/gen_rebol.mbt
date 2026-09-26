@@ -11,7 +11,7 @@ pub let rebol_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.rebol.com",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: rebol_lexer_analyse,
 }
 
 ///|
@@ -111,7 +111,7 @@ let rebol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RebolLexer` (REBOL).
 pub fn rebol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rebol_lexer_info, options, opts => rebol_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rebol_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(rebol_lexer_info, options, opts => rebol_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rebol_lexer_def.force(), text, stack, callbacks=rebol_lexer_callbacks(lx)))
 }
 
 ///|
@@ -226,5 +226,5 @@ let red_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RedLexer` (Red).
 pub fn red_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(red_lexer_info, options, opts => red_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, red_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(red_lexer_info, options, opts => red_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, red_lexer_def.force(), text, stack, callbacks=red_lexer_callbacks(lx)))
 }

@@ -485,7 +485,7 @@ pub let lasso_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.lassosoft.com",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: lasso_lexer_analyse,
 }
 
 ///|
@@ -592,7 +592,7 @@ let lasso_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LassoLexer` (Lasso).
 pub fn lasso_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lasso_lexer_info, options, opts => lasso_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, lasso_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(lasso_lexer_info, options, opts => lasso_lexer(options=opts), lasso_lexer_tokenizer)
 }
 
 ///|
@@ -776,7 +776,7 @@ pub let node_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `NodeConsoleLexer` (Node.js REPL console session).
 pub fn node_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(node_console_lexer_info, options, opts => node_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(node_console_lexer_info, options, opts => node_console_lexer(options=opts), node_console_lexer_tokenizer)
 }
 
 ///|
@@ -790,7 +790,7 @@ pub let objective_j_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.cappuccino.dev/learn/objective-j.html",
   version_added: "1.3",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: objective_j_lexer_analyse,
 }
 
 ///|

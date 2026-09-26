@@ -11,7 +11,7 @@ pub let antlr_action_script_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_action_script_lexer_analyse,
 }
 
 ///|
@@ -31,7 +31,7 @@ pub let antlr_c_sharp_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_c_sharp_lexer_analyse,
 }
 
 ///|
@@ -51,7 +51,7 @@ pub let antlr_cpp_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_cpp_lexer_analyse,
 }
 
 ///|
@@ -71,7 +71,7 @@ pub let antlr_java_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_java_lexer_analyse,
 }
 
 ///|
@@ -91,7 +91,7 @@ pub let antlr_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_lexer_analyse,
 }
 
 ///|
@@ -176,7 +176,7 @@ pub let antlr_objective_c_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_objective_c_lexer_analyse,
 }
 
 ///|
@@ -196,7 +196,7 @@ pub let antlr_perl_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_perl_lexer_analyse,
 }
 
 ///|
@@ -216,7 +216,7 @@ pub let antlr_python_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_python_lexer_analyse,
 }
 
 ///|
@@ -236,7 +236,7 @@ pub let antlr_ruby_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.antlr.org",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: antlr_ruby_lexer_analyse,
 }
 
 ///|
@@ -303,7 +303,7 @@ pub let ragel_c_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ragel_c_lexer_analyse,
 }
 
 ///|
@@ -323,7 +323,7 @@ pub let ragel_cpp_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ragel_cpp_lexer_analyse,
 }
 
 ///|
@@ -343,7 +343,7 @@ pub let ragel_d_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ragel_d_lexer_analyse,
 }
 
 ///|
@@ -363,7 +363,7 @@ pub let ragel_embedded_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ragel_embedded_lexer_analyse,
 }
 
 ///|
@@ -401,7 +401,7 @@ pub let ragel_java_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ragel_java_lexer_analyse,
 }
 
 ///|
@@ -487,7 +487,7 @@ pub let ragel_objective_c_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ragel_objective_c_lexer_analyse,
 }
 
 ///|
@@ -507,7 +507,7 @@ pub let ragel_ruby_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ragel_ruby_lexer_analyse,
 }
 
 ///|

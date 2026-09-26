@@ -170,5 +170,5 @@ let slash_language_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SlashLanguageLexer` (SlashLanguageLexer).
 fn slash_language_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(slash_language_lexer_info, options, opts => slash_language_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, slash_language_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(slash_language_lexer_info, options, opts => slash_language_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, slash_language_lexer_def.force(), text, stack, callbacks=slash_language_lexer_callbacks(lx)))
 }

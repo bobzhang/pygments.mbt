@@ -204,7 +204,7 @@ let slim_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SlimLexer` (Slim).
 pub fn slim_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(slim_lexer_info, options, opts => slim_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, slim_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(slim_lexer_info, options, opts => slim_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, slim_lexer_def.force(), text, stack, callbacks=slim_lexer_callbacks(lx)))
 }
 
 ///|
@@ -489,5 +489,5 @@ let x_query_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `XQueryLexer` (XQuery).
 pub fn x_query_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(x_query_lexer_info, options, opts => x_query_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, x_query_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(x_query_lexer_info, options, opts => x_query_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, x_query_lexer_def.force(), text, stack, callbacks=x_query_lexer_callbacks(lx)))
 }

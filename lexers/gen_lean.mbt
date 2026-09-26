@@ -11,7 +11,7 @@ pub let lean3_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://leanprover-community.github.io/lean3",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: lean3_lexer_analyse,
 }
 
 ///|
@@ -76,7 +76,7 @@ pub let lean4_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/leanprover/lean4",
   version_added: "2.18",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: lean4_lexer_analyse,
 }
 
 ///|

@@ -281,7 +281,7 @@ pub let css_django_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: css_django_lexer_analyse,
 }
 
 ///|
@@ -301,7 +301,7 @@ pub let css_erb_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/ruby/erb",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: css_erb_lexer_analyse,
 }
 
 ///|
@@ -321,7 +321,7 @@ pub let css_genshi_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://genshi.edgewall.org",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: css_genshi_lexer_analyse,
 }
 
 ///|
@@ -341,7 +341,7 @@ pub let css_php_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.php.net",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: css_php_lexer_analyse,
 }
 
 ///|
@@ -361,7 +361,7 @@ pub let css_smarty_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.smarty.net/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: css_smarty_lexer_analyse,
 }
 
 ///|
@@ -381,7 +381,7 @@ pub let django_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: django_lexer_analyse,
 }
 
 ///|
@@ -438,13 +438,13 @@ pub let erb_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/ruby/erb",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: erb_lexer_analyse,
 }
 
 ///|
 /// Creates a `ErbLexer` (ERB).
 pub fn erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(erb_lexer_info, options, opts => erb_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(erb_lexer_info, options, opts => erb_lexer(options=opts), erb_lexer_tokenizer)
 }
 
 ///|
@@ -458,7 +458,7 @@ pub let evoque_html_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://gizmojo.org/templating",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: evoque_html_lexer_analyse,
 }
 
 ///|
@@ -478,7 +478,7 @@ pub let evoque_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://gizmojo.org/templating",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: evoque_lexer_analyse,
 }
 
 ///|
@@ -525,7 +525,7 @@ pub let evoque_xml_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://gizmojo.org/templating",
   version_added: "1.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: evoque_xml_lexer_analyse,
 }
 
 ///|
@@ -545,7 +545,7 @@ pub let genshi_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://genshi.edgewall.org/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: genshi_lexer_analyse,
 }
 
 ///|
@@ -685,7 +685,7 @@ pub let html_django_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: html_django_lexer_analyse,
 }
 
 ///|
@@ -705,7 +705,7 @@ pub let html_genshi_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://genshi.edgewall.org/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: html_genshi_lexer_analyse,
 }
 
 ///|
@@ -725,7 +725,7 @@ pub let html_php_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.php.net",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: html_php_lexer_analyse,
 }
 
 ///|
@@ -745,7 +745,7 @@ pub let html_smarty_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.smarty.net/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: html_smarty_lexer_analyse,
 }
 
 ///|
@@ -765,7 +765,7 @@ pub let javascript_django_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: javascript_django_lexer_analyse,
 }
 
 ///|
@@ -785,7 +785,7 @@ pub let javascript_erb_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/ruby/erb",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: javascript_erb_lexer_analyse,
 }
 
 ///|
@@ -805,7 +805,7 @@ pub let javascript_genshi_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://genshi.edgewall.org",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: javascript_genshi_lexer_analyse,
 }
 
 ///|
@@ -825,7 +825,7 @@ pub let javascript_php_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.php.net",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: javascript_php_lexer_analyse,
 }
 
 ///|
@@ -845,7 +845,7 @@ pub let javascript_smarty_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.smarty.net/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: javascript_smarty_lexer_analyse,
 }
 
 ///|
@@ -865,7 +865,7 @@ pub let jsp_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://projects.eclipse.org/projects/ee4j.jsp",
   version_added: "0.7",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: jsp_lexer_analyse,
 }
 
 ///|
@@ -885,13 +885,13 @@ pub let lasso_css_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.lassosoft.com",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: lasso_css_lexer_analyse,
 }
 
 ///|
 /// Creates a `LassoCssLexer` (CSS+Lasso).
 pub fn lasso_css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lasso_css_lexer_info, options, opts => lasso_css_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), lasso_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(lasso_css_lexer_info, options, opts => lasso_css_lexer(options=opts), lasso_css_lexer_tokenizer)
 }
 
 ///|
@@ -905,7 +905,7 @@ pub let lasso_html_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.lassosoft.com",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: lasso_html_lexer_analyse,
 }
 
 ///|
@@ -925,13 +925,13 @@ pub let lasso_javascript_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.lassosoft.com",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: lasso_javascript_lexer_analyse,
 }
 
 ///|
 /// Creates a `LassoJavascriptLexer` (JavaScript+Lasso).
 pub fn lasso_javascript_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lasso_javascript_lexer_info, options, opts => lasso_javascript_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), lasso_lexer(options=lx.options), text, needle=tk_other))
+  @lexer.Lexer::new(lasso_javascript_lexer_info, options, opts => lasso_javascript_lexer(options=opts), lasso_javascript_lexer_tokenizer)
 }
 
 ///|
@@ -945,7 +945,7 @@ pub let lasso_xml_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.lassosoft.com",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: lasso_xml_lexer_analyse,
 }
 
 ///|
@@ -1178,7 +1178,7 @@ pub let mason_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.masonhq.com/",
   version_added: "1.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: mason_lexer_analyse,
 }
 
 ///|
@@ -1345,7 +1345,7 @@ pub let rhtml_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/ruby/erb",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: rhtml_lexer_analyse,
 }
 
 ///|
@@ -1365,7 +1365,7 @@ pub let smarty_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.smarty.net/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: smarty_lexer_analyse,
 }
 
 ///|
@@ -1414,7 +1414,7 @@ pub let sql_jinja_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://jinja.palletsprojects.com",
   version_added: "2.13",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: sql_jinja_lexer_analyse,
 }
 
 ///|
@@ -1434,7 +1434,7 @@ pub let ssp_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://scalate.github.io/scalate/",
   version_added: "1.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ssp_lexer_analyse,
 }
 
 ///|
@@ -1454,7 +1454,7 @@ pub let tea_template_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/teatrove/teatrove",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: tea_template_lexer_analyse,
 }
 
 ///|
@@ -1572,7 +1572,7 @@ pub let velocity_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://velocity.apache.org/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: velocity_lexer_analyse,
 }
 
 ///|
@@ -1635,7 +1635,7 @@ pub let velocity_xml_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://velocity.apache.org/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: velocity_xml_lexer_analyse,
 }
 
 ///|
@@ -1655,7 +1655,7 @@ pub let xml_django_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: xml_django_lexer_analyse,
 }
 
 ///|
@@ -1675,7 +1675,7 @@ pub let xml_erb_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/ruby/erb",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: xml_erb_lexer_analyse,
 }
 
 ///|
@@ -1695,7 +1695,7 @@ pub let xml_php_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.php.net",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: xml_php_lexer_analyse,
 }
 
 ///|
@@ -1715,7 +1715,7 @@ pub let xml_smarty_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.smarty.net/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: xml_smarty_lexer_analyse,
 }
 
 ///|
@@ -1761,7 +1761,7 @@ let cheetah_python_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CheetahPythonLexer` (CheetahPythonLexer).
 fn cheetah_python_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cheetah_python_lexer_info, options, opts => cheetah_python_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(cheetah_python_lexer_info, options, opts => cheetah_python_lexer(options=opts), cheetah_python_lexer_tokenizer)
 }
 
 ///|

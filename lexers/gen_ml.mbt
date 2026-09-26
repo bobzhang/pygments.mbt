@@ -478,5 +478,5 @@ let sml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SMLLexer` (Standard ML).
 pub fn sml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sml_lexer_info, options, opts => sml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sml_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(sml_lexer_info, options, opts => sml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sml_lexer_def.force(), text, stack, callbacks=sml_lexer_callbacks(lx)))
 }

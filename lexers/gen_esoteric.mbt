@@ -91,7 +91,7 @@ pub let brainfuck_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.muppetlabs.com/~breadbox/bf/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: brainfuck_lexer_analyse,
 }
 
 ///|

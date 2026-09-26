@@ -11,7 +11,7 @@ pub let bugs_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.mrc-bsu.cam.ac.uk/software/bugs/openbugs",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: bugs_lexer_analyse,
 }
 
 ///|
@@ -55,7 +55,7 @@ pub let jags_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://mcmc-jags.sourceforge.io",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: jags_lexer_analyse,
 }
 
 ///|
@@ -159,7 +159,7 @@ pub let stan_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://mc-stan.org",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: stan_lexer_analyse,
 }
 
 ///|
