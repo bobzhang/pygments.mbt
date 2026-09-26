@@ -2,6 +2,7 @@
 package "bobzhang/pygments/formatters"
 
 import {
+  "bobzhang/pygments/lexer",
   "bobzhang/pygments/styles",
   "bobzhang/pygments/token",
   "moonbitlang/core/debug",
@@ -32,6 +33,8 @@ pub fn groff_formatter(options? : Map[String, String], style? : @styles.Style) -
 
 pub let groff_info : FormatterInfo
 
+pub fn highlight(String, @lexer.Lexer, Formatter) -> String raise
+
 pub let html_info : FormatterInfo
 
 pub fn irc_colors() -> Map[@token.TokenType, (String, String)]
@@ -41,6 +44,8 @@ pub fn irc_formatter(options? : Map[String, String], style? : @styles.Style, col
 pub let irc_info : FormatterInfo
 
 pub fn ircformat(String, String) -> String raise FormatterError
+
+pub fn latex_embedded_lexer(String, String, @lexer.Lexer, options? : Map[String, String]) -> @lexer.Lexer raise
 
 pub let latex_info : FormatterInfo
 
@@ -158,11 +163,13 @@ pub struct HtmlFormatter {
 pub fn HtmlFormatter::cssfile_contents(Self) -> String
 pub fn HtmlFormatter::format(Self, Array[(@token.TokenType, String)]) -> String raise FormatterError
 pub fn HtmlFormatter::get_background_style_defs(Self, arg? : String) -> Array[String]
+pub fn HtmlFormatter::get_background_style_defs_for(Self, Array[String]) -> Array[String]
 pub fn HtmlFormatter::get_css_prefix(Self, String, arg? : String) -> String
 pub fn HtmlFormatter::get_linenos_style_defs(Self) -> Array[String]
 pub fn HtmlFormatter::get_style_defs(Self, arg? : String) -> String
 pub fn HtmlFormatter::get_style_defs_for(Self, Array[String]) -> String
 pub fn HtmlFormatter::get_token_style_defs(Self, arg? : String) -> Array[String]
+pub fn HtmlFormatter::get_token_style_defs_for(Self, Array[String]) -> Array[String]
 pub fn HtmlFormatter::new(options? : Map[String, String], style? : @styles.Style) -> Self raise
 pub fn HtmlFormatter::to_formatter(Self) -> Formatter
 

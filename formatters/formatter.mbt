@@ -104,6 +104,17 @@ pub fn Formatter::get_style_defs(
 }
 
 ///|
+/// Python's `pygments.highlight`: lexes `code` with `lexer` (including its
+/// filters) and formats the tokens with `formatter`.
+pub fn highlight(
+  code : String,
+  lexer : @lexer.Lexer,
+  formatter : Formatter,
+) -> String raise {
+  formatter.format(lexer.get_tokens(code))
+}
+
+///|
 /// The formatter's human-readable name.
 pub fn Formatter::name(self : Formatter) -> String {
   self.info.name

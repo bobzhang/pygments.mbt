@@ -1,6 +1,7 @@
 import {
   "bobzhang/pygments/filters",
   "bobzhang/pygments/formatters",
+  "bobzhang/pygments/lexers",
   "bobzhang/pygments/styles",
   "bobzhang/pygments/token",
   "moonbitlang/async",

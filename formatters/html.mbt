@@ -312,6 +312,24 @@ fn HtmlFormatter::token_style_defs(
 }
 
 ///|
+/// Python's `get_token_style_defs` with a list of selectors.
+pub fn HtmlFormatter::get_token_style_defs_for(
+  self : HtmlFormatter,
+  args : Array[String],
+) -> Array[String] {
+  self.token_style_defs(Some(args))
+}
+
+///|
+/// Python's `get_background_style_defs` with a list of selectors.
+pub fn HtmlFormatter::get_background_style_defs_for(
+  self : HtmlFormatter,
+  args : Array[String],
+) -> Array[String] {
+  self.background_style_defs(Some(args), args.length() > 0)
+}
+
+///|
 /// Python's `get_background_style_defs(arg)`.
 pub fn HtmlFormatter::get_background_style_defs(
   self : HtmlFormatter,

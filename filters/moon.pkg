@@ -5,4 +5,8 @@ import {
   "bobzhang/pygments/token",
 }
 
+import {
+  "bobzhang/pygments/lexers",
+} for "test"
+
 warnings = "-implicit_impl_as_method"

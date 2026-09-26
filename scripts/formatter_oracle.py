@@ -247,6 +247,67 @@ for alias, option_sets in OPTION_SETS.items():
                 record('format', {'formatter': alias, 'options': opts, 'tokens': key},
                        lambda: run_format(alias, opts, tokens_sets[key]))
 
+# tests/test_html_formatter_linenos_elements.py: the full option matrix,
+# compared byte for byte instead of structurally
+tokens_sets['linenos_code'] = list(get_lexer_by_name('python').get_tokens('# a\n# b\n# c'))
+emit({'kind': 'tokens', 'key': 'linenos_code', 'tokens': ser(tokens_sets['linenos_code'])})
+for linenos in ['inline', 'table']:
+    for noclasses in ['False', 'True']:
+        for linenostep in ['1', '2']:
+            for linenostart in ['1', '8']:
+                for linenospecial in ['0', '3']:
+                    for anchorlinenos in ['False', 'True']:
+                        for filename in ['', 'testfilename']:
+                            opts = dict(linenos=linenos, noclasses=noclasses,
+                                        linenostep=linenostep, linenostart=linenostart,
+                                        linenospecial=linenospecial,
+                                        anchorlinenos=anchorlinenos, filename=filename)
+                            record('format', {'formatter': 'html', 'options': opts,
+                                              'tokens': 'linenos_code'},
+                                   lambda: run_format('html', opts, tokens_sets['linenos_code']))
+
+# tests/test_rtf_formatter.py::test_all_options: every combination
+RTF_OPTIONS = {'linenos': T, 'lineno_fontsize': '36', 'fontsize': '36',
+               'lineno_padding': '4', 'linenostart': '10', 'linenostep': '3',
+               'lineno_color': 'ff0000', 'hl_lines': '2', 'hl_linenostart': T,
+               'hl_color': '00ff00'}
+T_CPP = [r'#include <iostream>', r'int main(int argc, char** argv) {',
+         r'    /* Multi-line comment', r'       with \n escape sequence */'
+         r'    for (int i = 0; i < argc; i++){',
+         r'        std::cout << i << ": " << argv[i] << "\n";', r'    }',
+         r'    return 0;', r'}']
+T_PYTHON = [r'# Description of program', r'def add(a, b):',
+            r'    """ Add numbers a and b.', r'        Newline \n in docstring."""',
+            r'    return a+b', r'if __name__ == "__main__":', r'result = add(2,2)',
+            r'print(f"Result:\n{result}")']
+T_TEXT = [r'Header1;"Long', r'Header2";Header3', r'1,2;Single Line;20/02/2024',
+          r'1,3;"Multiple', r'Lines";21/02/2024']
+for key, lines, alias in [('rtf_cpp', T_CPP, 'cpp'), ('rtf_python', T_PYTHON, 'python'),
+                          ('rtf_text', T_TEXT, 'text')]:
+    add_lexed(key, alias, '\n'.join(lines) + '\n')
+    emit({'kind': 'tokens', 'key': key, 'tokens': ser(tokens_sets[key])})
+names = list(RTF_OPTIONS)
+for mask in range(1 << len(names)):
+    opts = {n: RTF_OPTIONS[n] for i, n in enumerate(names) if mask & (1 << i)}
+    for key in ['rtf_cpp', 'rtf_python', 'rtf_text']:
+        record('format', {'formatter': 'rtf', 'options': opts, 'tokens': key},
+               lambda: run_format('rtf', opts, tokens_sets[key]))
+
+# LatexEmbeddedLexer (depends on the wrapped lexer being correct)
+from pygments.formatters.latex import LatexEmbeddedLexer  # noqa: E402
+EMBEDDED = [
+    ('|', '|', 'pycon', '>>> x = 1\n>>> y = mul(x, |$z^2$|)  # these |pipes| are untouched\n'
+                        '>>> y\n|$1 + z^2$|'),
+    ('|', '|', 'python', 'a = |\\alpha| + "|s|"  # |c|\nb = |unterminated\n'),
+    ('<@', '@>', 'python', 'x = <@\\textbf{b}@> + y <@ no end\n'),
+    ('|', '|', 'text', '\n|LINE|\n'),
+]
+for left, right, alias, text in EMBEDDED:
+    record('lexer', {'lexer': 'latexembedded', 'left': left, 'right': right,
+                     'lang': alias, 'input': text},
+           lambda: ser(LatexEmbeddedLexer(left, right, get_lexer_by_name(alias))
+                       .get_tokens(text)))
+
 # get_style_defs
 for alias in ['html', 'latex', 'terminal', 'rtf', 'text']:
     style_names = list(get_all_styles()) if alias in ('html', 'latex') else ['default']

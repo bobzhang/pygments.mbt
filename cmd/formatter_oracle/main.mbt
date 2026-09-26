@@ -205,6 +205,28 @@ async fn main {
           tokens_json_string((f.apply)(None, tokens))
         })
       }
+      "lexer" => {
+        guard obj
+          is {
+            "left": String(left),
+            "right": String(right),
+            "lang": String(lang),
+            "input": String(input),
+            ..
+          } else {
+          continue
+        }
+        let obj2 = obj.copy()
+        match obj.get("output") {
+          Some(out) => obj2["output"] = Json::string(out.stringify())
+          None => ()
+        }
+        check_case(tally, "lexer:latexembedded", desc, obj2, quiet, () => {
+          let inner = @lexers.get_lexer_by_name(lang)
+          let lx = @formatters.latex_embedded_lexer(left, right, inner)
+          tokens_json_string(lx.get_tokens(input))
+        })
+      }
       _ => println("SKIP unknown kind \{kind}")
     }
   }
