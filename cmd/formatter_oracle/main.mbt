@@ -256,4 +256,7 @@ async fn main {
     println("\{g}: pass=\{p} fail=\{f}")
   }
   println("total: pass=\{total_pass} fail=\{total_fail}")
+  if total_fail > 0 {
+    @sys.exit(1)
+  }
 }

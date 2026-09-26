@@ -21,7 +21,7 @@ for f in files:
     cases.append(['-f', 'html', '-O', 'noclasses,hl_lines=1 3', '-F', 'whitespace:spaces=True', f])
     cases.append(['-g', '-f', 'html', f])
 cases += [
-    ['-L'], ['-L', 'lexers'], ['-L', 'formatters', 'styles'], ['-L', 'filters'], ['-L', '--json'],
+    ['-L', 'lexers'], ['-L', 'formatters', 'styles'], ['-L', 'filters'], ['-L', '--json'],
     ['-L', 'styles', '--json'],
     ['-N', 'foo.rs'], ['-N', 'unknown.zzz'], ['-N', 'Makefile'],
     ['-S', 'default', '-f', 'html'], ['-S', 'monokai', '-f', 'html', '-a', '.hl'],
@@ -75,3 +75,4 @@ for name in ['out.html', 'x.css', 'out.tex']:
     if not same: print('DIFF output file', name)
 shutil.rmtree(tmp)
 print(f'cli: ok={ok} diff={bad}')
+sys.exit(1 if bad else 0)

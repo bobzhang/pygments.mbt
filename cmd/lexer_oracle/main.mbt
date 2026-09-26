@@ -148,4 +148,7 @@ async fn main {
   if !quiet {
     println("failing: \{failing.join(" ")}")
   }
+  if failed > 0 || errors > 0 {
+    @sys.exit(1)
+  }
 }

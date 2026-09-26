@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Build and test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Versions
+        run: moon version --all
+
+      - name: Update registry index
+        run: moon update
+
+      - name: Format check
+        run: moon fmt --check
+
+      - name: Interface check
+        run: |
+          moon info
+          git diff --exit-code -- '*.mbti'
+
+      - name: Check
+        run: moon check --target native
+
+      - name: Test (native)
+        run: moon test --target native
+
+      - name: Test (js)
+        run: moon test --target js
+
+      - name: Test (wasm-gc)
+        run: moon test --target wasm-gc
+
+      - name: Build pygmentize
+        run: |
+          moon build --target native --release cmd/pygmentize
+          printf 'def f(x):\n    return x + 1\n' > /tmp/t.py
+          ./_build/native/release/build/cmd/pygmentize/pygmentize.exe -f html /tmp/t.py
+
+  conformance:
+    name: Conformance against Python Pygments
+    runs-on: ubuntu-latest
+    env:
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Update registry index
+        run: moon update
+
+      - name: Generated files are up to date
+        run: |
+          scripts/regen.sh
+          git status --short
+          git diff --exit-code
+
+      - name: Differential tests (regex, lexers, analyse, formatters, CLI)
+        run: scripts/conformance.sh

@@ -1,5 +1,7 @@
 # pygments.mbt
 
+[![CI](https://github.com/bobzhang/pygments.mbt/actions/workflows/ci.yml/badge.svg)](https://github.com/bobzhang/pygments.mbt/actions/workflows/ci.yml)
+
 A port of [Pygments](https://pygments.org) 2.21 — the generic syntax
 highlighter — to MoonBit.
 
@@ -109,15 +111,13 @@ strings), while matching itself is code-point based like Python.
 
 ## Testing against Python
 
+The upstream checkout is pinned in `scripts/PYGMENTS_COMMIT`; CI runs the same
+scripts on every push.
+
 ```bash
-git clone --depth 1 https://github.com/pygments/pygments .repos/pygments
-python3 scripts/regex_oracle.py .oracle/regex.jsonl
-python3 scripts/lexer_oracle.py .oracle/lexers.jsonl
-python3 scripts/analyse_oracle.py .oracle/lexers.jsonl .oracle/analyse.jsonl
-moon build --target native --release
-./_build/native/release/build/cmd/regex_oracle/regex_oracle.exe
-./_build/native/release/build/cmd/lexer_oracle/lexer_oracle.exe --quiet
-./_build/native/release/build/cmd/lexer_oracle/lexer_oracle.exe --analyse --quiet
+moon test                       # unit tests (also --target js / wasm-gc)
+scripts/conformance.sh          # differential tests against Python 3.14 + Pygments
+scripts/regen.sh                # regenerate all generated MoonBit files
 ```
 
 ## License

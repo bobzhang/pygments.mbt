@@ -87,4 +87,7 @@ async fn main {
   println(
     "patterns=\{patterns} compile_errors=\{compile_errors} cases=\{cases} mismatches=\{mismatches} bad_patterns=\{bad_patterns}",
   )
+  if compile_errors > 0 || mismatches > 0 {
+    @sys.exit(1)
+  }
 }
