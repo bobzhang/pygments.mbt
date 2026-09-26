@@ -12,6 +12,8 @@ keywords = [ "syntax-highlighting", "pygments", "lexer" ]
 
 description = "A port of Pygments (generic syntax highlighter) to MoonBit"
 
-options(
-  "preferred-target": "native",
-)
+preferred_target = "native"
+
+import {
+  "moonbitlang/async@0.22.4",
+}

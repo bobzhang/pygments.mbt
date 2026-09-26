@@ -1,0 +1,68 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/regex"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub const ASCII : Int = 256
+
+pub const DOTALL : Int = 16
+
+pub const IGNORECASE : Int = 2
+
+pub const LOCALE : Int = 4
+
+pub const MULTILINE : Int = 8
+
+pub const UNICODE : Int = 32
+
+pub const VERBOSE : Int = 64
+
+pub fn compile(String, flags? : Int) -> Regex raise RegexError
+
+pub let default_steps : Int
+
+// Errors
+pub suberror RegexError {
+  Syntax(pattern~ : String, pos~ : Int, message~ : String)
+  BudgetExceeded(pattern~ : String)
+} derive(@debug.Debug)
+pub fn RegexError::to_repr(Self) -> @debug.Repr
+
+// Types and methods
+pub struct Budget {
+  mut remaining : Int
+}
+pub fn Budget::new(Int) -> Self
+
+pub struct Match {
+  text : String
+  // private fields
+}
+pub fn Match::end(Self, group? : Int) -> Int
+pub fn Match::group(Self, Int) -> String?
+pub fn Match::group_count(Self) -> Int
+pub fn Match::matched(Self) -> String
+pub fn Match::name_index(Self, String) -> Int?
+pub fn Match::named(Self, String) -> String?
+pub fn Match::start(Self, group? : Int) -> Int
+
+pub struct Regex {
+  pattern : String
+  flags : Int
+  // private fields
+}
+pub fn Regex::find_all(Self, String, budget? : Budget) -> Array[Match] raise RegexError
+pub fn Regex::fullmatch(Self, String, budget? : Budget) -> Match? raise RegexError
+pub fn Regex::group_count(Self) -> Int
+pub fn Regex::group_index(Self, String) -> Int?
+pub fn Regex::match_at(Self, String, Int, endpos? : Int, budget? : Budget) -> Match? raise RegexError
+pub fn Regex::replace_all(Self, String, (Match) -> String, budget? : Budget) -> String raise RegexError
+pub fn Regex::search(Self, String, pos? : Int, endpos? : Int, budget? : Budget) -> Match? raise RegexError
+pub fn Regex::split(Self, String, budget? : Budget) -> Array[String?] raise RegexError
+
+// Type aliases
+
+// Traits
