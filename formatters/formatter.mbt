@@ -73,17 +73,44 @@ pub struct Formatter {
   base : BaseOptions
   priv format_fn : (Tokens) -> String raise
   priv style_defs_fn : (String?) -> String raise
+  priv aux_files_fn : () -> Array[AuxFile]
 }
 
 ///|
-/// Wraps the two operations of a formatter class.
+/// A file that Python's formatter writes as a side effect of `format`
+/// (the HTML formatter's `cssfile`). This port does no file IO: the caller
+/// writes `contents` to `path`, which Python resolves relative to the
+/// directory of the output file (or the current directory when the output
+/// has no name) unless it is absolute; with `noclobber` an existing file is
+/// kept.
+pub(all) struct AuxFile {
+  path : String
+  contents : String
+  noclobber : Bool
+} derive(Debug)
+
+///|
+/// Wraps the operations of a formatter class.
 pub fn Formatter::new(
   info : FormatterInfo,
   base : BaseOptions,
   format : (Tokens) -> String raise,
   style_defs? : (String?) -> String raise = _ => "",
+  aux_files? : () -> Array[AuxFile] = () => [],
 ) -> Formatter {
-  { info, base, format_fn: format, style_defs_fn: style_defs, }
+  {
+    info,
+    base,
+    format_fn: format,
+    style_defs_fn: style_defs,
+    aux_files_fn: aux_files,
+  }
+}
+
+///|
+/// The files Python would write while formatting (see `AuxFile`).
+pub fn Formatter::aux_files(self : Formatter) -> Array[AuxFile] {
+  (self.aux_files_fn)()
 }
 
 ///|

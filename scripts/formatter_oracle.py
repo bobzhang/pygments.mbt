@@ -11,6 +11,8 @@ Output: JSON lines (default `.oracle/formatters.jsonl`), in this order:
   {"kind": "style", "name", "attrs": {...}, "entries": [[ttype, {...}], ...]}
   {"kind": "format", "id", "formatter", "options", "tokens", "output"|"error"}
   {"kind": "styledefs", "id", "formatter", "options", "arg"|"args", "output"|"error"}
+  {"kind": "cssfile", "id", "formatter", "options", "tokens", "output"}
+  {"kind": "lexer", "id", "lexer", "left", "right", "lang", "input", "output"}
   {"kind": "filter", "id", "filter", "options", "tokens", "output"|"error"}
 
 Usage: python3 scripts/formatter_oracle.py [out.jsonl]
@@ -246,6 +248,41 @@ for alias, option_sets in OPTION_SETS.items():
                     opts['style'] = style
                 record('format', {'formatter': alias, 'options': opts, 'tokens': key},
                        lambda: run_format(alias, opts, tokens_sets[key]))
+
+# the CSS file written by the HTML formatter (`full` + `cssfile`)
+def written_cssfile(opts):
+    run_format('html', opts, tokens_sets['basic'])
+    with open(os.path.join(tmp, opts['cssfile']), encoding='utf-8') as f:
+        return f.read()
+
+
+for opts in [{'full': T, 'cssfile': 'a.css'},
+             {'full': T, 'cssfile': 'b.css', 'style': 'monokai', 'cssclass': 'x',
+              'classprefix': 'p-'}]:
+    record('cssfile', {'formatter': 'html', 'options': opts, 'tokens': 'basic'},
+           lambda: written_cssfile(opts))
+
+# every builtin style with every style-sensitive formatter
+for style in get_all_styles():
+    for alias, options in [('html', {'noclasses': T}), ('html', {'full': T}),
+                           ('terminal256', {}), ('terminal16m', {}), ('latex', {'full': T}),
+                           ('rtf', {}), ('svg', {}), ('bbcode', {}), ('groff', {}),
+                           ('pango', {})]:
+        opts = dict(options, style=style)
+        record('format', {'formatter': alias, 'options': opts, 'tokens': 'ex_unicodedoc'},
+               lambda: run_format(alias, opts, tokens_sets['ex_unicodedoc']))
+
+# tests/test_html_formatter.py::test_all_options
+for linenos in [None, 'table', 'inline']:
+    for noclasses in ['False', 'True']:
+        for linenospecial in ['0', '5']:
+            for anchorlinenos in ['False', 'True']:
+                opts = dict(noclasses=noclasses, linenospecial=linenospecial,
+                            anchorlinenos=anchorlinenos)
+                if linenos:
+                    opts['linenos'] = linenos
+                record('format', {'formatter': 'html', 'options': opts, 'tokens': 'ex_c'},
+                       lambda: run_format('html', opts, tokens_sets['ex_c']))
 
 # tests/test_html_formatter_linenos_elements.py: the full option matrix,
 # compared byte for byte instead of structurally

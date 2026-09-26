@@ -414,7 +414,23 @@ pub fn HtmlFormatter::cssfile_contents(self : HtmlFormatter) -> String {
 ///|
 /// Wraps the HTML formatter as a generic `Formatter`.
 pub fn HtmlFormatter::to_formatter(self : HtmlFormatter) -> Formatter {
-  Formatter::new(html_info, self.base, tokens => self.format(tokens), style_defs=arg => {
-    self.get_style_defs(arg?)
-  })
+  Formatter::new(
+    html_info,
+    self.base,
+    tokens => self.format(tokens),
+    style_defs=arg => self.get_style_defs(arg?),
+    aux_files=() => {
+      if self.base.full && self.cssfile != "" {
+        [
+          {
+            path: self.cssfile,
+            contents: self.cssfile_contents(),
+            noclobber: self.noclobber_cssfile,
+          },
+        ]
+      } else {
+        []
+      }
+    },
+  )
 }

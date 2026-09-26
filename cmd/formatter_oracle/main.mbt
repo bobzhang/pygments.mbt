@@ -176,6 +176,15 @@ async fn main {
           f.format(tokens)
         })
       }
+      "cssfile" =>
+        check_case(tally, "cssfile:html", desc, obj, quiet, () => {
+          let f = @formatters.get_formatter_by_name("html", options~)
+          ignore(f.format(tokens))
+          match f.aux_files() {
+            [file] => file.contents
+            _ => "<no aux file>"
+          }
+        })
       "styledefs" => {
         guard obj.get("formatter") is Some(String(alias_)) else { continue }
         check_case(tally, group, desc, obj, quiet, () => {

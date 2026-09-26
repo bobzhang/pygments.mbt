@@ -57,8 +57,6 @@ pub let pango_info : FormatterInfo
 
 pub fn pango_markup_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
 
-pub fn py_int(String) -> Int?
-
 pub fn raw_token_formatter(options? : Map[String, String], style? : @styles.Style) -> Formatter raise
 
 pub let raw_token_info : FormatterInfo
@@ -103,6 +101,12 @@ pub suberror FormatterError {
 } derive(@debug.Debug)
 
 // Types and methods
+pub(all) struct AuxFile {
+  path : String
+  contents : String
+  noclobber : Bool
+} derive(@debug.Debug)
+
 pub struct BaseOptions {
   style : @styles.Style
   full : Bool
@@ -118,11 +122,12 @@ pub struct Formatter {
   // private fields
 }
 pub fn Formatter::aliases(Self) -> Array[String]
+pub fn Formatter::aux_files(Self) -> Array[AuxFile]
 pub fn Formatter::filenames(Self) -> Array[String]
 pub fn Formatter::format(Self, Array[(@token.TokenType, String)]) -> String raise
 pub fn Formatter::get_style_defs(Self, arg? : String) -> String raise
 pub fn Formatter::name(Self) -> String
-pub fn Formatter::new(FormatterInfo, BaseOptions, (Array[(@token.TokenType, String)]) -> String raise, style_defs? : (String?) -> String raise) -> Self
+pub fn Formatter::new(FormatterInfo, BaseOptions, (Array[(@token.TokenType, String)]) -> String raise, style_defs? : (String?) -> String raise, aux_files? : () -> Array[AuxFile]) -> Self
 pub fn Formatter::options(Self) -> Map[String, String]
 pub fn Formatter::style(Self) -> @styles.Style
 

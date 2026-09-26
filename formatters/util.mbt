@@ -100,7 +100,7 @@ pub fn webify(color : String) -> String {
 ///|
 /// Python's `int(s)` for decimal strings (surrounding whitespace, an
 /// optional sign and single underscores between digits are accepted).
-pub fn py_int(s : String) -> Int? {
+fn py_int(s : String) -> Int? {
   let t = s.trim(chars=" \t\n\r\u{0b}\u{0c}").to_owned()
   let chars = t.to_array()
   if chars.length() == 0 {

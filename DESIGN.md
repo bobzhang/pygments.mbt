@@ -92,3 +92,29 @@ Port of Pygments (upstream `38f426a6`, cloned at `.repos/pygments`) to MoonBit.
 7. **Conformance**: pinned Python oracle; regex differential tests (spans of
    all groups at varied positions); snippet/examplefile token streams;
    formatter snapshots.
+
+## Styles, filters, formatters
+
+* `styles/`: `Style::new` replays `StyleMeta` on the raw `styles` entries;
+  `styles/gen_*.mbt` (one per upstream module) come from
+  `scripts/export_styles.py`. `get_style_by_name`, `get_all_styles`.
+* `filters/`: the eight builtin filters as `@lexer.Filter` values
+  (`get_filter_by_name`); `SymbolFilter` tables from
+  `scripts/export_filters.py`. `raiseonerror` raises `ErrorToken` (no
+  `excclass`).
+* `pystr/`: Python string semantics the formatters need (`repr`, `ascii`,
+  `splitlines`, `expandtabs`, full-Unicode `lower`/`upper`/`capitalize`),
+  tables from `scripts/gen_pystr_tables.py`.
+* `formatters/`: every formatter except the PIL image formatters (`img`,
+  `gif`, `jpg`, `bmp`), which need the Python Imaging Library to rasterise
+  text and are not ported. Options are strings, as on the command line;
+  Python truthiness of string options is kept (`linenos=False` given as a
+  string enables line numbers in the HTML formatter, as in Python). No file
+  IO: `format` returns a `String`, and the HTML `cssfile` is reported by
+  `Formatter::aux_files` for the caller to write. Not supported: HTML
+  `tagsfile` (needs `ctags`), raw `compress=gz|bz2`, non-string options
+  (`colorscheme` is a constructor argument of the terminal/IRC formatters).
+* Conformance: `scripts/formatter_oracle.py` stores token streams and Python
+  outputs in `.oracle/formatters.jsonl`; `cmd/formatter_oracle` replays them
+  byte for byte (formatters × options × styles, `get_style_defs`, style
+  dictionaries of every builtin style, filters, `LatexEmbeddedLexer`).
