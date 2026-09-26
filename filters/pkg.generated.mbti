@@ -1,0 +1,51 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/filters"
+
+import {
+  "bobzhang/pygments/lexer",
+  "bobzhang/pygments/token",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn apply_filters(Array[(@token.TokenType, String)], Array[@lexer.Filter], lexer? : @lexer.Lexer) -> Array[(@token.TokenType, String)] raise
+
+pub fn code_tag_filter(options? : Map[String, String]) -> @lexer.Filter raise
+
+pub fn find_filter(String) -> Bool
+
+pub fn get_all_filters() -> Array[String]
+
+pub fn get_filter_by_name(String, options? : Map[String, String]) -> @lexer.Filter raise
+
+pub fn gobble_filter(options? : Map[String, String]) -> @lexer.Filter raise
+
+pub fn keyword_case_filter(options? : Map[String, String]) -> @lexer.Filter raise
+
+pub fn name_highlight_filter(options? : Map[String, String]) -> @lexer.Filter
+
+pub fn raise_on_error_token_filter(options? : Map[String, String]) -> @lexer.Filter
+
+pub fn re_escape(String) -> String
+
+pub fn symbol_filter(options? : Map[String, String]) -> @lexer.Filter raise
+
+pub fn token_merge_filter(options? : Map[String, String]) -> @lexer.Filter
+
+pub fn visible_whitespace_filter(options? : Map[String, String]) -> @lexer.Filter raise
+
+// Errors
+pub suberror ClassNotFound {
+  ClassNotFound(String)
+} derive(@debug.Debug)
+
+pub suberror ErrorToken {
+  ErrorToken(String)
+} derive(@debug.Debug)
+
+// Types and methods
+
+// Type aliases
+pub type TokenStream = Array[(@token.TokenType, String)]
+
+// Traits
