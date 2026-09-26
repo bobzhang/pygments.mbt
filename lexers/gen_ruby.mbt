@@ -49,46 +49,10 @@ let fancy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1562, 8, Emit(tk_name_variable_class), None),
     r(2518, 8, Emit(tk_operator), None),
     r(274, 8, Emit(tk_name), None),
-    r(
-      2519,
-      8,
-      ByGroups([
-        Emit(tk_literal_number_oct),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
-    r(
-      2520,
-      8,
-      ByGroups([
-        Emit(tk_literal_number_hex),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
-    r(
-      2521,
-      8,
-      ByGroups([
-        Emit(tk_literal_number_bin),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
-    r(
-      2522,
-      8,
-      ByGroups([
-        Emit(tk_literal_number_integer),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
+    r(2519, 8, ByGroups([Emit(tk_literal_number_oct), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(2520, 8, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(2521, 8, ByGroups([Emit(tk_literal_number_bin), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(2522, 8, ByGroups([Emit(tk_literal_number_integer), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
     r(2523, 8, Emit(tk_literal_number_float), None),
     r(223, 8, Emit(tk_literal_number_integer), None),
   ]
@@ -96,13 +60,7 @@ let fancy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "FancyLexer",
     ["balanced-regex", "root"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-      [
-        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-        29, 30, 31, 32, 33, 34, 35, 36, 37,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]],
     extended=false,
   )
 })
@@ -110,14 +68,7 @@ let fancy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FancyLexer` (Fancy).
 pub fn fancy_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    fancy_lexer_info,
-    options,
-    opts => fancy_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, fancy_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(fancy_lexer_info, options, opts => fancy_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, fancy_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -136,15 +87,8 @@ pub let ruby_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `RubyConsoleLexer` (Ruby irb session).
-pub fn ruby_console_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    ruby_console_lexer_info,
-    options,
-    opts => ruby_console_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn ruby_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(ruby_console_lexer_info, options, opts => ruby_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -152,10 +96,7 @@ pub let ruby_lexer_info : @lexer.LexerInfo = {
   class_name: "RubyLexer",
   name: "Ruby",
   aliases: ["ruby", "rb", "duby"],
-  filenames: [
-    "*.rb", "*.rbw", "Rakefile", "*.rake", "*.gemspec", "*.rbx", "*.duby", "Gemfile",
-    "Vagrantfile",
-  ],
+  filenames: ["*.rb", "*.rbw", "Rakefile", "*.rake", "*.gemspec", "*.rbx", "*.duby", "Gemfile", "Vagrantfile"],
   alias_filenames: [],
   mimetypes: ["text/x-ruby", "application/x-ruby"],
   priority: 0.0,
@@ -171,29 +112,10 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(693, 24, Emit(tk_comment_single), None),
     r(6221, 24, Emit(tk_comment_multiline), None),
     r(6222, 24, Emit(tk_keyword), None),
-    r(
-      6223,
-      24,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-      ]),
-      None,
-    ),
-    r(
-      965,
-      24,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
-      Some([Push("funcname")]),
-    ),
+    r(6223, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace)]), None),
+    r(965, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
     r(1543, 24, Emit(tk_keyword), Some([Push("funcname")])),
-    r(
-      966,
-      24,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
-      Some([Push("classname")]),
-    ),
+    r(966, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("classname")])),
     r(6224, 24, Emit(tk_keyword_pseudo), None),
     r(6225, 24, Emit(tk_operator_word), None),
     r(6226, 24, Emit(tk_name_builtin), None),
@@ -203,59 +125,13 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6230, 24, Call("RubyLexer.heredoc_callback", []), None),
     r(6231, 24, Call("RubyLexer.heredoc_callback", []), None),
     r(1551, 24, Emit(tk_comment_preproc), Some([Push("end-part")])),
-    r(
-      1552,
-      24,
-      ByGroups([Emit(tk_text), Emit(tk_literal_string_regex)]),
-      Some([Push("multiline-regex")]),
-    ),
+    r(1552, 24, ByGroups([Emit(tk_text), Emit(tk_literal_string_regex)]), Some([Push("multiline-regex")])),
     r(1553, 24, Emit(tk_literal_string_regex), Some([Push("multiline-regex")])),
-    r(
-      1554,
-      24,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_regex)]),
-      Some([Push("multiline-regex")]),
-    ),
-    r(
-      6232,
-      24,
-      ByGroups([
-        Emit(tk_literal_number_oct),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
-    r(
-      6233,
-      24,
-      ByGroups([
-        Emit(tk_literal_number_hex),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
-    r(
-      6234,
-      24,
-      ByGroups([
-        Emit(tk_literal_number_bin),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
-    r(
-      2522,
-      24,
-      ByGroups([
-        Emit(tk_literal_number_integer),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
+    r(1554, 24, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_regex)]), Some([Push("multiline-regex")])),
+    r(6232, 24, ByGroups([Emit(tk_literal_number_oct), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(6233, 24, ByGroups([Emit(tk_literal_number_hex), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(6234, 24, ByGroups([Emit(tk_literal_number_bin), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
+    r(2522, 24, ByGroups([Emit(tk_literal_number_integer), Emit(tk_text_whitespace), Emit(tk_operator)]), None),
     r(1562, 24, Emit(tk_name_variable_class), None),
     r(275, 24, Emit(tk_name_variable_instance), None),
     r(1563, 24, Emit(tk_name_variable_global), None),
@@ -266,30 +142,10 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6236, 24, Emit(tk_literal_string_symbol), None),
     r(1568, 24, Emit(tk_literal_string_symbol), None),
     r(1570, 24, Emit(tk_literal_string_symbol), Some([Push("simple-sym")])),
-    r(
-      1571,
-      24,
-      ByGroups([Emit(tk_literal_string_symbol), Emit(tk_punctuation)]),
-      None,
-    ),
-    r(
-      173,
-      24,
-      Emit(tk_literal_string_double),
-      Some([Push("simple-string-double")]),
-    ),
-    r(
-      224,
-      24,
-      Emit(tk_literal_string_single),
-      Some([Push("simple-string-single")]),
-    ),
-    r(
-      1572,
-      24,
-      Emit(tk_literal_string_backtick),
-      Some([Push("simple-backtick")]),
-    ),
+    r(1571, 24, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_punctuation)]), None),
+    r(173, 24, Emit(tk_literal_string_double), Some([Push("simple-string-double")])),
+    r(224, 24, Emit(tk_literal_string_single), Some([Push("simple-string-single")])),
+    r(1572, 24, Emit(tk_literal_string_backtick), Some([Push("simple-backtick")])),
     r(6237, 24, Emit(tk_literal_string_other), Some([Push("cb-intp-string")])),
     r(6238, 24, Emit(tk_literal_string_other), Some([Push("cb-string")])),
     r(1575, 24, Emit(tk_literal_string_regex), Some([Push("cb-regex")])),
@@ -302,37 +158,12 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6243, 24, Emit(tk_literal_string_other), Some([Push("ab-intp-string")])),
     r(6244, 24, Emit(tk_literal_string_other), Some([Push("ab-string")])),
     r(1584, 24, Emit(tk_literal_string_regex), Some([Push("ab-regex")])),
-    r(
-      6245,
-      24,
-      Call("RubyLexer.gen_rubystrings_rules.intp_regex_callback", []),
-      None,
-    ),
+    r(6245, 24, Call("RubyLexer.gen_rubystrings_rules.intp_regex_callback", []), None),
     r(6246, 24, Emit(tk_literal_string_other), None),
-    r(
-      6247,
-      24,
-      Call("RubyLexer.gen_rubystrings_rules.intp_string_callback", []),
-      None,
-    ),
-    r(
-      6248,
-      24,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_other), Nop]),
-      None,
-    ),
-    r(
-      6249,
-      24,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_other), Nop]),
-      None,
-    ),
-    r(
-      6250,
-      24,
-      Call("RubyLexer.gen_rubystrings_rules.intp_string_callback", []),
-      None,
-    ),
+    r(6247, 24, Call("RubyLexer.gen_rubystrings_rules.intp_string_callback", []), None),
+    r(6248, 24, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_other), Nop]), None),
+    r(6249, 24, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_other), Nop]), None),
+    r(6250, 24, Call("RubyLexer.gen_rubystrings_rules.intp_string_callback", []), None),
     r(6251, 24, Emit(tk_literal_string_char), None),
     r(6252, 24, Emit(tk_name_constant), None),
     r(6253, 24, ByGroups([Emit(tk_operator), Emit(tk_name_operator)]), None),
@@ -343,23 +174,13 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1598, 24, Emit(tk_punctuation), None),
     r(0, 24, Emit(tk_text_whitespace), None),
     r(138, 24, Emit(tk_punctuation), Some([Push("defexpr")])),
-    r(
-      6255,
-      24,
-      ByGroups([Emit(tk_name_class), Emit(tk_operator), Emit(tk_name_function)]),
-      Some([Pop]),
-    ),
+    r(6255, 24, ByGroups([Emit(tk_name_class), Emit(tk_operator), Emit(tk_name_function)]), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
     r(138, 24, Emit(tk_punctuation), Some([Push("defexpr")])),
     r(2328, 24, Emit(tk_operator), Some([Pop])),
     r(1488, 24, Emit(tk_name_class), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
-    r(
-      6256,
-      24,
-      ByGroups([Emit(tk_punctuation), Emit(tk_operator)]),
-      Some([Pop]),
-    ),
+    r(6256, 24, ByGroups([Emit(tk_punctuation), Emit(tk_operator)]), Some([Pop])),
     r(138, 24, Emit(tk_operator), Some([Dup])),
     r(245, 24, Emit(tk_literal_string_interpol), Some([Dup])),
     r(339, 24, Emit(tk_literal_string_interpol), Some([Pop])),
@@ -452,62 +273,9 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "RubyLexer",
-    [
-      "root", "strings", "funcname", "classname", "defexpr", "in-intp", "string-intp",
-      "string-intp-escaped", "interpolated-regex", "interpolated-string", "multiline-regex",
-      "end-part", "simple-string-double", "simple-string-single", "simple-sym", "simple-backtick",
-      "cb-intp-string", "cb-string", "cb-regex", "sb-intp-string", "sb-string", "sb-regex",
-      "pa-intp-string", "pa-string", "pa-regex", "ab-intp-string", "ab-string", "ab-regex",
-    ],
+    ["root", "strings", "funcname", "classname", "defexpr", "in-intp", "string-intp", "string-intp-escaped", "interpolated-regex", "interpolated-string", "multiline-regex", "end-part", "simple-string-double", "simple-string-single", "simple-sym", "simple-backtick", "cb-intp-string", "cb-string", "cb-regex", "sb-intp-string", "sb-string", "sb-regex", "pa-intp-string", "pa-string", "pa-regex", "ab-intp-string", "ab-string", "ab-regex"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
-        59, 60, 61, 62, 63, 64,
-      ],
-      [
-        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
-        49, 50, 51, 52, 53, 54, 55,
-      ],
-      [65, 66, 67],
-      [68, 69, 70, 71],
-      [
-        72, 73, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-        38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56,
-        57, 58, 59, 60, 61, 62, 63, 64,
-      ],
-      [
-        74, 75, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-        38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56,
-        57, 58, 59, 60, 61, 62, 63, 64,
-      ],
-      [76, 77, 78],
-      [76, 77, 78, 79],
-      [76, 77, 78, 80, 81],
-      [76, 77, 78, 82, 83],
-      [76, 77, 78, 84, 85, 86, 87, 88],
-      [89],
-      [76, 77, 78, 79, 90, 91, 92],
-      [76, 77, 78, 79, 93, 94, 95],
-      [76, 77, 78, 79, 96, 97, 98],
-      [76, 77, 78, 79, 99, 100, 101],
-      [102, 103, 104, 76, 77, 78, 79, 105, 106],
-      [107, 108, 109, 110, 111],
-      [112, 113, 114, 76, 77, 78, 115, 116],
-      [117, 118, 119, 76, 77, 78, 79, 120, 121],
-      [122, 123, 124, 125, 126],
-      [127, 128, 129, 76, 77, 78, 130, 131],
-      [132, 133, 134, 76, 77, 78, 79, 135, 136],
-      [137, 138, 139, 140, 141],
-      [142, 143, 144, 76, 77, 78, 145, 146],
-      [147, 148, 149, 76, 77, 78, 79, 150, 151],
-      [152, 153, 154, 155, 156],
-      [157, 158, 159, 76, 77, 78, 160, 161],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64], [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [65, 66, 67], [68, 69, 70, 71], [72, 73, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64], [74, 75, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64], [76, 77, 78], [76, 77, 78, 79], [76, 77, 78, 80, 81], [76, 77, 78, 82, 83], [76, 77, 78, 84, 85, 86, 87, 88], [89], [76, 77, 78, 79, 90, 91, 92], [76, 77, 78, 79, 93, 94, 95], [76, 77, 78, 79, 96, 97, 98], [76, 77, 78, 79, 99, 100, 101], [102, 103, 104, 76, 77, 78, 79, 105, 106], [107, 108, 109, 110, 111], [112, 113, 114, 76, 77, 78, 115, 116], [117, 118, 119, 76, 77, 78, 79, 120, 121], [122, 123, 124, 125, 126], [127, 128, 129, 76, 77, 78, 130, 131], [132, 133, 134, 76, 77, 78, 79, 135, 136], [137, 138, 139, 140, 141], [142, 143, 144, 76, 77, 78, 145, 146], [147, 148, 149, 76, 77, 78, 79, 150, 151], [152, 153, 154, 155, 156], [157, 158, 159, 76, 77, 78, 160, 161]],
     extended=true,
   )
 })
@@ -515,12 +283,5 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RubyLexer` (Ruby).
 pub fn ruby_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    ruby_lexer_info,
-    options,
-    opts => ruby_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, ruby_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(ruby_lexer_info, options, opts => ruby_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ruby_lexer_def.force(), text, stack))
 }

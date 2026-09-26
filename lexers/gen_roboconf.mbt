@@ -36,17 +36,8 @@ let roboconf_graph_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RoboconfGraphLexer` (Roboconf Graph).
-pub fn roboconf_graph_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    roboconf_graph_lexer_info,
-    options,
-    opts => roboconf_graph_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, roboconf_graph_lexer_def.force(), text, stack)
-    },
-  )
+pub fn roboconf_graph_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(roboconf_graph_lexer_info, options, opts => roboconf_graph_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, roboconf_graph_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -85,15 +76,6 @@ let roboconf_instances_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =
 
 ///|
 /// Creates a `RoboconfInstancesLexer` (Roboconf Instances).
-pub fn roboconf_instances_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    roboconf_instances_lexer_info,
-    options,
-    opts => roboconf_instances_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, roboconf_instances_lexer_def.force(), text, stack)
-    },
-  )
+pub fn roboconf_instances_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(roboconf_instances_lexer_info, options, opts => roboconf_instances_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, roboconf_instances_lexer_def.force(), text, stack))
 }

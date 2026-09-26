@@ -3,6 +3,7 @@ import {
   "bobzhang/pygments/regex",
   "bobzhang/pygments/token",
   "moonbitlang/core/lazy",
+  "moonbitlang/core/set",
 }
 
 warnings = "-implicit_impl_as_method"

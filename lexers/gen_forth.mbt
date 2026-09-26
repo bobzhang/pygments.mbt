@@ -20,30 +20,15 @@ let forth_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(0, 10, Emit(tk_text_whitespace), None),
     r(2649, 10, Emit(tk_comment_single), None),
     r(2650, 10, Emit(tk_comment_single), None),
-    r(
-      2651,
-      10,
-      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]),
-      Some([Push("worddef")]),
-    ),
-    r(
-      2652,
-      10,
-      ByGroups([Emit(tk_literal_string), Emit(tk_text_whitespace)]),
-      Some([Push("stringdef")]),
-    ),
+    r(2651, 10, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace)]), Some([Push("worddef")])),
+    r(2652, 10, ByGroups([Emit(tk_literal_string), Emit(tk_text_whitespace)]), Some([Push("stringdef")])),
     r(2653, 10, Emit(tk_keyword), None),
     r(2654, 10, Emit(tk_literal_number_hex), None),
     r(2655, 10, Emit(tk_literal_number_integer), None),
     r(2656, 10, Emit(tk_keyword_type), None),
     r(2657, 10, Emit(tk_name_constant), None),
     r(2658, 10, Emit(tk_name_decorator), None),
-    r(
-      2659,
-      10,
-      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text)]),
-      Some([Push("worddef")]),
-    ),
+    r(2659, 10, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text)]), Some([Push("worddef")])),
     r(502, 10, Emit(tk_name_function), None),
     r(502, 10, Emit(tk_name_class), Some([Pop])),
     r(920, 10, Emit(tk_literal_string), Some([Pop])),
@@ -60,12 +45,5 @@ let forth_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ForthLexer` (Forth).
 pub fn forth_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    forth_lexer_info,
-    options,
-    opts => forth_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, forth_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(forth_lexer_info, options, opts => forth_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, forth_lexer_def.force(), text, stack))
 }

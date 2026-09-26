@@ -17,19 +17,7 @@ pub let slash_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `SlashLexer` (Slash).
 pub fn slash_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    slash_lexer_info,
-    options,
-    opts => slash_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        html_lexer(options=lx.options),
-        slash_language_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+  @lexer.Lexer::new(slash_lexer_info, options, opts => slash_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), slash_language_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -84,38 +72,11 @@ let slash_language_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(8344, 8, Emit(tk_name_builtin), None),
     r(8345, 8, Emit(tk_name_builtin), None),
     r(8346, 8, Emit(tk_name_builtin), None),
-    r(
-      8347,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]),
-      None,
-    ),
+    r(8347, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
     r(8348, 8, Emit(tk_keyword), None),
     r(8349, 8, Emit(tk_keyword), None),
-    r(
-      8350,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_builtin),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
-    r(
-      8351,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
+    r(8350, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_builtin), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(8351, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
     r(8352, 8, Emit(tk_keyword), None),
     r(8353, 8, Emit(tk_keyword), None),
     r(8354, 8, Emit(tk_keyword), None),
@@ -201,36 +162,13 @@ let slash_language_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "SlashLanguageLexer",
     ["root", "string", "string_e", "regexp", "regexp_r", "slash"],
     rules,
-    [
-      [0, 1, 2, 3, 4],
-      [5, 6, 7, 8],
-      [9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18],
-      [19, 20, 21],
-      [
-        22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-        41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
-        60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78,
-        79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97,
-        98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112,
-        113, 114, 115, 116, 117, 118, 119,
-      ],
-    ],
+    [[0, 1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12, 13, 14], [15, 16, 17, 18], [19, 20, 21], [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119]],
     extended=true,
   )
 })
 
 ///|
 /// Creates a `SlashLanguageLexer` (SlashLanguageLexer).
-fn slash_language_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    slash_language_lexer_info,
-    options,
-    opts => slash_language_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, slash_language_lexer_def.force(), text, stack)
-    },
-  )
+fn slash_language_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(slash_language_lexer_info, options, opts => slash_language_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, slash_language_lexer_def.force(), text, stack))
 }

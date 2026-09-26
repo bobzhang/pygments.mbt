@@ -26,19 +26,9 @@ let csound_document_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1641, 8, Emit(tk_name_tag), Some([Push("tag")])),
     r(1642, 8, Emit(tk_name_tag), None),
     r(1643, 8, Emit(tk_name_tag), Some([Pop])),
-    r(
-      1644,
-      8,
-      Using(Other(opts => csound_orchestra_lexer(options=opts)), None, []),
-      None,
-    ),
+    r(1644, 8, Using(Other(opts => csound_orchestra_lexer(options=opts)), None, []), None),
     r(1645, 8, Emit(tk_name_tag), Some([Pop])),
-    r(
-      1646,
-      8,
-      Using(Other(opts => csound_score_lexer(options=opts)), None, []),
-      None,
-    ),
+    r(1646, 8, Using(Other(opts => csound_score_lexer(options=opts)), None, []), None),
     r(1647, 8, Emit(tk_name_tag), Some([Pop])),
     r(1648, 8, Using(Other(opts => html_lexer(options=opts)), None, []), None),
     r(0, 8, Emit(tk_text_whitespace), None),
@@ -53,31 +43,15 @@ let csound_document_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "CsoundDocumentLexer",
     ["root", "orchestra", "score", "HTML", "tag", "attr"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [8, 9],
-      [10, 11],
-      [12, 13],
-      [14, 15, 16],
-      [17, 18, 19, 20],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7], [8, 9], [10, 11], [12, 13], [14, 15, 16], [17, 18, 19, 20]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `CsoundDocumentLexer` (Csound Document).
-pub fn csound_document_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    csound_document_lexer_info,
-    options,
-    opts => csound_document_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, csound_document_lexer_def.force(), text, stack)
-    },
-  )
+pub fn csound_document_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(csound_document_lexer_info, options, opts => csound_document_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, csound_document_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -98,54 +72,24 @@ pub let csound_orchestra_lexer_info : @lexer.LexerInfo = {
 let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(
-      1651,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_name_label),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(1651, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(282, 8, Emit(tk_comment_multiline), None),
     r(1636, 8, Emit(tk_comment_single), None),
     r(557, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace)]), None),
-    r(
-      1652,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]),
-      Some([Push("macro parameter value list")]),
-    ),
+    r(1652, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]), Some([Push("macro parameter value list")])),
     r(1653, 8, Emit(tk_comment_preproc), None),
     r(1654, 8, Emit(tk_comment_preproc), None),
     r(1655, 8, Emit(tk_comment_preproc), Some([Push("includestr directive")])),
     r(1656, 8, Emit(tk_comment_preproc), Some([Push("include directive")])),
     r(1657, 8, Emit(tk_comment_preproc), Some([Push("define directive")])),
     r(1658, 8, Emit(tk_comment_preproc), Some([Push("macro directive")])),
-    r(
-      1659,
-      8,
-      Emit(tk_keyword_declaration),
-      Some([Push("instrument numbers and identifiers")]),
-    ),
-    r(
-      1660,
-      8,
-      Emit(tk_keyword_declaration),
-      Some([Push("after opcode keyword")]),
-    ),
+    r(1659, 8, Emit(tk_keyword_declaration), Some([Push("instrument numbers and identifiers")])),
+    r(1660, 8, Emit(tk_keyword_declaration), Some([Push("after opcode keyword")])),
     r(1661, 8, Emit(tk_keyword_declaration), None),
     r(1662, 8, Emit(tk_name_variable_global), None),
     r(1663, 8, Emit(tk_literal_number_float), None),
-    r(
-      1664,
-      8,
-      ByGroups([Emit(tk_keyword_type), Emit(tk_literal_number_hex)]),
-      None,
-    ),
+    r(1664, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_literal_number_hex)]), None),
     r(223, 8, Emit(tk_literal_number_integer), None),
     r(1665, 8, Emit(tk_operator), None),
     r(1666, 8, Emit(tk_punctuation), None),
@@ -154,35 +98,10 @@ let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(1667, 8, Emit(tk_keyword), None),
     r(1668, 8, Emit(tk_keyword_pseudo), None),
     r(1669, 8, Emit(tk_keyword), Some([Push("goto label")])),
-    r(
-      1670,
-      8,
-      ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]),
-      Some([Push("goto label")]),
-    ),
-    r(
-      1671,
-      8,
-      ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]),
-      Some([Push("goto label"), Push("goto argument")]),
-    ),
-    r(
-      1672,
-      8,
-      ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]),
-      Some([Push("goto label"), Push("goto argument"), Push("goto argument")]),
-    ),
-    r(
-      1673,
-      8,
-      ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]),
-      Some([
-        Push("goto label"),
-        Push("goto argument"),
-        Push("goto argument"),
-        Push("goto argument"),
-      ]),
-    ),
+    r(1670, 8, ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]), Some([Push("goto label")])),
+    r(1671, 8, ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]), Some([Push("goto label"), Push("goto argument")])),
+    r(1672, 8, ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]), Some([Push("goto label"), Push("goto argument"), Push("goto argument")])),
+    r(1673, 8, ByGroups([Emit(tk_keyword_pseudo), Emit(tk_punctuation)]), Some([Push("goto label"), Push("goto argument"), Push("goto argument"), Push("goto argument")])),
     r(1674, 8, Emit(tk_name_builtin), Some([Push("prints opcode")])),
     r(1675, 8, Emit(tk_name_builtin), Some([Push("Csound score opcode")])),
     r(1676, 8, Emit(tk_name_builtin), Some([Push("Python opcode")])),
@@ -192,12 +111,7 @@ let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(1680, 8, Emit(tk_name_function), None),
     r(1681, 8, Emit(tk_punctuation), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
-    r(
-      1682,
-      8,
-      Call("CsoundOrchestraLexer.opcode_name_callback", []),
-      Some([Pop, Push("opcode type signatures")]),
-    ),
+    r(1682, 8, Call("CsoundOrchestraLexer.opcode_name_callback", []), Some([Pop, Push("opcode type signatures")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(1683, 8, Emit(tk_keyword_type), None),
     r(100, 8, Emit(tk_punctuation), None),
@@ -222,12 +136,7 @@ let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(1591, 8, Emit(tk_literal_string), Some([Push("Csound score")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(306, 8, Emit(tk_literal_string), Some([Pop])),
-    r(
-      1693,
-      8,
-      Using(Other(opts => csound_score_lexer(options=opts)), None, []),
-      None,
-    ),
+    r(1693, 8, Using(Other(opts => csound_score_lexer(options=opts)), None, []), None),
     r(173, 8, Emit(tk_literal_string), Some([Push("quoted string")])),
     r(1591, 8, Emit(tk_literal_string), Some([Push("Python")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
@@ -241,12 +150,7 @@ let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(1694, 8, Emit(tk_literal_string), Some([Pop])),
     r(173, 8, Emit(tk_literal_string), Some([Pop, Push("quoted string")])),
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(
-      1695,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]),
-      Some([Pop, Push("macro parameter name list")]),
-    ),
+    r(1695, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]), Some([Pop, Push("macro parameter name list")])),
     r(1682, 8, Emit(tk_comment_preproc), Some([Pop, Push("before macro body")])),
     r(1682, 8, Emit(tk_comment_preproc), None),
     r(1696, 8, Emit(tk_punctuation), None),
@@ -259,24 +163,9 @@ let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(1682, 8, Emit(tk_comment_preproc), Some([Pop])),
     r(1700, 8, Emit(tk_comment_preproc), None),
     r(1696, 8, Emit(tk_punctuation), None),
-    r(
-      173,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("macro parameter value quoted string")]),
-    ),
-    r(
-      1591,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("macro parameter value braced string")]),
-    ),
-    r(
-      138,
-      8,
-      Emit(tk_comment_preproc),
-      Some([Push("macro parameter value parenthetical")]),
-    ),
+    r(173, 8, Emit(tk_literal_string), Some([Push("macro parameter value quoted string")])),
+    r(1591, 8, Emit(tk_literal_string), Some([Push("macro parameter value braced string")])),
+    r(138, 8, Emit(tk_comment_preproc), Some([Push("macro parameter value parenthetical")])),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(1701, 8, Emit(tk_comment_preproc), None),
     r(1702, 8, Emit(tk_error), None),
@@ -288,81 +177,17 @@ let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
   ]
   @lexer.RegexDef::new(
     "CsoundOrchestraLexer",
-    [
-      "root", "whitespace and macro uses", "whitespace", "macro uses", "preprocessor directives",
-      "partial statements", "numbers", "instrument numbers and identifiers", "after opcode keyword",
-      "opcode type signatures", "quoted string", "escape sequences", "format specifiers",
-      "braced string", "goto argument", "goto label", "prints opcode", "prints quoted string",
-      "Csound score opcode", "Csound score", "Python opcode", "Python", "Lua opcode",
-      "Lua", "include directive", "includestr directive", "define directive", "macro parameter name list",
-      "before macro body", "macro body", "macro directive", "macro parameter value list",
-      "macro parameter value quoted string", "macro parameter value braced string",
-      "macro parameter value parenthetical",
-    ],
+    ["root", "whitespace and macro uses", "whitespace", "macro uses", "preprocessor directives", "partial statements", "numbers", "instrument numbers and identifiers", "after opcode keyword", "opcode type signatures", "quoted string", "escape sequences", "format specifiers", "braced string", "goto argument", "goto label", "prints opcode", "prints quoted string", "Csound score opcode", "Csound score", "Python opcode", "Python", "Lua opcode", "Lua", "include directive", "includestr directive", "define directive", "macro parameter name list", "before macro body", "macro body", "macro directive", "macro parameter value list", "macro parameter value quoted string", "macro parameter value braced string", "macro parameter value parenthetical"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-      ],
-      [2, 3, 4, 5, 6, 7],
-      [2, 3, 4, 5],
-      [6, 7],
-      [8, 9, 10, 11, 12],
-      [
-        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
-        35, 36,
-      ],
-      [17, 18, 19],
-      [2, 3, 4, 5, 6, 7, 37, 38, 39],
-      [2, 3, 4, 5, 6, 7, 40, 41],
-      [2, 3, 4, 5, 6, 7, 42, 43, 44],
-      [45, 46, 6, 7, 47, 48, 49, 50],
-      [47],
-      [48, 49],
-      [51, 52, 47, 48, 49, 53],
-      [
-        2, 3, 4, 5, 6, 7, 54, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-        29, 30, 31, 32, 33, 34, 35, 36,
-      ],
-      [2, 3, 4, 5, 6, 7, 55, 56],
-      [2, 3, 4, 5, 6, 7, 57, 58],
-      [59, 60, 45, 46, 6, 7, 47, 48, 49, 50],
-      [2, 3, 4, 5, 6, 7, 61, 62, 63],
-      [64, 65],
-      [2, 3, 4, 5, 6, 7, 66, 67, 68],
-      [69, 70],
-      [2, 3, 4, 5, 6, 7, 71, 72, 73],
-      [74, 75],
-      [2, 3, 4, 5, 76],
-      [2, 3, 4, 5, 77],
-      [78, 2, 3, 4, 5, 79, 80],
-      [2, 3, 4, 5, 81, 82, 83],
-      [84, 2, 3, 4, 5, 85],
-      [86, 87, 88],
-      [2, 3, 4, 5, 89],
-      [90, 91, 92, 93, 94, 95],
-      [96, 97, 45, 46, 6, 7, 47, 48, 49, 50],
-      [98, 99, 51, 52, 47, 48, 49, 53],
-      [100, 101, 102],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [2, 3, 4, 5, 6, 7], [2, 3, 4, 5], [6, 7], [8, 9, 10, 11, 12], [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [17, 18, 19], [2, 3, 4, 5, 6, 7, 37, 38, 39], [2, 3, 4, 5, 6, 7, 40, 41], [2, 3, 4, 5, 6, 7, 42, 43, 44], [45, 46, 6, 7, 47, 48, 49, 50], [47], [48, 49], [51, 52, 47, 48, 49, 53], [2, 3, 4, 5, 6, 7, 54, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [2, 3, 4, 5, 6, 7, 55, 56], [2, 3, 4, 5, 6, 7, 57, 58], [59, 60, 45, 46, 6, 7, 47, 48, 49, 50], [2, 3, 4, 5, 6, 7, 61, 62, 63], [64, 65], [2, 3, 4, 5, 6, 7, 66, 67, 68], [69, 70], [2, 3, 4, 5, 6, 7, 71, 72, 73], [74, 75], [2, 3, 4, 5, 76], [2, 3, 4, 5, 77], [78, 2, 3, 4, 5, 79, 80], [2, 3, 4, 5, 81, 82, 83], [84, 2, 3, 4, 5, 85], [86, 87, 88], [2, 3, 4, 5, 89], [90, 91, 92, 93, 94, 95], [96, 97, 45, 46, 6, 7, 47, 48, 49, 50], [98, 99, 51, 52, 47, 48, 49, 53], [100, 101, 102]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `CsoundOrchestraLexer` (Csound Orchestra).
-pub fn csound_orchestra_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    csound_orchestra_lexer_info,
-    options,
-    opts => csound_orchestra_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, csound_orchestra_lexer_def.force(), text, stack)
-    },
-  )
+pub fn csound_orchestra_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(csound_orchestra_lexer_info, options, opts => csound_orchestra_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, csound_orchestra_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -387,12 +212,7 @@ let csound_score_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(282, 8, Emit(tk_comment_multiline), None),
     r(1636, 8, Emit(tk_comment_single), None),
     r(557, 8, ByGroups([Emit(tk_text), Emit(tk_text_whitespace)]), None),
-    r(
-      1652,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]),
-      Some([Push("macro parameter value list")]),
-    ),
+    r(1652, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]), Some([Push("macro parameter value list")])),
     r(1653, 8, Emit(tk_comment_preproc), None),
     r(1654, 8, Emit(tk_comment_preproc), None),
     r(1655, 8, Emit(tk_comment_preproc), Some([Push("includestr directive")])),
@@ -401,20 +221,10 @@ let csound_score_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1658, 8, Emit(tk_comment_preproc), Some([Push("macro directive")])),
     r(1704, 8, Emit(tk_keyword), None),
     r(1705, 8, Emit(tk_keyword_constant), None),
-    r(
-      1706,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_literal_number_integer)]),
-      None,
-    ),
+    r(1706, 8, ByGroups([Emit(tk_keyword), Emit(tk_literal_number_integer)]), None),
     r(1707, 8, Emit(tk_keyword), Some([Push("mark statement")])),
     r(1663, 8, Emit(tk_literal_number_float), None),
-    r(
-      1664,
-      8,
-      ByGroups([Emit(tk_keyword_type), Emit(tk_literal_number_hex)]),
-      None,
-    ),
+    r(1664, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_literal_number_hex)]), None),
     r(223, 8, Emit(tk_literal_number_integer), None),
     r(1708, 8, Emit(tk_operator), None),
     r(1709, 8, Emit(tk_punctuation), None),
@@ -422,12 +232,7 @@ let csound_score_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(245, 8, Emit(tk_comment_preproc), Some([Push("loop after left brace")])),
     r(1682, 8, Emit(tk_name_label), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
-    r(
-      223,
-      8,
-      Emit(tk_literal_number_integer),
-      Some([Pop, Push("loop after repeat count")]),
-    ),
+    r(223, 8, Emit(tk_literal_number_integer), Some([Pop, Push("loop after repeat count")])),
     r(1682, 8, Emit(tk_comment_preproc), Some([Pop, Push("loop")])),
     r(339, 8, Emit(tk_comment_preproc), Some([Pop])),
     r(306, 8, Emit(tk_literal_string), Some([Pop])),
@@ -435,12 +240,7 @@ let csound_score_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1694, 8, Emit(tk_literal_string), Some([Pop])),
     r(173, 8, Emit(tk_literal_string), Some([Pop, Push("quoted string")])),
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(
-      1695,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]),
-      Some([Pop, Push("macro parameter name list")]),
-    ),
+    r(1695, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]), Some([Pop, Push("macro parameter name list")])),
     r(1682, 8, Emit(tk_comment_preproc), Some([Pop, Push("before macro body")])),
     r(1682, 8, Emit(tk_comment_preproc), None),
     r(1696, 8, Emit(tk_punctuation), None),
@@ -453,24 +253,9 @@ let csound_score_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1682, 8, Emit(tk_comment_preproc), Some([Pop])),
     r(1700, 8, Emit(tk_comment_preproc), None),
     r(1696, 8, Emit(tk_punctuation), None),
-    r(
-      173,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("macro parameter value quoted string")]),
-    ),
-    r(
-      1591,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("macro parameter value braced string")]),
-    ),
-    r(
-      138,
-      8,
-      Emit(tk_comment_preproc),
-      Some([Push("macro parameter value parenthetical")]),
-    ),
+    r(173, 8, Emit(tk_literal_string), Some([Push("macro parameter value quoted string")])),
+    r(1591, 8, Emit(tk_literal_string), Some([Push("macro parameter value braced string")])),
+    r(138, 8, Emit(tk_comment_preproc), Some([Push("macro parameter value parenthetical")])),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(1701, 8, Emit(tk_comment_preproc), None),
     r(1702, 8, Emit(tk_error), None),
@@ -485,61 +270,15 @@ let csound_score_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "CsoundScoreLexer",
-    [
-      "root", "whitespace and macro uses", "whitespace", "macro uses", "preprocessor directives",
-      "numbers", "mark statement", "loop after left brace", "loop after repeat count",
-      "loop", "braced string", "include directive", "includestr directive", "define directive",
-      "macro parameter name list", "before macro body", "macro body", "macro directive",
-      "macro parameter value list", "macro parameter value quoted string", "quoted string",
-      "macro parameter value braced string", "macro parameter value parenthetical",
-    ],
+    ["root", "whitespace and macro uses", "whitespace", "macro uses", "preprocessor directives", "numbers", "mark statement", "loop after left brace", "loop after repeat count", "loop", "braced string", "include directive", "includestr directive", "define directive", "macro parameter name list", "before macro body", "macro body", "macro directive", "macro parameter value list", "macro parameter value quoted string", "quoted string", "macro parameter value braced string", "macro parameter value parenthetical"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [1, 2, 3, 4, 5, 6],
-      [1, 2, 3, 4],
-      [5, 6],
-      [7, 8, 9, 10, 11],
-      [16, 17, 18],
-      [1, 2, 3, 4, 5, 6, 23, 24],
-      [1, 2, 3, 4, 5, 6, 25],
-      [1, 2, 3, 4, 5, 6, 26],
-      [
-        27, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22,
-      ],
-      [28, 29],
-      [1, 2, 3, 4, 30],
-      [1, 2, 3, 4, 31],
-      [32, 1, 2, 3, 4, 33, 34],
-      [1, 2, 3, 4, 35, 36, 37],
-      [38, 1, 2, 3, 4, 39],
-      [40, 41, 42],
-      [1, 2, 3, 4, 43],
-      [44, 45, 46, 47, 48, 49],
-      [50, 51, 52, 53, 5, 6, 54],
-      [52, 53, 5, 6, 54],
-      [55, 56, 28, 29],
-      [57, 58, 59],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4], [5, 6], [7, 8, 9, 10, 11], [16, 17, 18], [1, 2, 3, 4, 5, 6, 23, 24], [1, 2, 3, 4, 5, 6, 25], [1, 2, 3, 4, 5, 6, 26], [27, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [28, 29], [1, 2, 3, 4, 30], [1, 2, 3, 4, 31], [32, 1, 2, 3, 4, 33, 34], [1, 2, 3, 4, 35, 36, 37], [38, 1, 2, 3, 4, 39], [40, 41, 42], [1, 2, 3, 4, 43], [44, 45, 46, 47, 48, 49], [50, 51, 52, 53, 5, 6, 54], [52, 53, 5, 6, 54], [55, 56, 28, 29], [57, 58, 59]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `CsoundScoreLexer` (Csound Score).
-pub fn csound_score_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    csound_score_lexer_info,
-    options,
-    opts => csound_score_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, csound_score_lexer_def.force(), text, stack)
-    },
-  )
+pub fn csound_score_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(csound_score_lexer_info, options, opts => csound_score_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, csound_score_lexer_def.force(), text, stack))
 }

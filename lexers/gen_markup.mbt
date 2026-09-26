@@ -21,16 +21,7 @@ let bb_code_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(656, 8, Emit(tk_keyword), Some([Push("tag")])),
     r(144, 8, Emit(tk_text), None),
     r(0, 8, Emit(tk_text), None),
-    r(
-      657,
-      8,
-      ByGroups([
-        Emit(tk_name_attribute),
-        Emit(tk_operator),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
+    r(657, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_literal_string)]), None),
     r(658, 8, ByGroups([Emit(tk_operator), Emit(tk_literal_string)]), None),
     r(151, 8, Emit(tk_keyword), Some([Pop])),
   ]
@@ -46,14 +37,7 @@ let bb_code_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BBCodeLexer` (BBCode).
 pub fn bb_code_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    bb_code_lexer_info,
-    options,
-    opts => bb_code_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, bb_code_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(bb_code_lexer_info, options, opts => bb_code_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bb_code_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -73,12 +57,7 @@ pub let groff_lexer_info : @lexer.LexerInfo = {
 ///|
 let groff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      2986,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_keyword)]),
-      Some([Push("request")]),
-    ),
+    r(2986, 8, ByGroups([Emit(tk_text), Emit(tk_keyword)]), Some([Push("request")])),
     r(2154, 8, Emit(tk_punctuation), Some([Push("request")])),
     r(2217, 8, Emit(tk_text), Some([Push("textline")])),
     r(98, 0, Nop, Some([Push("textline")])),
@@ -100,12 +79,7 @@ let groff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "GroffLexer",
     ["root", "textline", "escapes", "request"],
     rules,
-    [
-      [0, 1, 2, 3],
-      [4, 5, 6, 7, 8, 9, 10, 11],
-      [4, 5, 6, 7, 8, 9],
-      [12, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16],
-    ],
+    [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9, 10, 11], [4, 5, 6, 7, 8, 9], [12, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16]],
     extended=false,
   )
 })
@@ -113,14 +87,7 @@ let groff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GroffLexer` (Groff).
 pub fn groff_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    groff_lexer_info,
-    options,
-    opts => groff_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, groff_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(groff_lexer_info, options, opts => groff_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, groff_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -142,70 +109,16 @@ let markdown_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(4545, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text)]), None),
     r(4546, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_text)]), None),
-    r(
-      4547,
-      8,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Emit(tk_text),
-        Emit(tk_generic_heading),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      4548,
-      8,
-      ByGroups([
-        Emit(tk_generic_subheading),
-        Emit(tk_text),
-        Emit(tk_generic_subheading),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      4549,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_keyword),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      4550,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      4551,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
+    r(4547, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text), Emit(tk_generic_heading), Emit(tk_text)]), None),
+    r(4548, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_text), Emit(tk_generic_subheading), Emit(tk_text)]), None),
+    r(4549, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_keyword), Using(This, Some(["root", "inline"]), [])]), None),
+    r(4550, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Using(This, Some(["root", "inline"]), [])]), None),
+    r(4551, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Using(This, Some(["root", "inline"]), [])]), None),
     r(4552, 8, ByGroups([Emit(tk_keyword), Emit(tk_generic_emph)]), None),
     r(4553, 8, Emit(tk_literal_string_backtick), None),
     r(4554, 72, Call("MarkdownLexer._handle_codeblock", []), None),
     r(583, 8, Emit(tk_text), None),
-    r(
-      4555,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_literal_string_backtick)]),
-      None,
-    ),
+    r(4555, 8, ByGroups([Emit(tk_text), Emit(tk_literal_string_backtick)]), None),
     r(4556, 8, ByGroups([Emit(tk_text), Emit(tk_generic_emphstrong)]), None),
     r(4557, 8, ByGroups([Emit(tk_text), Emit(tk_generic_emphstrong)]), None),
     r(4558, 8, ByGroups([Emit(tk_text), Emit(tk_generic_strong)]), None),
@@ -214,43 +127,9 @@ let markdown_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4561, 8, ByGroups([Emit(tk_text), Emit(tk_generic_emph)]), None),
     r(4562, 8, ByGroups([Emit(tk_text), Emit(tk_generic_deleted)]), None),
     r(4563, 8, Emit(tk_name_entity), None),
-    r(
-      4564,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_name_tag),
-        Emit(tk_text),
-        Emit(tk_text),
-        Emit(tk_name_attribute),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      4565,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_name_tag),
-        Emit(tk_text),
-        Emit(tk_text),
-        Emit(tk_name_label),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      4566,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_name_label),
-        Emit(tk_text),
-        Emit(tk_name_attribute),
-      ]),
-      None,
-    ),
+    r(4564, 8, ByGroups([Emit(tk_text), Emit(tk_name_tag), Emit(tk_text), Emit(tk_text), Emit(tk_name_attribute), Emit(tk_text)]), None),
+    r(4565, 8, ByGroups([Emit(tk_text), Emit(tk_name_tag), Emit(tk_text), Emit(tk_text), Emit(tk_name_label), Emit(tk_text)]), None),
+    r(4566, 8, ByGroups([Emit(tk_text), Emit(tk_name_label), Emit(tk_text), Emit(tk_name_attribute)]), None),
     r(4567, 8, Emit(tk_text), None),
     r(76, 8, Emit(tk_text), None),
   ]
@@ -258,30 +137,15 @@ let markdown_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "MarkdownLexer",
     ["root", "inline"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24,
-      ],
-      [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `MarkdownLexer` (Markdown).
-pub fn markdown_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    markdown_lexer_info,
-    options,
-    opts => markdown_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, markdown_lexer_def.force(), text, stack)
-    },
-  )
+pub fn markdown_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(markdown_lexer_info, options, opts => markdown_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, markdown_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -303,43 +167,13 @@ let moin_wiki_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(2083, 10, Emit(tk_comment), None),
     r(4702, 10, ByGroups([Emit(tk_keyword), Emit(tk_text)]), None),
-    r(
-      4703,
-      10,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Using(This, None, []),
-        Emit(tk_generic_heading),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
-    r(
-      4704,
-      10,
-      ByGroups([Emit(tk_name_builtin), Emit(tk_name_namespace)]),
-      Some([Push("codeblock")]),
-    ),
+    r(4703, 10, ByGroups([Emit(tk_generic_heading), Using(This, None, []), Emit(tk_generic_heading), Emit(tk_literal_string)]), None),
+    r(4704, 10, ByGroups([Emit(tk_name_builtin), Emit(tk_name_namespace)]), Some([Push("codeblock")])),
     r(4705, 10, Emit(tk_comment), None),
-    r(
-      4706,
-      10,
-      ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text)]),
-      None,
-    ),
-    r(
-      4707,
-      10,
-      ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text)]),
-      None,
-    ),
+    r(4706, 10, ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text)]), None),
+    r(4707, 10, ByGroups([Emit(tk_text), Emit(tk_name_builtin), Emit(tk_text)]), None),
     r(4708, 10, Emit(tk_keyword), None),
-    r(
-      4709,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_literal_string), Emit(tk_keyword)]),
-      None,
-    ),
+    r(4709, 10, ByGroups([Emit(tk_keyword), Emit(tk_literal_string), Emit(tk_keyword)]), None),
     r(4710, 10, Emit(tk_keyword), None),
     r(4711, 10, Emit(tk_text), None),
     r(264, 10, Emit(tk_text), None),
@@ -360,17 +194,8 @@ let moin_wiki_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MoinWikiLexer` (MoinMoin/Trac Wiki markup).
-pub fn moin_wiki_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    moin_wiki_lexer_info,
-    options,
-    opts => moin_wiki_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, moin_wiki_lexer_def.force(), text, stack)
-    },
-  )
+pub fn moin_wiki_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(moin_wiki_lexer_info, options, opts => moin_wiki_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, moin_wiki_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -389,22 +214,8 @@ pub let moz_preproc_css_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MozPreprocCssLexer` (CSS+mozpreproc).
-pub fn moz_preproc_css_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    moz_preproc_css_lexer_info,
-    options,
-    opts => moz_preproc_css_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        css_lexer(options=lx.options),
-        moz_preproc_percent_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+pub fn moz_preproc_css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(moz_preproc_css_lexer_info, options, opts => moz_preproc_css_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), moz_preproc_percent_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -426,12 +237,7 @@ let moz_preproc_hash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
   let rules = [
     r(416, 8, Emit(tk_comment_preproc), Some([Push("expr"), Push("exprstart")])),
     r(855, 8, Emit(tk_other), None),
-    r(
-      4841,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]),
-      Some([Pop, Pop]),
-    ),
+    r(4841, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]), Some([Pop, Pop])),
     r(4842, 8, Emit(tk_comment_preproc), Some([Pop])),
     r(4843, 8, Emit(tk_operator), None),
     r(4844, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]), None),
@@ -455,17 +261,8 @@ let moz_preproc_hash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
 
 ///|
 /// Creates a `MozPreprocHashLexer` (mozhashpreproc).
-pub fn moz_preproc_hash_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    moz_preproc_hash_lexer_info,
-    options,
-    opts => moz_preproc_hash_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, moz_preproc_hash_lexer_def.force(), text, stack)
-    },
-  )
+pub fn moz_preproc_hash_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(moz_preproc_hash_lexer_info, options, opts => moz_preproc_hash_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, moz_preproc_hash_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -484,22 +281,8 @@ pub let moz_preproc_javascript_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MozPreprocJavascriptLexer` (Javascript+mozpreproc).
-pub fn moz_preproc_javascript_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    moz_preproc_javascript_lexer_info,
-    options,
-    opts => moz_preproc_javascript_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        javascript_lexer(options=lx.options),
-        moz_preproc_hash_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+pub fn moz_preproc_javascript_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(moz_preproc_javascript_lexer_info, options, opts => moz_preproc_javascript_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), moz_preproc_hash_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -519,19 +302,9 @@ pub let moz_preproc_percent_lexer_info : @lexer.LexerInfo = {
 ///|
 let moz_preproc_percent_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      4847,
-      8,
-      Emit(tk_comment_preproc),
-      Some([Push("expr"), Push("exprstart")]),
-    ),
+    r(4847, 8, Emit(tk_comment_preproc), Some([Push("expr"), Push("exprstart")])),
     r(855, 8, Emit(tk_other), None),
-    r(
-      4841,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]),
-      Some([Pop, Pop]),
-    ),
+    r(4841, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]), Some([Pop, Pop])),
     r(4842, 8, Emit(tk_comment_preproc), Some([Pop])),
     r(4843, 8, Emit(tk_operator), None),
     r(4844, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation)]), None),
@@ -555,17 +328,8 @@ let moz_preproc_percent_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() 
 
 ///|
 /// Creates a `MozPreprocPercentLexer` (mozpercentpreproc).
-pub fn moz_preproc_percent_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    moz_preproc_percent_lexer_info,
-    options,
-    opts => moz_preproc_percent_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, moz_preproc_percent_lexer_def.force(), text, stack)
-    },
-  )
+pub fn moz_preproc_percent_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(moz_preproc_percent_lexer_info, options, opts => moz_preproc_percent_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, moz_preproc_percent_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -584,22 +348,8 @@ pub let moz_preproc_xul_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MozPreprocXulLexer` (XUL+mozpreproc).
-pub fn moz_preproc_xul_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    moz_preproc_xul_lexer_info,
-    options,
-    opts => moz_preproc_xul_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        xml_lexer(options=lx.options),
-        moz_preproc_hash_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+pub fn moz_preproc_xul_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(moz_preproc_xul_lexer_info, options, opts => moz_preproc_xul_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), moz_preproc_hash_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -620,150 +370,22 @@ pub let org_lexer_info : @lexer.LexerInfo = {
 let org_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(5303, 8, Emit(tk_comment_single), None),
-    r(
-      5304,
-      8,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Emit(tk_comment_preproc),
-        Emit(tk_generic_heading),
-      ]),
-      None,
-    ),
-    r(
-      5305,
-      8,
-      ByGroups([
-        Emit(tk_generic_subheading),
-        Emit(tk_comment_preproc),
-        Emit(tk_generic_subheading),
-      ]),
-      None,
-    ),
-    r(
-      5306,
-      8,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Emit(tk_generic_deleted),
-        Emit(tk_generic_heading),
-      ]),
-      None,
-    ),
-    r(
-      5307,
-      8,
-      ByGroups([
-        Emit(tk_generic_subheading),
-        Emit(tk_generic_deleted),
-        Emit(tk_generic_subheading),
-      ]),
-      None,
-    ),
-    r(
-      5308,
-      8,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Emit(tk_generic_error),
-        Emit(tk_generic_heading),
-      ]),
-      None,
-    ),
-    r(
-      5309,
-      8,
-      ByGroups([
-        Emit(tk_generic_subheading),
-        Emit(tk_generic_error),
-        Emit(tk_generic_subheading),
-      ]),
-      None,
-    ),
-    r(
-      5310,
-      8,
-      ByGroups([Emit(tk_generic_heading), Emit(tk_generic_emph)]),
-      None,
-    ),
-    r(
-      5311,
-      8,
-      ByGroups([Emit(tk_generic_subheading), Emit(tk_generic_emph)]),
-      None,
-    ),
-    r(
-      5312,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_generic_prompt),
-        Emit(tk_name_label),
-      ]),
-      None,
-    ),
-    r(
-      5313,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_generic_emph),
-      ]),
-      None,
-    ),
-    r(
-      5314,
-      10,
-      ByGroups([
-        Emit(tk_operator_word),
-        Using(This, None, []),
-        Emit(tk_operator_word),
-      ]),
-      None,
-    ),
-    r(
-      5315,
-      10,
-      ByGroups([
-        Emit(tk_operator_word),
-        Emit(tk_comment_multiline),
-        Emit(tk_operator_word),
-      ]),
-      None,
-    ),
-    r(
-      5316,
-      10,
-      ByGroups([Emit(tk_operator_word), Emit(tk_text), Emit(tk_operator_word)]),
-      None,
-    ),
-    r(
-      5317,
-      10,
-      ByGroups([
-        Emit(tk_operator_word),
-        Emit(tk_text_whitespace),
-        Emit(tk_text),
-        Emit(tk_operator_word),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(5304, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_comment_preproc), Emit(tk_generic_heading)]), None),
+    r(5305, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_comment_preproc), Emit(tk_generic_subheading)]), None),
+    r(5306, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_generic_deleted), Emit(tk_generic_heading)]), None),
+    r(5307, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_generic_deleted), Emit(tk_generic_subheading)]), None),
+    r(5308, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_generic_error), Emit(tk_generic_heading)]), None),
+    r(5309, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_generic_error), Emit(tk_generic_subheading)]), None),
+    r(5310, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_generic_emph)]), None),
+    r(5311, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_generic_emph)]), None),
+    r(5312, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_generic_prompt), Emit(tk_name_label)]), None),
+    r(5313, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_generic_emph)]), None),
+    r(5314, 10, ByGroups([Emit(tk_operator_word), Using(This, None, []), Emit(tk_operator_word)]), None),
+    r(5315, 10, ByGroups([Emit(tk_operator_word), Emit(tk_comment_multiline), Emit(tk_operator_word)]), None),
+    r(5316, 10, ByGroups([Emit(tk_operator_word), Emit(tk_text), Emit(tk_operator_word)]), None),
+    r(5317, 10, ByGroups([Emit(tk_operator_word), Emit(tk_text_whitespace), Emit(tk_text), Emit(tk_operator_word), Emit(tk_text_whitespace)]), None),
     r(5318, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_text)]), None),
-    r(
-      5319,
-      10,
-      ByGroups([
-        Emit(tk_name_decorator),
-        Emit(tk_comment_special),
-        Emit(tk_name_decorator),
-      ]),
-      None,
-    ),
+    r(5319, 10, ByGroups([Emit(tk_name_decorator), Emit(tk_comment_special), Emit(tk_name_decorator)]), None),
     r(5320, 8, Emit(tk_operator), None),
     r(5321, 8, Emit(tk_generic_deleted), Some([Push("dateline")])),
     r(5322, 8, Emit(tk_generic_error), Some([Push("dateline")])),
@@ -776,44 +398,10 @@ let org_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5329, 8, Emit(tk_literal_date), None),
     r(5330, 8, Emit(tk_comment_preproc), None),
     r(5331, 8, Emit(tk_name_tag), None),
-    r(
-      5332,
-      24,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_attribute),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      5333,
-      24,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_attribute),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      5334,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_attribute),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      5335,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string)]),
-      None,
-    ),
+    r(5332, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation)]), None),
+    r(5333, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_punctuation)]), None),
+    r(5334, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_punctuation)]), None),
+    r(5335, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
     r(5336, 8, Emit(tk_text), None),
     r(5337, 8, Emit(tk_text), None),
     r(5338, 8, Emit(tk_generic_deleted), None),
@@ -827,13 +415,7 @@ let org_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "OrgLexer",
     ["root", "dateline"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
-      ],
-      [35, 36, 37, 38, 39, 40],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], [35, 36, 37, 38, 39, 40]],
     extended=false,
   )
 })
@@ -841,11 +423,7 @@ let org_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OrgLexer` (Org Mode).
 pub fn org_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(org_lexer_info, options, opts => org_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, org_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(org_lexer_info, options, opts => org_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, org_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -865,195 +443,29 @@ pub let rst_lexer_info : @lexer.LexerInfo = {
 ///|
 let rst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      6186,
-      8,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Emit(tk_text),
-        Emit(tk_generic_heading),
-        Emit(tk_text),
-        Emit(tk_generic_heading),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      6187,
-      8,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Emit(tk_text),
-        Emit(tk_generic_heading),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      6188,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_literal_number),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6189,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_literal_number),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6190,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_literal_number),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6191,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_literal_number),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6192,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_literal_number),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6193,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_operator),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
+    r(6186, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text), Emit(tk_generic_heading), Emit(tk_text), Emit(tk_generic_heading), Emit(tk_text)]), None),
+    r(6187, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text), Emit(tk_generic_heading), Emit(tk_text)]), None),
+    r(6188, 8, ByGroups([Emit(tk_text), Emit(tk_literal_number), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6189, 8, ByGroups([Emit(tk_text), Emit(tk_literal_number), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6190, 8, ByGroups([Emit(tk_text), Emit(tk_literal_number), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6191, 8, ByGroups([Emit(tk_text), Emit(tk_literal_number), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6192, 8, ByGroups([Emit(tk_text), Emit(tk_literal_number), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6193, 8, ByGroups([Emit(tk_text), Emit(tk_operator), Using(This, Some(["root", "inline"]), [])]), None),
     r(6194, 8, Call("RstLexer._handle_sourcecode", []), None),
-    r(
-      6195,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text),
-        Emit(tk_operator_word),
-        Emit(tk_punctuation),
-        Emit(tk_text),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6196,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text),
-        Emit(tk_name_tag),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6197,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text),
-        Emit(tk_name_tag),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6198,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text),
-        Emit(tk_name_tag),
-        Emit(tk_text),
-        Emit(tk_operator_word),
-        Emit(tk_punctuation),
-        Emit(tk_text),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
+    r(6195, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_operator_word), Emit(tk_punctuation), Emit(tk_text), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6196, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_tag), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6197, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_tag), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6198, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text), Emit(tk_name_tag), Emit(tk_text), Emit(tk_operator_word), Emit(tk_punctuation), Emit(tk_text), Using(This, Some(["root", "inline"]), [])]), None),
     r(6199, 8, Emit(tk_comment), None),
-    r(
-      6200,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_name_class), Emit(tk_text)]),
-      None,
-    ),
-    r(
-      6201,
-      8,
-      ByGroups([
-        Using(This, Some(["root", "inline"]), []),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6202,
-      8,
-      ByGroups([
-        Emit(tk_literal_string_escape),
-        Emit(tk_text),
-        Emit(tk_literal_string),
-        Emit(tk_literal_string),
-        Emit(tk_text),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
+    r(6200, 8, ByGroups([Emit(tk_text), Emit(tk_name_class), Emit(tk_text)]), None),
+    r(6201, 8, ByGroups([Using(This, Some(["root", "inline"]), []), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6202, 8, ByGroups([Emit(tk_literal_string_escape), Emit(tk_text), Emit(tk_literal_string), Emit(tk_literal_string), Emit(tk_text), Emit(tk_literal_string)]), None),
     r(583, 8, Emit(tk_text), None),
     r(2947, 8, Emit(tk_literal_string), Some([Push("literal")])),
-    r(
-      6203,
-      8,
-      ByGroups([
-        Emit(tk_literal_string),
-        Emit(tk_literal_string_interpol),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
+    r(6203, 8, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string_interpol), Emit(tk_literal_string)]), None),
     r(6204, 8, Emit(tk_literal_string), None),
-    r(
-      6205,
-      8,
-      ByGroups([Emit(tk_name_variable), Emit(tk_name_attribute)]),
-      None,
-    ),
-    r(
-      6206,
-      8,
-      ByGroups([Emit(tk_name_attribute), Emit(tk_name_variable)]),
-      None,
-    ),
+    r(6205, 8, ByGroups([Emit(tk_name_variable), Emit(tk_name_attribute)]), None),
+    r(6206, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_name_variable)]), None),
     r(6207, 8, Emit(tk_generic_strong), None),
     r(6208, 8, Emit(tk_generic_emph), None),
     r(6209, 8, Emit(tk_literal_string), None),
@@ -1068,14 +480,7 @@ let rst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "RstLexer",
     ["root", "inline", "literal"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28,
-      ],
-      [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28],
-      [29, 30, 31],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28], [29, 30, 31]],
     extended=false,
   )
 })
@@ -1083,11 +488,7 @@ let rst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RstLexer` (reStructuredText).
 pub fn rst_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rst_lexer_info, options, opts => rst_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, rst_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(rst_lexer_info, options, opts => rst_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rst_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -1110,17 +511,7 @@ let tex_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4312, 8, Emit(tk_comment), None),
     r(59, 8, Emit(tk_name_builtin), None),
     r(7174, 8, Emit(tk_name_builtin), None),
-    r(
-      7175,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_name_builtin),
-        Emit(tk_name_builtin),
-        Emit(tk_name_builtin),
-      ]),
-      Some([Push("environmentmath")]),
-    ),
+    r(7175, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_builtin), Emit(tk_name_builtin), Emit(tk_name_builtin)]), Some([Push("environmentmath")])),
     r(1616, 8, Emit(tk_literal_string_backtick), Some([Push("displaymath")])),
     r(1621, 8, Emit(tk_literal_string), Some([Push("inlinemath")])),
     r(2347, 8, Emit(tk_literal_string_backtick), Some([Push("displaymath")])),
@@ -1137,37 +528,16 @@ let tex_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7182, 8, Emit(tk_literal_string), Some([Pop])),
     r(2347, 8, Emit(tk_literal_string), Some([Pop])),
     r(715, 8, Emit(tk_name_builtin), None),
-    r(
-      7183,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_name_builtin),
-        Emit(tk_name_builtin),
-        Emit(tk_name_builtin),
-      ]),
-      Some([Pop]),
-    ),
+    r(7183, 8, ByGroups([Emit(tk_keyword), Emit(tk_name_builtin), Emit(tk_name_builtin), Emit(tk_name_builtin)]), Some([Pop])),
     r(3389, 8, Emit(tk_name_attribute), None),
     r(71, 8, Emit(tk_keyword), None),
     r(98, 0, Nop, Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "TexLexer",
-    [
-      "general", "root", "math", "inlinemath", "displaymath", "environmentmath",
-      "command",
-    ],
+    ["general", "root", "math", "inlinemath", "displaymath", "environmentmath", "command"],
     rules,
-    [
-      [0, 1, 2],
-      [3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 10],
-      [11, 0, 1, 2, 12, 13, 14],
-      [15, 16, 11, 0, 1, 2, 12, 13, 14],
-      [17, 18, 19, 11, 0, 1, 2, 12, 13, 14],
-      [20, 11, 0, 1, 2, 12, 13, 14],
-      [21, 22, 23],
-    ],
+    [[0, 1, 2], [3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 10], [11, 0, 1, 2, 12, 13, 14], [15, 16, 11, 0, 1, 2, 12, 13, 14], [17, 18, 19, 11, 0, 1, 2, 12, 13, 14], [20, 11, 0, 1, 2, 12, 13, 14], [21, 22, 23]],
     extended=false,
   )
 })
@@ -1175,11 +545,7 @@ let tex_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TexLexer` (TeX).
 pub fn tex_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tex_lexer_info, options, opts => tex_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, tex_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(tex_lexer_info, options, opts => tex_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tex_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -1199,67 +565,27 @@ pub let tiddly_wiki5_lexer_info : @lexer.LexerInfo = {
 ///|
 let tiddly_wiki5_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      7215,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_generic_heading)]),
-      None,
-    ),
+    r(7215, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_generic_heading)]), None),
     r(7216, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text)]), None),
     r(7217, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_text)]), None),
-    r(
-      7218,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_keyword),
-        Emit(tk_text),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      7219,
-      8,
-      ByGroups([Emit(tk_literal_string), Emit(tk_text), Emit(tk_literal_string)]),
-      None,
-    ),
+    r(7218, 8, ByGroups([Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Using(This, Some(["root", "inline"]), [])]), None),
+    r(7219, 8, ByGroups([Emit(tk_literal_string), Emit(tk_text), Emit(tk_literal_string)]), None),
     r(7220, 8, ByGroups([Emit(tk_generic_strong)]), None),
     r(7221, 8, ByGroups([Emit(tk_generic_emph)]), None),
     r(7222, 8, ByGroups([Emit(tk_name_tag)]), None),
     r(7223, 8, ByGroups([Emit(tk_generic_strong)]), None),
-    r(
-      6518,
-      8,
-      ByGroups([Emit(tk_literal_string), Emit(tk_text), Emit(tk_literal_string)]),
-      None,
-    ),
+    r(6518, 8, ByGroups([Emit(tk_literal_string), Emit(tk_text), Emit(tk_literal_string)]), None),
     r(7224, 8, Call("TiddlyWiki5Lexer._handle_codeblock", []), None),
     r(7225, 8, Call("TiddlyWiki5Lexer._handle_cssblock", []), None),
     r(7226, 8, Emit(tk_keyword), None),
     r(583, 8, Emit(tk_text), None),
     r(7227, 8, Emit(tk_literal_number_integer), None),
-    r(
-      7228,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_generic_emph), Emit(tk_text)]),
-      None,
-    ),
+    r(7228, 8, ByGroups([Emit(tk_text), Emit(tk_generic_emph), Emit(tk_text)]), None),
     r(7229, 8, ByGroups([Emit(tk_text), Emit(tk_generic_emph)]), None),
     r(7230, 8, ByGroups([Emit(tk_text), Emit(tk_generic_emph)]), None),
     r(7231, 8, ByGroups([Emit(tk_text), Emit(tk_generic_strong)]), None),
-    r(
-      7232,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_generic_strong), Emit(tk_text)]),
-      None,
-    ),
-    r(
-      7233,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_generic_deleted), Emit(tk_text)]),
-      None,
-    ),
+    r(7232, 8, ByGroups([Emit(tk_text), Emit(tk_generic_strong), Emit(tk_text)]), None),
+    r(7233, 8, ByGroups([Emit(tk_text), Emit(tk_generic_deleted), Emit(tk_text)]), None),
     r(7234, 8, Emit(tk_name_tag), None),
     r(7235, 8, Emit(tk_name_tag), None),
     r(7236, 8, Emit(tk_name_tag), None),
@@ -1267,30 +593,9 @@ let tiddly_wiki5_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7238, 8, Emit(tk_name_tag), None),
     r(6521, 8, Emit(tk_literal_string_backtick), None),
     r(3182, 8, Emit(tk_literal_string_regex), None),
-    r(
-      7239,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_name_tag), Emit(tk_text)]),
-      None,
-    ),
-    r(
-      7240,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_name_tag),
-        Emit(tk_text),
-        Emit(tk_name_attribute),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      7241,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_name_tag), Emit(tk_text)]),
-      None,
-    ),
+    r(7239, 8, ByGroups([Emit(tk_text), Emit(tk_name_tag), Emit(tk_text)]), None),
+    r(7240, 8, ByGroups([Emit(tk_text), Emit(tk_name_tag), Emit(tk_text), Emit(tk_name_attribute), Emit(tk_text)]), None),
+    r(7241, 8, ByGroups([Emit(tk_text), Emit(tk_name_tag), Emit(tk_text)]), None),
     r(7242, 8, ByGroups([Emit(tk_name_attribute)]), None),
     r(5900, 8, Emit(tk_text), None),
     r(76, 8, Emit(tk_text), None),
@@ -1299,34 +604,15 @@ let tiddly_wiki5_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "TiddlyWiki5Lexer",
     ["root", "keywords", "inline"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
-      ],
-      [12],
-      [
-        13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-        32, 33,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], [12], [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `TiddlyWiki5Lexer` (tiddler).
-pub fn tiddly_wiki5_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    tiddly_wiki5_lexer_info,
-    options,
-    opts => tiddly_wiki5_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, tiddly_wiki5_lexer_def.force(), text, stack)
-    },
-  )
+pub fn tiddly_wiki5_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(tiddly_wiki5_lexer_info, options, opts => tiddly_wiki5_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tiddly_wiki5_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -1346,34 +632,9 @@ pub let wikitext_lexer_info : @lexer.LexerInfo = {
 ///|
 let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      7810,
-      74,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("redirect-inner")]),
-    ),
-    r(
-      7811,
-      8,
-      ByGroups([
-        Emit(tk_generic_subheading),
-        Emit(tk_generic_subheading),
-        Emit(tk_generic_subheading),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
-    r(
-      7812,
-      8,
-      ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]),
-      None,
-    ),
+    r(7810, 74, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("redirect-inner")])),
+    r(7811, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_generic_subheading), Emit(tk_generic_subheading), Emit(tk_text_whitespace)]), None),
+    r(7812, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]), None),
     r(7813, 10, Emit(tk_name_function_magic), None),
     r(7814, 8, Emit(tk_name_function_magic), None),
     r(7815, 10, Emit(tk_name_label), None),
@@ -1384,400 +645,58 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7820, 8, Emit(tk_keyword), None),
     r(7821, 8, Emit(tk_keyword), None),
     r(3182, 8, Emit(tk_name_entity), None),
-    r(
-      7822,
-      8,
-      ByGroups([Emit(tk_generic_emph), Emit(tk_generic_emphstrong)]),
-      Some([Push("inline-italic-bold")]),
-    ),
+    r(7822, 8, ByGroups([Emit(tk_generic_emph), Emit(tk_generic_emphstrong)]), Some([Push("inline-italic-bold")])),
     r(7823, 8, Emit(tk_generic_strong), Some([Push("inline-bold")])),
     r(7824, 8, Emit(tk_generic_emph), Some([Push("inline-italic")])),
     r(7825, 8, Emit(tk_comment_multiline), None),
-    r(
-      7826,
-      72,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_variable)]),
-      Some([Push("parameter-inner")]),
-    ),
-    r(
-      7827,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7828,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7826, 72, ByGroups([Emit(tk_punctuation), Emit(tk_name_variable)]), Some([Push("parameter-inner")])),
+    r(7827, 10, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7828, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(1591, 8, Emit(tk_punctuation), Some([Push("template-begin-space")])),
-    r(
-      7829,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7829, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation)]), None),
     r(7830, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      7831,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-inner-ordinary")]),
-    ),
-    r(
-      7832,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7833,
-      74,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Using(This, Some(["wikilink-name"]), []),
-        Emit(tk_punctuation),
-        Emit(tk_name_label),
-      ]),
-      Some([Push("medialink-inner")]),
-    ),
-    r(
-      7834,
-      74,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Using(This, Some(["wikilink-name"]), []),
-        Emit(tk_punctuation),
-        Emit(tk_name_label),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7835,
-      74,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Using(This, Some(["wikilink-name"]), []),
-        Emit(tk_punctuation),
-        Emit(tk_name_label),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("wikilink-inner")]),
-    ),
-    r(
-      7836,
-      74,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_label),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("extlink-inner")]),
-    ),
-    r(
-      7837,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "attr"]), []),
-      ]),
-      Some([Push("table")]),
-    ),
-    r(
-      7838,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-inner-ordinary")]),
-    ),
-    r(
-      7839,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7840,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-nowiki"), Push("tag-inner")]),
-    ),
-    r(
-      7841,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-pre"), Push("tag-inner")]),
-    ),
-    r(
-      7842,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-categorytree"), Push("tag-inner")]),
-    ),
-    r(
-      7843,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-hiero"), Push("tag-inner")]),
-    ),
-    r(
-      7844,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-math"), Push("tag-inner")]),
-    ),
-    r(
-      7845,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-chem"), Push("tag-inner")]),
-    ),
-    r(
-      7846,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-ce"), Push("tag-inner")]),
-    ),
-    r(
-      7847,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-charinsert"), Push("tag-inner")]),
-    ),
-    r(
-      7848,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-templatedata"), Push("tag-inner")]),
-    ),
-    r(
-      7849,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-gallery"), Push("tag-inner")]),
-    ),
-    r(
-      7849,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-graph"), Push("tag-inner")]),
-    ),
-    r(
-      7850,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-dynamicpagelist"), Push("tag-inner")]),
-    ),
-    r(
-      7851,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-inputbox"), Push("tag-inner")]),
-    ),
-    r(
-      7852,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-rss"), Push("tag-inner")]),
-    ),
-    r(
-      7853,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-imagemap"), Push("tag-inner")]),
-    ),
-    r(
-      7854,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7855,
-      26,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Call("WikitextLexer.handle_syntaxhighlight", []),
-      ]),
-      None,
-    ),
-    r(
-      7856,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Using(This, Some(["root", "attr"]), []),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7857,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7858,
-      26,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Call("WikitextLexer.handle_syntaxhighlight", []),
-      ]),
-      None,
-    ),
-    r(
-      7859,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Using(This, Some(["root", "attr"]), []),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7860,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7861,
-      26,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Call("WikitextLexer.handle_score", []),
-      ]),
-      None,
-    ),
-    r(
-      7862,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Using(This, Some(["root", "attr"]), []),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7863,
-      10,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]),
-      Some([Push("tag-inner-ordinary")]),
-    ),
-    r(
-      7864,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7865,
-      74,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "lc-raw"]), []),
-        Emit(tk_operator),
-        Emit(tk_name_label),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("lc-inner")]),
-    ),
-    r(
-      7866,
-      74,
-      ByGroups([
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "lc-flag"]), []),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("lc-raw")]),
-    ),
-    r(
-      7867,
-      74,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_label), Emit(tk_punctuation)]),
-      Some([Push("lc-inner")]),
-    ),
+    r(7831, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-inner-ordinary")])),
+    r(7832, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7833, 74, ByGroups([Emit(tk_punctuation), Emit(tk_name_namespace), Emit(tk_punctuation), Using(This, Some(["wikilink-name"]), []), Emit(tk_punctuation), Emit(tk_name_label)]), Some([Push("medialink-inner")])),
+    r(7834, 74, ByGroups([Emit(tk_punctuation), Emit(tk_name_namespace), Emit(tk_punctuation), Using(This, Some(["wikilink-name"]), []), Emit(tk_punctuation), Emit(tk_name_label), Emit(tk_punctuation)]), None),
+    r(7835, 74, ByGroups([Emit(tk_punctuation), Emit(tk_name_namespace), Emit(tk_punctuation), Using(This, Some(["wikilink-name"]), []), Emit(tk_punctuation), Emit(tk_name_label), Emit(tk_punctuation)]), Some([Push("wikilink-inner")])),
+    r(7836, 74, ByGroups([Emit(tk_punctuation), Emit(tk_name_label), Emit(tk_text_whitespace)]), Some([Push("extlink-inner")])),
+    r(7837, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation), Using(This, Some(["root", "attr"]), [])]), Some([Push("table")])),
+    r(7838, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-inner-ordinary")])),
+    r(7839, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7840, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-nowiki"), Push("tag-inner")])),
+    r(7841, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-pre"), Push("tag-inner")])),
+    r(7842, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-categorytree"), Push("tag-inner")])),
+    r(7843, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-hiero"), Push("tag-inner")])),
+    r(7844, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-math"), Push("tag-inner")])),
+    r(7845, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-chem"), Push("tag-inner")])),
+    r(7846, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-ce"), Push("tag-inner")])),
+    r(7847, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-charinsert"), Push("tag-inner")])),
+    r(7848, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-templatedata"), Push("tag-inner")])),
+    r(7849, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-gallery"), Push("tag-inner")])),
+    r(7849, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-graph"), Push("tag-inner")])),
+    r(7850, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-dynamicpagelist"), Push("tag-inner")])),
+    r(7851, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-inputbox"), Push("tag-inner")])),
+    r(7852, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-rss"), Push("tag-inner")])),
+    r(7853, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-imagemap"), Push("tag-inner")])),
+    r(7854, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7855, 26, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Call("WikitextLexer.handle_syntaxhighlight", [])]), None),
+    r(7856, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Using(This, Some(["root", "attr"]), []), Emit(tk_punctuation)]), None),
+    r(7857, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7858, 26, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Call("WikitextLexer.handle_syntaxhighlight", [])]), None),
+    r(7859, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Using(This, Some(["root", "attr"]), []), Emit(tk_punctuation)]), None),
+    r(7860, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7861, 26, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Call("WikitextLexer.handle_score", [])]), None),
+    r(7862, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Using(This, Some(["root", "attr"]), []), Emit(tk_punctuation)]), None),
+    r(7863, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag)]), Some([Push("tag-inner-ordinary")])),
+    r(7864, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7865, 74, ByGroups([Emit(tk_punctuation), Emit(tk_keyword), Emit(tk_punctuation), Using(This, Some(["root", "lc-raw"]), []), Emit(tk_operator), Emit(tk_name_label), Emit(tk_punctuation)]), Some([Push("lc-inner")])),
+    r(7866, 74, ByGroups([Emit(tk_punctuation), Using(This, Some(["root", "lc-flag"]), []), Emit(tk_punctuation)]), Some([Push("lc-raw")])),
+    r(7867, 74, ByGroups([Emit(tk_punctuation), Emit(tk_name_label), Emit(tk_punctuation)]), Some([Push("lc-inner")])),
     r(152, 8, Emit(tk_text), None),
     r(109, 8, Emit(tk_text), None),
     r(6558, 24, Emit(tk_text), None),
-    r(
-      7868,
-      8,
-      ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]),
-      Some([Pop]),
-    ),
+    r(7868, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Pop])),
     r(7869, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_label)]), None),
     r(7870, 10, Emit(tk_name_tag), None),
     r(7871, 8, Emit(tk_name_tag), None),
@@ -1785,68 +704,29 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7872, 8, Emit(tk_punctuation), Some([Pop])),
     r(430, 8, Emit(tk_punctuation), Some([Pop])),
     r(430, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      7873,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_attribute),
-        Emit(tk_operator),
-      ]),
-      None,
-    ),
+    r(7873, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_attribute), Emit(tk_operator)]), None),
     r(194, 8, Emit(tk_punctuation), None),
     r(7874, 8, Emit(tk_punctuation), Some([Pop])),
     r(264, 8, Emit(tk_text), Some([Pop])),
-    r(
-      7822,
-      8,
-      ByGroups([Emit(tk_generic_emph), Emit(tk_generic_strong)]),
-      Some([Pop, Push("inline-bold")]),
-    ),
-    r(
-      7823,
-      8,
-      Emit(tk_generic_emphstrong),
-      Some([Pop, Push("inline-italic-bold")]),
-    ),
+    r(7822, 8, ByGroups([Emit(tk_generic_emph), Emit(tk_generic_strong)]), Some([Pop, Push("inline-bold")])),
+    r(7823, 8, Emit(tk_generic_emphstrong), Some([Pop, Push("inline-italic-bold")])),
     r(7824, 8, Emit(tk_generic_emph), Some([Pop])),
     r(152, 8, Emit(tk_generic_emph), None),
     r(109, 8, Emit(tk_generic_emph), None),
     r(6558, 24, Emit(tk_generic_emph), None),
-    r(
-      7875,
-      8,
-      ByGroups([Emit(tk_generic_strong), Emit(tk_generic_emph)]),
-      Some([Pop, Push("inline-italic")]),
-    ),
+    r(7875, 8, ByGroups([Emit(tk_generic_strong), Emit(tk_generic_emph)]), Some([Pop, Push("inline-italic")])),
     r(7823, 8, Emit(tk_generic_strong), Some([Pop])),
-    r(
-      7824,
-      8,
-      Emit(tk_generic_emphstrong),
-      Some([Pop, Push("inline-bold-italic")]),
-    ),
+    r(7824, 8, Emit(tk_generic_emphstrong), Some([Pop, Push("inline-bold-italic")])),
     r(152, 8, Emit(tk_generic_strong), None),
     r(109, 8, Emit(tk_generic_strong), None),
     r(6558, 24, Emit(tk_generic_strong), None),
-    r(
-      7822,
-      8,
-      ByGroups([Emit(tk_generic_emphstrong), Emit(tk_generic_strong)]),
-      Some([Pop]),
-    ),
+    r(7822, 8, ByGroups([Emit(tk_generic_emphstrong), Emit(tk_generic_strong)]), Some([Pop])),
     r(7823, 8, Emit(tk_generic_emphstrong), Some([Pop, Push("inline-italic")])),
     r(7824, 8, Emit(tk_generic_emphstrong), Some([Pop, Push("inline-bold")])),
     r(152, 8, Emit(tk_generic_emphstrong), None),
     r(109, 8, Emit(tk_generic_emphstrong), None),
     r(6558, 24, Emit(tk_generic_emphstrong), None),
-    r(
-      7875,
-      8,
-      ByGroups([Emit(tk_generic_emphstrong), Emit(tk_generic_emph)]),
-      Some([Pop]),
-    ),
+    r(7875, 8, ByGroups([Emit(tk_generic_emphstrong), Emit(tk_generic_emph)]), Some([Pop])),
     r(7823, 8, Emit(tk_generic_emphstrong), Some([Pop, Push("inline-italic")])),
     r(7824, 8, Emit(tk_generic_emphstrong), Some([Pop, Push("inline-bold")])),
     r(0, 8, Emit(tk_text_whitespace), None),
@@ -1854,49 +734,18 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(152, 8, Emit(tk_keyword), None),
     r(109, 8, Emit(tk_keyword), None),
     r(6558, 24, Emit(tk_keyword), None),
-    r(
-      7876,
-      74,
-      ByGroups([
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "lc-raw"]), []),
-        Emit(tk_operator),
-        Emit(tk_name_label),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7876, 74, ByGroups([Emit(tk_punctuation), Using(This, Some(["root", "lc-raw"]), []), Emit(tk_operator), Emit(tk_name_label), Emit(tk_punctuation)]), None),
     r(7877, 8, Emit(tk_punctuation), Some([Pop])),
     r(7878, 8, Emit(tk_punctuation), Some([Pop])),
     r(7879, 8, Emit(tk_punctuation), Some([Pop])),
     r(194, 8, Emit(tk_punctuation), None),
     r(7825, 8, Emit(tk_comment_multiline), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(
-      7880,
-      10,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Pop, Push("template-inner")]),
-    ),
-    r(
-      7881,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Pop, Push("template-inner")]),
-    ),
-    r(
-      7882,
-      10,
-      ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation)]),
-      Some([Pop, Push("template-name")]),
-    ),
+    r(7880, 10, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Pop, Push("template-inner")])),
+    r(7881, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Pop, Push("template-inner")])),
+    r(7882, 10, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation)]), Some([Pop, Push("template-name")])),
     r(98, 0, Nop, Some([Pop, Push("template-name")])),
-    r(
-      7883,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_punctuation)]),
-      Some([Pop, Push("template-inner")]),
-    ),
+    r(7883, 8, ByGroups([Emit(tk_text), Emit(tk_punctuation)]), Some([Pop, Push("template-inner")])),
     r(306, 8, Emit(tk_punctuation), Some([Pop])),
     r(264, 8, Emit(tk_text), Some([Pop])),
     r(152, 8, Emit(tk_name_tag), None),
@@ -1905,65 +754,13 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(306, 8, Emit(tk_punctuation), Some([Pop])),
     r(194, 8, Emit(tk_punctuation), None),
     r(7884, 72, ByGroups([Emit(tk_name_label), Emit(tk_operator)]), None),
-    r(
-      7885,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation)]),
-      Some([Pop]),
-    ),
-    r(
-      7886,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "attr"]), []),
-      ]),
-      None,
-    ),
-    r(
-      7887,
-      72,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "attr"]), []),
-        Emit(tk_punctuation),
-        Emit(tk_generic_heading),
-      ]),
-      None,
-    ),
-    r(
-      7888,
-      72,
-      ByGroups([
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "attr"]), []),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7889,
-      72,
-      ByGroups([
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "attr"]), []),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("table-header")]),
-    ),
+    r(7885, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7886, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Using(This, Some(["root", "attr"]), [])]), None),
+    r(7887, 72, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Using(This, Some(["root", "attr"]), []), Emit(tk_punctuation), Emit(tk_generic_heading)]), None),
+    r(7888, 72, ByGroups([Emit(tk_punctuation), Using(This, Some(["root", "attr"]), []), Emit(tk_punctuation)]), None),
+    r(7889, 72, ByGroups([Emit(tk_punctuation), Using(This, Some(["root", "attr"]), []), Emit(tk_punctuation)]), Some([Push("table-header")])),
     r(264, 8, Emit(tk_text), Some([Pop])),
-    r(
-      7890,
-      72,
-      ByGroups([
-        Emit(tk_punctuation),
-        Using(This, Some(["root", "attr"]), []),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7890, 72, ByGroups([Emit(tk_punctuation), Using(This, Some(["root", "attr"]), []), Emit(tk_punctuation)]), None),
     r(152, 8, Emit(tk_generic_subheading), None),
     r(109, 8, Emit(tk_generic_subheading), None),
     r(6558, 24, Emit(tk_generic_subheading), None),
@@ -1971,32 +768,9 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(333, 8, Emit(tk_keyword), Some([Pop])),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(
-      7891,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string_double),
-      ]),
-      Some([Push("attr-val-2")]),
-    ),
-    r(
-      7892,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string_single),
-      ]),
-      Some([Push("attr-val-1")]),
-    ),
-    r(
-      6880,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_text_whitespace)]),
-      Some([Push("attr-val-0")]),
-    ),
+    r(7891, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string_double)]), Some([Push("attr-val-2")])),
+    r(7892, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string_single)]), Some([Push("attr-val-1")])),
+    r(6880, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace)]), Some([Push("attr-val-0")])),
     r(3035, 8, Emit(tk_name_attribute), None),
     r(326, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(152, 8, Emit(tk_literal_string), None),
@@ -2012,32 +786,9 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6558, 24, Emit(tk_literal_string_double), None),
     r(1650, 8, Emit(tk_punctuation), Some([Pop])),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(
-      7891,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string_double),
-      ]),
-      Some([Push("tag-attr-val-2")]),
-    ),
-    r(
-      7892,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string_single),
-      ]),
-      Some([Push("tag-attr-val-1")]),
-    ),
-    r(
-      6880,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_text_whitespace)]),
-      Some([Push("tag-attr-val-0")]),
-    ),
+    r(7891, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string_double)]), Some([Push("tag-attr-val-2")])),
+    r(7892, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string_single)]), Some([Push("tag-attr-val-1")])),
+    r(6880, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace)]), Some([Push("tag-attr-val-0")])),
     r(3035, 8, Emit(tk_name_attribute), None),
     r(7893, 8, Emit(tk_punctuation), Some([Pop, Pop])),
     r(7894, 8, Emit(tk_punctuation), Some([Pop])),
@@ -2056,366 +807,38 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(152, 8, Emit(tk_literal_string_double), None),
     r(109, 8, Emit(tk_literal_string_double), None),
     r(6558, 24, Emit(tk_literal_string_double), None),
-    r(
-      7896,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7897,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7898,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7899,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7900,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7901,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7902,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7903,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7904,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7905,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7906,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7907,
-      26,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7908,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7909,
-      26,
-      Using(Other(opts => tex_lexer(options=opts)), Some(["root", "math"]), []),
-      None,
-    ),
-    r(
-      7910,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7911,
-      26,
-      Using(Other(opts => tex_lexer(options=opts)), Some(["root", "math"]), []),
-      None,
-    ),
-    r(
-      7912,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      7913,
-      26,
-      Using(Other(opts => tex_lexer(options=opts)), Some(["root", "math"]), []),
-      None,
-    ),
-    r(
-      7914,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
+    r(7896, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7897, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7898, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7899, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7900, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7901, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7902, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7903, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7904, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7905, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7906, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7907, 26, ByGroups([Emit(tk_text), Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7908, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7909, 26, Using(Other(opts => tex_lexer(options=opts)), Some(["root", "math"]), []), None),
+    r(7910, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7911, 26, Using(Other(opts => tex_lexer(options=opts)), Some(["root", "math"]), []), None),
+    r(7912, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
+    r(7913, 26, Using(Other(opts => tex_lexer(options=opts)), Some(["root", "math"]), []), None),
+    r(7914, 10, ByGroups([Emit(tk_punctuation), Emit(tk_name_tag), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Pop])),
     r(7915, 26, Using(Other(opts => json_lexer(options=opts)), None, []), None),
   ]
   @lexer.RegexDef::new(
     "WikitextLexer",
-    [
-      "root", "list", "inline", "entity", "replaceable", "text", "redirect-inner",
-      "wikilink-name", "wikilink-inner", "medialink-inner", "quote-common", "inline-italic",
-      "text-italic", "inline-bold", "text-bold", "inline-bold-italic", "text-bold-italic",
-      "inline-italic-bold", "lc-flag", "lc-inner", "lc-raw", "parameter-inner", "template-begin-space",
-      "template-name", "template-inner", "table", "table-header", "dt", "extlink-inner",
-      "nowiki-ish", "attr", "attr-val-0", "attr-val-1", "attr-val-2", "tag-inner-ordinary",
-      "tag-attr", "tag-inner", "tag-attr-val-0", "tag-attr-val-1", "tag-attr-val-2",
-      "tag-nowiki", "tag-pre", "tag-categorytree", "tag-dynamicpagelist", "tag-hiero",
-      "tag-inputbox", "tag-imagemap", "tag-charinsert", "tag-timeline", "tag-gallery",
-      "tag-graph", "tag-rss", "tag-math", "tag-chem", "tag-ce", "tag-templatedata",
-    ],
+    ["root", "list", "inline", "entity", "replaceable", "text", "redirect-inner", "wikilink-name", "wikilink-inner", "medialink-inner", "quote-common", "inline-italic", "text-italic", "inline-bold", "text-bold", "inline-bold-italic", "text-bold-italic", "inline-italic-bold", "lc-flag", "lc-inner", "lc-raw", "parameter-inner", "template-begin-space", "template-name", "template-inner", "table", "table-header", "dt", "extlink-inner", "nowiki-ish", "attr", "attr-val-0", "attr-val-1", "attr-val-2", "tag-inner-ordinary", "tag-attr", "tag-inner", "tag-attr-val-0", "tag-attr-val-1", "tag-attr-val-2", "tag-nowiki", "tag-pre", "tag-categorytree", "tag-dynamicpagelist", "tag-hiero", "tag-inputbox", "tag-imagemap", "tag-charinsert", "tag-timeline", "tag-gallery", "tag-graph", "tag-rss", "tag-math", "tag-chem", "tag-ce", "tag-templatedata"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
-        59, 60, 61, 62, 63,
-      ],
-      [8, 9, 10],
-      [
-        11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
-        49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-      ],
-      [12],
-      [16, 17, 18, 19, 20, 21, 22, 23, 24],
-      [61, 62, 63],
-      [64, 65, 66],
-      [16, 17, 18, 19, 20, 21, 22, 23, 24, 67, 68],
-      [
-        69, 70, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-        28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
-        47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-      ],
-      [
-        71, 72, 73, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-        27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
-        46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-      ],
-      [74, 75],
-      [
-        74, 75, 76, 77, 78, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-        25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
-        44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 79, 80,
-        81,
-      ],
-      [79, 80, 81],
-      [
-        74, 75, 82, 83, 84, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-        25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
-        44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 85, 86,
-        87,
-      ],
-      [85, 86, 87],
-      [
-        74, 75, 88, 89, 90, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-        25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
-        44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 91, 92,
-        93,
-      ],
-      [91, 92, 93],
-      [
-        74, 75, 94, 95, 96, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-        25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
-        44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 91, 92,
-        93,
-      ],
-      [97, 98, 99, 100, 101],
-      [
-        102, 103, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-        27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
-        46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-      ],
-      [
-        104, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-        28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
-        47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-      ],
-      [
-        105, 106, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-        27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45,
-        46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-      ],
-      [107, 108, 109, 110, 111, 112],
-      [113, 114, 115, 16, 17, 18, 19, 20, 21, 22, 23, 24, 116, 117, 118],
-      [
-        119, 120, 121, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-        26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
-        45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-      ],
-      [
-        122, 123, 124, 125, 126, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
-        59, 60, 61, 62, 63,
-      ],
-      [127, 128, 129, 130, 131],
-      [
-        132, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-        28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
-        47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 133, 61, 62, 63,
-      ],
-      [
-        134, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-        28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
-        47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-      ],
-      [12, 61, 62, 63],
-      [16, 17, 18, 19, 20, 21, 22, 23, 24, 135, 136, 137, 138, 139],
-      [140, 16, 17, 18, 19, 20, 21, 22, 23, 24, 141, 142, 143],
-      [144, 16, 17, 18, 19, 20, 21, 22, 23, 24, 145, 146, 147],
-      [148, 16, 17, 18, 19, 20, 21, 22, 23, 24, 149, 150, 151],
-      [152, 16, 17, 18, 19, 20, 21, 22, 23, 24, 153, 154, 155, 156, 157],
-      [16, 17, 18, 19, 20, 21, 22, 23, 24, 153, 154, 155, 156, 157],
-      [158, 159, 16, 17, 18, 19, 20, 21, 22, 23, 24, 153, 154, 155, 156, 157],
-      [160, 161, 16, 17, 18, 19, 20, 21, 22, 23, 24, 162, 163, 164],
-      [165, 166, 16, 17, 18, 19, 20, 21, 22, 23, 24, 167, 168, 169],
-      [170, 171, 16, 17, 18, 19, 20, 21, 22, 23, 24, 172, 173, 174],
-      [175, 12, 61, 62, 63],
-      [176, 12, 61, 62, 63],
-      [177],
-      [178],
-      [179],
-      [180],
-      [181],
-      [182],
-      [183],
-      [184],
-      [185],
-      [186],
-      [187, 188],
-      [189, 190],
-      [191, 192],
-      [193, 194],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [8, 9, 10], [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60], [12], [16, 17, 18, 19, 20, 21, 22, 23, 24], [61, 62, 63], [64, 65, 66], [16, 17, 18, 19, 20, 21, 22, 23, 24, 67, 68], [69, 70, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [71, 72, 73, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [74, 75], [74, 75, 76, 77, 78, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 79, 80, 81], [79, 80, 81], [74, 75, 82, 83, 84, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 85, 86, 87], [85, 86, 87], [74, 75, 88, 89, 90, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 91, 92, 93], [91, 92, 93], [74, 75, 94, 95, 96, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 91, 92, 93], [97, 98, 99, 100, 101], [102, 103, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [104, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [105, 106, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [107, 108, 109, 110, 111, 112], [113, 114, 115, 16, 17, 18, 19, 20, 21, 22, 23, 24, 116, 117, 118], [119, 120, 121, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [122, 123, 124, 125, 126, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [127, 128, 129, 130, 131], [132, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 133, 61, 62, 63], [134, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [12, 61, 62, 63], [16, 17, 18, 19, 20, 21, 22, 23, 24, 135, 136, 137, 138, 139], [140, 16, 17, 18, 19, 20, 21, 22, 23, 24, 141, 142, 143], [144, 16, 17, 18, 19, 20, 21, 22, 23, 24, 145, 146, 147], [148, 16, 17, 18, 19, 20, 21, 22, 23, 24, 149, 150, 151], [152, 16, 17, 18, 19, 20, 21, 22, 23, 24, 153, 154, 155, 156, 157], [16, 17, 18, 19, 20, 21, 22, 23, 24, 153, 154, 155, 156, 157], [158, 159, 16, 17, 18, 19, 20, 21, 22, 23, 24, 153, 154, 155, 156, 157], [160, 161, 16, 17, 18, 19, 20, 21, 22, 23, 24, 162, 163, 164], [165, 166, 16, 17, 18, 19, 20, 21, 22, 23, 24, 167, 168, 169], [170, 171, 16, 17, 18, 19, 20, 21, 22, 23, 24, 172, 173, 174], [175, 12, 61, 62, 63], [176, 12, 61, 62, 63], [177], [178], [179], [180], [181], [182], [183], [184], [185], [186], [187, 188], [189, 190], [191, 192], [193, 194]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `WikitextLexer` (Wikitext).
-pub fn wikitext_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    wikitext_lexer_info,
-    options,
-    opts => wikitext_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, wikitext_lexer_def.force(), text, stack)
-    },
-  )
+pub fn wikitext_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(wikitext_lexer_info, options, opts => wikitext_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, wikitext_lexer_def.force(), text, stack))
 }

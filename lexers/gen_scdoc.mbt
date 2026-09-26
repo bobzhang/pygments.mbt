@@ -20,47 +20,13 @@ let scdoc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6514, 8, ByGroups([Emit(tk_comment)]), None),
     r(6515, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text)]), None),
     r(6516, 8, ByGroups([Emit(tk_generic_subheading), Emit(tk_text)]), None),
-    r(
-      4550,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_keyword),
-        Emit(tk_text),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
-    r(
-      6517,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_keyword),
-        Using(This, Some(["root", "inline"]), []),
-      ]),
-      None,
-    ),
+    r(4550, 8, ByGroups([Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Using(This, Some(["root", "inline"]), [])]), None),
+    r(6517, 8, ByGroups([Emit(tk_text), Emit(tk_keyword), Using(This, Some(["root", "inline"]), [])]), None),
     r(4552, 8, ByGroups([Emit(tk_keyword), Emit(tk_generic_emph)]), None),
-    r(
-      6518,
-      8,
-      ByGroups([Emit(tk_literal_string), Emit(tk_text), Emit(tk_literal_string)]),
-      None,
-    ),
+    r(6518, 8, ByGroups([Emit(tk_literal_string), Emit(tk_text), Emit(tk_literal_string)]), None),
     r(583, 8, Emit(tk_text), None),
-    r(
-      6519,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_generic_emph), Emit(tk_text)]),
-      None,
-    ),
-    r(
-      6520,
-      8,
-      ByGroups([Emit(tk_text), Emit(tk_generic_strong), Emit(tk_text)]),
-      None,
-    ),
+    r(6519, 8, ByGroups([Emit(tk_text), Emit(tk_generic_emph), Emit(tk_text)]), None),
+    r(6520, 8, ByGroups([Emit(tk_text), Emit(tk_generic_strong), Emit(tk_text)]), None),
     r(6521, 8, Emit(tk_literal_string_backtick), None),
     r(4567, 8, Emit(tk_text), None),
     r(76, 8, Emit(tk_text), None),
@@ -77,12 +43,5 @@ let scdoc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ScdocLexer` (scdoc).
 pub fn scdoc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    scdoc_lexer_info,
-    options,
-    opts => scdoc_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, scdoc_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(scdoc_lexer_info, options, opts => scdoc_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, scdoc_lexer_def.force(), text, stack))
 }

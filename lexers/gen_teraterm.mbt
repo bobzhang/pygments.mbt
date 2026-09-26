@@ -21,23 +21,13 @@ let tera_term_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(506, 8, Emit(tk_comment_multiline), Some([Push("in-comment")])),
     r(7130, 10, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label)]), None),
     r(7131, 10, Emit(tk_keyword), None),
-    r(
-      7132,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_label)]),
-      None,
-    ),
+    r(7132, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_label)]), None),
     r(7133, 10, Emit(tk_name_builtin), None),
     r(7134, 10, Emit(tk_name_variable), None),
     r(7135, 8, Emit(tk_operator_word), None),
     r(7136, 8, Emit(tk_operator), None),
     r(1984, 8, Emit(tk_literal_string_symbol), None),
-    r(
-      7137,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_literal_number_integer)]),
-      None,
-    ),
+    r(7137, 8, ByGroups([Emit(tk_operator), Emit(tk_literal_number_integer)]), None),
     r(7138, 10, Emit(tk_literal_number_hex), None),
     r(7139, 10, Emit(tk_literal_string_char), None),
     r(7140, 8, Emit(tk_literal_string_single), None),
@@ -52,39 +42,15 @@ let tera_term_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "TeraTermLexer",
-    [
-      "root", "comments", "labels", "commands", "builtin-variables", "user-variables",
-      "operators", "numeric-literals", "string-literals", "all-whitespace", "in-comment",
-    ],
+    ["root", "comments", "labels", "commands", "builtin-variables", "user-variables", "operators", "numeric-literals", "string-literals", "all-whitespace", "in-comment"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-      [0, 1],
-      [2],
-      [3, 4],
-      [5],
-      [6],
-      [7, 8, 9],
-      [10, 11],
-      [12, 13, 14, 15, 16],
-      [17],
-      [19, 20, 21],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [0, 1], [2], [3, 4], [5], [6], [7, 8, 9], [10, 11], [12, 13, 14, 15, 16], [17], [19, 20, 21]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `TeraTermLexer` (Tera Term macro).
-pub fn tera_term_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    tera_term_lexer_info,
-    options,
-    opts => tera_term_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, tera_term_lexer_def.force(), text, stack)
-    },
-  )
+pub fn tera_term_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(tera_term_lexer_info, options, opts => tera_term_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, tera_term_lexer_def.force(), text, stack))
 }

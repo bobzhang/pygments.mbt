@@ -42,12 +42,7 @@ let awk_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "AwkLexer",
     ["commentsandwhitespace", "slashstartsregex", "badregex", "root"],
     rules,
-    [
-      [0, 1],
-      [0, 1, 2, 3, 4],
-      [5],
-      [6, 0, 1, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-    ],
+    [[0, 1], [0, 1, 2, 3, 4], [5], [6, 0, 1, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]],
     extended=false,
   )
 })
@@ -55,11 +50,7 @@ let awk_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AwkLexer` (Awk).
 pub fn awk_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(awk_lexer_info, options, opts => awk_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, awk_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(awk_lexer_info, options, opts => awk_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, awk_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -85,72 +76,13 @@ let sed_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(715, 8, Emit(tk_operator), None),
     r(6532, 8, Emit(tk_punctuation), None),
     r(6533, 8, Emit(tk_keyword), None),
-    r(
-      6534,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_literal_string_single)]),
-      None,
-    ),
-    r(
-      6535,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_literal_string_double)]),
-      None,
-    ),
-    r(
-      6536,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_literal_number_integer)]),
-      None,
-    ),
-    r(
-      6537,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_regex),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      6538,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Nop,
-        Emit(tk_literal_string_regex),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      6539,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_single),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_single),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      6540,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_regex),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_single),
-        Emit(tk_punctuation),
-        Emit(tk_keyword),
-      ]),
-      None,
-    ),
+    r(6534, 8, ByGroups([Emit(tk_keyword), Emit(tk_literal_string_single)]), None),
+    r(6535, 8, ByGroups([Emit(tk_keyword), Emit(tk_literal_string_double)]), None),
+    r(6536, 8, ByGroups([Emit(tk_keyword), Emit(tk_literal_number_integer)]), None),
+    r(6537, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_string_regex), Emit(tk_punctuation)]), None),
+    r(6538, 8, ByGroups([Emit(tk_punctuation), Nop, Emit(tk_literal_string_regex), Emit(tk_punctuation)]), None),
+    r(6539, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_literal_string_single), Emit(tk_punctuation), Emit(tk_literal_string_single), Emit(tk_punctuation)]), None),
+    r(6540, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_literal_string_regex), Emit(tk_punctuation), Emit(tk_literal_string_single), Emit(tk_punctuation), Emit(tk_keyword)]), None),
   ]
   @lexer.RegexDef::new(
     "SedLexer",
@@ -164,11 +96,7 @@ let sed_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SedLexer` (Sed).
 pub fn sed_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sed_lexer_info, options, opts => sed_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, sed_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(sed_lexer_info, options, opts => sed_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sed_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -176,10 +104,7 @@ pub let vim_lexer_info : @lexer.LexerInfo = {
   class_name: "VimLexer",
   name: "VimL",
   aliases: ["vim"],
-  filenames: [
-    "*.vim", ".vimrc", ".exrc", ".gvimrc", "_vimrc", "_exrc", "_gvimrc", "vimrc",
-    "gvimrc",
-  ],
+  filenames: ["*.vim", ".vimrc", ".exrc", ".gvimrc", "_vimrc", "_exrc", "_gvimrc", "vimrc", "gvimrc"],
   alias_filenames: [],
   mimetypes: ["text/x-vim"],
   priority: 0.0,
@@ -191,32 +116,8 @@ pub let vim_lexer_info : @lexer.LexerInfo = {
 ///|
 let vim_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      7657,
-      8,
-      ByGroups([
-        Using(This, None, []),
-        Emit(tk_keyword),
-        Emit(tk_text),
-        Emit(tk_operator),
-        Emit(tk_text),
-        Emit(tk_text),
-        Using(Other(opts => python_lexer(options=opts)), None, []),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
-    r(
-      7658,
-      8,
-      ByGroups([
-        Using(This, None, []),
-        Emit(tk_keyword),
-        Emit(tk_text),
-        Using(Other(opts => python_lexer(options=opts)), None, []),
-      ]),
-      None,
-    ),
+    r(7657, 8, ByGroups([Using(This, None, []), Emit(tk_keyword), Emit(tk_text), Emit(tk_operator), Emit(tk_text), Emit(tk_text), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_text)]), None),
+    r(7658, 8, ByGroups([Using(This, None, []), Emit(tk_keyword), Emit(tk_text), Using(Other(opts => python_lexer(options=opts)), None, [])]), None),
     r(7659, 8, Emit(tk_comment), None),
     r(175, 8, Emit(tk_text), None),
     r(7660, 8, Emit(tk_literal_string_regex), None),
@@ -244,9 +145,5 @@ let vim_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VimLexer` (VimL).
 pub fn vim_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(vim_lexer_info, options, opts => vim_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, vim_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(vim_lexer_info, options, opts => vim_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, vim_lexer_def.force(), text, stack))
 }

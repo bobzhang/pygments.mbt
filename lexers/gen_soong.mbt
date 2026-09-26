@@ -17,27 +17,8 @@ pub let soong_lexer_info : @lexer.LexerInfo = {
 ///|
 let soong_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      6714,
-      8,
-      ByGroups([
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("assign-rhs")]),
-    ),
-    r(
-      6715,
-      8,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("in-rule")]),
-    ),
+    r(6714, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace)]), Some([Push("assign-rhs")])),
+    r(6715, 8, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("in-rule")])),
     r(2614, 8, Emit(tk_comment_single), None),
     r(1241, 8, Emit(tk_comment_multiline), None),
     r(0, 8, Emit(tk_text_whitespace), None),
@@ -52,12 +33,7 @@ let soong_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(0, 8, Emit(tk_text_whitespace), None),
     r(100, 8, Emit(tk_punctuation), None),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      6716,
-      8,
-      ByGroups([Emit(tk_name), Emit(tk_punctuation), Emit(tk_text_whitespace)]),
-      None,
-    ),
+    r(6716, 8, ByGroups([Emit(tk_name), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(100, 8, Emit(tk_punctuation), None),
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
@@ -66,15 +42,7 @@ let soong_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "SoongLexer",
     ["root", "comments", "assign-rhs", "expr", "in-list", "in-map", "in-rule"],
     rules,
-    [
-      [0, 1, 2, 3, 4],
-      [2, 3],
-      [5, 6, 7, 8, 9, 10, 11, 12],
-      [5, 6, 7, 8, 9, 10, 11],
-      [5, 6, 7, 8, 9, 10, 11, 2, 3, 13, 14, 15],
-      [16, 5, 6, 7, 8, 9, 10, 11, 2, 3, 17, 18, 19],
-      [16, 5, 6, 7, 8, 9, 10, 11, 2, 3, 17, 18, 19],
-    ],
+    [[0, 1, 2, 3, 4], [2, 3], [5, 6, 7, 8, 9, 10, 11, 12], [5, 6, 7, 8, 9, 10, 11], [5, 6, 7, 8, 9, 10, 11, 2, 3, 13, 14, 15], [16, 5, 6, 7, 8, 9, 10, 11, 2, 3, 17, 18, 19], [16, 5, 6, 7, 8, 9, 10, 11, 2, 3, 17, 18, 19]],
     extended=false,
   )
 })
@@ -82,12 +50,5 @@ let soong_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SoongLexer` (Soong).
 pub fn soong_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    soong_lexer_info,
-    options,
-    opts => soong_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, soong_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(soong_lexer_info, options, opts => soong_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, soong_lexer_def.force(), text, stack))
 }

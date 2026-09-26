@@ -16,15 +16,8 @@ pub let elixir_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `ElixirConsoleLexer` (Elixir iex session).
-pub fn elixir_console_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    elixir_console_lexer_info,
-    options,
-    opts => elixir_console_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn elixir_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(elixir_console_lexer_info, options, opts => elixir_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -46,52 +39,17 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text_whitespace), None),
     r(627, 8, Emit(tk_comment_single), None),
-    r(
-      2168,
-      8,
-      ByGroups([
-        Emit(tk_literal_string_char),
-        Emit(tk_literal_string_escape),
-        Emit(tk_literal_number_hex),
-        Emit(tk_literal_string_escape),
-      ]),
-      None,
-    ),
-    r(
-      2169,
-      8,
-      ByGroups([Emit(tk_literal_string_char), Emit(tk_literal_string_escape)]),
-      None,
-    ),
-    r(
-      2170,
-      8,
-      ByGroups([Emit(tk_literal_string_char), Emit(tk_literal_string_escape)]),
-      None,
-    ),
+    r(2168, 8, ByGroups([Emit(tk_literal_string_char), Emit(tk_literal_string_escape), Emit(tk_literal_number_hex), Emit(tk_literal_string_escape)]), None),
+    r(2169, 8, ByGroups([Emit(tk_literal_string_char), Emit(tk_literal_string_escape)]), None),
+    r(2170, 8, ByGroups([Emit(tk_literal_string_char), Emit(tk_literal_string_escape)]), None),
     r(2171, 8, Emit(tk_literal_string_char), None),
     r(2172, 8, Emit(tk_literal_string_symbol), None),
     r(431, 8, Emit(tk_operator), None),
     r(2173, 8, Emit(tk_literal_string_symbol), None),
     r(2174, 8, Emit(tk_literal_string_symbol), None),
-    r(
-      1570,
-      8,
-      Emit(tk_literal_string_symbol),
-      Some([Push("string_double_atom")]),
-    ),
-    r(
-      2175,
-      8,
-      Emit(tk_literal_string_symbol),
-      Some([Push("string_single_atom")]),
-    ),
-    r(
-      2176,
-      8,
-      ByGroups([Emit(tk_literal_string_symbol), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(1570, 8, Emit(tk_literal_string_symbol), Some([Push("string_double_atom")])),
+    r(2175, 8, Emit(tk_literal_string_symbol), Some([Push("string_single_atom")])),
+    r(2176, 8, ByGroups([Emit(tk_literal_string_symbol), Emit(tk_punctuation)]), None),
     r(2177, 8, Emit(tk_name_attribute), None),
     r(2178, 8, Emit(tk_name), None),
     r(2179, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_class)]), None),
@@ -105,44 +63,14 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2185, 8, Emit(tk_literal_number_hex), None),
     r(2186, 8, Emit(tk_literal_number_float), None),
     r(2187, 8, Emit(tk_literal_number_integer), None),
-    r(
-      2188,
-      8,
-      ByGroups([Emit(tk_literal_string_heredoc), Emit(tk_text_whitespace)]),
-      Some([Push("heredoc_double")]),
-    ),
-    r(
-      2189,
-      8,
-      ByGroups([Emit(tk_literal_string_heredoc), Emit(tk_text_whitespace)]),
-      Some([Push("heredoc_single")]),
-    ),
+    r(2188, 8, ByGroups([Emit(tk_literal_string_heredoc), Emit(tk_text_whitespace)]), Some([Push("heredoc_double")])),
+    r(2189, 8, ByGroups([Emit(tk_literal_string_heredoc), Emit(tk_text_whitespace)]), Some([Push("heredoc_single")])),
     r(173, 8, Emit(tk_literal_string_double), Some([Push("string_double")])),
     r(224, 8, Emit(tk_literal_string_single), Some([Push("string_single")])),
-    r(
-      2190,
-      8,
-      ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]),
-      Some([Push("triquot-end"), Push("triquot-intp")]),
-    ),
-    r(
-      2191,
-      8,
-      ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]),
-      Some([Push("triquot-end"), Push("triquot-no-intp")]),
-    ),
-    r(
-      2192,
-      8,
-      ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]),
-      Some([Push("triapos-end"), Push("triapos-intp")]),
-    ),
-    r(
-      2193,
-      8,
-      ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]),
-      Some([Push("triapos-end"), Push("triapos-no-intp")]),
-    ),
+    r(2190, 8, ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]), Some([Push("triquot-end"), Push("triquot-intp")])),
+    r(2191, 8, ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]), Some([Push("triquot-end"), Push("triquot-no-intp")])),
+    r(2192, 8, ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]), Some([Push("triapos-end"), Push("triapos-intp")])),
+    r(2193, 8, ByGroups([Emit(tk_literal_string_other), Emit(tk_literal_string_heredoc)]), Some([Push("triapos-end"), Push("triapos-no-intp")])),
     r(2194, 8, Emit(tk_literal_string_other), Some([Push("cb-intp")])),
     r(2195, 8, Emit(tk_literal_string_other), Some([Push("cb-no-intp")])),
     r(2196, 8, Emit(tk_literal_string_other), Some([Push("sb-intp")])),
@@ -161,33 +89,14 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2209, 8, Emit(tk_literal_string_other), Some([Push("apos-no-intp")])),
     r(2210, 8, Emit(tk_punctuation), Some([Push("map_key")])),
     r(245, 8, Emit(tk_punctuation), Some([Push("tuple")])),
-    r(
-      2211,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]),
-      Some([Pop]),
-    ),
+    r(2211, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]), Some([Pop])),
     r(2212, 8, Emit(tk_literal_string_heredoc), None),
-    r(
-      2213,
-      8,
-      ByGroups([
-        Emit(tk_literal_string_escape),
-        Emit(tk_literal_number_hex),
-        Emit(tk_literal_string_escape),
-      ]),
-      None,
-    ),
+    r(2213, 8, ByGroups([Emit(tk_literal_string_escape), Emit(tk_literal_number_hex), Emit(tk_literal_string_escape)]), None),
     r(2214, 8, Emit(tk_literal_string_escape), None),
     r(2215, 8, Emit(tk_literal_string_escape), None),
     r(583, 8, Emit(tk_literal_string_heredoc), None),
     r(137, 8, Emit(tk_literal_string_heredoc), None),
-    r(
-      1375,
-      8,
-      Emit(tk_literal_string_interpol),
-      Some([Push("interpol_string")]),
-    ),
+    r(1375, 8, Emit(tk_literal_string_interpol), Some([Push("interpol_string")])),
     r(2216, 8, Emit(tk_literal_string_heredoc), Some([Pop])),
     r(2217, 8, Emit(tk_literal_string_heredoc), None),
     r(583, 8, Emit(tk_literal_string_heredoc), None),
@@ -213,32 +122,12 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2222, 8, ByGroups([Emit(tk_literal_string_symbol)]), Some([Pop])),
     r(2223, 8, Emit(tk_literal_string_other), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
-    r(
-      2211,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]),
-      Some([Pop]),
-    ),
-    r(
-      2211,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]),
-      Some([Pop]),
-    ),
+    r(2211, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]), Some([Pop])),
+    r(2211, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]), Some([Pop])),
     r(2223, 8, Emit(tk_literal_string_other), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
-    r(
-      2224,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]),
-      Some([Pop]),
-    ),
-    r(
-      2224,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]),
-      Some([Pop]),
-    ),
+    r(2224, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]), Some([Pop])),
+    r(2224, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_string_heredoc)]), Some([Pop])),
     r(2225, 8, Emit(tk_literal_string_other), None),
     r(583, 8, Emit(tk_literal_string_other), None),
     r(2226, 8, Emit(tk_literal_string_other), Some([Pop])),
@@ -290,79 +179,9 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "ElixirLexer",
-    [
-      "root", "sigils", "heredoc_double", "heredoc_interpol", "escapes", "interpol",
-      "heredoc_single", "heredoc_no_interpol", "interpol_string", "map_key", "map_val",
-      "tuple", "string_double", "string_single", "string_double_atom", "string_single_atom",
-      "triquot-end", "triquot-intp", "triquot-no-intp", "triapos-end", "triapos-intp",
-      "triapos-no-intp", "cb-intp", "cb-no-intp", "sb-intp", "sb-no-intp", "pa-intp",
-      "pa-no-intp", "ab-intp", "ab-no-intp", "slas-intp", "slas-no-intp", "pipe-intp",
-      "pipe-no-intp", "quot-intp", "quot-no-intp", "apos-intp", "apos-no-intp",
-    ],
+    ["root", "sigils", "heredoc_double", "heredoc_interpol", "escapes", "interpol", "heredoc_single", "heredoc_no_interpol", "interpol_string", "map_key", "map_val", "tuple", "string_double", "string_single", "string_double_atom", "string_single_atom", "triquot-end", "triquot-intp", "triquot-no-intp", "triapos-end", "triapos-intp", "triapos-no-intp", "cb-intp", "cb-no-intp", "sb-intp", "sb-no-intp", "pa-intp", "pa-no-intp", "ab-intp", "ab-no-intp", "slas-intp", "slas-no-intp", "pipe-intp", "pipe-no-intp", "quot-intp", "quot-no-intp", "apos-intp", "apos-no-intp"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-      ],
-      [
-        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
-        49,
-      ],
-      [52, 53, 54, 55, 56, 57, 58, 59],
-      [53, 54, 55, 56, 57, 58, 59],
-      [54, 55, 56],
-      [59],
-      [60, 53, 54, 55, 56, 57, 58, 59],
-      [61, 62, 63],
-      [
-        64, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-        39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 65, 66, 67,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 68, 69,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 70,
-      ],
-      [71, 54, 55, 56, 72, 73, 59],
-      [74, 54, 55, 56, 75, 76, 59],
-      [77, 54, 55, 56, 78, 79, 59],
-      [80, 54, 55, 56, 81, 82, 59],
-      [83, 84],
-      [85, 53, 54, 55, 56, 57, 58, 59],
-      [86, 61, 62, 63],
-      [87, 88],
-      [89, 53, 54, 55, 56, 57, 58, 59],
-      [90, 61, 62, 63],
-      [91, 54, 55, 56, 92, 93, 59],
-      [94, 95, 96],
-      [97, 54, 55, 56, 98, 99, 59],
-      [100, 101, 102],
-      [103, 54, 55, 56, 104, 105, 59],
-      [106, 107, 108],
-      [109, 54, 55, 56, 110, 111, 59],
-      [112, 113, 114],
-      [115, 54, 55, 56, 116, 117, 59],
-      [118, 119, 120],
-      [121, 54, 55, 56, 122, 123, 59],
-      [124, 125, 126],
-      [127, 54, 55, 56, 128, 129, 59],
-      [130, 131, 132],
-      [133, 54, 55, 56, 134, 135, 59],
-      [136, 137, 138],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51], [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], [52, 53, 54, 55, 56, 57, 58, 59], [53, 54, 55, 56, 57, 58, 59], [54, 55, 56], [59], [60, 53, 54, 55, 56, 57, 58, 59], [61, 62, 63], [64, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 65, 66, 67], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 68, 69], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 70], [71, 54, 55, 56, 72, 73, 59], [74, 54, 55, 56, 75, 76, 59], [77, 54, 55, 56, 78, 79, 59], [80, 54, 55, 56, 81, 82, 59], [83, 84], [85, 53, 54, 55, 56, 57, 58, 59], [86, 61, 62, 63], [87, 88], [89, 53, 54, 55, 56, 57, 58, 59], [90, 61, 62, 63], [91, 54, 55, 56, 92, 93, 59], [94, 95, 96], [97, 54, 55, 56, 98, 99, 59], [100, 101, 102], [103, 54, 55, 56, 104, 105, 59], [106, 107, 108], [109, 54, 55, 56, 110, 111, 59], [112, 113, 114], [115, 54, 55, 56, 116, 117, 59], [118, 119, 120], [121, 54, 55, 56, 122, 123, 59], [124, 125, 126], [127, 54, 55, 56, 128, 129, 59], [130, 131, 132], [133, 54, 55, 56, 134, 135, 59], [136, 137, 138]],
     extended=false,
   )
 })
@@ -370,14 +189,7 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ElixirLexer` (Elixir).
 pub fn elixir_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    elixir_lexer_info,
-    options,
-    opts => elixir_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, elixir_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(elixir_lexer_info, options, opts => elixir_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, elixir_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -408,16 +220,7 @@ let erlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2328, 8, Emit(tk_name_label), None),
     r(2329, 8, Emit(tk_name_label), None),
     r(2330, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation)]), None),
-    r(
-      2331,
-      8,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(2331, 8, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(2332, 8, Emit(tk_literal_number_integer), None),
     r(652, 8, Emit(tk_literal_number_integer), None),
     r(2333, 8, Emit(tk_literal_number_float), None),
@@ -434,28 +237,8 @@ let erlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2341, 8, Emit(tk_literal_string_interpol), None),
     r(2342, 8, Emit(tk_literal_string), None),
     r(1464, 8, Emit(tk_literal_string), None),
-    r(
-      2343,
-      8,
-      ByGroups([
-        Emit(tk_name_entity),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_constant),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      2344,
-      8,
-      ByGroups([
-        Emit(tk_name_entity),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_label),
-      ]),
-      Some([Pop]),
-    ),
+    r(2343, 8, ByGroups([Emit(tk_name_entity), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name_constant)]), Some([Pop])),
+    r(2344, 8, ByGroups([Emit(tk_name_entity), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name_label)]), Some([Pop])),
     r(2336, 8, Emit(tk_name_entity), Some([Pop])),
     r(1225, 8, Emit(tk_punctuation), Some([Push("map_val")])),
     r(1465, 8, Emit(tk_punctuation), Some([Push("map_val")])),
@@ -467,22 +250,7 @@ let erlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ErlangLexer",
     ["root", "string", "directive", "map_key", "map_val"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [23, 24, 25, 26, 27],
-      [28, 29, 30],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 31, 32, 33,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 34, 35,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [23, 24, 25, 26, 27], [28, 29, 30], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 31, 32, 33], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 34, 35]],
     extended=false,
   )
 })
@@ -490,14 +258,7 @@ let erlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ErlangLexer` (Erlang).
 pub fn erlang_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    erlang_lexer_info,
-    options,
-    opts => erlang_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, erlang_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(erlang_lexer_info, options, opts => erlang_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, erlang_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -516,13 +277,6 @@ pub let erlang_shell_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `ErlangShellLexer` (Erlang erl session).
-pub fn erlang_shell_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    erlang_shell_lexer_info,
-    options,
-    opts => erlang_shell_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn erlang_shell_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(erlang_shell_lexer_info, options, opts => erlang_shell_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }

@@ -149,13 +149,13 @@ pub suberror LexError {
 
 ///|
 /// The lexing context handed to callbacks (Python's `LexerContext` plus the
-/// output buffer).
-pub struct Ctx {
+/// output buffer). Callbacks may move `pos` and `end`.
+pub(all) struct Ctx {
   lexer : Lexer
   def : RegexDef
   text : String
   mut pos : Int
-  end : Int
+  mut end : Int
   stack : Array[Int]
   out : Array[Token]
   callbacks : Map[String, CallbackFn]

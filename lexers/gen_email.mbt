@@ -17,19 +17,7 @@ pub let email_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `EmailLexer` (E-mail).
 pub fn email_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    email_lexer_info,
-    options,
-    opts => email_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        email_header_lexer(options=lx.options),
-        mime_lexer(options=lx.options),
-        text,
-        needle=tk_comment,
-      )
-    },
-  )
+  @lexer.Lexer::new(email_lexer_info, options, opts => email_lexer(options=opts), (lx, text, _) => @lexer.delegate(email_header_lexer(options=lx.options), mime_lexer(options=lx.options), text, needle=tk_comment))
 }
 
 ///|
@@ -72,20 +60,7 @@ let email_header_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(8306, 8, Emit(tk_literal_number_hex), None),
     r(8307, 8, Emit(tk_literal_number_hex), None),
     r(8308, 8, Emit(tk_name_decorator), None),
-    r(
-      8309,
-      8,
-      ByGroups([
-        Emit(tk_literal_string_affix),
-        Emit(tk_name_constant),
-        Emit(tk_literal_string_affix),
-        Emit(tk_keyword_constant),
-        Emit(tk_literal_string_affix),
-        Emit(tk_literal_number_hex),
-        Emit(tk_literal_string_affix),
-      ]),
-      None,
-    ),
+    r(8309, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_name_constant), Emit(tk_literal_string_affix), Emit(tk_keyword_constant), Emit(tk_literal_string_affix), Emit(tk_literal_number_hex), Emit(tk_literal_string_affix)]), None),
     r(2685, 8, Emit(tk_text_whitespace), None),
     r(8310, 8, Emit(tk_text), None),
   ]
@@ -93,28 +68,13 @@ let email_header_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "EmailHeaderLexer",
     ["root", "header"],
     rules,
-    [
-      [0, 1],
-      [
-        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-        23, 24, 25,
-      ],
-    ],
+    [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `EmailHeaderLexer` (EmailHeaderLexer).
-fn email_header_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    email_header_lexer_info,
-    options,
-    opts => email_header_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, email_header_lexer_def.force(), text, stack)
-    },
-  )
+fn email_header_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(email_header_lexer_info, options, opts => email_header_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, email_header_lexer_def.force(), text, stack))
 }

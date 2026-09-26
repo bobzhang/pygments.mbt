@@ -26,36 +26,9 @@ let berry_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(837, 8, Emit(tk_keyword_reserved), None),
     r(267, 8, Emit(tk_keyword_constant), None),
     r(838, 8, Emit(tk_keyword_declaration), None),
-    r(
-      839,
-      8,
-      ByGroups([
-        Emit(tk_keyword_declaration),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
-    r(
-      840,
-      8,
-      ByGroups([
-        Emit(tk_keyword_declaration),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_class),
-      ]),
-      None,
-    ),
-    r(
-      841,
-      8,
-      ByGroups([
-        Emit(tk_keyword_namespace),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-      ]),
-      None,
-    ),
+    r(839, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(840, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
+    r(841, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text_whitespace), Emit(tk_name_namespace)]), None),
     r(109, 8, Emit(tk_text_whitespace), None),
     r(842, 8, Emit(tk_operator), None),
     r(843, 8, Emit(tk_punctuation), None),
@@ -69,27 +42,9 @@ let berry_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "BerryLexer",
-    [
-      "root", "whitespace", "numbers", "keywords", "expr", "controls", "builtins",
-      "funccall", "member", "name", "strings",
-    ],
+    ["root", "whitespace", "numbers", "keywords", "expr", "controls", "builtins", "funccall", "member", "name", "strings"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21,
-      ],
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
-      [15],
-      [16],
-      [17],
-      [18],
-      [19],
-      [20, 21],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [0, 1, 2], [3, 4, 5], [6, 7, 8], [12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [15], [16], [17], [18], [19], [20, 21]],
     extended=false,
   )
 })
@@ -97,12 +52,5 @@ let berry_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BerryLexer` (Berry).
 pub fn berry_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    berry_lexer_info,
-    options,
-    opts => berry_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, berry_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(berry_lexer_info, options, opts => berry_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, berry_lexer_def.force(), text, stack))
 }

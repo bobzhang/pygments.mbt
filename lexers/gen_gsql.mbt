@@ -22,12 +22,7 @@ let gsql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2776, 10, Emit(tk_keyword), None),
     r(2777, 10, Emit(tk_name_builtin), None),
     r(2778, 10, Emit(tk_name_builtin), None),
-    r(
-      2779,
-      10,
-      ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]),
-      None,
-    ),
+    r(2779, 10, ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]), None),
     r(2780, 10, Emit(tk_operator), None),
     r(2781, 10, Emit(tk_punctuation), None),
     r(2782, 10, Emit(tk_literal_string), None),
@@ -40,23 +35,9 @@ let gsql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "GSQLLexer",
-    [
-      "root", "comment", "keywords", "clauses", "accums", "relations", "strings",
-      "whitespace", "barewords", "operators",
-    ],
+    ["root", "comment", "keywords", "clauses", "accums", "relations", "strings", "whitespace", "barewords", "operators"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-      [0, 1],
-      [2],
-      [3],
-      [4],
-      [5, 6, 7],
-      [8, 9],
-      [10],
-      [11, 12],
-      [13, 14],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [0, 1], [2], [3], [4], [5, 6, 7], [8, 9], [10], [11, 12], [13, 14]],
     extended=false,
   )
 })
@@ -64,12 +45,5 @@ let gsql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GSQLLexer` (GSQL).
 pub fn gsql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    gsql_lexer_info,
-    options,
-    opts => gsql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, gsql_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(gsql_lexer_info, options, opts => gsql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gsql_lexer_def.force(), text, stack))
 }

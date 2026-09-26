@@ -16,15 +16,8 @@ pub let json_bare_object_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JsonBareObjectLexer` (JSONBareObject).
-pub fn json_bare_object_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    json_bare_object_lexer_info,
-    options,
-    opts => json_bare_object_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn json_bare_object_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(json_bare_object_lexer_info, options, opts => json_bare_object_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -44,12 +37,7 @@ pub let json_ld_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JsonLdLexer` (JSON-LD).
 pub fn json_ld_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    json_ld_lexer_info,
-    options,
-    opts => json_ld_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+  @lexer.Lexer::new(json_ld_lexer_info, options, opts => json_ld_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -57,14 +45,9 @@ pub let json_lexer_info : @lexer.LexerInfo = {
   class_name: "JsonLexer",
   name: "JSON",
   aliases: ["json", "json-object"],
-  filenames: [
-    "*.json", "*.jsonl", "*.ndjson", "Pipfile.lock", "*.module", "*.xc",
-  ],
+  filenames: ["*.json", "*.jsonl", "*.ndjson", "Pipfile.lock", "*.module", "*.xc"],
   alias_filenames: [],
-  mimetypes: [
-    "application/json", "application/json-object", "application/x-ndjson", "application/jsonl",
-    "application/json-seq",
-  ],
+  mimetypes: ["application/json", "application/json-object", "application/x-ndjson", "application/jsonl", "application/json-seq"],
   priority: 0.0,
   url: "https://www.json.org",
   version_added: "1.5",
@@ -74,12 +57,7 @@ pub let json_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JsonLexer` (JSON).
 pub fn json_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    json_lexer_info,
-    options,
-    opts => json_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+  @lexer.Lexer::new(json_lexer_info, options, opts => json_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -102,158 +80,47 @@ let yaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(8139, 8, Emit(tk_text_whitespace), None),
     r(137, 8, Emit(tk_text_whitespace), None),
     r(6218, 8, Emit(tk_comment_single), None),
-    r(
-      8140,
-      8,
-      Call("YamlLexer.reset_indent", [Tok(tk_name_tag)]),
-      Some([Push("yaml-directive")]),
-    ),
-    r(
-      8141,
-      8,
-      Call("YamlLexer.reset_indent", [Tok(tk_name_tag)]),
-      Some([Push("tag-directive")]),
-    ),
-    r(
-      8142,
-      8,
-      Call("YamlLexer.reset_indent", [Tok(tk_name_namespace)]),
-      Some([Push("block-line")]),
-    ),
-    r(
-      8143,
-      8,
-      Call("YamlLexer.save_indent", [Bool(true), Tok(tk_text_whitespace)]),
-      Some([Push("block-line"), Push("indentation")]),
-    ),
+    r(8140, 8, Call("YamlLexer.reset_indent", [Tok(tk_name_tag)]), Some([Push("yaml-directive")])),
+    r(8141, 8, Call("YamlLexer.reset_indent", [Tok(tk_name_tag)]), Some([Push("tag-directive")])),
+    r(8142, 8, Call("YamlLexer.reset_indent", [Tok(tk_name_namespace)]), Some([Push("block-line")])),
+    r(8143, 8, Call("YamlLexer.save_indent", [Bool(true), Tok(tk_text_whitespace)]), Some([Push("block-line"), Push("indentation")])),
     r(8139, 8, Emit(tk_text_whitespace), None),
     r(6218, 8, Emit(tk_comment_single), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop, Pop])),
-    r(
-      8144,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_number)]),
-      Some([Push("ignored-line")]),
-    ),
-    r(
-      8145,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword_type),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword_type),
-      ]),
-      Some([Push("ignored-line")]),
-    ),
-    r(
-      8146,
-      8,
-      Call("YamlLexer.something", [Tok(tk_text_whitespace)]),
-      Some([Pop, Pop]),
-    ),
-    r(
-      8147,
-      8,
-      Call("YamlLexer.save_indent", [Bool(false), Tok(tk_text_whitespace)]),
-      None,
-    ),
-    r(
-      8148,
-      8,
-      Call("YamlLexer.set_indent", [Bool(false), Tok(tk_punctuation_indicator)]),
-      None,
-    ),
-    r(
-      8149,
-      8,
-      Call("YamlLexer.save_indent", [Bool(false), Tok(tk_text_whitespace)]),
-      Some([Pop]),
-    ),
-    r(
-      8150,
-      8,
-      Call("YamlLexer.something", [Tok(tk_text_whitespace)]),
-      Some([Pop]),
-    ),
+    r(8144, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_literal_number)]), Some([Push("ignored-line")])),
+    r(8145, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_text_whitespace), Emit(tk_keyword_type)]), Some([Push("ignored-line")])),
+    r(8146, 8, Call("YamlLexer.something", [Tok(tk_text_whitespace)]), Some([Pop, Pop])),
+    r(8147, 8, Call("YamlLexer.save_indent", [Bool(false), Tok(tk_text_whitespace)]), None),
+    r(8148, 8, Call("YamlLexer.set_indent", [Bool(false), Tok(tk_punctuation_indicator)]), None),
+    r(8149, 8, Call("YamlLexer.save_indent", [Bool(false), Tok(tk_text_whitespace)]), Some([Pop])),
+    r(8150, 8, Call("YamlLexer.something", [Tok(tk_text_whitespace)]), Some([Pop])),
     r(1283, 8, Emit(tk_text_whitespace), None),
-    r(
-      8151,
-      8,
-      ByGroups([
-        Emit(tk_name_tag),
-        Call("YamlLexer.set_indent", [Bool(true), Tok(tk_punctuation)]),
-      ]),
-      None,
-    ),
+    r(8151, 8, ByGroups([Emit(tk_name_tag), Call("YamlLexer.set_indent", [Bool(true), Tok(tk_punctuation)])]), None),
     r(8152, 8, Emit(tk_keyword_type), None),
     r(8153, 8, Emit(tk_keyword_type), None),
     r(8154, 8, Emit(tk_name_label), None),
     r(8155, 8, Emit(tk_name_variable), None),
-    r(
-      8156,
-      8,
-      Call("YamlLexer.set_indent", [Bool(true), Tok(tk_punctuation_indicator)]),
-      None,
-    ),
-    r(
-      8157,
-      8,
-      Emit(tk_punctuation_indicator),
-      Some([Push("block-scalar-content"), Push("block-scalar-header")]),
-    ),
+    r(8156, 8, Call("YamlLexer.set_indent", [Bool(true), Tok(tk_punctuation_indicator)]), None),
+    r(8157, 8, Emit(tk_punctuation_indicator), Some([Push("block-scalar-content"), Push("block-scalar-header")])),
     r(144, 8, Emit(tk_punctuation_indicator), Some([Push("flow-sequence")])),
     r(245, 8, Emit(tk_punctuation_indicator), Some([Push("flow-mapping")])),
     r(2084, 8, Emit(tk_literal_string), Some([Push("single-quoted-scalar")])),
     r(2620, 8, Emit(tk_literal_string), Some([Push("double-quoted-scalar")])),
-    r(
-      8158,
-      8,
-      Call("YamlLexer.something", [Tok(tk_name_variable)]),
-      Some([Push("plain-scalar-in-block-context")]),
-    ),
+    r(8158, 8, Call("YamlLexer.something", [Tok(tk_name_variable)]), Some([Push("plain-scalar-in-block-context")])),
     r(1283, 8, Emit(tk_text_whitespace), None),
     r(137, 8, Emit(tk_text_whitespace), None),
     r(6218, 8, Emit(tk_comment_single), None),
     r(8159, 8, Emit(tk_punctuation_indicator), None),
-    r(
-      8160,
-      8,
-      Call("YamlLexer.something", [Tok(tk_name_variable)]),
-      Some([Push("plain-scalar-in-flow-context")]),
-    ),
+    r(8160, 8, Call("YamlLexer.something", [Tok(tk_name_variable)]), Some([Push("plain-scalar-in-flow-context")])),
     r(151, 8, Emit(tk_punctuation_indicator), Some([Pop])),
     r(8161, 8, ByGroups([Emit(tk_name_tag), Emit(tk_punctuation)]), None),
     r(339, 8, Emit(tk_punctuation_indicator), Some([Pop])),
     r(264, 8, Emit(tk_text_whitespace), None),
-    r(
-      8162,
-      8,
-      Call("YamlLexer.parse_block_scalar_empty_line", [
-        Tok(tk_name_constant),
-        Tok(tk_text_whitespace),
-      ]),
-      None,
-    ),
-    r(
-      8163,
-      8,
-      Call("YamlLexer.parse_block_scalar_indent", [Tok(tk_text_whitespace)]),
-      None,
-    ),
+    r(8162, 8, Call("YamlLexer.parse_block_scalar_empty_line", [Tok(tk_name_constant), Tok(tk_text_whitespace)]), None),
+    r(8163, 8, Call("YamlLexer.parse_block_scalar_indent", [Tok(tk_text_whitespace)]), None),
     r(8164, 8, Emit(tk_name_constant), None),
-    r(
-      8165,
-      8,
-      Call("YamlLexer.set_block_scalar_indent", [Tok(tk_punctuation_indicator)]),
-      Some([Push("ignored-line")]),
-    ),
-    r(
-      8166,
-      8,
-      Call("YamlLexer.set_block_scalar_indent", [Tok(tk_punctuation_indicator)]),
-      Some([Push("ignored-line")]),
-    ),
+    r(8165, 8, Call("YamlLexer.set_block_scalar_indent", [Tok(tk_punctuation_indicator)]), Some([Push("ignored-line")])),
+    r(8166, 8, Call("YamlLexer.set_block_scalar_indent", [Tok(tk_punctuation_indicator)]), Some([Push("ignored-line")])),
     r(8167, 8, Emit(tk_text_whitespace), None),
     r(8168, 8, Emit(tk_text_whitespace), None),
     r(137, 8, Emit(tk_text_whitespace), None),
@@ -267,40 +134,15 @@ let yaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(8162, 8, Emit(tk_text_whitespace), None),
     r(137, 8, Emit(tk_text_whitespace), None),
-    r(
-      8173,
-      8,
-      Call("YamlLexer.something", [Tok(tk_name_namespace)]),
-      Some([Pop, Pop, Pop]),
-    ),
-    r(
-      8163,
-      8,
-      Call("YamlLexer.parse_plain_scalar_indent", [Tok(tk_text_whitespace)]),
-      Some([Pop]),
-    ),
-    r(
-      8174,
-      8,
-      Call("YamlLexer.something", [Tok(tk_text_whitespace)]),
-      Some([Pop]),
-    ),
+    r(8173, 8, Call("YamlLexer.something", [Tok(tk_name_namespace)]), Some([Pop, Pop, Pop])),
+    r(8163, 8, Call("YamlLexer.parse_plain_scalar_indent", [Tok(tk_text_whitespace)]), Some([Pop])),
+    r(8174, 8, Call("YamlLexer.something", [Tok(tk_text_whitespace)]), Some([Pop])),
     r(8175, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(8168, 8, Emit(tk_text_whitespace), None),
-    r(
-      137,
-      8,
-      Emit(tk_text_whitespace),
-      Some([Push("plain-scalar-in-block-context-new-line")]),
-    ),
+    r(137, 8, Emit(tk_text_whitespace), Some([Push("plain-scalar-in-block-context-new-line")])),
     r(8169, 8, Emit(tk_literal_scalar_plain), None),
     r(8176, 8, Emit(tk_literal_scalar_plain), None),
-    r(
-      8177,
-      8,
-      Call("YamlLexer.something", [Tok(tk_text_whitespace)]),
-      Some([Pop]),
-    ),
+    r(8177, 8, Call("YamlLexer.something", [Tok(tk_text_whitespace)]), Some([Pop])),
     r(8175, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(8167, 8, Emit(tk_text_whitespace), None),
     r(8168, 8, Emit(tk_text_whitespace), None),
@@ -310,36 +152,9 @@ let yaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "YamlLexer",
-    [
-      "root", "ignored-line", "yaml-directive", "tag-directive", "indentation", "block-line",
-      "descriptors", "block-nodes", "flow-nodes", "flow-collection", "flow-sequence",
-      "flow-mapping", "block-scalar-content", "block-scalar-header", "quoted-scalar-whitespaces",
-      "single-quoted-scalar", "double-quoted-scalar", "plain-scalar-in-block-context-new-line",
-      "plain-scalar-in-block-context", "plain-scalar-in-flow-context",
-    ],
+    ["root", "ignored-line", "yaml-directive", "tag-directive", "indentation", "block-line", "descriptors", "block-nodes", "flow-nodes", "flow-collection", "flow-sequence", "flow-mapping", "block-scalar-content", "block-scalar-header", "quoted-scalar-whitespaces", "single-quoted-scalar", "double-quoted-scalar", "plain-scalar-in-block-context-new-line", "plain-scalar-in-block-context", "plain-scalar-in-flow-context"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6],
-      [7, 8, 9],
-      [10],
-      [11],
-      [12, 13, 14, 15],
-      [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
-      [19, 20, 21, 22],
-      [23, 24],
-      [25, 26, 27, 28],
-      [30, 31, 32, 33, 19, 20, 21, 22, 25, 26, 27, 28, 34],
-      [30, 31, 32, 33, 19, 20, 21, 22, 25, 26, 27, 28, 34, 35],
-      [36, 30, 31, 32, 33, 19, 20, 21, 22, 25, 26, 27, 28, 34, 37],
-      [38, 39, 40, 41],
-      [42, 43],
-      [44, 45, 46, 47],
-      [44, 45, 46, 47, 48, 49, 50],
-      [44, 45, 46, 47, 51, 52, 53, 54],
-      [55, 56, 57, 58],
-      [59, 60, 61, 62, 63, 64],
-      [65, 66, 67, 68, 69, 70, 71],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6], [7, 8, 9], [10], [11], [12, 13, 14, 15], [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], [19, 20, 21, 22], [23, 24], [25, 26, 27, 28], [30, 31, 32, 33, 19, 20, 21, 22, 25, 26, 27, 28, 34], [30, 31, 32, 33, 19, 20, 21, 22, 25, 26, 27, 28, 34, 35], [36, 30, 31, 32, 33, 19, 20, 21, 22, 25, 26, 27, 28, 34, 37], [38, 39, 40, 41], [42, 43], [44, 45, 46, 47], [44, 45, 46, 47, 48, 49, 50], [44, 45, 46, 47, 51, 52, 53, 54], [55, 56, 57, 58], [59, 60, 61, 62, 63, 64], [65, 66, 67, 68, 69, 70, 71]],
     extended=true,
   )
 })
@@ -347,12 +162,5 @@ let yaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `YamlLexer` (YAML).
 pub fn yaml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    yaml_lexer_info,
-    options,
-    opts => yaml_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, yaml_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(yaml_lexer_info, options, opts => yaml_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, yaml_lexer_def.force(), text, stack))
 }

@@ -18,171 +18,46 @@ pub let debian_control_lexer_info : @lexer.LexerInfo = {
 let debian_control_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(1917, 8, Emit(tk_keyword), Some([Push("description")])),
-    r(
-      1918,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("maintainer")]),
-    ),
-    r(
-      1919,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("package_list")]),
-    ),
-    r(
-      1920,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("package_list")]),
-    ),
-    r(
-      1921,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_number),
-      ]),
-      None,
-    ),
-    r(
-      1922,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_number),
-      ]),
-      None,
-    ),
-    r(
-      1923,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_number),
-      ]),
-      None,
-    ),
-    r(
-      1924,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
+    r(1918, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("maintainer")])),
+    r(1919, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("package_list")])),
+    r(1920, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("package_list")])),
+    r(1921, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_number)]), None),
+    r(1922, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_number)]), None),
+    r(1923, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_number)]), None),
+    r(1924, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
     r(1925, 8, Emit(tk_generic_strong), Some([Pop])),
     r(1926, 8, Emit(tk_generic_strong), None),
     r(1927, 8, Emit(tk_text_whitespace), None),
     r(1928, 8, Emit(tk_text), Some([Pop])),
     r(1929, 8, Emit(tk_text), None),
-    r(
-      1930,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_literal_string),
-        Emit(tk_name),
-        Emit(tk_name_class),
-      ]),
-      None,
-    ),
+    r(1930, 8, ByGroups([Emit(tk_text), Emit(tk_literal_string), Emit(tk_name), Emit(tk_name_class)]), None),
     r(1931, 8, Emit(tk_generic_strong), None),
     r(1932, 8, Emit(tk_text), None),
     r(98, 0, Nop, Some([Pop])),
-    r(
-      1933,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_punctuation),
-        Emit(tk_name_entity),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_text),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(1933, 8, ByGroups([Emit(tk_operator), Emit(tk_punctuation), Emit(tk_name_entity), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_text), Emit(tk_punctuation)]), None),
     r(138, 8, Emit(tk_punctuation), Some([Push("package_list_vers")])),
     r(194, 8, Emit(tk_operator), None),
     r(1934, 8, Emit(tk_text_whitespace), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(1935, 8, Emit(tk_text), None),
     r(1936, 8, Emit(tk_name_function), None),
-    r(
-      1937,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_operator),
-        Emit(tk_name_entity),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(1937, 8, ByGroups([Emit(tk_punctuation), Emit(tk_operator), Emit(tk_name_entity), Emit(tk_punctuation)]), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      1938,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_number),
-      ]),
-      None,
-    ),
+    r(1938, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_number)]), None),
   ]
   @lexer.RegexDef::new(
     "DebianControlLexer",
     ["root", "maintainer", "description", "package_list", "package_list_vers"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12],
-      [13, 14, 15, 16],
-      [17, 18, 19, 20, 21, 22, 23, 24],
-      [25, 26],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20, 21, 22, 23, 24], [25, 26]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `DebianControlLexer` (Debian Control file).
-pub fn debian_control_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    debian_control_lexer_info,
-    options,
-    opts => debian_control_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, debian_control_lexer_def.force(), text, stack)
-    },
-  )
+pub fn debian_control_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(debian_control_lexer_info, options, opts => debian_control_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, debian_control_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -202,27 +77,8 @@ pub let debian_sources_lexer_info : @lexer.LexerInfo = {
 ///|
 let debian_sources_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      1939,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("signed-by")]),
-    ),
-    r(
-      1924,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
+    r(1939, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("signed-by")])),
+    r(1924, 8, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
     r(1940, 8, Emit(tk_text), Some([Pop])),
     r(1941, 8, Emit(tk_text), None),
   ]
@@ -237,17 +93,8 @@ let debian_sources_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DebianSourcesLexer` (Debian Sources file).
-pub fn debian_sources_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    debian_sources_lexer_info,
-    options,
-    opts => debian_sources_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, debian_sources_lexer_def.force(), text, stack)
-    },
-  )
+pub fn debian_sources_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(debian_sources_lexer_info, options, opts => debian_sources_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, debian_sources_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -276,27 +123,8 @@ let nsis_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4899, 2, Emit(tk_name_builtin), None),
     r(4900, 2, Emit(tk_name_variable_global), None),
     r(4901, 2, Emit(tk_name_variable), None),
-    r(
-      4902,
-      2,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
-    r(
-      4903,
-      2,
-      ByGroups([
-        Emit(tk_keyword_namespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
+    r(4902, 2, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(4903, 2, ByGroups([Emit(tk_keyword_namespace), Emit(tk_punctuation), Emit(tk_name_function)]), None),
     r(4904, 2, ByGroups([Emit(tk_name_label), Emit(tk_punctuation)]), None),
     r(4905, 2, Emit(tk_operator), None),
     r(4906, 2, Emit(tk_operator), None),
@@ -318,14 +146,7 @@ let nsis_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "NSISLexer",
     ["root", "macro", "interpol", "basic", "str_double", "str_backtick"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      [4],
-      [5, 6, 7, 8],
-      [9, 10, 11, 12, 13, 14, 15, 16],
-      [21, 22, 5, 6, 7, 8, 23],
-      [24, 25, 5, 6, 7, 8, 26],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [4], [5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15, 16], [21, 22, 5, 6, 7, 8, 23], [24, 25, 5, 6, 7, 8, 26]],
     extended=false,
   )
 })
@@ -333,14 +154,7 @@ let nsis_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NSISLexer` (NSIS).
 pub fn nsis_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    nsis_lexer_info,
-    options,
-    opts => nsis_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, nsis_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(nsis_lexer_info, options, opts => nsis_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nsis_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -364,16 +178,7 @@ let rpm_spec_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5948, 8, Emit(tk_comment_preproc), None),
     r(5949, 8, Emit(tk_comment_preproc), None),
     r(5950, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text)]), None),
-    r(
-      5951,
-      10,
-      ByGroups([
-        Emit(tk_generic_heading),
-        Emit(tk_punctuation),
-        Using(This, None, []),
-      ]),
-      None,
-    ),
+    r(5951, 10, ByGroups([Emit(tk_generic_heading), Emit(tk_punctuation), Using(This, None, [])]), None),
     r(5952, 8, Emit(tk_name_decorator), Some([Push("description")])),
     r(5953, 8, Emit(tk_name_decorator), Some([Push("changelog")])),
     r(5954, 8, ByGroups([Emit(tk_name_decorator), Emit(tk_text)]), None),
@@ -402,32 +207,15 @@ let rpm_spec_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "RPMSpecLexer",
     ["root", "basic", "macro", "interpol", "description", "changelog", "string"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-      [1, 2, 3],
-      [9, 10, 11, 12, 13],
-      [18, 19, 20],
-      [21, 22, 23, 24],
-      [25, 26, 9, 10, 11, 12, 13, 27],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [1, 2, 3], [9, 10, 11, 12, 13], [18, 19, 20], [21, 22, 23, 24], [25, 26, 9, 10, 11, 12, 13, 27]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `RPMSpecLexer` (RPMSpec).
-pub fn rpm_spec_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    rpm_spec_lexer_info,
-    options,
-    opts => rpm_spec_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, rpm_spec_lexer_def.force(), text, stack)
-    },
-  )
+pub fn rpm_spec_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(rpm_spec_lexer_info, options, opts => rpm_spec_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rpm_spec_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -449,21 +237,11 @@ let sources_list_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text_whitespace), None),
     r(693, 8, Emit(tk_comment), None),
-    r(
-      6727,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
-      Some([Push("distribution")]),
-    ),
+    r(6727, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("distribution")])),
     r(693, 8, Emit(tk_comment), Some([Pop])),
     r(6728, 8, Emit(tk_name_variable), None),
     r(6729, 8, Emit(tk_literal_string), None),
-    r(
-      144,
-      8,
-      Emit(tk_literal_string_other),
-      Some([Push("escaped-distribution")]),
-    ),
+    r(144, 8, Emit(tk_literal_string_other), Some([Push("escaped-distribution")])),
     r(715, 8, Emit(tk_literal_string), None),
     r(0, 8, Emit(tk_text_whitespace), Some([Push("components")])),
     r(151, 8, Emit(tk_literal_string_other), Some([Pop])),
@@ -486,15 +264,6 @@ let sources_list_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SourcesListLexer` (Debian Sourcelist).
-pub fn sources_list_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    sources_list_lexer_info,
-    options,
-    opts => sources_list_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, sources_list_lexer_def.force(), text, stack)
-    },
-  )
+pub fn sources_list_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(sources_list_lexer_info, options, opts => sources_list_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sources_list_lexer_def.force(), text, stack))
 }

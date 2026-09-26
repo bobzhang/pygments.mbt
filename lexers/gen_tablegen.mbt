@@ -42,39 +42,19 @@ let table_gen_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(199, 8, Emit(tk_literal_string), None),
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(1124, 8, Emit(tk_text), Some([Pop])),
-    r(
-      6905,
-      8,
-      Using(Other(opts => cpp_lexer(options=opts)), None, []),
-      Some([Pop]),
-    ),
+    r(6905, 8, Using(Other(opts => cpp_lexer(options=opts)), None, []), Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "TableGenLexer",
     ["root", "comment", "strings", "dqs", "codeblock"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-      [17, 18, 19, 20],
-      [21, 22],
-      [23, 21, 22],
-      [24, 25],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19, 20], [21, 22], [23, 21, 22], [24, 25]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `TableGenLexer` (TableGen).
-pub fn table_gen_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    table_gen_lexer_info,
-    options,
-    opts => table_gen_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, table_gen_lexer_def.force(), text, stack)
-    },
-  )
+pub fn table_gen_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(table_gen_lexer_info, options, opts => table_gen_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, table_gen_lexer_def.force(), text, stack))
 }

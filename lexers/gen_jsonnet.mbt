@@ -72,12 +72,7 @@ let jsonnet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(339, 8, Emit(tk_punctuation), Some([Pop])),
     r(173, 8, Emit(tk_name_variable), Some([Push("double_field_name")])),
     r(224, 8, Emit(tk_name_variable), Some([Push("single_field_name")])),
-    r(
-      3695,
-      8,
-      Emit(tk_name_function),
-      Some([Push("field_separator"), Push("function_params")]),
-    ),
+    r(3695, 8, Emit(tk_name_function), Some([Push("field_separator"), Push("function_params")])),
     r(1025, 8, Emit(tk_name_variable), Some([Push("field_separator")])),
     r(3683, 8, Emit(tk_name_variable), Some([Push("field_separator")])),
     r(3684, 8, Emit(tk_name_variable), Some([Push("field_separator")])),
@@ -97,63 +92,9 @@ let jsonnet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "JsonnetLexer",
-    [
-      "_comments", "root", "singlestring", "doublestring", "array", "local_name",
-      "local_value", "assert", "function_params", "function_args", "object", "field_name",
-      "double_field_name", "single_field_name", "field_name_expr", "function_param_default",
-      "field_separator", "field_value", "object_assert", "object_local_name", "object_local_value",
-    ],
+    ["_comments", "root", "singlestring", "doublestring", "array", "local_name", "local_value", "assert", "function_params", "function_args", "object", "field_name", "double_field_name", "single_field_name", "field_name_expr", "function_param_default", "field_separator", "field_value", "object_assert", "object_local_name", "object_local_value"],
     rules,
-    [
-      [0, 1, 2],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      [21, 22, 23],
-      [24, 25, 26],
-      [
-        27, 28, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20,
-      ],
-      [29, 30, 31, 32],
-      [
-        33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20,
-      ],
-      [
-        35, 36, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20,
-      ],
-      [37, 38, 39, 40, 41, 42],
-      [
-        43, 44, 45, 46, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-        17, 18, 19, 20,
-      ],
-      [47, 48, 49, 50, 51, 52, 53, 54, 0, 1, 2],
-      [55, 56],
-      [57],
-      [58],
-      [
-        59, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20,
-      ],
-      [
-        60, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20,
-      ],
-      [61, 62, 0, 1, 2],
-      [
-        63, 64, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20,
-      ],
-      [
-        65, 66, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20,
-      ],
-      [67, 68],
-      [
-        69, 70, 71, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-        18, 19, 20,
-      ],
-    ],
+    [[0, 1, 2], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [21, 22, 23], [24, 25, 26], [27, 28, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [29, 30, 31, 32], [33, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [35, 36, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [37, 38, 39, 40, 41, 42], [43, 44, 45, 46, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [47, 48, 49, 50, 51, 52, 53, 54, 0, 1, 2], [55, 56], [57], [58], [59, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [60, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [61, 62, 0, 1, 2], [63, 64, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [65, 66, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [67, 68], [69, 70, 71, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]],
     extended=false,
   )
 })
@@ -161,12 +102,5 @@ let jsonnet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JsonnetLexer` (Jsonnet).
 pub fn jsonnet_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    jsonnet_lexer_info,
-    options,
-    opts => jsonnet_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, jsonnet_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(jsonnet_lexer_info, options, opts => jsonnet_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, jsonnet_lexer_def.force(), text, stack))
 }

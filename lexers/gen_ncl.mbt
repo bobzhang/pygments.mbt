@@ -38,12 +38,7 @@ let ncl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "NCLLexer",
     ["root", "strings", "core", "nums"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      [1],
-      [2, 3, 4, 5, 6, 7, 8, 9, 10],
-      [12, 13, 14],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [1], [2, 3, 4, 5, 6, 7, 8, 9, 10], [12, 13, 14]],
     extended=false,
   )
 })
@@ -51,9 +46,5 @@ let ncl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NCLLexer` (NCL).
 pub fn ncl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ncl_lexer_info, options, opts => ncl_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, ncl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ncl_lexer_info, options, opts => ncl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ncl_lexer_def.force(), text, stack))
 }

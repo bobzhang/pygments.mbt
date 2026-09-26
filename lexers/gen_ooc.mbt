@@ -19,34 +19,13 @@ let ooc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(5227, 8, Emit(tk_keyword), None),
     r(5228, 8, Emit(tk_keyword), Some([Push("include")])),
-    r(
-      5229,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text),
-        Emit(tk_keyword),
-        Emit(tk_text),
-        Emit(tk_name_class),
-      ]),
-      None,
-    ),
-    r(
-      5230,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]),
-      None,
-    ),
+    r(5229, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword), Emit(tk_text), Emit(tk_name_class)]), None),
+    r(5230, 8, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_function)]), None),
     r(5231, 8, Emit(tk_keyword), None),
     r(2614, 8, Emit(tk_comment), None),
     r(2524, 24, Emit(tk_comment_multiline), None),
     r(5232, 8, Emit(tk_operator), None),
-    r(
-      5233,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_function)]),
-      None,
-    ),
+    r(5233, 8, ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_function)]), None),
     r(5234, 8, Emit(tk_name_constant), None),
     r(5235, 8, Emit(tk_name_class), None),
     r(5236, 8, ByGroups([Emit(tk_name_function), Emit(tk_text)]), None),
@@ -72,13 +51,7 @@ let ooc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "OocLexer",
     ["root", "include"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24,
-      ],
-      [25, 26, 27, 28],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], [25, 26, 27, 28]],
     extended=false,
   )
 })
@@ -86,9 +59,5 @@ let ooc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OocLexer` (Ooc).
 pub fn ooc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ooc_lexer_info, options, opts => ooc_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, ooc_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ooc_lexer_info, options, opts => ooc_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ooc_lexer_def.force(), text, stack))
 }

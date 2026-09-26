@@ -19,18 +19,8 @@ let adl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(161, 8, Emit(tk_text_whitespace), None),
     r(162, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment)]), None),
-    r(
-      163,
-      8,
-      ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]),
-      None,
-    ),
-    r(
-      164,
-      8,
-      ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]),
-      Some([Push("cadl_section")]),
-    ),
+    r(163, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]), None),
+    r(164, 8, ByGroups([Emit(tk_generic_heading), Emit(tk_text_whitespace)]), Some([Push("cadl_section")])),
     r(165, 8, Using(Other(opts => odin_lexer(options=opts)), None, []), None),
     r(166, 8, ByGroups([Emit(tk_literal_string), Emit(tk_punctuation)]), None),
     r(167, 8, Emit(tk_text), Some([Pop])),
@@ -54,18 +44,8 @@ let adl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(177, 8, Emit(tk_generic_heading), Some([Push("odin_section")])),
     r(178, 8, Emit(tk_generic_heading), Some([Push("cadl_section")])),
     r(179, 8, Emit(tk_generic_heading), Some([Push("rules_section")])),
-    r(
-      180,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_name_decorator)]),
-      None,
-    ),
-    r(
-      181,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation)]),
-      Some([Push("metadata")]),
-    ),
+    r(180, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_decorator)]), None),
+    r(181, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("metadata")])),
     r(182, 8, Emit(tk_literal_date), None),
     r(183, 8, Emit(tk_literal_date), None),
     r(184, 8, Emit(tk_literal_date), None),
@@ -79,41 +59,11 @@ let adl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
     r(191, 8, Emit(tk_literal_string_char), None),
     r(192, 8, Emit(tk_literal), Some([Push("uri")])),
-    r(
-      193,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(193, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), None),
     r(194, 8, Emit(tk_punctuation), Some([Push("interval")])),
     r(195, 8, Emit(tk_punctuation), None),
-    r(
-      196,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("adl14_code_constraint")]),
-    ),
-    r(
-      197,
-      8,
-      ByGroups([
-        Emit(tk_literal_number),
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(196, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), Some([Push("adl14_code_constraint")])),
+    r(197, 8, ByGroups([Emit(tk_literal_number), Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), None),
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(198, 8, Emit(tk_literal_string_escape), None),
     r(199, 8, Emit(tk_literal_string), None),
@@ -130,16 +80,7 @@ let adl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(21, 8, Emit(tk_text), None),
     r(194, 8, Emit(tk_punctuation), Some([Push("code_rubric")])),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      208,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(194, 8, Emit(tk_punctuation), Some([Pop])),
     r(209, 8, Emit(tk_literal_string), None),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
@@ -148,31 +89,9 @@ let adl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "AdlLexer",
-    [
-      "whitespace", "odin_section", "cadl_section", "rules_section", "metadata",
-      "root", "archetype_id", "date_constraints", "ordered_values", "values", "constraint_values",
-      "string", "uri", "interval", "any_code", "code_rubric", "adl14_code_constraint",
-    ],
+    ["whitespace", "odin_section", "cadl_section", "rules_section", "metadata", "root", "archetype_id", "date_constraints", "ordered_values", "values", "constraint_values", "string", "uri", "interval", "any_code", "code_rubric", "adl14_code_constraint"],
     rules,
-    [
-      [0, 1],
-      [2, 3, 4, 5, 6, 7, 8],
-      [9, 10],
-      [11, 12],
-      [13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
-      [23, 24, 25, 26, 27, 28, 0, 1],
-      [27],
-      [29, 30],
-      [31, 32, 33, 34, 35, 36, 37],
-      [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44],
-      [45, 46, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44],
-      [47, 48, 49, 50],
-      [51, 52],
-      [53, 31, 32, 33, 34, 35, 36, 37, 54, 55, 56, 57],
-      [27, 58, 59, 60, 61, 62, 63],
-      [64, 65],
-      [66, 67, 68, 0, 1],
-    ],
+    [[0, 1], [2, 3, 4, 5, 6, 7, 8], [9, 10], [11, 12], [13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [23, 24, 25, 26, 27, 28, 0, 1], [27], [29, 30], [31, 32, 33, 34, 35, 36, 37], [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44], [45, 46, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44], [47, 48, 49, 50], [51, 52], [53, 31, 32, 33, 34, 35, 36, 37, 54, 55, 56, 57], [27, 58, 59, 60, 61, 62, 63], [64, 65], [66, 67, 68, 0, 1]],
     extended=false,
   )
 })
@@ -180,11 +99,7 @@ let adl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AdlLexer` (ADL).
 pub fn adl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(adl_lexer_info, options, opts => adl_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, adl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(adl_lexer_info, options, opts => adl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, adl_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -218,67 +133,16 @@ let cadl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1117, 8, Emit(tk_operator), None),
     r(1118, 8, Emit(tk_operator), None),
     r(1119, 8, Emit(tk_operator), None),
-    r(
-      1120,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string_regex),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      1121,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string_regex),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(1120, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string_regex), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(1121, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_literal_string_regex), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(438, 8, Emit(tk_punctuation), Some([Push("path")])),
-    r(
-      1122,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_literal_number),
-        Emit(tk_literal_number),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(1122, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_number), Emit(tk_literal_number), Emit(tk_punctuation)]), None),
     r(1123, 8, Emit(tk_punctuation), None),
     r(1124, 8, Emit(tk_punctuation), None),
     r(245, 8, Emit(tk_punctuation), None),
     r(339, 8, Emit(tk_punctuation), None),
-    r(
-      196,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("adl14_code_constraint")]),
-    ),
-    r(
-      197,
-      8,
-      ByGroups([
-        Emit(tk_literal_number),
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(196, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), Some([Push("adl14_code_constraint")])),
+    r(197, 8, ByGroups([Emit(tk_literal_number), Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), None),
     r(182, 8, Emit(tk_literal_date), None),
     r(183, 8, Emit(tk_literal_date), None),
     r(184, 8, Emit(tk_literal_date), None),
@@ -292,18 +156,7 @@ let cadl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
     r(191, 8, Emit(tk_literal_string_char), None),
     r(192, 8, Emit(tk_literal), Some([Push("uri")])),
-    r(
-      193,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(193, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), None),
     r(194, 8, Emit(tk_punctuation), Some([Push("interval")])),
     r(195, 8, Emit(tk_punctuation), None),
     r(1125, 8, Emit(tk_name_class), None),
@@ -315,12 +168,7 @@ let cadl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(100, 8, Emit(tk_punctuation), None),
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
     r(139, 8, Emit(tk_punctuation), None),
-    r(
-      180,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_name_decorator)]),
-      None,
-    ),
+    r(180, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_decorator)]), None),
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(198, 8, Emit(tk_literal_string_escape), None),
     r(199, 8, Emit(tk_literal_string), None),
@@ -337,16 +185,7 @@ let cadl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(21, 8, Emit(tk_text), None),
     r(194, 8, Emit(tk_punctuation), Some([Push("code_rubric")])),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      208,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(194, 8, Emit(tk_punctuation), Some([Pop])),
     r(209, 8, Emit(tk_literal_string), None),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
@@ -355,32 +194,9 @@ let cadl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "CadlLexer",
-    [
-      "path", "root", "whitespace", "constraint_values", "date_constraints", "values",
-      "ordered_values", "archetype_id", "string", "uri", "interval", "any_code",
-      "code_rubric", "adl14_code_constraint",
-    ],
+    ["path", "root", "whitespace", "constraint_values", "date_constraints", "values", "ordered_values", "archetype_id", "string", "uri", "interval", "any_code", "code_rubric", "adl14_code_constraint"],
     rules,
-    [
-      [0, 1, 2, 3],
-      [
-        4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-        24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48,
-      ],
-      [4, 5, 6],
-      [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
-      [24, 25],
-      [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
-      [26, 27, 28, 29, 30, 31, 32],
-      [49],
-      [50, 51, 52, 53],
-      [54, 55],
-      [56, 26, 27, 28, 29, 30, 31, 32, 57, 58, 59, 60],
-      [49, 61, 62, 63, 64, 65, 66],
-      [67, 68],
-      [69, 70, 71, 4, 5, 6],
-    ],
+    [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48], [4, 5, 6], [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39], [24, 25], [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39], [26, 27, 28, 29, 30, 31, 32], [49], [50, 51, 52, 53], [54, 55], [56, 26, 27, 28, 29, 30, 31, 32, 57, 58, 59, 60], [49, 61, 62, 63, 64, 65, 66], [67, 68], [69, 70, 71, 4, 5, 6]],
     extended=false,
   )
 })
@@ -388,14 +204,7 @@ let cadl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CadlLexer` (cADL).
 pub fn cadl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    cadl_lexer_info,
-    options,
-    opts => cadl_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, cadl_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(cadl_lexer_info, options, opts => cadl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cadl_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -419,16 +228,7 @@ let odin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(207, 8, Emit(tk_name_class), None),
     r(438, 8, Emit(tk_punctuation), None),
     r(144, 8, Emit(tk_punctuation), Some([Push("key")])),
-    r(
-      208,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Pop]),
-    ),
+    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Pop])),
     r(0, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(184, 8, Emit(tk_literal_date), None),
     r(185, 8, Emit(tk_literal_date), None),
@@ -441,18 +241,7 @@ let odin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 8, Emit(tk_literal_string), Some([Push("string")])),
     r(191, 8, Emit(tk_literal_string_char), None),
     r(192, 8, Emit(tk_literal), Some([Push("uri")])),
-    r(
-      193,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(193, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), None),
     r(194, 8, Emit(tk_punctuation), Some([Push("interval")])),
     r(195, 8, Emit(tk_punctuation), None),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
@@ -471,35 +260,11 @@ let odin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(736, 8, Emit(tk_punctuation), None),
     r(943, 8, Emit(tk_punctuation), None),
     r(139, 8, Emit(tk_punctuation), None),
-    r(
-      180,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_name_decorator)]),
-      None,
-    ),
+    r(180, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_decorator)]), None),
     r(182, 8, Emit(tk_literal_date), None),
     r(183, 8, Emit(tk_literal_date), None),
-    r(
-      196,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("adl14_code_constraint")]),
-    ),
-    r(
-      197,
-      8,
-      ByGroups([
-        Emit(tk_literal_number),
-        Emit(tk_punctuation),
-        Emit(tk_name_decorator),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(196, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), Some([Push("adl14_code_constraint")])),
+    r(197, 8, ByGroups([Emit(tk_literal_number), Emit(tk_punctuation), Emit(tk_name_decorator), Emit(tk_punctuation)]), None),
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
     r(198, 8, Emit(tk_literal_string_escape), None),
     r(199, 8, Emit(tk_literal_string), None),
@@ -516,16 +281,7 @@ let odin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(21, 8, Emit(tk_text), None),
     r(194, 8, Emit(tk_punctuation), Some([Push("code_rubric")])),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      208,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(208, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(194, 8, Emit(tk_punctuation), Some([Pop])),
     r(209, 8, Emit(tk_literal_string), None),
     r(151, 8, Emit(tk_punctuation), Some([Pop])),
@@ -534,33 +290,9 @@ let odin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "OdinLexer",
-    [
-      "path", "key", "values", "ordered_values", "type_cast", "root", "whitespace",
-      "archetype_id", "date_constraints", "constraint_values", "string", "uri", "interval",
-      "any_code", "code_rubric", "adl14_code_constraint",
-    ],
+    ["path", "key", "values", "ordered_values", "type_cast", "root", "whitespace", "archetype_id", "date_constraints", "constraint_values", "string", "uri", "interval", "any_code", "code_rubric", "adl14_code_constraint"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5],
-      [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [6, 7, 8, 9, 10, 11, 12],
-      [21, 22],
-      [
-        23, 24, 25, 26, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 27, 28,
-        29, 30, 31, 32, 33, 34, 35,
-      ],
-      [23, 24, 25],
-      [36],
-      [37, 38],
-      [39, 40, 37, 38, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [41, 42, 43, 44],
-      [45, 46],
-      [47, 6, 7, 8, 9, 10, 11, 12, 48, 49, 50, 51],
-      [36, 52, 53, 54, 55, 56, 57],
-      [58, 59],
-      [60, 61, 62, 23, 24, 25],
-    ],
+    [[0, 1, 2, 3, 4, 5], [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [6, 7, 8, 9, 10, 11, 12], [21, 22], [23, 24, 25, 26, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 27, 28, 29, 30, 31, 32, 33, 34, 35], [23, 24, 25], [36], [37, 38], [39, 40, 37, 38, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [41, 42, 43, 44], [45, 46], [47, 6, 7, 8, 9, 10, 11, 12, 48, 49, 50, 51], [36, 52, 53, 54, 55, 56, 57], [58, 59], [60, 61, 62, 23, 24, 25]],
     extended=false,
   )
 })
@@ -568,12 +300,5 @@ let odin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OdinLexer` (ODIN).
 pub fn odin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    odin_lexer_info,
-    options,
-    opts => odin_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, odin_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(odin_lexer_info, options, opts => odin_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, odin_lexer_def.force(), text, stack))
 }

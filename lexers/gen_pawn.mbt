@@ -59,15 +59,7 @@ let pawn_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PawnLexer",
     ["root", "string", "macro", "if0"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [23, 24, 25, 26, 27],
-      [28, 29, 30, 31, 32, 33],
-      [34, 35, 36],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [23, 24, 25, 26, 27], [28, 29, 30, 31, 32, 33], [34, 35, 36]],
     extended=false,
   )
 })
@@ -75,14 +67,7 @@ let pawn_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PawnLexer` (Pawn).
 pub fn pawn_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    pawn_lexer_info,
-    options,
-    opts => pawn_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, pawn_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(pawn_lexer_info, options, opts => pawn_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pawn_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -144,30 +129,13 @@ let source_pawn_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "SourcePawnLexer",
     ["root", "string", "macro", "if0"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [23, 24, 25, 26, 27],
-      [28, 29, 30, 31, 32, 33],
-      [34, 35, 36],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [23, 24, 25, 26, 27], [28, 29, 30, 31, 32, 33], [34, 35, 36]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `SourcePawnLexer` (SourcePawn).
-pub fn source_pawn_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    source_pawn_lexer_info,
-    options,
-    opts => source_pawn_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, source_pawn_lexer_def.force(), text, stack)
-    },
-  )
+pub fn source_pawn_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(source_pawn_lexer_info, options, opts => source_pawn_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, source_pawn_lexer_def.force(), text, stack))
 }

@@ -48,14 +48,7 @@ let abnf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AbnfLexer` (ABNF).
 pub fn abnf_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    abnf_lexer_info,
-    options,
-    opts => abnf_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, abnf_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(abnf_lexer_info, options, opts => abnf_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, abnf_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -75,12 +68,7 @@ pub let bnf_lexer_info : @lexer.LexerInfo = {
 ///|
 let bnf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      946,
-      8,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_class), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(946, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_class), Emit(tk_punctuation)]), None),
     r(947, 8, Emit(tk_operator), None),
     r(948, 8, Emit(tk_text), None),
     r(76, 8, Emit(tk_text), None),
@@ -97,11 +85,7 @@ let bnf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BnfLexer` (BNF).
 pub fn bnf_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bnf_lexer_info, options, opts => bnf_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, bnf_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(bnf_lexer_info, options, opts => bnf_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bnf_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -121,12 +105,7 @@ pub let jsgf_lexer_info : @lexer.LexerInfo = {
 ///|
 let jsgf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      3659,
-      8,
-      Emit(tk_comment_multiline),
-      Some([Push("documentation comment")]),
-    ),
+    r(3659, 8, Emit(tk_comment_multiline), Some([Push("documentation comment")])),
     r(3660, 8, Emit(tk_comment_multiline), None),
     r(317, 8, Emit(tk_comment_single), None),
     r(3661, 8, Emit(tk_comment_preproc), None),
@@ -138,16 +117,7 @@ let jsgf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(245, 8, Emit(tk_literal_string_other), Some([Push("tag")])),
     r(3664, 8, Emit(tk_keyword_reserved), None),
     r(3665, 8, Emit(tk_keyword_reserved), Some([Push("grammar name")])),
-    r(
-      3666,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_builtin),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(3666, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin), Emit(tk_punctuation)]), None),
     r(736, 8, Emit(tk_punctuation), Some([Push("rulename")])),
     r(3667, 8, Emit(tk_text), None),
     r(173, 8, Emit(tk_literal_string_double), Some([Pop])),
@@ -163,60 +133,20 @@ let jsgf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(943, 8, Emit(tk_punctuation), Some([Pop])),
     r(71, 8, Emit(tk_punctuation), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(
-      3670,
-      8,
-      ByGroups([Emit(tk_name_namespace), Emit(tk_text), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(3670, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_text), Emit(tk_punctuation)]), None),
     r(3671, 8, Emit(tk_name_constant), None),
     r(524, 8, Emit(tk_comment_multiline), Some([Pop])),
-    r(
-      3672,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_comment_multiline),
-        Emit(tk_text_whitespace),
-        Emit(tk_comment_special),
-        Emit(tk_text_whitespace),
-        Using(This, Some(["root", "example"]), []),
-      ]),
-      None,
-    ),
-    r(
-      3673,
-      8,
-      ByGroups([Emit(tk_comment_multiline), Emit(tk_comment_special)]),
-      None,
-    ),
+    r(3672, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_multiline), Emit(tk_text_whitespace), Emit(tk_comment_special), Emit(tk_text_whitespace), Using(This, Some(["root", "example"]), [])]), None),
+    r(3673, 8, ByGroups([Emit(tk_comment_multiline), Emit(tk_comment_special)]), None),
     r(3674, 8, Emit(tk_comment_multiline), None),
-    r(
-      3675,
-      8,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_multiline)]),
-      None,
-    ),
+    r(3675, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_comment_multiline)]), None),
     r(76, 8, Emit(tk_comment_multiline), None),
   ]
   @lexer.RegexDef::new(
     "JsgfLexer",
-    [
-      "root", "comments", "non-comments", "string", "tag", "grammar name", "rulename",
-      "documentation comment", "example",
-    ],
+    ["root", "comments", "non-comments", "string", "tag", "grammar name", "rulename", "documentation comment", "example"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-      [0, 1, 2],
-      [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17],
-      [18, 19, 20],
-      [21, 22, 23, 24],
-      [25, 26, 27, 28, 29],
-      [30, 31, 32, 33],
-      [34, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 35],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [0, 1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [15, 16, 17], [18, 19, 20], [21, 22, 23, 24], [25, 26, 27, 28, 29], [30, 31, 32, 33], [34, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 35]],
     extended=false,
   )
 })
@@ -224,14 +154,7 @@ let jsgf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JsgfLexer` (JSGF).
 pub fn jsgf_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    jsgf_lexer_info,
-    options,
-    opts => jsgf_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, jsgf_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(jsgf_lexer_info, options, opts => jsgf_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, jsgf_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -255,16 +178,7 @@ let peg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5381, 8, Emit(tk_operator), None),
     r(1984, 8, Emit(tk_punctuation), None),
     r(2154, 8, Emit(tk_keyword), None),
-    r(
-      5382,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_literal_string),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(5382, 8, ByGroups([Emit(tk_punctuation), Emit(tk_literal_string), Emit(tk_punctuation)]), None),
     r(5383, 8, Emit(tk_literal_string_double), None),
     r(5384, 8, Emit(tk_literal_string_single), None),
     r(5385, 8, Emit(tk_name_class), None),
@@ -282,9 +196,5 @@ let peg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PegLexer` (PEG).
 pub fn peg_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(peg_lexer_info, options, opts => peg_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, peg_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(peg_lexer_info, options, opts => peg_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, peg_lexer_def.force(), text, stack))
 }

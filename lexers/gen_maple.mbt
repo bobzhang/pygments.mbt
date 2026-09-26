@@ -27,12 +27,7 @@ let maple_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4529, 8, Emit(tk_name), None),
     r(4530, 8, Emit(tk_operator), None),
     r(4531, 8, Emit(tk_punctuation), None),
-    r(
-      4532,
-      8,
-      ByGroups([Emit(tk_literal_number_integer), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(4532, 8, ByGroups([Emit(tk_literal_number_integer), Emit(tk_punctuation)]), None),
     r(4533, 8, Emit(tk_literal_number_float), None),
     r(223, 8, Emit(tk_literal_number_integer), None),
     r(0, 8, Emit(tk_text_whitespace), None),
@@ -52,12 +47,5 @@ let maple_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MapleLexer` (Maple).
 pub fn maple_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    maple_lexer_info,
-    options,
-    opts => maple_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, maple_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(maple_lexer_info, options, opts => maple_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, maple_lexer_def.force(), text, stack))
 }

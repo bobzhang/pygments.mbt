@@ -19,17 +19,7 @@ let qv_to_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(264, 8, Emit(tk_text), None),
     r(109, 8, Emit(tk_text), None),
-    r(
-      5902,
-      8,
-      ByGroups([
-        Emit(tk_comment),
-        Emit(tk_comment),
-        Emit(tk_comment_preproc),
-        Emit(tk_comment),
-      ]),
-      None,
-    ),
+    r(5902, 8, ByGroups([Emit(tk_comment), Emit(tk_comment), Emit(tk_comment_preproc), Emit(tk_comment)]), None),
     r(282, 8, Emit(tk_comment_multiline), None),
     r(351, 8, Emit(tk_text), None),
     r(5903, 8, Emit(tk_operator_word), None),
@@ -41,31 +31,11 @@ let qv_to_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5908, 8, Emit(tk_name_builtin_pseudo), None),
     r(1235, 8, Emit(tk_keyword_declaration), None),
     r(5909, 8, Emit(tk_keyword_namespace), Some([Push("fromimport")])),
-    r(
-      5910,
-      8,
-      ByGroups([Emit(tk_keyword_word), Emit(tk_text), Emit(tk_name_class)]),
-      None,
-    ),
-    r(
-      5911,
-      8,
-      ByGroups([Emit(tk_keyword_word), Emit(tk_text), Emit(tk_name_exception)]),
-      None,
-    ),
+    r(5910, 8, ByGroups([Emit(tk_keyword_word), Emit(tk_text), Emit(tk_name_class)]), None),
+    r(5911, 8, ByGroups([Emit(tk_keyword_word), Emit(tk_text), Emit(tk_name_exception)]), None),
     r(5912, 8, Emit(tk_name_function), None),
-    r(
-      5913,
-      8,
-      ByGroups([Emit(tk_keyword_declaration), Emit(tk_text)]),
-      Some([Push("operation")]),
-    ),
-    r(
-      5914,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text)]),
-      Some([Push("assert")]),
-    ),
+    r(5913, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text)]), Some([Push("operation")])),
+    r(5914, 8, ByGroups([Emit(tk_keyword), Emit(tk_text)]), Some([Push("assert")])),
     r(5915, 8, Emit(tk_keyword_type), None),
     r(5916, 8, Emit(tk_keyword), None),
     r(173, 8, Emit(tk_literal_string), Some([Push("_tmp_0")])),
@@ -85,45 +55,15 @@ let qv_to_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(975, 8, Emit(tk_name_namespace), None),
     r(98, 0, Nop, Some([Pop])),
     r(431, 8, Emit(tk_text), None),
-    r(
-      5920,
-      8,
-      ByGroups([
-        Emit(tk_text),
-        Emit(tk_name_function),
-        Emit(tk_text),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
+    r(5920, 8, ByGroups([Emit(tk_text), Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]), Some([Pop])),
     r(5921, 8, Emit(tk_keyword), Some([Pop])),
     r(98, 0, Nop, Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "QVToLexer",
-    [
-      "root", "keywords", "stringescape", "dqs", "strings", "_tmp_0", "sqs", "_tmp_1",
-      "name", "numbers", "fromimport", "operation", "assert",
-    ],
+    ["root", "keywords", "stringescape", "dqs", "strings", "_tmp_0", "sqs", "_tmp_1", "name", "numbers", "fromimport", "operation", "assert"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26,
-      ],
-      [20],
-      [27],
-      [28, 29, 30, 31],
-      [30, 31],
-      [27, 28, 29, 30, 31],
-      [32, 33, 30, 31],
-      [27, 32, 33, 30, 31],
-      [23],
-      [24, 25, 26],
-      [34, 35, 36],
-      [37, 38],
-      [39, 40],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26], [20], [27], [28, 29, 30, 31], [30, 31], [27, 28, 29, 30, 31], [32, 33, 30, 31], [27, 32, 33, 30, 31], [23], [24, 25, 26], [34, 35, 36], [37, 38], [39, 40]],
     extended=false,
   )
 })
@@ -131,12 +71,5 @@ let qv_to_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `QVToLexer` (QVTO).
 pub fn qv_to_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    qv_to_lexer_info,
-    options,
-    opts => qv_to_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, qv_to_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(qv_to_lexer_info, options, opts => qv_to_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, qv_to_lexer_def.force(), text, stack))
 }

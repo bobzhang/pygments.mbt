@@ -36,24 +36,14 @@ let rust_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6275, 8, Emit(tk_keyword_declaration), None),
     r(6276, 8, Emit(tk_keyword), Some([Push("funcname")])),
     r(6277, 8, Emit(tk_keyword), Some([Push("typename")])),
-    r(
-      6278,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
+    r(6278, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
     r(6279, 8, Emit(tk_keyword_type), None),
     r(6280, 8, Emit(tk_name_builtin_pseudo), None),
     r(6281, 8, Emit(tk_name_builtin), None),
     r(6282, 8, Emit(tk_name_function_magic), None),
     r(6283, 8, Emit(tk_punctuation), None),
     r(6284, 8, Emit(tk_punctuation), Some([Push("typename")])),
-    r(
-      6285,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_label)]),
-      None,
-    ),
+    r(6285, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_label)]), None),
     r(6286, 8, Emit(tk_literal_string_char), None),
     r(6287, 8, Emit(tk_literal_string_char), None),
     r(1900, 8, Emit(tk_literal_number_bin), Some([Push("number_lit")])),
@@ -111,30 +101,9 @@ let rust_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "RustLexer",
-    [
-      "root", "base", "comment", "doccomment", "modname", "funcname", "typename",
-      "lifetime", "number_lit", "string", "bytestring", "attribute_common", "attribute[",
-    ],
+    ["root", "base", "comment", "doccomment", "modname", "funcname", "typename", "lifetime", "number_lit", "string", "bytestring", "attribute_common", "attribute["],
     rules,
-    [
-      [0, 1],
-      [
-        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-        23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
-        42, 43, 44,
-      ],
-      [45, 46, 47, 48],
-      [49, 50, 51, 52],
-      [53, 54, 55],
-      [56, 57, 58],
-      [59, 60, 61, 62, 63, 64, 65],
-      [66, 67, 68],
-      [69, 70, 71],
-      [72, 73, 74, 75],
-      [76, 72, 73, 74, 75],
-      [77, 78],
-      [77, 78, 79, 80],
-    ],
+    [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44], [45, 46, 47, 48], [49, 50, 51, 52], [53, 54, 55], [56, 57, 58], [59, 60, 61, 62, 63, 64, 65], [66, 67, 68], [69, 70, 71], [72, 73, 74, 75], [76, 72, 73, 74, 75], [77, 78], [77, 78, 79, 80]],
     extended=false,
   )
 })
@@ -142,12 +111,5 @@ let rust_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RustLexer` (Rust).
 pub fn rust_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    rust_lexer_info,
-    options,
-    opts => rust_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, rust_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(rust_lexer_info, options, opts => rust_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rust_lexer_def.force(), text, stack))
 }

@@ -25,78 +25,14 @@ let abap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5, 10, Emit(tk_name_variable), None),
     r(6, 10, Emit(tk_keyword), None),
     r(7, 10, Emit(tk_keyword), None),
-    r(
-      8,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
-    r(
-      9,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_variable),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      10,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      None,
-    ),
-    r(
-      11,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
-    r(
-      12,
-      10,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-        Emit(tk_operator),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
+    r(8, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(9, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_name_variable), Emit(tk_punctuation)]), None),
+    r(10, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(11, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(12, 10, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_operator), Emit(tk_name_function)]), None),
     r(13, 10, Emit(tk_name_function), None),
-    r(
-      14,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_punctuation),
-        Emit(tk_literal_number_integer),
-      ]),
-      None,
-    ),
-    r(
-      15,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_name_variable)]),
-      None,
-    ),
+    r(14, 10, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_literal_number_integer)]), None),
+    r(15, 10, ByGroups([Emit(tk_keyword), Emit(tk_punctuation), Emit(tk_name_variable)]), None),
     r(16, 10, Emit(tk_keyword), None),
     r(17, 10, Emit(tk_keyword), None),
     r(18, 10, Emit(tk_keyword), None),
@@ -107,16 +43,7 @@ let abap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(23, 10, Emit(tk_operator), None),
     r(24, 10, Emit(tk_literal_string_single), None),
     r(25, 10, Emit(tk_literal_string_single), None),
-    r(
-      26,
-      10,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_single),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(26, 10, ByGroups([Emit(tk_punctuation), Emit(tk_literal_string_single), Emit(tk_punctuation)]), None),
     r(27, 10, Emit(tk_punctuation), None),
     r(28, 10, ByGroups([Emit(tk_operator), Emit(tk_name)]), None),
   ]
@@ -124,14 +51,7 @@ let abap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ABAPLexer",
     ["common", "variable-names", "root"],
     rules,
-    [
-      [0, 1, 2, 3],
-      [4, 5],
-      [
-        0, 1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-        4, 5, 23, 24, 25, 26, 27, 28,
-      ],
-    ],
+    [[0, 1, 2, 3], [4, 5], [0, 1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 4, 5, 23, 24, 25, 26, 27, 28]],
     extended=false,
   )
 })
@@ -139,14 +59,7 @@ let abap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ABAPLexer` (ABAP).
 pub fn abap_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    abap_lexer_info,
-    options,
-    opts => abap_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, abap_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(abap_lexer_info, options, opts => abap_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, abap_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -189,30 +102,15 @@ let cobol_freeformat_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     "CobolFreeformatLexer",
     ["comment", "root", "strings", "core", "nums"],
     rules,
-    [
-      [0],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-      [1, 2],
-      [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      [13, 14, 15],
-    ],
+    [[0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [13, 14, 15]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `CobolFreeformatLexer` (COBOLFree).
-pub fn cobol_freeformat_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    cobol_freeformat_lexer_info,
-    options,
-    opts => cobol_freeformat_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, cobol_freeformat_lexer_def.force(), text, stack)
-    },
-  )
+pub fn cobol_freeformat_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(cobol_freeformat_lexer_info, options, opts => cobol_freeformat_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cobol_freeformat_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -255,13 +153,7 @@ let cobol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "CobolLexer",
     ["root", "comment", "strings", "core", "nums"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-      [0],
-      [1, 2],
-      [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      [13, 14, 15],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [0], [1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [13, 14, 15]],
     extended=false,
   )
 })
@@ -269,14 +161,7 @@ let cobol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CobolLexer` (COBOL).
 pub fn cobol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    cobol_lexer_info,
-    options,
-    opts => cobol_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, cobol_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(cobol_lexer_info, options, opts => cobol_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cobol_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -323,17 +208,8 @@ let good_data_cl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GoodDataCLLexer` (GoodData-CL).
-pub fn good_data_cl_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    good_data_cl_lexer_info,
-    options,
-    opts => good_data_cl_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, good_data_cl_lexer_def.force(), text, stack)
-    },
-  )
+pub fn good_data_cl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(good_data_cl_lexer_info, options, opts => good_data_cl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, good_data_cl_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -382,14 +258,7 @@ let maql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MaqlLexer` (MAQL).
 pub fn maql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    maql_lexer_info,
-    options,
-    opts => maql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, maql_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(maql_lexer_info, options, opts => maql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, maql_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -436,26 +305,13 @@ let open_edge_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "OpenEdgeLexer",
     ["root", "comment", "preprocessor"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18],
-      [19, 20, 21],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [15, 16, 17, 18], [19, 20, 21]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `OpenEdgeLexer` (OpenEdge ABL).
-pub fn open_edge_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    open_edge_lexer_info,
-    options,
-    opts => open_edge_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, open_edge_lexer_def.force(), text, stack)
-    },
-  )
+pub fn open_edge_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(open_edge_lexer_info, options, opts => open_edge_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, open_edge_lexer_def.force(), text, stack))
 }

@@ -24,39 +24,10 @@ let typst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7331, 8, Emit(tk_generic_emph), None),
     r(715, 8, Emit(tk_punctuation), Some([Push("math")])),
     r(2891, 8, Emit(tk_literal_string_backtick), None),
-    r(
-      7332,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
-    r(
-      7333,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(7332, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
+    r(7333, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(7334, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
-    r(
-      7335,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7335, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_punctuation)]), None),
     r(7336, 8, Emit(tk_name_label), None),
     r(7337, 8, Emit(tk_name_label), None),
     r(1698, 8, Emit(tk_text), None),
@@ -65,18 +36,8 @@ let typst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7340, 8, Emit(tk_keyword_reserved), Some([Push("inline_code")])),
     r(1375, 8, Emit(tk_punctuation), Some([Push("code")])),
     r(1434, 8, Emit(tk_punctuation), Some([Push("code")])),
-    r(
-      7341,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("markup")]),
-    ),
-    r(
-      7342,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("code")]),
-    ),
+    r(7341, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("markup")])),
+    r(7342, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("code")])),
     r(7343, 8, Emit(tk_keyword_constant), None),
     r(7344, 8, Emit(tk_name_variable), None),
     r(7345, 8, Emit(tk_literal_number_hex), None),
@@ -99,16 +60,7 @@ let typst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(200, 8, Emit(tk_punctuation), None),
     r(3767, 8, Emit(tk_punctuation), None),
     r(715, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      7358,
-      8,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7358, 8, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(7359, 8, ByGroups([Emit(tk_name_variable), Emit(tk_punctuation)]), None),
     r(7360, 8, Emit(tk_name_variable), None),
     r(7361, 8, Emit(tk_literal_number), None),
@@ -124,21 +76,11 @@ let typst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4425, 8, Emit(tk_operator_word), None),
     r(7367, 8, Emit(tk_operator), None),
     r(7368, 8, ByGroups([Emit(tk_name_variable), Emit(tk_punctuation)]), None),
-    r(
-      7369,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("code")]),
-    ),
+    r(7369, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("code")])),
     r(7370, 8, Emit(tk_keyword_reserved), None),
     r(7371, 8, Emit(tk_keyword_namespace), None),
     r(7372, 8, Emit(tk_keyword_constant), None),
-    r(
-      7373,
-      8,
-      ByGroups([Emit(tk_literal_number), Emit(tk_keyword_reserved)]),
-      None,
-    ),
+    r(7373, 8, ByGroups([Emit(tk_literal_number), Emit(tk_keyword_reserved)]), None),
     r(189, 8, Emit(tk_literal_number_hex), None),
     r(1153, 8, Emit(tk_literal_number_bin), None),
     r(1154, 8, Emit(tk_literal_number_oct), None),
@@ -155,30 +97,7 @@ let typst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "TypstLexer",
     ["root", "markup", "comment", "into_code", "math", "code", "inline_code"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-      ],
-      [0, 1],
-      [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
-      [
-        0, 1, 37, 38, 39, 40, 41, 42, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-        25, 26, 27, 43, 44, 45, 46, 47, 48, 49,
-      ],
-      [
-        0, 1, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66,
-        67, 68, 69, 70, 71, 72,
-      ],
-      [
-        73, 74, 0, 1, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64,
-        65, 66, 67, 68, 69, 70, 71, 72,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [0, 1], [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [0, 1, 37, 38, 39, 40, 41, 42, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 43, 44, 45, 46, 47, 48, 49], [0, 1, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72], [73, 74, 0, 1, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]],
     extended=false,
   )
 })
@@ -186,12 +105,5 @@ let typst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TypstLexer` (Typst).
 pub fn typst_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    typst_lexer_info,
-    options,
-    opts => typst_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, typst_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(typst_lexer_info, options, opts => typst_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, typst_lexer_def.force(), text, stack))
 }

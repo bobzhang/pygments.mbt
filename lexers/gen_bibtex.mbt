@@ -22,18 +22,8 @@ let bst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(680, 10, Emit(tk_keyword), None),
     r(681, 10, Emit(tk_keyword), Some([Push("group")])),
     r(682, 10, Emit(tk_keyword), Some([Push("group"), Push("group")])),
-    r(
-      683,
-      10,
-      Emit(tk_keyword),
-      Some([Push("group"), Push("group"), Push("group")]),
-    ),
-    r(
-      245,
-      10,
-      Emit(tk_punctuation),
-      Some([Pop, Push("group-end"), Push("body")]),
-    ),
+    r(683, 10, Emit(tk_keyword), Some([Push("group"), Push("group"), Push("group")])),
+    r(245, 10, Emit(tk_punctuation), Some([Pop, Push("group-end"), Push("body")])),
     r(339, 10, Emit(tk_punctuation), Some([Pop])),
     r(684, 10, Emit(tk_name_function), None),
     r(685, 10, Emit(tk_name_builtin), None),
@@ -47,13 +37,7 @@ let bst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "BSTLexer",
     ["root", "whitespace", "group", "group-end", "body"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5],
-      [0, 1],
-      [0, 1, 6],
-      [0, 1, 7],
-      [0, 1, 8, 9, 10, 11, 12, 13, 14],
-    ],
+    [[0, 1, 2, 3, 4, 5], [0, 1], [0, 1, 6], [0, 1, 7], [0, 1, 8, 9, 10, 11, 12, 13, 14]],
     extended=false,
   )
 })
@@ -61,11 +45,7 @@ let bst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BSTLexer` (BST).
 pub fn bst_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bst_lexer_info, options, opts => bst_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, bst_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(bst_lexer_info, options, opts => bst_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bst_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -87,24 +67,9 @@ let bib_te_x_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 2, Emit(tk_text_whitespace), None),
     r(851, 2, Emit(tk_comment), None),
-    r(
-      852,
-      2,
-      Emit(tk_name_class),
-      Some([Push("closing-brace"), Push("value"), Push("opening-brace")]),
-    ),
-    r(
-      853,
-      2,
-      Emit(tk_name_class),
-      Some([Push("closing-brace"), Push("field"), Push("opening-brace")]),
-    ),
-    r(
-      854,
-      2,
-      Emit(tk_name_class),
-      Some([Push("closing-brace"), Push("command-body"), Push("opening-brace")]),
-    ),
+    r(852, 2, Emit(tk_name_class), Some([Push("closing-brace"), Push("value"), Push("opening-brace")])),
+    r(853, 2, Emit(tk_name_class), Some([Push("closing-brace"), Push("field"), Push("opening-brace")])),
+    r(854, 2, Emit(tk_name_class), Some([Push("closing-brace"), Push("command-body"), Push("opening-brace")])),
     r(855, 2, Emit(tk_comment), None),
     r(856, 2, Call("BibTeXLexer.open_brace_callback", []), Some([Pop])),
     r(857, 2, Call("BibTeXLexer.close_brace_callback", []), Some([Pop])),
@@ -129,39 +94,15 @@ let bib_te_x_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "BibTeXLexer",
-    [
-      "root", "whitespace", "opening-brace", "closing-brace", "command-body", "fields",
-      "field", "=", "value", "quoted-string", "braced-string",
-    ],
+    ["root", "whitespace", "opening-brace", "closing-brace", "command-body", "fields", "field", "=", "value", "quoted-string", "braced-string"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5],
-      [0],
-      [0, 6],
-      [0, 7],
-      [0, 8],
-      [0, 9, 10],
-      [0, 11, 12],
-      [0, 13],
-      [0, 14, 15, 16, 17, 18, 19],
-      [20, 21, 22],
-      [23, 24, 25],
-    ],
+    [[0, 1, 2, 3, 4, 5], [0], [0, 6], [0, 7], [0, 8], [0, 9, 10], [0, 11, 12], [0, 13], [0, 14, 15, 16, 17, 18, 19], [20, 21, 22], [23, 24, 25]],
     extended=true,
   )
 })
 
 ///|
 /// Creates a `BibTeXLexer` (BibTeX).
-pub fn bib_te_x_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    bib_te_x_lexer_info,
-    options,
-    opts => bib_te_x_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, bib_te_x_lexer_def.force(), text, stack)
-    },
-  )
+pub fn bib_te_x_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(bib_te_x_lexer_info, options, opts => bib_te_x_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bib_te_x_lexer_def.force(), text, stack, callbacks=bib_te_x_lexer_callbacks(lx)))
 }

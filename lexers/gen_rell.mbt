@@ -29,16 +29,7 @@ let rell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6100, 8, Emit(tk_literal_number_float), None),
     r(6101, 8, Emit(tk_literal_number_integer), None),
     r(6102, 8, Emit(tk_literal_string_binary), None),
-    r(
-      6103,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_attribute),
-      ]),
-      None,
-    ),
+    r(6103, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_attribute)]), None),
     r(6104, 8, Emit(tk_punctuation), None),
     r(6105, 8, Emit(tk_text_whitespace), None),
     r(6106, 8, Emit(tk_name_decorator), None),
@@ -53,10 +44,7 @@ let rell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "RellLexer",
     ["root", "function"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-      [19, 20, 21],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 20, 21]],
     extended=false,
   )
 })
@@ -64,12 +52,5 @@ let rell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RellLexer` (Rell).
 pub fn rell_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    rell_lexer_info,
-    options,
-    opts => rell_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, rell_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(rell_lexer_info, options, opts => rell_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rell_lexer_def.force(), text, stack))
 }

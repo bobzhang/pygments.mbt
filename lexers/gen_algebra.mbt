@@ -41,11 +41,7 @@ let bc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BCLexer` (BC).
 pub fn bc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bc_lexer_info, options, opts => bc_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, bc_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(bc_lexer_info, options, opts => bc_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bc_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -64,15 +60,8 @@ pub let gap_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `GAPConsoleLexer` (GAP session).
-pub fn gap_console_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    gap_console_lexer_info,
-    options,
-    opts => gap_console_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn gap_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(gap_console_lexer_info, options, opts => gap_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -117,11 +106,7 @@ let gap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GAPLexer` (GAP).
 pub fn gap_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gap_lexer_info, options, opts => gap_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, gap_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(gap_lexer_info, options, opts => gap_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, gap_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -131,10 +116,7 @@ pub let mathematica_lexer_info : @lexer.LexerInfo = {
   aliases: ["mathematica", "mma", "nb", "wl", "wolfram"],
   filenames: ["*.nb", "*.cdf", "*.nbp", "*.ma", "*.wl", "*.wls"],
   alias_filenames: [],
-  mimetypes: [
-    "application/mathematica", "application/vnd.wolfram.mathematica", "application/vnd.wolfram.mathematica.package",
-    "application/vnd.wolfram.cdf", "application/vnd.wolfram.wl",
-  ],
+  mimetypes: ["application/mathematica", "application/vnd.wolfram.mathematica", "application/vnd.wolfram.mathematica.package", "application/vnd.wolfram.cdf", "application/vnd.wolfram.wl"],
   priority: 0.0,
   url: "https://www.wolfram.com/language/",
   version_added: "2.0",
@@ -169,17 +151,8 @@ let mathematica_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MathematicaLexer` (Mathematica).
-pub fn mathematica_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    mathematica_lexer_info,
-    options,
-    opts => mathematica_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, mathematica_lexer_def.force(), text, stack)
-    },
-  )
+pub fn mathematica_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(mathematica_lexer_info, options, opts => mathematica_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mathematica_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -210,12 +183,7 @@ let mu_pad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4867, 8, Emit(tk_operator), None),
     r(4868, 72, Emit(tk_operator_word), None),
     r(4869, 8, Emit(tk_literal_number), None),
-    r(
-      4637,
-      72,
-      ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(4637, 72, ByGroups([Emit(tk_name_function), Emit(tk_text), Emit(tk_punctuation)]), None),
     r(4870, 72, Emit(tk_name_variable), None),
     r(2742, 8, Emit(tk_literal_number), None),
     r(2743, 8, Emit(tk_literal_number), None),
@@ -230,10 +198,7 @@ let mu_pad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "MuPADLexer",
     ["root", "comment"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-      [17, 18, 19, 20],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19, 20]],
     extended=false,
   )
 })
@@ -241,12 +206,5 @@ let mu_pad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MuPADLexer` (MuPAD).
 pub fn mu_pad_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    mu_pad_lexer_info,
-    options,
-    opts => mu_pad_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, mu_pad_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(mu_pad_lexer_info, options, opts => mu_pad_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mu_pad_lexer_def.force(), text, stack))
 }

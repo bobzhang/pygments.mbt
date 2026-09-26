@@ -24,39 +24,20 @@ let nimrod_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5019, 10, Emit(tk_literal_string_other), Some([Push("pragma")])),
     r(5020, 10, Emit(tk_operator), None),
     r(5021, 10, Emit(tk_punctuation), None),
-    r(
-      5022,
-      10,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("casebranch")]),
-    ),
+    r(5022, 10, ByGroups([Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("casebranch")])),
     r(5023, 10, Emit(tk_literal_string), Some([Push("rdqs")])),
     r(554, 10, Emit(tk_literal_string_double), Some([Push("tdqs")])),
     r(173, 10, Emit(tk_literal_string), Some([Push("dqs")])),
     r(224, 10, Emit(tk_literal_string_char), Some([Push("chars")])),
     r(5024, 10, Emit(tk_operator_word), None),
-    r(
-      5025,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
-      Some([Push("funcname")]),
-    ),
+    r(5025, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
     r(5026, 10, Emit(tk_keyword), None),
     r(5027, 10, Emit(tk_keyword_namespace), None),
     r(5028, 10, Emit(tk_keyword_declaration), None),
     r(5029, 10, Emit(tk_name_builtin), None),
     r(5030, 10, Emit(tk_keyword_pseudo), None),
     r(5031, 10, Emit(tk_name), None),
-    r(
-      5032,
-      10,
-      Emit(tk_literal_number_float),
-      Some([Push("float-suffix"), Push("float-number")]),
-    ),
+    r(5032, 10, Emit(tk_literal_number_float), Some([Push("float-suffix"), Push("float-number")])),
     r(5033, 10, Emit(tk_literal_number_hex), Some([Push("int-suffix")])),
     r(5034, 10, Emit(tk_literal_number_bin), Some([Push("int-suffix")])),
     r(5035, 10, Emit(tk_literal_number_oct), Some([Push("int-suffix")])),
@@ -106,32 +87,9 @@ let nimrod_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "NimrodLexer",
-    [
-      "root", "chars", "strings", "doccomment", "comment", "dqs", "rdqs", "tdqs",
-      "funcname", "nl", "float-number", "float-suffix", "int-suffix", "casebranch",
-      "pragma",
-    ],
+    ["root", "chars", "strings", "doccomment", "comment", "dqs", "rdqs", "tdqs", "funcname", "nl", "float-number", "float-suffix", "int-suffix", "casebranch", "pragma"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26,
-      ],
-      [27, 28, 29],
-      [30, 31, 32, 33],
-      [34, 35, 36, 37],
-      [38, 39, 40, 41],
-      [42, 43, 30, 31, 32, 33],
-      [44, 45, 30, 31, 32, 33],
-      [46, 30, 31, 32, 33, 47],
-      [48, 49],
-      [50],
-      [51, 52, 53],
-      [54, 55],
-      [56, 57, 58],
-      [59, 60, 61, 62],
-      [63, 64, 65, 66],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26], [27, 28, 29], [30, 31, 32, 33], [34, 35, 36, 37], [38, 39, 40, 41], [42, 43, 30, 31, 32, 33], [44, 45, 30, 31, 32, 33], [46, 30, 31, 32, 33, 47], [48, 49], [50], [51, 52, 53], [54, 55], [56, 57, 58], [59, 60, 61, 62], [63, 64, 65, 66]],
     extended=false,
   )
 })
@@ -139,12 +97,5 @@ let nimrod_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NimrodLexer` (Nimrod).
 pub fn nimrod_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    nimrod_lexer_info,
-    options,
-    opts => nimrod_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, nimrod_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(nimrod_lexer_info, options, opts => nimrod_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nimrod_lexer_def.force(), text, stack))
 }

@@ -75,32 +75,9 @@ let modula2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "Modula2Lexer",
-    [
-      "whitespace", "dialecttags", "identifiers", "prefixed_number_literals", "plain_number_literals",
-      "suffixed_number_literals", "string_literals", "digraph_operators", "unigraph_operators",
-      "digraph_punctuation", "unigraph_punctuation", "comments", "pragmas", "root",
-    ],
+    ["whitespace", "dialecttags", "identifiers", "prefixed_number_literals", "plain_number_literals", "suffixed_number_literals", "string_literals", "digraph_operators", "unigraph_operators", "digraph_punctuation", "unigraph_punctuation", "comments", "pragmas", "root"],
     rules,
-    [
-      [0, 1],
-      [2, 3, 4, 5, 6, 7, 8, 9],
-      [10],
-      [11, 12],
-      [13, 14, 15],
-      [16, 17, 18],
-      [19, 20],
-      [21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-      [31, 32, 33, 34, 35, 36, 37, 38, 39],
-      [40, 41, 42, 43, 44, 45, 46],
-      [47, 48, 49],
-      [50, 51, 52],
-      [53, 54],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 53, 54, 50, 51, 52, 10, 16, 17, 18, 11, 12,
-        13, 14, 15, 19, 20, 40, 41, 42, 43, 44, 45, 46, 21, 22, 23, 24, 25, 26, 27,
-        28, 29, 30, 47, 48, 49, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-      ],
-    ],
+    [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9], [10], [11, 12], [13, 14, 15], [16, 17, 18], [19, 20], [21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [31, 32, 33, 34, 35, 36, 37, 38, 39], [40, 41, 42, 43, 44, 45, 46], [47, 48, 49], [50, 51, 52], [53, 54], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 53, 54, 50, 51, 52, 10, 16, 17, 18, 11, 12, 13, 14, 15, 19, 20, 40, 41, 42, 43, 44, 45, 46, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 47, 48, 49, 31, 32, 33, 34, 35, 36, 37, 38, 39]],
     extended=false,
   )
 })
@@ -108,12 +85,5 @@ let modula2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Modula2Lexer` (Modula-2).
 pub fn modula2_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    modula2_lexer_info,
-    options,
-    opts => modula2_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, modula2_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(modula2_lexer_info, options, opts => modula2_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, modula2_lexer_def.force(), text, stack))
 }

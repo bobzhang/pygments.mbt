@@ -43,11 +43,7 @@ let mosel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "MoselLexer",
     ["root", "single_quote", "double_quote"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      [16, 17],
-      [18, 19, 20],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [16, 17], [18, 19, 20]],
     extended=false,
   )
 })
@@ -55,12 +51,5 @@ let mosel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MoselLexer` (Mosel).
 pub fn mosel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    mosel_lexer_info,
-    options,
-    opts => mosel_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, mosel_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(mosel_lexer_info, options, opts => mosel_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mosel_lexer_def.force(), text, stack))
 }

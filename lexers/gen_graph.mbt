@@ -17,140 +17,25 @@ pub let cypher_lexer_info : @lexer.LexerInfo = {
 ///|
 let cypher_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      1745,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1746,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      None,
-    ),
-    r(
-      1747,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1748,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      None,
-    ),
-    r(
-      1749,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1750,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      None,
-    ),
-    r(
-      1751,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1752,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1753,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1754,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1755,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1756,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      None,
-    ),
-    r(
-      1757,
-      10,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      1758,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      None,
-    ),
+    r(1745, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1746, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1747, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1748, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1749, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1750, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1751, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1752, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1753, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1754, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1755, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1756, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1757, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
+    r(1758, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
     r(1759, 10, Emit(tk_keyword), None),
     r(1760, 10, Emit(tk_keyword), None),
-    r(
-      1761,
-      10,
-      ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]),
-      None,
-    ),
-    r(
-      1762,
-      10,
-      ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]),
-      None,
-    ),
-    r(
-      1763,
-      10,
-      ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]),
-      None,
-    ),
+    r(1761, 10, ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]), None),
+    r(1762, 10, ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]), None),
+    r(1763, 10, ByGroups([Emit(tk_operator), Using(This, None, []), Emit(tk_operator)]), None),
     r(1764, 10, Emit(tk_operator), None),
     r(1765, 10, Emit(tk_punctuation), None),
     r(1766, 10, Emit(tk_punctuation), None),
@@ -163,24 +48,9 @@ let cypher_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "CypherLexer",
-    [
-      "root", "clauses", "keywords", "relations", "strings", "whitespace", "barewords",
-      "comment",
-    ],
+    ["root", "clauses", "keywords", "relations", "strings", "whitespace", "barewords", "comment"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-      [15],
-      [16, 17, 18, 19, 20, 21],
-      [22, 23],
-      [24],
-      [25, 26],
-      [27],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [15], [16, 17, 18, 19, 20, 21], [22, 23], [24], [25, 26], [27]],
     extended=false,
   )
 })
@@ -188,12 +58,5 @@ let cypher_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CypherLexer` (Cypher).
 pub fn cypher_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    cypher_lexer_info,
-    options,
-    opts => cypher_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, cypher_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(cypher_lexer_info, options, opts => cypher_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cypher_lexer_def.force(), text, stack))
 }

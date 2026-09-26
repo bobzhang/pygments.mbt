@@ -21,16 +21,7 @@ let qlik_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(623, 2, Emit(tk_comment_multiline), None),
     r(5922, 2, Emit(tk_literal_number_float), None),
     r(4606, 2, Emit(tk_literal_number_integer), None),
-    r(
-      5923,
-      2,
-      ByGroups([
-        Emit(tk_literal_string_interpol),
-        Emit(tk_name_variable),
-        Emit(tk_literal_string_interpol),
-      ]),
-      None,
-    ),
+    r(5923, 2, ByGroups([Emit(tk_literal_string_interpol), Emit(tk_name_variable), Emit(tk_literal_string_interpol)]), None),
     r(224, 2, Emit(tk_literal_string), Some([Pop])),
     r(5924, 2, Emit(tk_literal_string), None),
     r(715, 2, Emit(tk_literal_string), None),
@@ -38,24 +29,14 @@ let qlik_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(0, 2, Emit(tk_text_whitespace), None),
     r(506, 2, Emit(tk_comment_multiline), Some([Push("comment")])),
     r(1295, 2, Emit(tk_comment_single), None),
-    r(
-      5925,
-      2,
-      ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace)]),
-      Some([Push("assignment")]),
-    ),
+    r(5925, 2, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace)]), Some([Push("assignment")])),
     r(5926, 2, Emit(tk_operator_word), None),
     r(5927, 2, Emit(tk_keyword), None),
     r(5928, 2, Emit(tk_keyword_declaration), None),
     r(5929, 2, Emit(tk_keyword_constant), None),
     r(5930, 2, Emit(tk_name_builtin), Some([Push("function")])),
     r(173, 2, Emit(tk_literal_string_symbol), Some([Push("field_name_quote")])),
-    r(
-      144,
-      2,
-      Emit(tk_literal_string_symbol),
-      Some([Push("field_name_bracket")]),
-    ),
+    r(144, 2, Emit(tk_literal_string_symbol), Some([Push("field_name_bracket")])),
     r(224, 2, Emit(tk_literal_string), Some([Push("string")])),
     r(5931, 2, Emit(tk_operator), None),
     r(5932, 2, Emit(tk_literal_string), None),
@@ -71,26 +52,9 @@ let qlik_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "QlikLexer",
-    [
-      "comment", "numerics", "interp", "string", "assignment", "root", "field_name_quote",
-      "field_name_bracket", "function",
-    ],
+    ["comment", "numerics", "interp", "string", "assignment", "root", "field_name_quote", "field_name_bracket", "function"],
     rules,
-    [
-      [0, 1],
-      [2, 3],
-      [4],
-      [5, 4, 6, 7],
-      [
-        8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 4, 18, 19, 20, 2, 3, 21, 22, 23, 24,
-      ],
-      [9, 10, 11, 12, 13, 14, 15, 16, 17, 4, 18, 19, 20, 2, 3, 21, 22, 23, 24],
-      [25, 4, 26, 27],
-      [28, 4, 29, 30],
-      [
-        31, 9, 10, 11, 12, 13, 14, 15, 16, 17, 4, 18, 19, 20, 2, 3, 21, 22, 23, 24,
-      ],
-    ],
+    [[0, 1], [2, 3], [4], [5, 4, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 4, 18, 19, 20, 2, 3, 21, 22, 23, 24], [9, 10, 11, 12, 13, 14, 15, 16, 17, 4, 18, 19, 20, 2, 3, 21, 22, 23, 24], [25, 4, 26, 27], [28, 4, 29, 30], [31, 9, 10, 11, 12, 13, 14, 15, 16, 17, 4, 18, 19, 20, 2, 3, 21, 22, 23, 24]],
     extended=false,
   )
 })
@@ -98,12 +62,5 @@ let qlik_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `QlikLexer` (Qlik).
 pub fn qlik_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    qlik_lexer_info,
-    options,
-    opts => qlik_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, qlik_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(qlik_lexer_info, options, opts => qlik_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, qlik_lexer_def.force(), text, stack))
 }

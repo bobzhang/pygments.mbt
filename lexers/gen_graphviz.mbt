@@ -23,17 +23,7 @@ let graphviz_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2977, 10, Emit(tk_keyword), None),
     r(2978, 8, Emit(tk_operator), None),
     r(2979, 8, Emit(tk_punctuation), None),
-    r(
-      2980,
-      8,
-      ByGroups([
-        Emit(tk_name_attribute),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("attr_id")]),
-    ),
+    r(2980, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("attr_id")])),
     r(2981, 8, Emit(tk_name_builtin), None),
     r(2982, 8, Emit(tk_name_tag), None),
     r(2983, 8, Emit(tk_literal_number), None),
@@ -59,15 +49,6 @@ let graphviz_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GraphvizLexer` (Graphviz).
-pub fn graphviz_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    graphviz_lexer_info,
-    options,
-    opts => graphviz_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, graphviz_lexer_def.force(), text, stack)
-    },
-  )
+pub fn graphviz_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(graphviz_lexer_info, options, opts => graphviz_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, graphviz_lexer_def.force(), text, stack))
 }

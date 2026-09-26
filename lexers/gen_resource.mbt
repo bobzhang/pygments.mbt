@@ -21,85 +21,21 @@ let resource_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(173, 10, Emit(tk_literal_string), Some([Push("string")])),
     r(809, 10, Emit(tk_literal_number_integer), None),
     r(6109, 10, Emit(tk_operator), None),
-    r(
-      6110,
-      10,
-      ByGroups([Emit(tk_name), Emit(tk_text), Emit(tk_keyword)]),
-      None,
-    ),
+    r(6110, 10, ByGroups([Emit(tk_name), Emit(tk_text), Emit(tk_keyword)]), None),
     r(0, 10, Emit(tk_text), None),
     r(6111, 10, Emit(tk_keyword), None),
     r(6112, 10, Emit(tk_literal_string), None),
     r(245, 10, Emit(tk_literal_string_escape), Some([Push("msgname")])),
     r(173, 10, Emit(tk_literal_string), Some([Pop])),
-    r(
-      6113,
-      10,
-      ByGroups([Emit(tk_name), Emit(tk_literal_string_escape)]),
-      Some([Pop, Push("message")]),
-    ),
+    r(6113, 10, ByGroups([Emit(tk_name), Emit(tk_literal_string_escape)]), Some([Pop, Push("message")])),
     r(245, 10, Emit(tk_literal_string_escape), Some([Push("msgname")])),
     r(339, 10, Emit(tk_literal_string_escape), Some([Pop])),
-    r(
-      6114,
-      10,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_literal_string_escape),
-        Emit(tk_keyword),
-        Emit(tk_literal_string_escape),
-      ]),
-      Some([Pop]),
-    ),
-    r(
-      6115,
-      10,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_literal_string_escape),
-        Emit(tk_keyword),
-        Emit(tk_literal_string_escape),
-        Emit(tk_operator),
-        Emit(tk_literal_string_escape),
-        Emit(tk_operator_word),
-        Emit(tk_literal_string_escape),
-        Emit(tk_operator),
-        Emit(tk_literal_string_escape),
-        Emit(tk_literal_number_integer),
-        Emit(tk_literal_string_escape),
-      ]),
-      Some([Push("choice")]),
-    ),
-    r(
-      6116,
-      10,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_literal_string_escape),
-        Emit(tk_keyword),
-        Emit(tk_literal_string_escape),
-        Emit(tk_operator),
-        Emit(tk_literal_string_escape),
-      ]),
-      Some([Push("choice")]),
-    ),
+    r(6114, 10, ByGroups([Emit(tk_operator), Emit(tk_literal_string_escape), Emit(tk_keyword), Emit(tk_literal_string_escape)]), Some([Pop])),
+    r(6115, 10, ByGroups([Emit(tk_operator), Emit(tk_literal_string_escape), Emit(tk_keyword), Emit(tk_literal_string_escape), Emit(tk_operator), Emit(tk_literal_string_escape), Emit(tk_operator_word), Emit(tk_literal_string_escape), Emit(tk_operator), Emit(tk_literal_string_escape), Emit(tk_literal_number_integer), Emit(tk_literal_string_escape)]), Some([Push("choice")])),
+    r(6116, 10, ByGroups([Emit(tk_operator), Emit(tk_literal_string_escape), Emit(tk_keyword), Emit(tk_literal_string_escape), Emit(tk_operator), Emit(tk_literal_string_escape)]), Some([Push("choice")])),
     r(0, 10, Emit(tk_literal_string_escape), None),
-    r(
-      6117,
-      10,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_literal_number_integer),
-        Emit(tk_literal_string_escape),
-      ]),
-      Some([Push("message")]),
-    ),
-    r(
-      6118,
-      10,
-      ByGroups([Emit(tk_keyword_type), Emit(tk_literal_string_escape)]),
-      Some([Push("str")]),
-    ),
+    r(6117, 10, ByGroups([Emit(tk_operator), Emit(tk_literal_number_integer), Emit(tk_literal_string_escape)]), Some([Push("message")])),
+    r(6118, 10, ByGroups([Emit(tk_keyword_type), Emit(tk_literal_string_escape)]), Some([Push("str")])),
     r(339, 10, Emit(tk_literal_string_escape), Some([Pop, Pop])),
     r(0, 10, Emit(tk_literal_string_escape), None),
     r(339, 10, Emit(tk_literal_string_escape), Some([Pop])),
@@ -110,29 +46,13 @@ let resource_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ResourceLexer",
     ["root", "string", "msgname", "message", "choice", "str"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6],
-      [7, 8, 9],
-      [10],
-      [11, 12, 13, 14, 15, 16],
-      [17, 18, 19, 20],
-      [21, 22, 23],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6], [7, 8, 9], [10], [11, 12, 13, 14, 15, 16], [17, 18, 19, 20], [21, 22, 23]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ResourceLexer` (ResourceBundle).
-pub fn resource_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    resource_lexer_info,
-    options,
-    opts => resource_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, resource_lexer_def.force(), text, stack)
-    },
-  )
+pub fn resource_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(resource_lexer_info, options, opts => resource_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, resource_lexer_def.force(), text, stack))
 }

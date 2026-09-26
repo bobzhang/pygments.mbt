@@ -39,13 +39,7 @@ let meson_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "MesonLexer",
     ["root", "string", "keywords", "expr", "builtins"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-      [5, 6],
-      [7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [12, 13],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [5, 6], [7], [8, 9, 10, 11, 12, 13, 14], [12, 13]],
     extended=false,
   )
 })
@@ -53,12 +47,5 @@ let meson_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MesonLexer` (Meson).
 pub fn meson_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    meson_lexer_info,
-    options,
-    opts => meson_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, meson_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(meson_lexer_info, options, opts => meson_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, meson_lexer_def.force(), text, stack))
 }

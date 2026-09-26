@@ -31,18 +31,8 @@ let google_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2930, 2, Emit(tk_literal_date), None),
     r(2931, 2, Emit(tk_literal_date), None),
     r(2932, 2, Emit(tk_literal_date), None),
-    r(
-      224,
-      2,
-      Emit(tk_literal_string_single),
-      Some([Push("single-quoted-string")]),
-    ),
-    r(
-      173,
-      2,
-      Emit(tk_literal_string_double),
-      Some([Push("double-quoted-string")]),
-    ),
+    r(224, 2, Emit(tk_literal_string_single), Some([Push("single-quoted-string")])),
+    r(173, 2, Emit(tk_literal_string_double), Some([Push("double-quoted-string")])),
     r(2933, 2, Emit(tk_name_variable), None),
     r(2934, 2, Emit(tk_name_variable), None),
     r(2935, 2, Emit(tk_name_variable), Some([Push("single-quoted-variable")])),
@@ -50,25 +40,11 @@ let google_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2936, 2, Emit(tk_name_variable), Some([Push("backtick-quoted-variable")])),
     r(1399, 2, Emit(tk_name_variable), None),
     r(2937, 2, Emit(tk_keyword), None),
-    r(
-      2938,
-      2,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
+    r(2938, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
     r(2939, 2, Emit(tk_name_constant), None),
     r(2940, 2, Emit(tk_keyword_type), None),
     r(2941, 2, Emit(tk_keyword), None),
-    r(
-      2942,
-      2,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(2942, 2, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(2943, 2, Emit(tk_operator), None),
     r(2944, 2, Emit(tk_name), None),
     r(729, 2, Emit(tk_name_quoted), Some([Push("schema-object-name")])),
@@ -99,42 +75,17 @@ let google_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "GoogleSqlLexer",
-    [
-      "root", "multiline-comment", "single-quoted-string", "double-quoted-string",
-      "single-quoted-variable", "double-quoted-variable", "backtick-quoted-variable",
-      "schema-object-name",
-    ],
+    ["root", "multiline-comment", "single-quoted-string", "double-quoted-string", "single-quoted-variable", "double-quoted-variable", "backtick-quoted-variable", "schema-object-name"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-      ],
-      [32, 33, 34],
-      [35, 36, 37, 38],
-      [39, 40, 41, 42],
-      [43, 44, 45],
-      [46, 47, 48],
-      [49, 50, 51],
-      [52, 53, 54],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], [32, 33, 34], [35, 36, 37, 38], [39, 40, 41, 42], [43, 44, 45], [46, 47, 48], [49, 50, 51], [52, 53, 54]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `GoogleSqlLexer` (GoogleSQL).
-pub fn google_sql_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    google_sql_lexer_info,
-    options,
-    opts => google_sql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, google_sql_lexer_def.force(), text, stack)
-    },
-  )
+pub fn google_sql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(google_sql_lexer_info, options, opts => google_sql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, google_sql_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -169,18 +120,8 @@ let my_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2930, 2, Emit(tk_literal_date), None),
     r(2931, 2, Emit(tk_literal_date), None),
     r(2932, 2, Emit(tk_literal_date), None),
-    r(
-      224,
-      2,
-      Emit(tk_literal_string_single),
-      Some([Push("single-quoted-string")]),
-    ),
-    r(
-      173,
-      2,
-      Emit(tk_literal_string_double),
-      Some([Push("double-quoted-string")]),
-    ),
+    r(224, 2, Emit(tk_literal_string_single), Some([Push("single-quoted-string")])),
+    r(173, 2, Emit(tk_literal_string_double), Some([Push("double-quoted-string")])),
     r(2933, 2, Emit(tk_name_variable), None),
     r(2934, 2, Emit(tk_name_variable), None),
     r(2935, 2, Emit(tk_name_variable), Some([Push("single-quoted-variable")])),
@@ -189,25 +130,11 @@ let my_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1399, 2, Emit(tk_name_variable), None),
     r(4873, 2, Emit(tk_operator), None),
     r(2937, 2, Emit(tk_keyword), None),
-    r(
-      2938,
-      2,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
+    r(2938, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
     r(4874, 2, Emit(tk_name_constant), None),
     r(4875, 2, Emit(tk_keyword_type), None),
     r(4876, 2, Emit(tk_keyword), None),
-    r(
-      4877,
-      2,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(4877, 2, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(2944, 2, Emit(tk_name), None),
     r(729, 2, Emit(tk_name_quoted), Some([Push("schema-object-name")])),
     r(2945, 2, Emit(tk_punctuation), None),
@@ -242,26 +169,9 @@ let my_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "MySqlLexer",
-    [
-      "root", "optimizer-hints", "multiline-comment", "single-quoted-string", "double-quoted-string",
-      "single-quoted-variable", "double-quoted-variable", "backtick-quoted-variable",
-      "schema-object-name",
-    ],
+    ["root", "optimizer-hints", "multiline-comment", "single-quoted-string", "double-quoted-string", "single-quoted-variable", "double-quoted-variable", "backtick-quoted-variable", "schema-object-name"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
-      ],
-      [33, 34, 35, 36, 37],
-      [38, 39, 40],
-      [41, 42, 43, 44],
-      [45, 46, 47, 48],
-      [49, 50, 51],
-      [52, 53, 54],
-      [55, 56, 57],
-      [58, 59, 60],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], [33, 34, 35, 36, 37], [38, 39, 40], [41, 42, 43, 44], [45, 46, 47, 48], [49, 50, 51], [52, 53, 54], [55, 56, 57], [58, 59, 60]],
     extended=false,
   )
 })
@@ -269,14 +179,7 @@ let my_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MySqlLexer` (MySQL).
 pub fn my_sql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    my_sql_lexer_info,
-    options,
-    opts => my_sql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, my_sql_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(my_sql_lexer_info, options, opts => my_sql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, my_sql_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -310,18 +213,8 @@ let pl_pgsql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5549, 2, Emit(tk_name_variable), None),
     r(5550, 2, Emit(tk_literal_number_float), None),
     r(21, 2, Emit(tk_literal_number_integer), None),
-    r(
-      5551,
-      2,
-      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
-      Some([Push("string")]),
-    ),
-    r(
-      5552,
-      2,
-      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_name)]),
-      Some([Push("quoted-ident")]),
-    ),
+    r(5551, 2, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("string")])),
+    r(5552, 2, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_name)]), Some([Push("quoted-ident")])),
     r(5553, 18, Call("language_callback", []), None),
     r(207, 2, Emit(tk_name), None),
     r(5554, 2, Emit(tk_name_variable), None),
@@ -341,29 +234,15 @@ let pl_pgsql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PlPgsqlLexer",
     ["root", "multiline-comments", "string", "quoted-ident"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [20, 21, 22, 23],
-      [24, 25, 26],
-      [27, 28, 29],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [20, 21, 22, 23], [24, 25, 26], [27, 28, 29]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `PlPgsqlLexer` (PL/pgSQL).
-pub fn pl_pgsql_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    pl_pgsql_lexer_info,
-    options,
-    opts => pl_pgsql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, pl_pgsql_lexer_def.force(), text, stack)
-    },
-  )
+pub fn pl_pgsql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(pl_pgsql_lexer_info, options, opts => pl_pgsql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pl_pgsql_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -382,15 +261,8 @@ pub let postgres_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `PostgresConsoleLexer` (PostgreSQL console (psql)).
-pub fn postgres_console_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    postgres_console_lexer_info,
-    options,
-    opts => postgres_console_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn postgres_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(postgres_console_lexer_info, options, opts => postgres_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -412,152 +284,44 @@ let postgres_explain_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
   let rules = [
     r(5594, 8, Emit(tk_punctuation), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(
-      5595,
-      8,
-      ByGroups([Emit(tk_name_class), Emit(tk_punctuation)]),
-      Some([Push("instrumentation")]),
-    ),
-    r(
-      5596,
-      8,
-      ByGroups([
-        Emit(tk_name_class),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("instrumentation")]),
-    ),
+    r(5595, 8, ByGroups([Emit(tk_name_class), Emit(tk_punctuation)]), Some([Push("instrumentation")])),
+    r(5596, 8, ByGroups([Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("instrumentation")])),
     r(5597, 8, Emit(tk_comment_single), None),
     r(5598, 8, ByGroups([Emit(tk_comment_single), Emit(tk_operator)]), None),
     r(5599, 8, Emit(tk_keyword_pseudo), None),
-    r(
-      5600,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]),
-      Some([Push("sort")]),
-    ),
-    r(
-      5601,
-      8,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("object_name")]),
-    ),
-    r(
-      5602,
-      8,
-      ByGroups([
-        Emit(tk_comment),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("object_name")]),
-    ),
+    r(5600, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]), Some([Push("sort")])),
+    r(5601, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("object_name")])),
+    r(5602, 8, ByGroups([Emit(tk_comment), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("object_name")])),
     r(5603, 8, Emit(tk_comment_preproc), Some([Push("predicate")])),
     r(5604, 8, Emit(tk_comment_preproc), Some([Push("conflict")])),
     r(5605, 8, Emit(tk_comment_preproc), Some([Push("predicate")])),
-    r(
-      5606,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_number_integer),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("init_plan")]),
-    ),
+    r(5606, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_literal_number_integer), Emit(tk_text_whitespace)]), Some([Push("init_plan")])),
     r(5607, 8, Emit(tk_comment_preproc), None),
     r(5608, 8, Emit(tk_name_exception), None),
-    r(
-      5609,
-      8,
-      ByGroups([
-        Emit(tk_name_exception),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
-    r(
-      5610,
-      8,
-      ByGroups([
-        Emit(tk_name_exception),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(5609, 8, ByGroups([Emit(tk_name_exception), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
+    r(5610, 8, ByGroups([Emit(tk_name_exception), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(5611, 8, Emit(tk_keyword), None),
     r(5612, 8, Emit(tk_keyword_type), None),
     r(5613, 8, Emit(tk_comment_preproc), None),
     r(5614, 8, Emit(tk_comment_preproc), None),
     r(5615, 8, Emit(tk_comment_preproc), None),
-    r(
-      5616,
-      8,
-      ByGroups([
-        Emit(tk_comment),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-      ]),
-      None,
-    ),
+    r(5616, 8, ByGroups([Emit(tk_comment), Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
     r(5617, 8, Emit(tk_punctuation), Some([Push("object_name")])),
     r(24, 8, Emit(tk_literal_string_single), None),
     r(1046, 8, Emit(tk_literal_number_float), None),
     r(809, 8, Emit(tk_literal_number_integer), None),
     r(451, 8, Emit(tk_name_constant), None),
     r(5618, 8, Emit(tk_comment_single), None),
-    r(
-      5619,
-      8,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("setting")]),
-    ),
+    r(5619, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("setting")])),
     r(5620, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_punctuation)]), None),
     r(5621, 8, Emit(tk_keyword_pseudo), None),
-    r(
-      5622,
-      8,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(5622, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(138, 8, Emit(tk_punctuation), Some([Dup])),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
     r(5623, 8, Emit(tk_name_exception), None),
     r(5624, 8, Emit(tk_comment), None),
-    r(
-      5625,
-      8,
-      ByGroups([Emit(tk_name_class), Emit(tk_punctuation)]),
-      Some([Push("instrumentation")]),
-    ),
-    r(
-      5626,
-      8,
-      ByGroups([
-        Emit(tk_name_class),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("instrumentation")]),
-    ),
+    r(5625, 8, ByGroups([Emit(tk_name_class), Emit(tk_punctuation)]), Some([Push("instrumentation")])),
+    r(5626, 8, ByGroups([Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("instrumentation")])),
     r(138, 8, Emit(tk_punctuation), Some([Push("expression")])),
     r(5627, 8, Emit(tk_punctuation), None),
     r(5628, 8, Emit(tk_name_variable), None),
@@ -574,16 +338,7 @@ let postgres_explain_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(173, 8, Emit(tk_punctuation), None),
     r(5636, 8, Emit(tk_punctuation), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      5637,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_variable),
-        Emit(tk_punctuation),
-      ]),
-      Some([Pop]),
-    ),
+    r(5637, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_variable), Emit(tk_punctuation)]), Some([Pop])),
     r(5638, 8, Emit(tk_name_variable), Some([Pop])),
     r(5639, 8, Emit(tk_punctuation), None),
     r(4251, 8, Emit(tk_text_whitespace), None),
@@ -591,27 +346,11 @@ let postgres_explain_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
     r(1227, 8, Emit(tk_literal_number_float), None),
     r(223, 8, Emit(tk_literal_number_integer), None),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      5641,
-      8,
-      ByGroups([Emit(tk_comment_preproc), Emit(tk_name_variable)]),
-      None,
-    ),
+    r(5641, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_name_variable)]), None),
     r(5642, 8, Emit(tk_comment_preproc), Some([Push("object_name")])),
     r(5643, 8, Emit(tk_comment_preproc), Some([Push("predicate")])),
     r(5644, 8, Emit(tk_comment_preproc), Some([Push("predicate")])),
-    r(
-      5645,
-      8,
-      ByGroups([
-        Emit(tk_name_attribute),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
+    r(5645, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
     r(5646, 8, Emit(tk_punctuation), None),
     r(138, 8, Emit(tk_punctuation), None),
     r(5647, 8, Emit(tk_name_variable), None),
@@ -624,42 +363,17 @@ let postgres_explain_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
   ]
   @lexer.RegexDef::new(
     "PostgresExplainLexer",
-    [
-      "root", "expression", "object_name", "predicate", "instrumentation", "conflict",
-      "setting", "init_plan", "sort",
-    ],
+    ["root", "expression", "object_name", "predicate", "instrumentation", "conflict", "setting", "init_plan", "sort"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
-      ],
-      [34, 35, 36, 37],
-      [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55],
-      [56, 57],
-      [58, 59, 60, 61, 62, 63],
-      [64, 65, 66, 67],
-      [68, 69],
-      [70, 71, 72],
-      [73, 74, 75, 76, 77],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], [34, 35, 36, 37], [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [56, 57], [58, 59, 60, 61, 62, 63], [64, 65, 66, 67], [68, 69], [70, 71, 72], [73, 74, 75, 76, 77]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `PostgresExplainLexer` (PostgreSQL EXPLAIN dialect).
-pub fn postgres_explain_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    postgres_explain_lexer_info,
-    options,
-    opts => postgres_explain_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, postgres_explain_lexer_def.force(), text, stack)
-    },
-  )
+pub fn postgres_explain_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(postgres_explain_lexer_info, options, opts => postgres_explain_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, postgres_explain_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -689,18 +403,8 @@ let postgres_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5549, 2, Emit(tk_name_variable), None),
     r(5550, 2, Emit(tk_literal_number_float), None),
     r(21, 2, Emit(tk_literal_number_integer), None),
-    r(
-      5551,
-      2,
-      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]),
-      Some([Push("string")]),
-    ),
-    r(
-      5552,
-      2,
-      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_name)]),
-      Some([Push("quoted-ident")]),
-    ),
+    r(5551, 2, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("string")])),
+    r(5552, 2, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_name)]), Some([Push("quoted-ident")])),
     r(5553, 18, Call("language_callback", []), None),
     r(207, 2, Emit(tk_name), None),
     r(5554, 2, Emit(tk_name_variable), None),
@@ -720,29 +424,15 @@ let postgres_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "PostgresLexer",
     ["root", "multiline-comments", "string", "quoted-ident"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      [16, 17, 18, 19],
-      [20, 21, 22],
-      [23, 24, 25],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 19], [20, 21, 22], [23, 24, 25]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `PostgresLexer` (PostgreSQL SQL dialect).
-pub fn postgres_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    postgres_lexer_info,
-    options,
-    opts => postgres_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, postgres_lexer_def.force(), text, stack)
-    },
-  )
+pub fn postgres_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(postgres_lexer_info, options, opts => postgres_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, postgres_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -784,11 +474,7 @@ let rql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RqlLexer` (RQL).
 pub fn rql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(rql_lexer_info, options, opts => rql_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, rql_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(rql_lexer_info, options, opts => rql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, rql_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -836,11 +522,7 @@ let sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SqlLexer` (SQL).
 pub fn sql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sql_lexer_info, options, opts => sql_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, sql_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(sql_lexer_info, options, opts => sql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sql_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -859,15 +541,8 @@ pub let sqlite_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `SqliteConsoleLexer` (sqlite3con).
-pub fn sqlite_console_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    sqlite_console_lexer_info,
-    options,
-    opts => sqlite_console_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn sqlite_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(sqlite_console_lexer_info, options, opts => sqlite_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -894,19 +569,9 @@ let transact_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7261, 2, Emit(tk_operator_word), None),
     r(7262, 2, Emit(tk_name_class), None),
     r(7263, 2, Emit(tk_name_function), None),
-    r(
-      7264,
-      2,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_label)]),
-      None,
-    ),
+    r(7264, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_label)]), None),
     r(7265, 2, Emit(tk_keyword), None),
-    r(
-      7266,
-      2,
-      ByGroups([Emit(tk_operator), Emit(tk_name), Emit(tk_operator)]),
-      None,
-    ),
+    r(7266, 2, ByGroups([Emit(tk_operator), Emit(tk_name), Emit(tk_operator)]), None),
     r(91, 2, Emit(tk_literal_number_hex), None),
     r(2926, 2, Emit(tk_literal_number_float), None),
     r(7267, 2, Emit(tk_literal_number_float), None),
@@ -929,28 +594,13 @@ let transact_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "TransactSqlLexer",
     ["root", "multiline-comments"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [23, 24, 25, 26],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [23, 24, 25, 26]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `TransactSqlLexer` (Transact-SQL).
-pub fn transact_sql_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    transact_sql_lexer_info,
-    options,
-    opts => transact_sql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, transact_sql_lexer_def.force(), text, stack)
-    },
-  )
+pub fn transact_sql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(transact_sql_lexer_info, options, opts => transact_sql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, transact_sql_lexer_def.force(), text, stack))
 }

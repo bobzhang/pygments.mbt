@@ -38,12 +38,5 @@ let mime_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MIMELexer` (MIME).
 pub fn mime_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    mime_lexer_info,
-    options,
-    opts => mime_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, mime_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(mime_lexer_info, options, opts => mime_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mime_lexer_def.force(), text, stack))
 }

@@ -43,11 +43,7 @@ let dax_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "DaxLexer",
     ["root", "multiline-comments", "string"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-      [14, 15, 16, 17],
-      [18, 19, 20],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16, 17], [18, 19, 20]],
     extended=false,
   )
 })
@@ -55,9 +51,5 @@ let dax_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DaxLexer` (Dax).
 pub fn dax_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dax_lexer_info, options, opts => dax_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, dax_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(dax_lexer_info, options, opts => dax_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dax_lexer_def.force(), text, stack))
 }

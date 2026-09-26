@@ -48,12 +48,7 @@ let lily_pond_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4141, 24, Emit(tk_name_builtin_translator), None),
     r(4142, 24, Emit(tk_name_builtin_context), None),
     r(4143, 24, Emit(tk_name_builtin_contextproperty), None),
-    r(
-      4144,
-      24,
-      Emit(tk_name_builtin_grobproperty),
-      Some([Push("maybe-subproperties")]),
-    ),
+    r(4144, 24, Emit(tk_name_builtin_grobproperty), Some([Push("maybe-subproperties")])),
     r(4145, 24, Emit(tk_name_builtin_papervariable), None),
     r(4146, 24, Emit(tk_name_builtin_headervariable), None),
     r(4147, 24, Emit(tk_name_backslashreference), None),
@@ -87,12 +82,7 @@ let lily_pond_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(4158, 24, Emit(tk_punctuation), Some([Push("scheme-root")])),
     r(4159, 24, Emit(tk_punctuation), Some([Pop, Pop, Pop])),
     r(0, 24, Emit(tk_text_whitespace), None),
-    r(
-      4160,
-      24,
-      ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin_grobproperty)]),
-      None,
-    ),
+    r(4160, 24, ByGroups([Emit(tk_punctuation), Emit(tk_name_builtin_grobproperty)]), None),
     r(98, 0, Nop, Some([Pop])),
     r(98, 0, Nop, Some([Push("value")])),
     r(1418, 24, Emit(tk_comment_multiline), Some([Dup])),
@@ -106,42 +96,15 @@ let lily_pond_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "LilyPondLexer",
-    [
-      "root", "string", "value", "maybe-subproperties", "scheme-root", "multiline-comment",
-      "commented-form", "commented-datum",
-    ],
+    ["root", "string", "value", "maybe-subproperties", "scheme-root", "multiline-comment", "commented-form", "commented-datum"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-      ],
-      [38, 39, 40],
-      [
-        41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
-        60, 61, 62, 63,
-      ],
-      [64, 65, 66],
-      [67],
-      [68, 69, 70, 71],
-      [72, 73, 74],
-      [75],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37], [38, 39, 40], [41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], [64, 65, 66], [67], [68, 69, 70, 71], [72, 73, 74], [75]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `LilyPondLexer` (LilyPond).
-pub fn lily_pond_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    lily_pond_lexer_info,
-    options,
-    opts => lily_pond_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, lily_pond_lexer_def.force(), text, stack)
-    },
-  )
+pub fn lily_pond_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(lily_pond_lexer_info, options, opts => lily_pond_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, lily_pond_lexer_def.force(), text, stack))
 }

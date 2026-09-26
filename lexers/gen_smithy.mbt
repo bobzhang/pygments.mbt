@@ -22,55 +22,15 @@ let smithy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6660, 8, Emit(tk_name_decorator), None),
     r(6661, 8, Emit(tk_name_decorator), None),
     r(6662, 8, Emit(tk_name_decorator), None),
-    r(
-      6663,
-      8,
-      ByGroups([
-        Emit(tk_keyword_declaration),
-        Emit(tk_name_decorator),
-        Emit(tk_name_class),
-      ]),
-      None,
-    ),
-    r(
-      6664,
-      8,
-      ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_class)]),
-      None,
-    ),
-    r(
-      6665,
-      8,
-      ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_class)]),
-      None,
-    ),
-    r(
-      6666,
-      8,
-      ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_class)]),
-      None,
-    ),
-    r(
-      6667,
-      8,
-      ByGroups([
-        Emit(tk_keyword_declaration),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_class),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_decorator),
-      ]),
-      None,
-    ),
+    r(6663, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_decorator), Emit(tk_name_class)]), None),
+    r(6664, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_class)]), None),
+    r(6665, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_class)]), None),
+    r(6666, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_name_class)]), None),
+    r(6667, 8, ByGroups([Emit(tk_keyword_declaration), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_name_decorator)]), None),
     r(6668, 8, Emit(tk_keyword_constant), None),
     r(6669, 8, Emit(tk_literal_number), None),
     r(6670, 8, Emit(tk_keyword_declaration), None),
-    r(
-      6671,
-      8,
-      ByGroups([Emit(tk_name_decorator), Emit(tk_name_variable_class)]),
-      None,
-    ),
+    r(6671, 8, ByGroups([Emit(tk_name_decorator), Emit(tk_name_variable_class)]), None),
     r(6672, 8, Emit(tk_name_label), None),
     r(6673, 8, Emit(tk_name_variable_class), None),
     r(144, 8, Emit(tk_text), Some([Dup])),
@@ -89,12 +49,7 @@ let smithy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "SmithyLexer",
     ["root"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]],
     extended=false,
   )
 })
@@ -102,12 +57,5 @@ let smithy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SmithyLexer` (Smithy).
 pub fn smithy_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    smithy_lexer_info,
-    options,
-    opts => smithy_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, smithy_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(smithy_lexer_info, options, opts => smithy_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, smithy_lexer_def.force(), text, stack))
 }

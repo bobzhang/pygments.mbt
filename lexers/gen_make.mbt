@@ -21,37 +21,12 @@ let base_makefile_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(707, 8, Emit(tk_keyword), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(281, 8, Emit(tk_comment), None),
-    r(
-      708,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
-      Some([Push("export")]),
-    ),
+    r(708, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("export")])),
     r(709, 8, Emit(tk_keyword), None),
-    r(
-      710,
-      8,
-      ByGroups([
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Using(Other(opts => bash_lexer(options=opts)), None, []),
-      ]),
-      None,
-    ),
+    r(710, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_operator), Emit(tk_text_whitespace), Using(Other(opts => bash_lexer(options=opts)), None, [])]), None),
     r(92, 8, Emit(tk_literal_string_double), None),
     r(93, 8, Emit(tk_literal_string_single), None),
-    r(
-      711,
-      8,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("block-header")]),
-    ),
+    r(711, 8, ByGroups([Emit(tk_name_function), Emit(tk_operator), Emit(tk_text_whitespace)]), Some([Push("block-header")])),
     r(712, 8, Emit(tk_keyword), Some([Push("expansion")])),
     r(713, 8, Emit(tk_text), None),
     r(714, 8, Emit(tk_name_variable), None),
@@ -73,29 +48,15 @@ let base_makefile_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "BaseMakefileLexer",
     ["root", "expansion", "export", "block-header"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      [11, 12, 13, 14, 15],
-      [16, 17, 18],
-      [19, 20, 21, 22, 23, 24, 25],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18], [19, 20, 21, 22, 23, 24, 25]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `BaseMakefileLexer` (Base Makefile).
-pub fn base_makefile_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    base_makefile_lexer_info,
-    options,
-    opts => base_makefile_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, base_makefile_lexer_def.force(), text, stack)
-    },
-  )
+pub fn base_makefile_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(base_makefile_lexer_info, options, opts => base_makefile_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, base_makefile_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -115,40 +76,16 @@ pub let c_make_lexer_info : @lexer.LexerInfo = {
 ///|
 let c_make_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      1036,
-      8,
-      ByGroups([
-        Emit(tk_name_builtin),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("args")]),
-    ),
+    r(1036, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("args")])),
     r(1037, 8, Emit(tk_keyword), None),
     r(175, 8, Emit(tk_text_whitespace), None),
     r(1038, 8, Emit(tk_comment), None),
     r(722, 8, Emit(tk_comment), None),
     r(138, 8, Emit(tk_punctuation), Some([Dup])),
     r(96, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      1039,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_name_variable), Emit(tk_operator)]),
-      None,
-    ),
-    r(
-      1040,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_name_variable), Emit(tk_operator)]),
-      None,
-    ),
-    r(
-      1041,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_name_variable), Emit(tk_operator)]),
-      None,
-    ),
+    r(1039, 8, ByGroups([Emit(tk_operator), Emit(tk_name_variable), Emit(tk_operator)]), None),
+    r(1040, 8, ByGroups([Emit(tk_operator), Emit(tk_name_variable), Emit(tk_operator)]), None),
+    r(1041, 8, ByGroups([Emit(tk_operator), Emit(tk_name_variable), Emit(tk_operator)]), None),
     r(1042, 24, Emit(tk_literal_string_double), None),
     r(1043, 8, Emit(tk_literal_string), None),
     r(1044, 8, Emit(tk_literal_string_multiline), None),
@@ -159,13 +96,7 @@ let c_make_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "CMakeLexer",
     ["root", "keywords", "ws", "args", "string"],
     rules,
-    [
-      [0, 1, 2, 3, 4],
-      [1],
-      [2, 3, 4],
-      [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 2, 3, 4],
-      [],
-    ],
+    [[0, 1, 2, 3, 4], [1], [2, 3, 4], [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 2, 3, 4], []],
     extended=false,
   )
 })
@@ -173,14 +104,7 @@ let c_make_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CMakeLexer` (CMake).
 pub fn c_make_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    c_make_lexer_info,
-    options,
-    opts => c_make_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, c_make_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(c_make_lexer_info, options, opts => c_make_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, c_make_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -188,9 +112,7 @@ pub let makefile_lexer_info : @lexer.LexerInfo = {
   class_name: "MakefileLexer",
   name: "Makefile",
   aliases: ["make", "makefile", "mf", "bsdmake"],
-  filenames: [
-    "*.mak", "*.mk", "Makefile", "makefile", "Makefile.*", "GNUmakefile",
-  ],
+  filenames: ["*.mak", "*.mk", "Makefile", "makefile", "Makefile.*", "GNUmakefile"],
   alias_filenames: [],
   mimetypes: ["text/x-makefile"],
   priority: 0.0,
@@ -201,13 +123,6 @@ pub let makefile_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `MakefileLexer` (Makefile).
-pub fn makefile_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    makefile_lexer_info,
-    options,
-    opts => makefile_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn makefile_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(makefile_lexer_info, options, opts => makefile_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }

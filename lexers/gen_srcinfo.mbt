@@ -39,12 +39,5 @@ let srcinfo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SrcinfoLexer` (Srcinfo).
 pub fn srcinfo_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    srcinfo_lexer_info,
-    options,
-    opts => srcinfo_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, srcinfo_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(srcinfo_lexer_info, options, opts => srcinfo_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, srcinfo_lexer_def.force(), text, stack))
 }

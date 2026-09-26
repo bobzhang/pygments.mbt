@@ -21,26 +21,8 @@ let eiffel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(247, 8, Emit(tk_comment_single), None),
     r(2156, 10, Emit(tk_keyword_constant), None),
     r(2157, 10, Emit(tk_operator_word), None),
-    r(
-      2158,
-      10,
-      ByGroups([
-        Emit(tk_operator_word),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator_word),
-      ]),
-      None,
-    ),
-    r(
-      2159,
-      10,
-      ByGroups([
-        Emit(tk_operator_word),
-        Emit(tk_text_whitespace),
-        Emit(tk_operator_word),
-      ]),
-      None,
-    ),
+    r(2158, 10, ByGroups([Emit(tk_operator_word), Emit(tk_text_whitespace), Emit(tk_operator_word)]), None),
+    r(2159, 10, ByGroups([Emit(tk_operator_word), Emit(tk_text_whitespace), Emit(tk_operator_word)]), None),
     r(2160, 10, Emit(tk_keyword_reserved), None),
     r(2161, 8, Emit(tk_literal_string), None),
     r(2162, 8, Emit(tk_literal_string), None),
@@ -60,10 +42,7 @@ let eiffel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "EiffelLexer",
     ["root", "numbers"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [9, 10, 11, 12, 13],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [9, 10, 11, 12, 13]],
     extended=false,
   )
 })
@@ -71,12 +50,5 @@ let eiffel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EiffelLexer` (Eiffel).
 pub fn eiffel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    eiffel_lexer_info,
-    options,
-    opts => eiffel_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, eiffel_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(eiffel_lexer_info, options, opts => eiffel_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, eiffel_lexer_def.force(), text, stack))
 }

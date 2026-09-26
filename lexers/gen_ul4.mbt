@@ -17,19 +17,7 @@ pub let cssul4_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CSSUL4Lexer` (CSS+UL4).
 pub fn cssul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    cssul4_lexer_info,
-    options,
-    opts => cssul4_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        css_lexer(options=lx.options),
-        ul4_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+  @lexer.Lexer::new(cssul4_lexer_info, options, opts => cssul4_lexer(options=opts), (lx, text, _) => @lexer.delegate(css_lexer(options=lx.options), ul4_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -49,19 +37,7 @@ pub let htmlul4_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `HTMLUL4Lexer` (HTML+UL4).
 pub fn htmlul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    htmlul4_lexer_info,
-    options,
-    opts => htmlul4_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        html_lexer(options=lx.options),
-        ul4_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+  @lexer.Lexer::new(htmlul4_lexer_info, options, opts => htmlul4_lexer(options=opts), (lx, text, _) => @lexer.delegate(html_lexer(options=lx.options), ul4_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -80,22 +56,8 @@ pub let javascript_ul4_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JavascriptUL4Lexer` (Javascript+UL4).
-pub fn javascript_ul4_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    javascript_ul4_lexer_info,
-    options,
-    opts => javascript_ul4_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        javascript_lexer(options=lx.options),
-        ul4_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+pub fn javascript_ul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(javascript_ul4_lexer_info, options, opts => javascript_ul4_lexer(options=opts), (lx, text, _) => @lexer.delegate(javascript_lexer(options=lx.options), ul4_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -114,22 +76,8 @@ pub let python_ul4_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `PythonUL4Lexer` (Python+UL4).
-pub fn python_ul4_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    python_ul4_lexer_info,
-    options,
-    opts => python_ul4_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        python_lexer(options=lx.options),
-        ul4_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+pub fn python_ul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(python_ul4_lexer_info, options, opts => python_ul4_lexer(options=opts), (lx, text, _) => @lexer.delegate(python_lexer(options=lx.options), ul4_lexer(options=lx.options), text, needle=tk_other))
 }
 
 ///|
@@ -149,77 +97,17 @@ pub let ul4_lexer_info : @lexer.LexerInfo = {
 ///|
 let ul4_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      7378,
-      24,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_comment_preproc),
-      ]),
-      None,
-    ),
-    r(
-      7379,
-      24,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      Some([Push("ul4")]),
-    ),
+    r(7378, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_comment_preproc)]), None),
+    r(7379, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("ul4")])),
     r(7380, 24, Emit(tk_comment), Some([Push("note")])),
     r(7381, 24, Emit(tk_comment), None),
     r(7382, 24, Emit(tk_literal_string_doc), Some([Push("doc")])),
     r(7383, 24, Emit(tk_literal_string_doc), None),
     r(7384, 24, Emit(tk_comment), Some([Push("ignore")])),
-    r(
-      7385,
-      24,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      Some([Push("ul4")]),
-    ),
-    r(
-      7386,
-      24,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      Some([Push("ul4")]),
-    ),
-    r(
-      7387,
-      24,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      Some([Push("end")]),
-    ),
-    r(
-      7388,
-      24,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      Some([Push("whitespace")]),
-    ),
+    r(7385, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("ul4")])),
+    r(7386, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Push("ul4")])),
+    r(7387, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Push("end")])),
+    r(7388, 24, ByGroups([Emit(tk_comment_preproc), Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Push("whitespace")])),
     r(5499, 24, Emit(tk_other), None),
     r(736, 24, Emit(tk_other), None),
     r(7384, 24, Emit(tk_comment), Some([Dup])),
@@ -280,28 +168,9 @@ let ul4_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "UL4Lexer",
-    [
-      "root", "ignore", "note", "doc", "ul4", "end", "whitespace", "stringescapes",
-      "string13", "string23", "string1", "string2",
-    ],
+    ["root", "ignore", "note", "doc", "ul4", "end", "whitespace", "stringescapes", "string13", "string23", "string1", "string2"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      [13, 14, 15, 16],
-      [17, 18, 19, 20],
-      [21, 22, 23, 24],
-      [
-        25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
-        44, 45,
-      ],
-      [46, 47, 48],
-      [49, 50, 51],
-      [52, 53, 54, 55],
-      [56, 52, 53, 54, 55, 57, 58],
-      [59, 52, 53, 54, 55, 60, 61],
-      [62, 52, 53, 54, 55, 63, 64],
-      [65, 52, 53, 54, 55, 66, 67],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20], [21, 22, 23, 24], [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45], [46, 47, 48], [49, 50, 51], [52, 53, 54, 55], [56, 52, 53, 54, 55, 57, 58], [59, 52, 53, 54, 55, 60, 61], [62, 52, 53, 54, 55, 63, 64], [65, 52, 53, 54, 55, 66, 67]],
     extended=false,
   )
 })
@@ -309,11 +178,7 @@ let ul4_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `UL4Lexer` (UL4).
 pub fn ul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ul4_lexer_info, options, opts => ul4_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, ul4_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ul4_lexer_info, options, opts => ul4_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ul4_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -333,17 +198,5 @@ pub let xmlul4_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `XMLUL4Lexer` (XML+UL4).
 pub fn xmlul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    xmlul4_lexer_info,
-    options,
-    opts => xmlul4_lexer(options=opts),
-    (lx, text, _) => {
-      @lexer.delegate(
-        xml_lexer(options=lx.options),
-        ul4_lexer(options=lx.options),
-        text,
-        needle=tk_other,
-      )
-    },
-  )
+  @lexer.Lexer::new(xmlul4_lexer_info, options, opts => xmlul4_lexer(options=opts), (lx, text, _) => @lexer.delegate(xml_lexer(options=lx.options), ul4_lexer(options=lx.options), text, needle=tk_other))
 }

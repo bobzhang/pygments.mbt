@@ -23,12 +23,7 @@ let css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1713, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator)]), None),
     r(1714, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_class)]), None),
     r(1715, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_namespace)]), None),
-    r(
-      1716,
-      8,
-      ByGroups([Emit(tk_punctuation), Emit(tk_keyword)]),
-      Some([Push("atrule")]),
-    ),
+    r(1716, 8, ByGroups([Emit(tk_punctuation), Emit(tk_keyword)]), Some([Push("atrule")])),
     r(1717, 8, Emit(tk_name_tag), None),
     r(1718, 8, Emit(tk_operator), None),
     r(92, 8, Emit(tk_literal_string_double), None),
@@ -41,80 +36,17 @@ let css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(139, 8, Emit(tk_punctuation), None),
     r(1719, 8, Emit(tk_comment_preproc), None),
     r(1720, 8, Emit(tk_keyword_pseudo), None),
-    r(
-      1721,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("value-start")]),
-    ),
-    r(
-      1722,
-      8,
-      ByGroups([
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("value-start")]),
-    ),
-    r(
-      1723,
-      8,
-      ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_punctuation)]),
-      Some([Push("value-start")]),
-    ),
+    r(1721, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("value-start")])),
+    r(1722, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("value-start")])),
+    r(1723, 8, ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("value-start")])),
     r(318, 8, Emit(tk_comment), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(1720, 8, Emit(tk_name_builtin_pseudo), None),
-    r(
-      1724,
-      8,
-      ByGroups([
-        Emit(tk_name_builtin),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_double),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      1725,
-      8,
-      ByGroups([
-        Emit(tk_name_builtin),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_single),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      1726,
-      8,
-      ByGroups([
-        Emit(tk_name_builtin),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_other),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      1727,
-      8,
-      ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
-    r(
-      1728,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
+    r(1724, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation), Emit(tk_literal_string_double), Emit(tk_punctuation)]), None),
+    r(1725, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation), Emit(tk_literal_string_single), Emit(tk_punctuation)]), None),
+    r(1726, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation), Emit(tk_literal_string_other), Emit(tk_punctuation)]), None),
+    r(1727, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]), Some([Push("function-start")])),
+    r(1728, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("function-start")])),
     r(1729, 8, Emit(tk_keyword_constant), None),
     r(1730, 8, Emit(tk_keyword_constant), None),
     r(1731, 8, Emit(tk_keyword_constant), None),
@@ -137,18 +69,8 @@ let css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1729, 8, Emit(tk_keyword_constant), None),
     r(1730, 8, Emit(tk_keyword_constant), None),
     r(1731, 8, Emit(tk_keyword_constant), None),
-    r(
-      1727,
-      8,
-      ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
-    r(
-      1728,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
+    r(1727, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]), Some([Push("function-start")])),
+    r(1728, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("function-start")])),
     r(318, 8, Emit(tk_comment), None),
     r(1741, 8, Emit(tk_operator), None),
     r(100, 8, Emit(tk_punctuation), None),
@@ -162,29 +84,9 @@ let css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "CssLexer",
-    [
-      "root", "basics", "atrule", "atcontent", "content", "value-start", "urls",
-      "numeric-values", "function-start", "numeric-end",
-    ],
+    ["root", "basics", "atrule", "atcontent", "content", "value-start", "urls", "numeric-values", "function-start", "numeric-end"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      [11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13],
-      [14, 15, 16, 17, 18, 19, 20, 21, 22],
-      [
-        23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
-        42, 43, 44, 45,
-      ],
-      [25, 26, 27],
-      [36, 37, 38],
-      [
-        46, 47, 25, 26, 27, 48, 49, 50, 51, 52, 53, 54, 36, 37, 38, 55, 56, 57, 58,
-        59, 60,
-      ],
-      [61, 62, 63],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13], [14, 15, 16, 17, 18, 19, 20, 21, 22], [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45], [25, 26, 27], [36, 37, 38], [46, 47, 25, 26, 27, 48, 49, 50, 51, 52, 53, 54, 36, 37, 38, 55, 56, 57, 58, 59, 60], [61, 62, 63]],
     extended=false,
   )
 })
@@ -192,11 +94,7 @@ let css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CssLexer` (CSS).
 pub fn css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(css_lexer_info, options, opts => css_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, css_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(css_lexer_info, options, opts => css_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, css_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -225,12 +123,7 @@ let less_css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1713, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_decorator)]), None),
     r(1714, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_class)]), None),
     r(1715, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_namespace)]), None),
-    r(
-      1716,
-      8,
-      ByGroups([Emit(tk_punctuation), Emit(tk_keyword)]),
-      Some([Push("atrule")]),
-    ),
+    r(1716, 8, ByGroups([Emit(tk_punctuation), Emit(tk_keyword)]), Some([Push("atrule")])),
     r(1717, 8, Emit(tk_name_tag), None),
     r(1718, 8, Emit(tk_operator), None),
     r(92, 8, Emit(tk_literal_string_double), None),
@@ -250,82 +143,19 @@ let less_css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(139, 8, Emit(tk_punctuation), None),
     r(1719, 8, Emit(tk_comment_preproc), None),
     r(1720, 8, Emit(tk_keyword_pseudo), None),
-    r(
-      1721,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("value-start")]),
-    ),
-    r(
-      1722,
-      8,
-      ByGroups([
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("value-start")]),
-    ),
-    r(
-      1723,
-      8,
-      ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_punctuation)]),
-      Some([Push("value-start")]),
-    ),
+    r(1721, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("value-start")])),
+    r(1722, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("value-start")])),
+    r(1723, 8, ByGroups([Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("value-start")])),
     r(318, 8, Emit(tk_comment), None),
     r(1295, 8, Emit(tk_comment_single), None),
     r(318, 8, Emit(tk_comment_multiline), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(1720, 8, Emit(tk_name_builtin_pseudo), None),
-    r(
-      1724,
-      8,
-      ByGroups([
-        Emit(tk_name_builtin),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_double),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      1725,
-      8,
-      ByGroups([
-        Emit(tk_name_builtin),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_single),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      1726,
-      8,
-      ByGroups([
-        Emit(tk_name_builtin),
-        Emit(tk_punctuation),
-        Emit(tk_literal_string_other),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      1727,
-      8,
-      ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
-    r(
-      1728,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
+    r(1724, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation), Emit(tk_literal_string_double), Emit(tk_punctuation)]), None),
+    r(1725, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation), Emit(tk_literal_string_single), Emit(tk_punctuation)]), None),
+    r(1726, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation), Emit(tk_literal_string_other), Emit(tk_punctuation)]), None),
+    r(1727, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]), Some([Push("function-start")])),
+    r(1728, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("function-start")])),
     r(1729, 8, Emit(tk_keyword_constant), None),
     r(1730, 8, Emit(tk_keyword_constant), None),
     r(1731, 8, Emit(tk_keyword_constant), None),
@@ -350,18 +180,8 @@ let less_css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1729, 8, Emit(tk_keyword_constant), None),
     r(1730, 8, Emit(tk_keyword_constant), None),
     r(1731, 8, Emit(tk_keyword_constant), None),
-    r(
-      1727,
-      8,
-      ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
-    r(
-      1728,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("function-start")]),
-    ),
+    r(1727, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_punctuation)]), Some([Push("function-start")])),
+    r(1728, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("function-start")])),
     r(318, 8, Emit(tk_comment), None),
     r(1741, 8, Emit(tk_operator), None),
     r(100, 8, Emit(tk_punctuation), None),
@@ -375,46 +195,17 @@ let less_css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "LessCssLexer",
-    [
-      "root", "basics", "atcontent", "atrule", "content", "value-start", "urls",
-      "numeric-values", "function-start", "numeric-end",
-    ],
+    ["root", "basics", "atcontent", "atrule", "content", "value-start", "urls", "numeric-values", "function-start", "numeric-end"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-      [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-      [14, 15, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16],
-      [17, 18, 19, 20, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-      [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-      [
-        33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-        52, 53, 54, 55, 56, 57,
-      ],
-      [37, 38, 39],
-      [48, 49, 50],
-      [
-        58, 59, 60, 61, 37, 38, 39, 62, 63, 64, 65, 66, 67, 68, 48, 49, 50, 69, 70,
-        71, 72, 73, 74,
-      ],
-      [75, 76, 77],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16], [17, 18, 19, 20, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57], [37, 38, 39], [48, 49, 50], [58, 59, 60, 61, 37, 38, 39, 62, 63, 64, 65, 66, 67, 68, 48, 49, 50, 69, 70, 71, 72, 73, 74], [75, 76, 77]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `LessCssLexer` (LessCss).
-pub fn less_css_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    less_css_lexer_info,
-    options,
-    opts => less_css_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, less_css_lexer_def.force(), text, stack)
-    },
-  )
+pub fn less_css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(less_css_lexer_info, options, opts => less_css_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, less_css_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -436,51 +227,18 @@ let sass_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(3015, 10, Emit(tk_text_whitespace), None),
     r(3016, 10, Call("_indentation", []), None),
-    r(
-      6397,
-      10,
-      Call("_starts_block", [Str("single-comment"), Tok(tk_comment_single)]),
-      Some([Push("root")]),
-    ),
-    r(
-      6398,
-      10,
-      Call("_starts_block", [Str("multi-comment"), Tok(tk_comment_multiline)]),
-      Some([Push("root")]),
-    ),
+    r(6397, 10, Call("_starts_block", [Str("single-comment"), Tok(tk_comment_single)]), Some([Push("root")])),
+    r(6398, 10, Call("_starts_block", [Str("multi-comment"), Tok(tk_comment_multiline)]), Some([Push("root")])),
     r(6399, 10, Emit(tk_keyword), Some([Push("import")])),
     r(6400, 10, Emit(tk_keyword), Some([Push("for")])),
     r(6401, 10, Emit(tk_keyword), Some([Push("value")])),
-    r(
-      6402,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      Some([Push("value")]),
-    ),
-    r(
-      6403,
-      10,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_decorator),
-      ]),
-      Some([Push("value")]),
-    ),
+    r(6402, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), Some([Push("value")])),
+    r(6403, 10, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_decorator)]), Some([Push("value")])),
     r(6404, 10, Emit(tk_keyword), Some([Push("selector")])),
     r(6405, 10, Emit(tk_keyword), Some([Push("selector")])),
     r(6406, 10, Emit(tk_name_function), Some([Push("value")])),
     r(6407, 10, Emit(tk_name_decorator), Some([Push("value")])),
-    r(
-      6408,
-      10,
-      ByGroups([Emit(tk_name_variable), Emit(tk_operator)]),
-      Some([Push("value")]),
-    ),
+    r(6408, 10, ByGroups([Emit(tk_name_variable), Emit(tk_operator)]), Some([Push("value")])),
     r(333, 10, Emit(tk_name_attribute), Some([Push("old-style-attr")])),
     r(6409, 10, Emit(tk_name_attribute), Some([Push("new-style-attr")])),
     r(98, 0, Nop, Some([Push("selector")])),
@@ -493,21 +251,11 @@ let sass_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(264, 10, Emit(tk_text_whitespace), Some([Push("root")])),
     r(6410, 10, Emit(tk_name_attribute), None),
     r(1375, 10, Emit(tk_literal_string_interpol), Some([Push("interpolation")])),
-    r(
-      6411,
-      10,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_operator)]),
-      Some([Push("value")]),
-    ),
+    r(6411, 10, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator)]), Some([Push("value")])),
     r(98, 0, Nop, Some([Push("value")])),
     r(6410, 10, Emit(tk_name_attribute), None),
     r(1375, 10, Emit(tk_literal_string_interpol), Some([Push("interpolation")])),
-    r(
-      6412,
-      10,
-      ByGroups([Emit(tk_text_whitespace), Emit(tk_operator)]),
-      Some([Push("value")]),
-    ),
+    r(6412, 10, ByGroups([Emit(tk_text_whitespace), Emit(tk_operator)]), Some([Push("value")])),
     r(6413, 10, Emit(tk_comment_multiline), None),
     r(1375, 10, Emit(tk_literal_string_interpol), Some([Push("interpolation")])),
     r(524, 10, Emit(tk_comment), Some([Pop])),
@@ -524,18 +272,8 @@ let sass_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(506, 10, Emit(tk_comment_multiline), Some([Push("inline-comment")])),
     r(6397, 10, Emit(tk_comment_single), None),
     r(6421, 10, Emit(tk_literal_number_hex), None),
-    r(
-      6422,
-      10,
-      ByGroups([Emit(tk_literal_number_integer), Emit(tk_keyword_type)]),
-      None,
-    ),
-    r(
-      6423,
-      10,
-      ByGroups([Emit(tk_literal_number_float), Emit(tk_keyword_type)]),
-      None,
-    ),
+    r(6422, 10, ByGroups([Emit(tk_literal_number_integer), Emit(tk_keyword_type)]), None),
+    r(6423, 10, ByGroups([Emit(tk_literal_number_float), Emit(tk_keyword_type)]), None),
     r(1375, 10, Emit(tk_literal_string_interpol), Some([Push("interpolation")])),
     r(6424, 10, Emit(tk_operator), None),
     r(6425, 10, Emit(tk_punctuation), None),
@@ -578,41 +316,9 @@ let sass_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "SassLexer",
-    [
-      "root", "content", "single-comment", "multi-comment", "import", "old-style-attr",
-      "new-style-attr", "inline-comment", "value", "interpolation", "selector", "string-double",
-      "string-single", "string-url", "pseudo-class", "class", "id", "for",
-    ],
+    ["root", "content", "single-comment", "multi-comment", "import", "old-style-attr", "new-style-attr", "inline-comment", "value", "interpolation", "selector", "string-double", "string-single", "string-url", "pseudo-class", "class", "id", "for"],
     rules,
-    [
-      [0, 1],
-      [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-      [17, 18],
-      [19, 20],
-      [21, 22, 23],
-      [24, 25, 26, 27],
-      [28, 29, 30],
-      [31, 32, 33],
-      [
-        34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,
-        53, 54, 55,
-      ],
-      [
-        56, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-        52, 53, 54, 55,
-      ],
-      [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68],
-      [69, 70, 71],
-      [72, 73, 74],
-      [75, 76, 77],
-      [78, 79, 80],
-      [81, 82, 83],
-      [84, 85, 86],
-      [
-        87, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-        52, 53, 54, 55,
-      ],
-    ],
+    [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18], [19, 20], [21, 22, 23], [24, 25, 26, 27], [28, 29, 30], [31, 32, 33], [34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [56, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55], [57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68], [69, 70, 71], [72, 73, 74], [75, 76, 77], [78, 79, 80], [81, 82, 83], [84, 85, 86], [87, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55]],
     extended=true,
   )
 })
@@ -620,14 +326,7 @@ let sass_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SassLexer` (Sass).
 pub fn sass_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    sass_lexer_info,
-    options,
-    opts => sass_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, sass_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(sass_lexer_info, options, opts => sass_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sass_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -653,32 +352,12 @@ let scss_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6399, 18, Emit(tk_keyword), Some([Push("value")])),
     r(6400, 18, Emit(tk_keyword), Some([Push("for")])),
     r(6401, 18, Emit(tk_keyword), Some([Push("value")])),
-    r(
-      6526,
-      18,
-      ByGroups([Emit(tk_keyword), Emit(tk_name_function)]),
-      Some([Push("value")]),
-    ),
-    r(
-      6527,
-      18,
-      ByGroups([Emit(tk_keyword), Emit(tk_name_decorator)]),
-      Some([Push("value")]),
-    ),
+    r(6526, 18, ByGroups([Emit(tk_keyword), Emit(tk_name_function)]), Some([Push("value")])),
+    r(6527, 18, ByGroups([Emit(tk_keyword), Emit(tk_name_decorator)]), Some([Push("value")])),
     r(6404, 18, Emit(tk_keyword), Some([Push("selector")])),
-    r(
-      6528,
-      18,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
-      Some([Push("value")]),
-    ),
+    r(6528, 18, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("value")])),
     r(6405, 18, Emit(tk_keyword), Some([Push("selector")])),
-    r(
-      6529,
-      18,
-      ByGroups([Emit(tk_name_variable), Emit(tk_operator)]),
-      Some([Push("value")]),
-    ),
+    r(6529, 18, ByGroups([Emit(tk_name_variable), Emit(tk_operator)]), Some([Push("value")])),
     r(98, 0, Nop, Some([Push("selector")])),
     r(6410, 18, Emit(tk_name_attribute), None),
     r(1375, 18, Emit(tk_literal_string_interpol), Some([Push("interpolation")])),
@@ -700,18 +379,8 @@ let scss_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(506, 18, Emit(tk_comment_multiline), Some([Push("inline-comment")])),
     r(6397, 18, Emit(tk_comment_single), None),
     r(6421, 18, Emit(tk_literal_number_hex), None),
-    r(
-      6422,
-      18,
-      ByGroups([Emit(tk_literal_number_integer), Emit(tk_keyword_type)]),
-      None,
-    ),
-    r(
-      6423,
-      18,
-      ByGroups([Emit(tk_literal_number_float), Emit(tk_keyword_type)]),
-      None,
-    ),
+    r(6422, 18, ByGroups([Emit(tk_literal_number_integer), Emit(tk_keyword_type)]), None),
+    r(6423, 18, ByGroups([Emit(tk_literal_number_float), Emit(tk_keyword_type)]), None),
     r(1375, 18, Emit(tk_literal_string_interpol), Some([Push("interpolation")])),
     r(6424, 18, Emit(tk_operator), None),
     r(6425, 18, Emit(tk_punctuation), None),
@@ -756,35 +425,9 @@ let scss_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "ScssLexer",
-    [
-      "root", "attr", "inline-comment", "value", "interpolation", "selector", "string-double",
-      "string-single", "string-url", "pseudo-class", "class", "id", "for",
-    ],
+    ["root", "attr", "inline-comment", "value", "interpolation", "selector", "string-double", "string-single", "string-url", "pseudo-class", "class", "id", "for"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      [13, 14, 15, 16],
-      [17, 18, 19],
-      [
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
-        39, 40, 41, 42,
-      ],
-      [
-        43, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-        38, 39, 40, 41, 42,
-      ],
-      [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56],
-      [57, 58, 59],
-      [60, 61, 62],
-      [63, 64, 65],
-      [66, 67, 68],
-      [69, 70, 71],
-      [72, 73, 74],
-      [
-        75, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-        38, 39, 40, 41, 42,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19], [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], [43, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56], [57, 58, 59], [60, 61, 62], [63, 64, 65], [66, 67, 68], [69, 70, 71], [72, 73, 74], [75, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]],
     extended=false,
   )
 })
@@ -792,12 +435,5 @@ let scss_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ScssLexer` (SCSS).
 pub fn scss_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    scss_lexer_info,
-    options,
-    opts => scss_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, scss_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(scss_lexer_info, options, opts => scss_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, scss_lexer_def.force(), text, stack))
 }

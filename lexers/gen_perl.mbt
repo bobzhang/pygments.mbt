@@ -5,10 +5,7 @@ pub let perl6_lexer_info : @lexer.LexerInfo = {
   class_name: "Perl6Lexer",
   name: "Perl6",
   aliases: ["perl6", "pl6", "raku"],
-  filenames: [
-    "*.pl", "*.pm", "*.nqp", "*.p6", "*.6pl", "*.p6l", "*.pl6", "*.6pm", "*.p6m",
-    "*.pm6", "*.t", "*.raku", "*.rakumod", "*.rakutest", "*.rakudoc",
-  ],
+  filenames: ["*.pl", "*.pm", "*.nqp", "*.p6", "*.6pl", "*.p6l", "*.pl6", "*.6pm", "*.p6m", "*.pm6", "*.t", "*.raku", "*.rakumod", "*.rakutest", "*.rakudoc"],
   alias_filenames: [],
   mimetypes: ["text/x-perl6", "application/x-perl6"],
   priority: 0.0,
@@ -20,39 +17,14 @@ pub let perl6_lexer_info : @lexer.LexerInfo = {
 ///|
 let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      5386,
-      24,
-      Call("Perl6Lexer.brackets_callback", [Tok(tk_comment_multiline)]),
-      None,
-    ),
+    r(5386, 24, Call("Perl6Lexer.brackets_callback", [Tok(tk_comment_multiline)]), None),
     r(5387, 24, Emit(tk_comment_single), None),
     r(5388, 24, Emit(tk_comment_multiline), None),
     r(5389, 24, Emit(tk_comment_multiline), None),
     r(5390, 24, Emit(tk_comment_multiline), None),
-    r(
-      5391,
-      24,
-      ByGroups([Emit(tk_keyword), Emit(tk_name)]),
-      Some([Push("token-sym-brackets")]),
-    ),
-    r(
-      5392,
-      24,
-      ByGroups([Emit(tk_keyword), Emit(tk_name)]),
-      Some([Push("pre-token")]),
-    ),
-    r(
-      5393,
-      24,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(5391, 24, ByGroups([Emit(tk_keyword), Emit(tk_name)]), Some([Push("token-sym-brackets")])),
+    r(5392, 24, ByGroups([Emit(tk_keyword), Emit(tk_name)]), Some([Push("pre-token")])),
+    r(5393, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace)]), None),
     r(5394, 24, Emit(tk_keyword), None),
     r(5395, 24, Emit(tk_name_builtin), None),
     r(5396, 24, Emit(tk_name_builtin), None),
@@ -61,12 +33,7 @@ let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5399, 24, Emit(tk_name_variable_global), None),
     r(5400, 24, Emit(tk_name_variable_global), None),
     r(5401, 24, Emit(tk_name_variable), None),
-    r(
-      5402,
-      24,
-      Call("Perl6Lexer.brackets_callback", [Tok(tk_literal_string)]),
-      None,
-    ),
+    r(5402, 24, Call("Perl6Lexer.brackets_callback", [Tok(tk_literal_string)]), None),
     r(5403, 24, Emit(tk_literal_number_oct), None),
     r(5404, 24, Emit(tk_literal_number_hex), None),
     r(3744, 24, Emit(tk_literal_number_bin), None),
@@ -76,12 +43,7 @@ let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5407, 24, Emit(tk_literal_string_regex), None),
     r(5408, 24, Emit(tk_literal_string_regex), None),
     r(5409, 24, Emit(tk_name), None),
-    r(
-      5410,
-      24,
-      Call("Perl6Lexer.brackets_callback", [Tok(tk_literal_string_regex)]),
-      None,
-    ),
+    r(5410, 24, Call("Perl6Lexer.brackets_callback", [Tok(tk_literal_string_regex)]), None),
     r(5411, 24, Emit(tk_literal_string_regex), None),
     r(5412, 24, Emit(tk_literal_string), None),
     r(5413, 24, Emit(tk_operator), None),
@@ -93,12 +55,7 @@ let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5415, 24, Emit(tk_text), None),
     r(245, 24, Emit(tk_text), Some([Pop, Push("token")])),
     r(5415, 24, Emit(tk_text), None),
-    r(
-      5416,
-      24,
-      Call("Perl6Lexer.brackets_callback", [Tok(tk_name)]),
-      Some([Pop, Push("pre-token")]),
-    ),
+    r(5416, 24, Call("Perl6Lexer.brackets_callback", [Tok(tk_name)]), Some([Pop, Push("pre-token")])),
     r(98, 0, Nop, Some([Pop, Push("pre-token")])),
     r(339, 24, Emit(tk_text), Some([Pop])),
     r(5417, 24, Using(This, None, []), None),
@@ -113,22 +70,7 @@ let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "Perl6Lexer",
     ["common", "root", "pre-token", "token-sym-brackets", "token"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 36, 37,
-      ],
-      [38, 39],
-      [40, 41, 42, 43, 44, 45, 46, 47],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 36, 37], [38, 39], [40, 41, 42, 43, 44, 45, 46, 47]],
     extended=true,
   )
 })
@@ -136,14 +78,7 @@ let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Perl6Lexer` (Perl6).
 pub fn perl6_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    perl6_lexer_info,
-    options,
-    opts => perl6_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, perl6_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(perl6_lexer_info, options, opts => perl6_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, perl6_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -177,19 +112,7 @@ let perl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5431, 24, Emit(tk_comment_single), None),
     r(5432, 24, Emit(tk_comment_multiline), None),
     r(5433, 24, Emit(tk_keyword), None),
-    r(
-      5434,
-      24,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      Some([Push("format")]),
-    ),
+    r(5434, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), Some([Push("format")])),
     r(5435, 24, Emit(tk_operator_word), None),
     r(5436, 24, Emit(tk_literal_string_regex), None),
     r(5437, 24, Emit(tk_literal_string_regex), None),
@@ -206,19 +129,7 @@ let perl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(0, 24, Emit(tk_text_whitespace), None),
     r(5447, 24, Emit(tk_name_builtin), None),
     r(5448, 24, Emit(tk_name_builtin_pseudo), None),
-    r(
-      5449,
-      24,
-      ByGroups([
-        Emit(tk_literal_string),
-        Emit(tk_literal_string),
-        Emit(tk_literal_string_delimiter),
-        Emit(tk_literal_string),
-        Emit(tk_literal_string_delimiter),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(5449, 24, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string), Emit(tk_literal_string_delimiter), Emit(tk_literal_string), Emit(tk_literal_string_delimiter), Emit(tk_text_whitespace)]), None),
     r(1551, 24, Emit(tk_comment_preproc), Some([Push("end-part")])),
     r(5450, 24, Emit(tk_name_variable_global), None),
     r(5451, 24, Emit(tk_name_variable_global), None),
@@ -238,32 +149,9 @@ let perl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5456, 24, Emit(tk_literal_string_other), Some([Push("sb-string")])),
     r(5457, 24, Emit(tk_literal_string_other), Some([Push("lt-string")])),
     r(5458, 24, Emit(tk_literal_string_other), None),
-    r(
-      5459,
-      24,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-      ]),
-      None,
-    ),
-    r(
-      5460,
-      24,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-      ]),
-      None,
-    ),
-    r(
-      5461,
-      24,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]),
-      Some([Push("funcname")]),
-    ),
+    r(5459, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace)]), None),
+    r(5460, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace)]), None),
+    r(5461, 24, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace)]), Some([Push("funcname")])),
     r(5462, 24, Emit(tk_keyword), None),
     r(5463, 24, Emit(tk_operator), None),
     r(5464, 24, Emit(tk_operator), None),
@@ -283,12 +171,7 @@ let perl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5475, 24, Emit(tk_text), Some([Pop])),
     r(5476, 24, Emit(tk_name_function), None),
     r(0, 24, Emit(tk_text_whitespace), None),
-    r(
-      5477,
-      24,
-      ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]),
-      None,
-    ),
+    r(5477, 24, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(139, 24, Emit(tk_punctuation), Some([Pop])),
     r(5478, 24, Emit(tk_punctuation), Some([Pop])),
     r(5479, 24, Emit(tk_literal_string_other), None),
@@ -315,28 +198,9 @@ let perl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "PerlLexer",
-    [
-      "balanced-regex", "root", "format", "varname", "name", "funcname", "cb-string",
-      "rb-string", "sb-string", "lt-string", "end-part",
-    ],
+    ["balanced-regex", "root", "format", "varname", "name", "funcname", "cb-string", "rb-string", "sb-string", "lt-string", "end-part"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-      [
-        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-        29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
-        48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
-      ],
-      [59, 60],
-      [61, 62, 63, 64, 65],
-      [66, 67, 68, 69, 70],
-      [71, 72, 73, 74, 75],
-      [76, 77, 78, 79, 80],
-      [81, 82, 83, 84, 85],
-      [86, 87, 88, 89, 90],
-      [91, 92, 93, 94, 95],
-      [96],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58], [59, 60], [61, 62, 63, 64, 65], [66, 67, 68, 69, 70], [71, 72, 73, 74, 75], [76, 77, 78, 79, 80], [81, 82, 83, 84, 85], [86, 87, 88, 89, 90], [91, 92, 93, 94, 95], [96]],
     extended=false,
   )
 })
@@ -344,12 +208,5 @@ let perl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PerlLexer` (Perl).
 pub fn perl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    perl_lexer_info,
-    options,
-    opts => perl_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, perl_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(perl_lexer_info, options, opts => perl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, perl_lexer_def.force(), text, stack))
 }

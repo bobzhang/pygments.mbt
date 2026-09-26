@@ -19,23 +19,9 @@ let xorg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text), None),
     r(627, 8, Emit(tk_comment), None),
-    r(
-      8093,
-      8,
-      ByGroups([
-        Emit(tk_literal_string_escape),
-        Emit(tk_text),
-        Emit(tk_literal_string_escape),
-      ]),
-      None,
-    ),
+    r(8093, 8, ByGroups([Emit(tk_literal_string_escape), Emit(tk_text), Emit(tk_literal_string_escape)]), None),
     r(8094, 8, Emit(tk_literal_string_escape), None),
-    r(
-      8095,
-      8,
-      ByGroups([Emit(tk_name_builtin), Emit(tk_text), Emit(tk_name_constant)]),
-      None,
-    ),
+    r(8095, 8, ByGroups([Emit(tk_name_builtin), Emit(tk_text), Emit(tk_name_constant)]), None),
   ]
   @lexer.RegexDef::new(
     "XorgLexer",
@@ -49,12 +35,5 @@ let xorg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `XorgLexer` (Xorg).
 pub fn xorg_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    xorg_lexer_info,
-    options,
-    opts => xorg_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, xorg_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(xorg_lexer_info, options, opts => xorg_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, xorg_lexer_def.force(), text, stack))
 }

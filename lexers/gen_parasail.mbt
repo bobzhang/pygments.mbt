@@ -42,25 +42,13 @@ let para_sail_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ParaSailLexer",
     ["root", "numbers"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [9, 10, 11, 12, 13, 14],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [9, 10, 11, 12, 13, 14]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ParaSailLexer` (ParaSail).
-pub fn para_sail_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    para_sail_lexer_info,
-    options,
-    opts => para_sail_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, para_sail_lexer_def.force(), text, stack)
-    },
-  )
+pub fn para_sail_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(para_sail_lexer_info, options, opts => para_sail_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, para_sail_lexer_def.force(), text, stack))
 }

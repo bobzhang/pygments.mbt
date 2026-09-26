@@ -41,12 +41,5 @@ let igor_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `IgorLexer` (Igor).
 pub fn igor_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    igor_lexer_info,
-    options,
-    opts => igor_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, igor_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(igor_lexer_info, options, opts => igor_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, igor_lexer_def.force(), text, stack))
 }

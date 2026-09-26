@@ -41,44 +41,20 @@ let ambient_talk_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(279, 24, Emit(tk_name_function), Some([Pop])),
     r(280, 24, Emit(tk_name_class), Some([Pop])),
     r(194, 24, Emit(tk_punctuation), Some([Pop])),
-    r(
-      208,
-      24,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(208, 24, ByGroups([Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(274, 24, Emit(tk_name_variable), None),
   ]
   @lexer.RegexDef::new(
     "AmbientTalkLexer",
     ["root", "numbers", "namespace", "annotations", "arglist"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-      [17, 18],
-      [19, 20, 21],
-      [22],
-      [23, 24, 25],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [17, 18], [19, 20, 21], [22], [23, 24, 25]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `AmbientTalkLexer` (AmbientTalk).
-pub fn ambient_talk_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    ambient_talk_lexer_info,
-    options,
-    opts => ambient_talk_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, ambient_talk_lexer_def.force(), text, stack)
-    },
-  )
+pub fn ambient_talk_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(ambient_talk_lexer_info, options, opts => ambient_talk_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ambient_talk_lexer_def.force(), text, stack))
 }

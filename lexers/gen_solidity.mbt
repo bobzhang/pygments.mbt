@@ -23,37 +23,9 @@ let solidity_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(1951, 8, Emit(tk_comment_multiline), None),
     r(422, 8, Emit(tk_comment_multiline), None),
     r(6701, 8, Emit(tk_keyword), Some([Push("pragma")])),
-    r(
-      6702,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_entity),
-      ]),
-      None,
-    ),
-    r(
-      6703,
-      8,
-      ByGroups([
-        Emit(tk_keyword_type),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_name_variable),
-      ]),
-      None,
-    ),
-    r(
-      6704,
-      8,
-      ByGroups([
-        Emit(tk_keyword_type),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-      ]),
-      None,
-    ),
+    r(6702, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_entity)]), None),
+    r(6703, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_name_variable)]), None),
+    r(6704, 8, ByGroups([Emit(tk_keyword_type), Emit(tk_text_whitespace), Emit(tk_name_variable)]), None),
     r(6705, 8, Emit(tk_keyword), None),
     r(6706, 8, Emit(tk_keyword_type), None),
     r(6707, 8, Emit(tk_name_builtin), None),
@@ -65,40 +37,20 @@ let solidity_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(274, 8, Emit(tk_text), None),
     r(411, 8, Emit(tk_operator), None),
     r(6712, 8, Emit(tk_punctuation), None),
-    r(
-      6713,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword)]),
-      None,
-    ),
+    r(6713, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword)]), None),
     r(139, 8, Emit(tk_punctuation), Some([Pop])),
   ]
   @lexer.RegexDef::new(
     "SolidityLexer",
     ["root", "whitespace", "comments", "constants", "pragma"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [0, 1],
-      [2, 3, 4],
-      [13, 14, 15, 16],
-      [0, 1, 2, 3, 4, 20, 21],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [0, 1], [2, 3, 4], [13, 14, 15, 16], [0, 1, 2, 3, 4, 20, 21]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `SolidityLexer` (Solidity).
-pub fn solidity_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    solidity_lexer_info,
-    options,
-    opts => solidity_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, solidity_lexer_def.force(), text, stack)
-    },
-  )
+pub fn solidity_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(solidity_lexer_info, options, opts => solidity_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, solidity_lexer_def.force(), text, stack))
 }

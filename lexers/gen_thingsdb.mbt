@@ -32,35 +32,11 @@ let things_db_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(267, 8, Emit(tk_keyword_constant), None),
     r(7192, 8, Emit(tk_name_constant), None),
     r(7193, 8, Emit(tk_literal_string_regex), None),
-    r(
-      7194,
-      8,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_name_function),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("arguments")]),
-    ),
-    r(
-      7195,
-      8,
-      ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]),
-      Some([Push("arguments")]),
-    ),
-    r(
-      7196,
-      8,
-      ByGroups([Emit(tk_name_attribute), Emit(tk_text), Emit(tk_operator)]),
-      None,
-    ),
+    r(7194, 8, ByGroups([Emit(tk_name_function), Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("arguments")])),
+    r(7195, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), Some([Push("arguments")])),
+    r(7196, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_text), Emit(tk_operator)]), None),
     r(7197, 8, Emit(tk_name_attribute), None),
-    r(
-      7198,
-      8,
-      ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_operator)]),
-      None,
-    ),
+    r(7198, 8, ByGroups([Emit(tk_name_variable), Emit(tk_text), Emit(tk_operator)]), None),
     r(7199, 8, Emit(tk_name_variable), None),
     r(7200, 8, Emit(tk_punctuation), None),
     r(6293, 8, Emit(tk_operator), None),
@@ -74,43 +50,15 @@ let things_db_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "ThingsDBLexer",
-    [
-      "root", "expression", "comments", "whitespace", "names", "comment", "arguments",
-    ],
+    ["root", "expression", "comments", "whitespace", "names", "comment", "arguments"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [0, 1],
-      [2, 3],
-      [15, 16, 17, 18, 19, 20],
-      [23, 24, 25, 26],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 27, 28, 29,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [0, 1], [2, 3], [15, 16, 17, 18, 19, 20], [23, 24, 25, 26], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 27, 28, 29]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ThingsDBLexer` (ThingsDB).
-pub fn things_db_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    things_db_lexer_info,
-    options,
-    opts => things_db_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, things_db_lexer_def.force(), text, stack)
-    },
-  )
+pub fn things_db_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(things_db_lexer_info, options, opts => things_db_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, things_db_lexer_def.force(), text, stack))
 }

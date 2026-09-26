@@ -51,27 +51,13 @@ let urbiscript_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "UrbiscriptLexer",
     ["root", "string.double", "string.single", "comment"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      [21, 22],
-      [23, 24],
-      [25, 26, 27, 28],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [21, 22], [23, 24], [25, 26, 27, 28]],
     extended=true,
   )
 })
 
 ///|
 /// Creates a `UrbiscriptLexer` (UrbiScript).
-pub fn urbiscript_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    urbiscript_lexer_info,
-    options,
-    opts => urbiscript_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, urbiscript_lexer_def.force(), text, stack)
-    },
-  )
+pub fn urbiscript_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(urbiscript_lexer_info, options, opts => urbiscript_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, urbiscript_lexer_def.force(), text, stack))
 }

@@ -19,12 +19,7 @@ let bugs_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text), None),
     r(627, 8, Emit(tk_comment_single), None),
-    r(
-      988,
-      8,
-      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(988, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_punctuation)]), None),
     r(989, 8, Emit(tk_keyword_reserved), None),
     r(990, 8, Emit(tk_name_builtin), None),
     r(991, 8, Emit(tk_name), None),
@@ -46,14 +41,7 @@ let bugs_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BugsLexer` (BUGS).
 pub fn bugs_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    bugs_lexer_info,
-    options,
-    opts => bugs_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, bugs_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(bugs_lexer_info, options, opts => bugs_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bugs_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -77,12 +65,7 @@ let jags_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(3554, 8, Emit(tk_name), None),
     r(2524, 24, Emit(tk_comment_multiline), None),
     r(627, 8, Emit(tk_comment_single), None),
-    r(
-      3555,
-      8,
-      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(3555, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_punctuation)]), None),
     r(3556, 8, Emit(tk_keyword_declaration), None),
     r(989, 8, Emit(tk_keyword_reserved), None),
     r(3557, 8, Emit(tk_name_builtin), None),
@@ -104,14 +87,7 @@ let jags_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JagsLexer` (JAGS).
 pub fn jags_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    jags_lexer_info,
-    options,
-    opts => jags_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, jags_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(jags_lexer_info, options, opts => jags_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, jags_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -161,30 +137,15 @@ let modelica_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ModelicaLexer",
     ["whitespace", "root", "class", "package-prefix", "string"],
     rules,
-    [
-      [0, 1, 2],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-      [0, 1, 2, 15, 16, 17, 18],
-      [0, 1, 2, 19, 20],
-      [21, 22, 23, 24],
-    ],
+    [[0, 1, 2], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [0, 1, 2, 15, 16, 17, 18], [0, 1, 2, 19, 20], [21, 22, 23, 24]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `ModelicaLexer` (Modelica).
-pub fn modelica_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    modelica_lexer_info,
-    options,
-    opts => modelica_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, modelica_lexer_def.force(), text, stack)
-    },
-  )
+pub fn modelica_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(modelica_lexer_info, options, opts => modelica_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, modelica_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -208,53 +169,17 @@ let stan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(2524, 24, Emit(tk_comment_multiline), None),
     r(6769, 8, Emit(tk_comment_single), None),
     r(128, 8, Emit(tk_literal_string), None),
-    r(
-      6770,
-      8,
-      ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_punctuation)]),
-      None,
-    ),
+    r(6770, 8, ByGroups([Emit(tk_keyword_namespace), Emit(tk_text), Emit(tk_punctuation)]), None),
     r(6771, 8, Emit(tk_keyword), None),
     r(6772, 8, Emit(tk_keyword), None),
     r(6773, 8, Emit(tk_keyword), None),
     r(6774, 8, Emit(tk_keyword), None),
     r(6775, 8, Emit(tk_keyword_type), None),
-    r(
-      6776,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      6777,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(6776, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(6777, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(6778, 8, Emit(tk_punctuation), None),
     r(6779, 8, Emit(tk_name_builtin), None),
-    r(
-      6780,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_builtin),
-      ]),
-      None,
-    ),
+    r(6780, 8, ByGroups([Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_name_builtin)]), None),
     r(6781, 8, Emit(tk_name_builtin_pseudo), None),
     r(6782, 8, Emit(tk_keyword_reserved), None),
     r(6783, 8, Emit(tk_name_function), None),
@@ -274,14 +199,7 @@ let stan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "StanLexer",
     ["whitespace", "comments", "root"],
     rules,
-    [
-      [0],
-      [1, 2],
-      [
-        3, 1, 2, 0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 28,
-      ],
-    ],
+    [[0], [1, 2], [3, 1, 2, 0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]],
     extended=false,
   )
 })
@@ -289,12 +207,5 @@ let stan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `StanLexer` (Stan).
 pub fn stan_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    stan_lexer_info,
-    options,
-    opts => stan_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, stan_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(stan_lexer_info, options, opts => stan_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, stan_lexer_def.force(), text, stack))
 }

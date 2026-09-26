@@ -17,16 +17,7 @@ pub let limbo_lexer_info : @lexer.LexerInfo = {
 ///|
 let limbo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      4163,
-      8,
-      ByGroups([
-        Emit(tk_text_whitespace),
-        Emit(tk_name_label),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(4163, 8, ByGroups([Emit(tk_text_whitespace), Emit(tk_name_label), Emit(tk_text_whitespace)]), None),
     r(264, 8, Emit(tk_text_whitespace), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(4164, 8, Emit(tk_comment_single), None),
@@ -55,13 +46,7 @@ let limbo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "LimboLexer",
     ["whitespace", "string", "statements", "statement", "root"],
     rules,
-    [
-      [0, 1, 2, 3],
-      [4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      [0, 1, 2, 3, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
-      [0, 1, 2, 3, 23],
-    ],
+    [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [0, 1, 2, 3, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [0, 1, 2, 3, 23]],
     extended=false,
   )
 })
@@ -69,12 +54,5 @@ let limbo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LimboLexer` (Limbo).
 pub fn limbo_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    limbo_lexer_info,
-    options,
-    opts => limbo_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, limbo_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(limbo_lexer_info, options, opts => limbo_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, limbo_lexer_def.force(), text, stack))
 }

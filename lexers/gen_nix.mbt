@@ -64,20 +64,7 @@ let nix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "NixLexer",
     ["root", "comment", "multiline", "doublequote", "antiquote", "block"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      [21, 22, 23, 24],
-      [25, 26, 27, 28, 29, 30, 31],
-      [32, 33, 34, 35, 36, 37, 38],
-      [
-        39, 40, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20,
-      ],
-      [
-        41, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [21, 22, 23, 24], [25, 26, 27, 28, 29, 30, 31], [32, 33, 34, 35, 36, 37, 38], [39, 40, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [41, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]],
     extended=false,
   )
 })
@@ -85,9 +72,5 @@ let nix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NixLexer` (Nix).
 pub fn nix_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(nix_lexer_info, options, opts => nix_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, nix_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(nix_lexer_info, options, opts => nix_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nix_lexer_def.force(), text, stack))
 }

@@ -43,10 +43,7 @@ let fox_pro_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "FoxProLexer",
     ["root", "newline"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      [16, 17, 18, 19, 20],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 19, 20]],
     extended=false,
   )
 })
@@ -54,12 +51,5 @@ let fox_pro_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FoxProLexer` (FoxPro).
 pub fn fox_pro_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    fox_pro_lexer_info,
-    options,
-    opts => fox_pro_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, fox_pro_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(fox_pro_lexer_info, options, opts => fox_pro_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, fox_pro_lexer_def.force(), text, stack))
 }

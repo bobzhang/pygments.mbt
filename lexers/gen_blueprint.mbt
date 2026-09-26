@@ -17,154 +17,25 @@ pub let blueprint_lexer_info : @lexer.LexerInfo = {
 ///|
 let blueprint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      921,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      922,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("brace-block")]),
-    ),
-    r(
-      923,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("brace-block")]),
-    ),
-    r(
-      924,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("paren-block")]),
-    ),
+    r(921, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace), Emit(tk_text_whitespace), Emit(tk_name_namespace), Emit(tk_punctuation)]), None),
+    r(922, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("brace-block")])),
+    r(923, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("brace-block")])),
+    r(924, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("paren-block")])),
     r(925, 2, Emit(tk_keyword_declaration), Some([Push("template")])),
-    r(
-      926,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("bracket-block")]),
-    ),
-    r(
-      927,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("brace-block")]),
-    ),
-    r(
-      928,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("paren-content")]),
-    ),
+    r(926, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("bracket-block")])),
+    r(927, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("brace-block")])),
+    r(928, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("paren-content")])),
     r(144, 2, Emit(tk_punctuation), Some([Push("child-type")])),
-    r(
-      929,
-      2,
-      ByGroups([
-        Emit(tk_name_property),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("statement")]),
-    ),
+    r(929, 2, ByGroups([Emit(tk_name_property), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("statement")])),
     r(0, 2, Emit(tk_text_whitespace), None),
     r(81, 2, Emit(tk_comment_single), None),
     r(506, 2, Emit(tk_comment_multiline), Some([Push("comment-multiline")])),
     r(930, 2, Emit(tk_keyword), None),
-    r(
-      931,
-      2,
-      ByGroups([
-        Emit(tk_name_function_builtin),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("paren-content")]),
-    ),
-    r(
-      932,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("typeof")]),
-    ),
-    r(
-      933,
-      2,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("paren-content")]),
-    ),
-    r(
-      934,
-      2,
-      ByGroups([
-        Emit(tk_name_class),
-        Emit(tk_name_namespace),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_class),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("brace-block")]),
-    ),
-    r(
-      935,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("typeof")]),
-    ),
+    r(931, 2, ByGroups([Emit(tk_name_function_builtin), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("paren-content")])),
+    r(932, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("typeof")])),
+    r(933, 2, ByGroups([Emit(tk_name_function), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("paren-content")])),
+    r(934, 2, ByGroups([Emit(tk_name_class), Emit(tk_name_namespace), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_class), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("brace-block")])),
+    r(935, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation)]), Some([Push("typeof")])),
     r(936, 2, Emit(tk_keyword_constant), None),
     r(937, 2, Emit(tk_name_variable), None),
     r(194, 2, Emit(tk_operator), None),
@@ -175,18 +46,7 @@ let blueprint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(939, 2, Emit(tk_literal_number), None),
     r(940, 2, Emit(tk_punctuation), None),
     r(941, 2, Emit(tk_name_class), None),
-    r(
-      942,
-      2,
-      ByGroups([
-        Emit(tk_name_namespace),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_class),
-      ]),
-      None,
-    ),
+    r(942, 2, ByGroups([Emit(tk_name_namespace), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
     r(524, 2, Emit(tk_comment_multiline), Some([Pop])),
     r(623, 2, Emit(tk_comment_multiline), None),
     r(71, 2, Emit(tk_comment_multiline), None),
@@ -196,19 +56,7 @@ let blueprint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(151, 2, Emit(tk_punctuation), Some([Pop])),
     r(339, 2, Emit(tk_punctuation), Some([Pop])),
     r(139, 2, Emit(tk_punctuation), Some([Pop])),
-    r(
-      944,
-      2,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_attribute),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-      ]),
-      None,
-    ),
+    r(944, 2, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_attribute), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace)]), None),
     r(945, 2, Emit(tk_keyword), None),
     r(937, 2, Emit(tk_name_decorator), None),
     r(174, 2, Emit(tk_punctuation), None),
@@ -218,63 +66,15 @@ let blueprint_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "BlueprintLexer",
-    [
-      "root", "block-content", "content", "whitespace", "value", "type", "comment-multiline",
-      "typeof", "paren-block", "paren-content", "bracket-block", "brace-block", "statement",
-      "child-type", "template",
-    ],
+    ["root", "block-content", "content", "whitespace", "value", "type", "comment-multiline", "typeof", "paren-block", "paren-content", "bracket-block", "brace-block", "statement", "child-type", "template"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ],
-      [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
-      [10, 11, 12],
-      [18, 19, 20, 21, 22, 23, 24, 25, 26],
-      [28, 29],
-      [30, 31, 32],
-      [10, 11, 12, 28, 29, 33],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 34,
-      ],
-      [
-        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 35,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 36,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27, 37,
-      ],
-      [
-        10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 38,
-      ],
-      [10, 11, 12, 39, 40, 41, 18, 19, 20, 21, 22, 23, 24, 25, 26, 42, 43],
-      [10, 11, 12, 28, 29, 44, 45],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [10, 11, 12], [18, 19, 20, 21, 22, 23, 24, 25, 26], [28, 29], [30, 31, 32], [10, 11, 12, 28, 29, 33], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 34], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 35], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 36], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 37], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 38], [10, 11, 12, 39, 40, 41, 18, 19, 20, 21, 22, 23, 24, 25, 26, 42, 43], [10, 11, 12, 28, 29, 44, 45]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `BlueprintLexer` (Blueprint).
-pub fn blueprint_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    blueprint_lexer_info,
-    options,
-    opts => blueprint_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, blueprint_lexer_def.force(), text, stack)
-    },
-  )
+pub fn blueprint_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(blueprint_lexer_info, options, opts => blueprint_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, blueprint_lexer_def.force(), text, stack))
 }

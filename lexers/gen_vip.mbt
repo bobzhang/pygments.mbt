@@ -59,38 +59,17 @@ let visual_prolog_grammar_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy((
   ]
   @lexer.RegexDef::new(
     "VisualPrologGrammarLexer",
-    [
-      "root", "commentdoc", "commentline", "comment", "stringescape", "stringsingle",
-      "string", "atstring",
-    ],
+    ["root", "commentdoc", "commentline", "comment", "stringescape", "stringsingle", "string", "atstring"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [20, 21],
-      [20, 21, 22, 23],
-      [20, 21, 24, 25, 26, 27],
-      [28, 29],
-      [28, 29, 30, 31, 32],
-      [28, 29, 33, 34, 35],
-      [36, 37, 38],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [20, 21], [20, 21, 22, 23], [20, 21, 24, 25, 26, 27], [28, 29], [28, 29, 30, 31, 32], [28, 29, 33, 34, 35], [36, 37, 38]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `VisualPrologGrammarLexer` (Visual Prolog Grammar).
-pub fn visual_prolog_grammar_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    visual_prolog_grammar_lexer_info,
-    options,
-    opts => visual_prolog_grammar_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, visual_prolog_grammar_lexer_def.force(), text, stack)
-    },
-  )
+pub fn visual_prolog_grammar_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(visual_prolog_grammar_lexer_info, options, opts => visual_prolog_grammar_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, visual_prolog_grammar_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -153,36 +132,15 @@ let visual_prolog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "VisualPrologLexer",
-    [
-      "root", "commentdoc", "commentline", "comment", "stringescape", "stringsingle",
-      "string", "atstring",
-    ],
+    ["root", "commentdoc", "commentline", "comment", "stringescape", "stringsingle", "string", "atstring"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      [21, 22],
-      [21, 22, 23, 24],
-      [21, 22, 25, 26, 27, 28],
-      [29, 30],
-      [29, 30, 31, 32, 33],
-      [29, 30, 34, 35, 36],
-      [37, 38, 39],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [21, 22], [21, 22, 23, 24], [21, 22, 25, 26, 27, 28], [29, 30], [29, 30, 31, 32, 33], [29, 30, 34, 35, 36], [37, 38, 39]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `VisualPrologLexer` (Visual Prolog).
-pub fn visual_prolog_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    visual_prolog_lexer_info,
-    options,
-    opts => visual_prolog_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, visual_prolog_lexer_def.force(), text, stack)
-    },
-  )
+pub fn visual_prolog_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(visual_prolog_lexer_info, options, opts => visual_prolog_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, visual_prolog_lexer_def.force(), text, stack))
 }

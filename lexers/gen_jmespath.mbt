@@ -23,22 +23,8 @@ let jmes_path_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(199, 8, Emit(tk_name_variable), None),
     r(556, 8, Emit(tk_name_variable), None),
     r(76, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      3529,
-      8,
-      ByGroups([Emit(tk_name_variable), Emit(tk_punctuation)]),
-      Some([Push("dq-identifier")]),
-    ),
-    r(
-      3530,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_name_variable),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(3529, 8, ByGroups([Emit(tk_name_variable), Emit(tk_punctuation)]), Some([Push("dq-identifier")])),
+    r(3530, 8, ByGroups([Emit(tk_punctuation), Emit(tk_name_variable), Emit(tk_punctuation)]), None),
     r(3531, 8, Emit(tk_operator), None),
     r(665, 8, Emit(tk_name_variable_global), None),
     r(3532, 8, ByGroups([Emit(tk_name_function), Emit(tk_punctuation)]), None),
@@ -52,34 +38,15 @@ let jmes_path_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "JMESPathLexer",
-    [
-      "string", "punctuation", "ws", "dq-identifier", "identifier", "root", "literal",
-    ],
+    ["string", "punctuation", "ws", "dq-identifier", "identifier", "root", "literal"],
     rules,
-    [
-      [0],
-      [1],
-      [2],
-      [3, 4, 5],
-      [6, 7],
-      [2, 0, 8, 1, 9, 10, 11, 6, 7, 12, 13],
-      [2, 0, 1, 14, 6, 7, 15, 16, 17],
-    ],
+    [[0], [1], [2], [3, 4, 5], [6, 7], [2, 0, 8, 1, 9, 10, 11, 6, 7, 12, 13], [2, 0, 1, 14, 6, 7, 15, 16, 17]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `JMESPathLexer` (JMESPath).
-pub fn jmes_path_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    jmes_path_lexer_info,
-    options,
-    opts => jmes_path_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, jmes_path_lexer_def.force(), text, stack)
-    },
-  )
+pub fn jmes_path_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(jmes_path_lexer_info, options, opts => jmes_path_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, jmes_path_lexer_def.force(), text, stack))
 }

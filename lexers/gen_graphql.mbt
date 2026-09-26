@@ -51,27 +51,9 @@ let graph_ql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(144, 8, Emit(tk_punctuation), None),
     r(2972, 8, Emit(tk_name_builtin), Some([Pop])),
     r(274, 8, Emit(tk_name_class), Some([Pop])),
-    r(
-      2973,
-      8,
-      ByGroups([
-        Emit(tk_name_label),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(2973, 8, ByGroups([Emit(tk_name_label), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(274, 8, Emit(tk_name), None),
-    r(
-      2974,
-      8,
-      ByGroups([
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-      ]),
-      Some([Push("inline_fragment")]),
-    ),
+    r(2974, 8, ByGroups([Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_keyword)]), Some([Push("inline_fragment")])),
     r(195, 8, Emit(tk_punctuation), Some([Push("fragment_spread")])),
     r(138, 8, Emit(tk_punctuation), Some([Push("arguments")])),
     r(275, 8, Emit(tk_name_decorator), Some([Push("directive")])),
@@ -94,44 +76,15 @@ let graph_ql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "GraphQLLexer",
-    [
-      "ignored_tokens", "value", "list_value", "object_value", "string", "root",
-      "operation", "variable_definition", "type", "selection_set", "directive", "arguments",
-      "fragment_definition", "fragment_spread", "inline_fragment",
-    ],
+    ["ignored_tokens", "value", "list_value", "object_value", "string", "root", "operation", "variable_definition", "type", "selection_set", "directive", "arguments", "fragment_definition", "fragment_spread", "inline_fragment"],
     rules,
-    [
-      [0, 1, 2],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      [0, 1, 2, 11, 12],
-      [0, 1, 2, 13, 14, 15],
-      [16, 17, 18],
-      [0, 1, 2, 19, 20, 21, 22],
-      [0, 1, 2, 23, 24, 25],
-      [0, 1, 2, 26, 27, 28, 29, 30],
-      [0, 1, 2, 31, 32, 33],
-      [0, 1, 2, 34, 35, 36, 37, 38, 39, 40, 41],
-      [0, 1, 2, 42],
-      [0, 1, 2, 43, 44, 45],
-      [0, 1, 2, 46, 47, 48, 49, 50],
-      [0, 1, 2, 51, 52],
-      [0, 1, 2, 53, 54, 55],
-    ],
+    [[0, 1, 2], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 1, 2, 11, 12], [0, 1, 2, 13, 14, 15], [16, 17, 18], [0, 1, 2, 19, 20, 21, 22], [0, 1, 2, 23, 24, 25], [0, 1, 2, 26, 27, 28, 29, 30], [0, 1, 2, 31, 32, 33], [0, 1, 2, 34, 35, 36, 37, 38, 39, 40, 41], [0, 1, 2, 42], [0, 1, 2, 43, 44, 45], [0, 1, 2, 46, 47, 48, 49, 50], [0, 1, 2, 51, 52], [0, 1, 2, 53, 54, 55]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `GraphQLLexer` (GraphQL).
-pub fn graph_ql_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    graph_ql_lexer_info,
-    options,
-    opts => graph_ql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, graph_ql_lexer_def.force(), text, stack)
-    },
-  )
+pub fn graph_ql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(graph_ql_lexer_info, options, opts => graph_ql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, graph_ql_lexer_def.force(), text, stack))
 }

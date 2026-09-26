@@ -22,16 +22,7 @@ let sh_ex_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6542, 8, Emit(tk_keyword), None),
     r(6543, 8, Emit(tk_name_label), None),
     r(6544, 8, Emit(tk_name_label), None),
-    r(
-      6545,
-      8,
-      ByGroups([
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-      ]),
-      None,
-    ),
+    r(6545, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation), Emit(tk_name_tag)]), None),
     r(4454, 8, Emit(tk_keyword_constant), None),
     r(6546, 8, Emit(tk_literal_number_float), None),
     r(6547, 8, Emit(tk_literal_number_float), None),
@@ -40,30 +31,10 @@ let sh_ex_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6550, 10, Emit(tk_operator_word), None),
     r(6551, 8, Emit(tk_punctuation), None),
     r(6218, 8, Emit(tk_comment), None),
-    r(
-      554,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("triple-double-quoted-string")]),
-    ),
-    r(
-      173,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("single-double-quoted-string")]),
-    ),
-    r(
-      1027,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("triple-single-quoted-string")]),
-    ),
-    r(
-      224,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("single-single-quoted-string")]),
-    ),
+    r(554, 8, Emit(tk_literal_string), Some([Push("triple-double-quoted-string")])),
+    r(173, 8, Emit(tk_literal_string), Some([Push("single-double-quoted-string")])),
+    r(1027, 8, Emit(tk_literal_string), Some([Push("triple-single-quoted-string")])),
+    r(224, 8, Emit(tk_literal_string), Some([Push("single-single-quoted-string")])),
     r(554, 8, Emit(tk_literal_string), Some([Push("end-of-string")])),
     r(3805, 8, Emit(tk_literal_string), None),
     r(200, 8, Emit(tk_literal_string), Some([Push("string-escape")])),
@@ -78,31 +49,15 @@ let sh_ex_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(200, 8, Emit(tk_literal_string), Some([Push("string-escape")])),
     r(6553, 8, Emit(tk_literal_string_escape), Some([Pop])),
     r(76, 8, Emit(tk_literal_string_escape), Some([Pop])),
-    r(
-      6554,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_name_function)]),
-      Some([Pop, Pop]),
-    ),
+    r(6554, 8, ByGroups([Emit(tk_operator), Emit(tk_name_function)]), Some([Pop, Pop])),
     r(6555, 8, Emit(tk_operator), Some([Pop, Pop])),
     r(98, 0, Nop, Some([Pop, Pop])),
   ]
   @lexer.RegexDef::new(
     "ShExCLexer",
-    [
-      "root", "triple-double-quoted-string", "single-double-quoted-string", "triple-single-quoted-string",
-      "single-single-quoted-string", "string-escape", "end-of-string",
-    ],
+    ["root", "triple-double-quoted-string", "single-double-quoted-string", "triple-single-quoted-string", "single-single-quoted-string", "string-escape", "end-of-string"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-      [18, 19, 20],
-      [21, 22, 23],
-      [24, 25, 26],
-      [27, 28, 29],
-      [30, 31],
-      [32, 33, 34],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], [18, 19, 20], [21, 22, 23], [24, 25, 26], [27, 28, 29], [30, 31], [32, 33, 34]],
     extended=false,
   )
 })
@@ -110,14 +65,7 @@ let sh_ex_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ShExCLexer` (ShExC).
 pub fn sh_ex_c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    sh_ex_c_lexer_info,
-    options,
-    opts => sh_ex_c_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, sh_ex_c_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(sh_ex_c_lexer_info, options, opts => sh_ex_c_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sh_ex_c_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -143,16 +91,7 @@ let sparql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6731, 8, Emit(tk_name_label), None),
     r(6544, 8, Emit(tk_name_label), None),
     r(6732, 8, Emit(tk_name_variable), None),
-    r(
-      6733,
-      8,
-      ByGroups([
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-      ]),
-      None,
-    ),
+    r(6733, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation), Emit(tk_name_tag)]), None),
     r(6734, 10, Emit(tk_name_function), None),
     r(4454, 8, Emit(tk_keyword_constant), None),
     r(6546, 8, Emit(tk_literal_number_float), None),
@@ -161,30 +100,10 @@ let sparql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6735, 8, Emit(tk_operator), None),
     r(6551, 8, Emit(tk_punctuation), None),
     r(6218, 8, Emit(tk_comment), None),
-    r(
-      554,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("triple-double-quoted-string")]),
-    ),
-    r(
-      173,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("single-double-quoted-string")]),
-    ),
-    r(
-      1027,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("triple-single-quoted-string")]),
-    ),
-    r(
-      224,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("single-single-quoted-string")]),
-    ),
+    r(554, 8, Emit(tk_literal_string), Some([Push("triple-double-quoted-string")])),
+    r(173, 8, Emit(tk_literal_string), Some([Push("single-double-quoted-string")])),
+    r(1027, 8, Emit(tk_literal_string), Some([Push("triple-single-quoted-string")])),
+    r(224, 8, Emit(tk_literal_string), Some([Push("single-single-quoted-string")])),
     r(554, 8, Emit(tk_literal_string), Some([Push("end-of-string")])),
     r(3805, 8, Emit(tk_literal_string), None),
     r(200, 8, Emit(tk_literal_string), Some([Push("string-escape")])),
@@ -200,31 +119,15 @@ let sparql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6736, 8, Emit(tk_literal_string_escape), Some([Pop])),
     r(6737, 8, Emit(tk_literal_string_escape), Some([Pop])),
     r(76, 8, Emit(tk_literal_string_escape), Some([Pop])),
-    r(
-      6554,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_name_function)]),
-      Some([Pop, Pop]),
-    ),
+    r(6554, 8, ByGroups([Emit(tk_operator), Emit(tk_name_function)]), Some([Pop, Pop])),
     r(6555, 8, Emit(tk_operator), Some([Pop, Pop])),
     r(98, 0, Nop, Some([Pop, Pop])),
   ]
   @lexer.RegexDef::new(
     "SparqlLexer",
-    [
-      "root", "triple-double-quoted-string", "single-double-quoted-string", "triple-single-quoted-string",
-      "single-single-quoted-string", "string-escape", "end-of-string",
-    ],
+    ["root", "triple-double-quoted-string", "single-double-quoted-string", "triple-single-quoted-string", "single-single-quoted-string", "string-escape", "end-of-string"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-      [19, 20, 21],
-      [22, 23, 24],
-      [25, 26, 27],
-      [28, 29, 30],
-      [31, 32, 33],
-      [34, 35, 36],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], [19, 20, 21], [22, 23, 24], [25, 26, 27], [28, 29, 30], [31, 32, 33], [34, 35, 36]],
     extended=false,
   )
 })
@@ -232,14 +135,7 @@ let sparql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SparqlLexer` (SPARQL).
 pub fn sparql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    sparql_lexer_info,
-    options,
-    opts => sparql_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, sparql_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(sparql_lexer_info, options, opts => sparql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, sparql_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -260,84 +156,22 @@ pub let turtle_lexer_info : @lexer.LexerInfo = {
 let turtle_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(0, 8, Emit(tk_text), None),
-    r(
-      7278,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
-    r(
-      7279,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_variable),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7278, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
+    r(7279, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace), Emit(tk_text_whitespace), Emit(tk_name_variable), Emit(tk_text_whitespace), Emit(tk_punctuation)]), None),
     r(7280, 8, Emit(tk_keyword_type), None),
     r(7281, 8, Emit(tk_name_variable), None),
-    r(
-      6733,
-      8,
-      ByGroups([
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-      ]),
-      None,
-    ),
-    r(
-      7282,
-      8,
-      ByGroups([
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Emit(tk_name_tag),
-      ]),
-      None,
-    ),
+    r(6733, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation), Emit(tk_name_tag)]), None),
+    r(7282, 8, ByGroups([Emit(tk_name_namespace), Emit(tk_punctuation), Emit(tk_name_tag)]), None),
     r(7283, 8, Emit(tk_comment), None),
     r(1292, 8, Emit(tk_literal), None),
     r(7284, 8, Emit(tk_literal_number_float), None),
     r(7285, 8, Emit(tk_literal_number_float), None),
     r(6548, 8, Emit(tk_literal_number_integer), None),
     r(7286, 8, Emit(tk_punctuation), None),
-    r(
-      554,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("triple-double-quoted-string")]),
-    ),
-    r(
-      173,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("single-double-quoted-string")]),
-    ),
-    r(
-      1027,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("triple-single-quoted-string")]),
-    ),
-    r(
-      224,
-      8,
-      Emit(tk_literal_string),
-      Some([Push("single-single-quoted-string")]),
-    ),
+    r(554, 8, Emit(tk_literal_string), Some([Push("triple-double-quoted-string")])),
+    r(173, 8, Emit(tk_literal_string), Some([Push("single-double-quoted-string")])),
+    r(1027, 8, Emit(tk_literal_string), Some([Push("triple-single-quoted-string")])),
+    r(224, 8, Emit(tk_literal_string), Some([Push("single-single-quoted-string")])),
     r(554, 8, Emit(tk_literal_string), Some([Push("end-of-string")])),
     r(7287, 8, Emit(tk_literal_string), None),
     r(200, 8, Emit(tk_literal_string), Some([Push("string-escape")])),
@@ -351,36 +185,15 @@ let turtle_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(6552, 8, Emit(tk_literal_string), None),
     r(200, 8, Emit(tk_literal_string), Some([Push("string-escape")])),
     r(76, 8, Emit(tk_literal_string), Some([Pop])),
-    r(
-      6554,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_generic_emph)]),
-      Some([Pop, Pop]),
-    ),
-    r(
-      7289,
-      8,
-      ByGroups([Emit(tk_operator), Emit(tk_generic_emph)]),
-      Some([Pop, Pop]),
-    ),
+    r(6554, 8, ByGroups([Emit(tk_operator), Emit(tk_generic_emph)]), Some([Pop, Pop])),
+    r(7289, 8, ByGroups([Emit(tk_operator), Emit(tk_generic_emph)]), Some([Pop, Pop])),
     r(98, 0, Nop, Some([Pop, Pop])),
   ]
   @lexer.RegexDef::new(
     "TurtleLexer",
-    [
-      "root", "triple-double-quoted-string", "single-double-quoted-string", "triple-single-quoted-string",
-      "single-single-quoted-string", "string-escape", "end-of-string",
-    ],
+    ["root", "triple-double-quoted-string", "single-double-quoted-string", "triple-single-quoted-string", "single-single-quoted-string", "string-escape", "end-of-string"],
     rules,
-    [
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-      [17, 18, 19],
-      [20, 21, 22],
-      [23, 24, 25],
-      [26, 27, 28],
-      [29],
-      [30, 31, 32],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19], [20, 21, 22], [23, 24, 25], [26, 27, 28], [29], [30, 31, 32]],
     extended=false,
   )
 })
@@ -388,12 +201,5 @@ let turtle_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TurtleLexer` (Turtle).
 pub fn turtle_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    turtle_lexer_info,
-    options,
-    opts => turtle_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, turtle_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(turtle_lexer_info, options, opts => turtle_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, turtle_lexer_def.force(), text, stack))
 }

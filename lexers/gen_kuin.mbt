@@ -17,88 +17,20 @@ pub let kuin_lexer_info : @lexer.LexerInfo = {
 ///|
 let kuin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      3910,
-      8,
-      ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]),
-      None,
-    ),
+    r(3910, 8, ByGroups([Emit(tk_comment_single), Emit(tk_text_whitespace)]), None),
     r(3911, 8, Emit(tk_text_whitespace), None),
     r(245, 8, Emit(tk_comment_multiline), Some([Push("multiline_comment")])),
-    r(
-      3912,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Using(This, None, []),
-        Emit(tk_name_function),
-      ]),
-      Some([Push("func_")]),
-    ),
-    r(
-      3913,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_class)]),
-      Some([Push("class_")]),
-    ),
-    r(
-      3914,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_constant)]),
-      Some([Push("enum_")]),
-    ),
-    r(
-      3915,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("block_")]),
-    ),
-    r(
-      3916,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("ifdef_")]),
-    ),
-    r(
-      3917,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("if_")]),
-    ),
-    r(
-      3918,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("switch_")]),
-    ),
-    r(
-      3919,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("while_")]),
-    ),
-    r(
-      3920,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("for_")]),
-    ),
-    r(
-      3921,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("foreach_")]),
-    ),
-    r(
-      3922,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      Some([Push("try_")]),
-    ),
+    r(3912, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_keyword), Using(This, None, []), Emit(tk_name_function)]), Some([Push("func_")])),
+    r(3913, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_class)]), Some([Push("class_")])),
+    r(3914, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_constant)]), Some([Push("enum_")])),
+    r(3915, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("block_")])),
+    r(3916, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("ifdef_")])),
+    r(3917, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("if_")])),
+    r(3918, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("switch_")])),
+    r(3919, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("while_")])),
+    r(3920, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("for_")])),
+    r(3921, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("foreach_")])),
+    r(3922, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), Some([Push("try_")])),
     r(3923, 8, Emit(tk_keyword), Some([Push("do")])),
     r(3924, 8, Emit(tk_keyword), Some([Push("var")])),
     r(3925, 8, Emit(tk_keyword), Some([Push("const")])),
@@ -140,101 +72,36 @@ let kuin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(3949, 8, Emit(tk_name), None),
     r(3950, 8, ByGroups([Emit(tk_name_other), Emit(tk_name_variable)]), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("func")])),
-    r(
-      3951,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3951, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("class")])),
-    r(
-      3952,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3952, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("enum")])),
-    r(
-      3953,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3953, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(264, 8, Emit(tk_text_whitespace), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("block")])),
-    r(
-      3954,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
-    r(
-      3955,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      None,
-    ),
-    r(
-      3956,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]),
-      None,
-    ),
+    r(3954, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
+    r(3955, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), None),
+    r(3956, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_name_other)]), None),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("ifdef")])),
-    r(
-      3957,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3957, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(3958, 8, Emit(tk_keyword_constant), Some([Push("ifdef_sp")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("if")])),
-    r(
-      3959,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3959, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(3960, 8, Emit(tk_keyword), Some([Push("if_sp")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("switch")])),
-    r(
-      3961,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3961, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(3962, 8, Emit(tk_keyword), Some([Push("switch_sp")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("while")])),
-    r(
-      3963,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3963, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("for")])),
-    r(
-      3964,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3964, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("foreach")])),
-    r(
-      3965,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3965, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Push("try")])),
-    r(
-      3966,
-      8,
-      ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]),
-      Some([Pop, Pop]),
-    ),
+    r(3966, 8, ByGroups([Emit(tk_keyword), Using(This, None, []), Emit(tk_keyword)]), Some([Pop, Pop])),
     r(3967, 8, Emit(tk_keyword), Some([Push("try_sp")])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
     r(264, 8, Emit(tk_text_whitespace), Some([Pop])),
@@ -252,174 +119,9 @@ let kuin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "KuinLexer",
-    [
-      "root", "statement", "whitespace", "multiline_comment", "func_", "expr", "func",
-      "class_", "class", "enum_", "enum", "block_", "block", "break", "skip", "ifdef_",
-      "ifdef", "ifdef_sp", "if_", "if", "if_sp", "switch_", "switch", "switch_sp",
-      "while_", "while", "for_", "for", "foreach_", "foreach", "try_", "try", "try_sp",
-      "alias", "assert", "const", "do", "ret", "throw", "var", "continued_line",
-      "string", "toStrInString",
-    ],
+    ["root", "statement", "whitespace", "multiline_comment", "func_", "expr", "func", "class_", "class", "enum_", "enum", "block_", "block", "break", "skip", "ifdef_", "ifdef", "ifdef_sp", "if_", "if", "if_sp", "switch_", "switch", "switch_sp", "while_", "while", "for_", "for", "foreach_", "foreach", "try_", "try", "try_sp", "alias", "assert", "const", "do", "ret", "throw", "var", "continued_line", "string", "toStrInString"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22,
-      ],
-      [0, 1, 2],
-      [23, 24, 25, 26],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
-      ],
-      [
-        55, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 56,
-      ],
-      [
-        57, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 58,
-      ],
-      [
-        59, 0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
-        42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 60,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 61,
-      ],
-      [
-        62, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 63, 64,
-      ],
-      [63],
-      [64],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 65,
-      ],
-      [
-        66, 67, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20, 21, 22, 63, 64,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 68,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 69,
-      ],
-      [
-        70, 71, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20, 21, 22, 63, 64,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 72,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 73,
-      ],
-      [
-        74, 75, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20, 21, 22, 63, 64,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 76,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 77,
-      ],
-      [
-        78, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 63, 64,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 79,
-      ],
-      [
-        80, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 63, 64,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 81,
-      ],
-      [
-        82, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 63, 64,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 83,
-      ],
-      [
-        84, 85, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 20, 21, 22, 63, 64,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 86,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 87,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 88,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 89,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 90,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 91,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 92,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 93,
-      ],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 94,
-      ],
-      [95, 96, 97],
-      [
-        0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-        43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 98,
-      ],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [0, 1, 2], [23, 24, 25, 26], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53], [55, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 56], [57, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 58], [59, 0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 60], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 61], [62, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [63], [64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 65], [66, 67, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 68], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 69], [70, 71, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 72], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 73], [74, 75, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 76], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 77], [78, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 79], [80, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 81], [82, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 83], [84, 85, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 63, 64], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 86], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 87], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 88], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 89], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 90], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 91], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 92], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 93], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 94], [95, 96, 97], [0, 1, 2, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 98]],
     extended=false,
   )
 })
@@ -427,12 +129,5 @@ let kuin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `KuinLexer` (Kuin).
 pub fn kuin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    kuin_lexer_info,
-    options,
-    opts => kuin_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, kuin_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(kuin_lexer_info, options, opts => kuin_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, kuin_lexer_def.force(), text, stack))
 }

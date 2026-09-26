@@ -39,9 +39,5 @@ let bdd_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BddLexer` (Bdd).
 pub fn bdd_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bdd_lexer_info, options, opts => bdd_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, bdd_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(bdd_lexer_info, options, opts => bdd_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, bdd_lexer_def.force(), text, stack))
 }

@@ -148,56 +148,9 @@ let web_idl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "WebIDLLexer",
-    [
-      "common", "root", "extended_attributes", "extended_attribute_rest", "extended_attribute_named_rest",
-      "argument_list", "argument", "argument_rest", "identifier_list", "type", "union_type",
-      "type_identifier", "type_null", "default_value", "const_value", "typedef",
-      "namespace_rest", "namespace_body", "interface_rest", "interface_body", "attribute_rest",
-      "const_rest", "operation_rest", "operation", "iterable_maplike_setlike_rest",
-      "type_list", "serializer_rest", "serialization_pattern", "serialization_pattern_map",
-      "serialization_pattern_list", "enum_rest", "enum_body", "callback_rest", "dictionary_rest",
-      "dictionary_body", "dictionary_item", "implements_rest",
-    ],
+    ["common", "root", "extended_attributes", "extended_attribute_rest", "extended_attribute_named_rest", "argument_list", "argument", "argument_rest", "identifier_list", "type", "union_type", "type_identifier", "type_null", "default_value", "const_value", "typedef", "namespace_rest", "namespace_body", "interface_rest", "interface_body", "attribute_rest", "const_rest", "operation_rest", "operation", "iterable_maplike_setlike_rest", "type_list", "serializer_rest", "serialization_pattern", "serialization_pattern_map", "serialization_pattern_list", "enum_rest", "enum_body", "callback_rest", "dictionary_rest", "dictionary_body", "dictionary_item", "implements_rest"],
     rules,
-    [
-      [0, 1, 2, 3],
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      [0, 1, 2, 3, 13, 14, 15, 16, 17],
-      [0, 1, 2, 3, 18, 19, 20, 21],
-      [0, 1, 2, 3, 22, 23],
-      [0, 1, 2, 3, 24, 25],
-      [0, 1, 2, 3, 26, 27, 28, 29, 30],
-      [0, 1, 2, 3, 31, 32, 33, 34],
-      [0, 1, 2, 3, 35, 36, 37],
-      [0, 1, 2, 3, 38, 39, 40, 41],
-      [0, 1, 2, 3, 42, 43, 44],
-      [45, 46],
-      [47, 48],
-      [0, 1, 2, 3, 0, 1, 2, 3, 49, 50, 51, 52, 53, 54, 55],
-      [0, 1, 2, 3, 49, 50, 51, 52, 53],
-      [0, 1, 2, 3, 56, 57],
-      [0, 1, 2, 3, 58, 59, 60],
-      [0, 1, 2, 3, 61, 62, 63, 64, 65, 66],
-      [0, 1, 2, 3, 67, 68, 69, 70],
-      [71, 72, 73, 74, 0, 1, 2, 3, 61, 62, 63, 64, 65, 66],
-      [0, 1, 2, 3, 75, 76],
-      [0, 1, 2, 3, 77, 78, 79],
-      [0, 1, 2, 3, 80, 81],
-      [0, 1, 2, 3, 82, 83, 84],
-      [0, 1, 2, 3, 85, 86],
-      [0, 1, 2, 3, 87, 88, 89],
-      [0, 1, 2, 3, 90, 91, 92],
-      [0, 1, 2, 3, 93, 94, 95],
-      [0, 1, 2, 3, 96, 97, 98, 99],
-      [0, 1, 2, 3, 100, 101, 102, 103],
-      [0, 1, 2, 3, 104, 105, 106],
-      [0, 1, 2, 3, 107, 108, 109],
-      [0, 1, 2, 3, 110, 111, 112, 113],
-      [0, 1, 2, 3, 114, 115, 116, 117],
-      [0, 1, 2, 3, 118, 119, 120, 121],
-      [0, 1, 2, 3, 122, 123, 124],
-      [0, 1, 2, 3, 125, 126, 127],
-    ],
+    [[0, 1, 2, 3], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [0, 1, 2, 3, 13, 14, 15, 16, 17], [0, 1, 2, 3, 18, 19, 20, 21], [0, 1, 2, 3, 22, 23], [0, 1, 2, 3, 24, 25], [0, 1, 2, 3, 26, 27, 28, 29, 30], [0, 1, 2, 3, 31, 32, 33, 34], [0, 1, 2, 3, 35, 36, 37], [0, 1, 2, 3, 38, 39, 40, 41], [0, 1, 2, 3, 42, 43, 44], [45, 46], [47, 48], [0, 1, 2, 3, 0, 1, 2, 3, 49, 50, 51, 52, 53, 54, 55], [0, 1, 2, 3, 49, 50, 51, 52, 53], [0, 1, 2, 3, 56, 57], [0, 1, 2, 3, 58, 59, 60], [0, 1, 2, 3, 61, 62, 63, 64, 65, 66], [0, 1, 2, 3, 67, 68, 69, 70], [71, 72, 73, 74, 0, 1, 2, 3, 61, 62, 63, 64, 65, 66], [0, 1, 2, 3, 75, 76], [0, 1, 2, 3, 77, 78, 79], [0, 1, 2, 3, 80, 81], [0, 1, 2, 3, 82, 83, 84], [0, 1, 2, 3, 85, 86], [0, 1, 2, 3, 87, 88, 89], [0, 1, 2, 3, 90, 91, 92], [0, 1, 2, 3, 93, 94, 95], [0, 1, 2, 3, 96, 97, 98, 99], [0, 1, 2, 3, 100, 101, 102, 103], [0, 1, 2, 3, 104, 105, 106], [0, 1, 2, 3, 107, 108, 109], [0, 1, 2, 3, 110, 111, 112, 113], [0, 1, 2, 3, 114, 115, 116, 117], [0, 1, 2, 3, 118, 119, 120, 121], [0, 1, 2, 3, 122, 123, 124], [0, 1, 2, 3, 125, 126, 127]],
     extended=false,
   )
 })
@@ -205,12 +158,5 @@ let web_idl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `WebIDLLexer` (Web IDL).
 pub fn web_idl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    web_idl_lexer_info,
-    options,
-    opts => web_idl_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, web_idl_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(web_idl_lexer_info, options, opts => web_idl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, web_idl_lexer_def.force(), text, stack))
 }

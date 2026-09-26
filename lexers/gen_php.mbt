@@ -21,20 +21,7 @@ let php_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5499, 26, Emit(tk_other), None),
     r(736, 26, Emit(tk_other), None),
     r(4036, 26, Emit(tk_comment_preproc), Some([Pop])),
-    r(
-      5500,
-      26,
-      ByGroups([
-        Emit(tk_literal_string),
-        Emit(tk_literal_string),
-        Emit(tk_literal_string_delimiter),
-        Emit(tk_literal_string),
-        Emit(tk_literal_string_delimiter),
-        Emit(tk_punctuation),
-        Emit(tk_text),
-      ]),
-      None,
-    ),
+    r(5500, 26, ByGroups([Emit(tk_literal_string), Emit(tk_literal_string), Emit(tk_literal_string_delimiter), Emit(tk_literal_string), Emit(tk_literal_string_delimiter), Emit(tk_punctuation), Emit(tk_text)]), None),
     r(0, 26, Emit(tk_text), None),
     r(2346, 26, Emit(tk_punctuation), Some([Push("attribute")])),
     r(281, 26, Emit(tk_comment_single), None),
@@ -42,45 +29,15 @@ let php_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5501, 26, Emit(tk_comment_multiline), None),
     r(4803, 26, Emit(tk_literal_string_doc), None),
     r(82, 26, Emit(tk_comment_multiline), None),
-    r(
-      5502,
-      26,
-      ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_attribute)]),
-      None,
-    ),
+    r(5502, 26, ByGroups([Emit(tk_operator), Emit(tk_text), Emit(tk_name_attribute)]), None),
     r(5503, 26, Emit(tk_operator), None),
     r(1399, 26, Emit(tk_operator), None),
     r(5504, 26, Emit(tk_punctuation), None),
-    r(
-      5505,
-      26,
-      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword)]),
-      None,
-    ),
-    r(
-      966,
-      26,
-      ByGroups([Emit(tk_keyword), Emit(tk_text)]),
-      Some([Push("classname")]),
-    ),
+    r(5505, 26, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_keyword)]), None),
+    r(966, 26, ByGroups([Emit(tk_keyword), Emit(tk_text)]), Some([Push("classname")])),
     r(5506, 26, ByGroups([Emit(tk_keyword), Emit(tk_text)]), None),
-    r(
-      5507,
-      26,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text),
-        Emit(tk_operator),
-        Emit(tk_text),
-      ]),
-      Some([Push("functionname")]),
-    ),
-    r(
-      5508,
-      26,
-      ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_constant)]),
-      None,
-    ),
+    r(5507, 26, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_operator), Emit(tk_text)]), Some([Push("functionname")])),
+    r(5508, 26, ByGroups([Emit(tk_keyword), Emit(tk_text), Emit(tk_name_constant)]), None),
     r(5509, 26, Emit(tk_keyword), None),
     r(117, 26, Emit(tk_keyword_constant), None),
     r(5510, 26, Emit(tk_name_constant), None),
@@ -105,36 +62,9 @@ let php_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(5519, 26, Emit(tk_literal_string_double), None),
     r(5520, 26, Emit(tk_literal_string_escape), None),
     r(5521, 26, Emit(tk_literal_string_interpol), None),
-    r(
-      5522,
-      26,
-      ByGroups([
-        Emit(tk_literal_string_interpol),
-        Using(This, None, [("_startinline", "true")]),
-        Emit(tk_literal_string_interpol),
-      ]),
-      None,
-    ),
-    r(
-      5523,
-      26,
-      ByGroups([
-        Emit(tk_literal_string_interpol),
-        Using(This, None, [("_startinline", "true")]),
-        Emit(tk_literal_string_interpol),
-      ]),
-      None,
-    ),
-    r(
-      5524,
-      26,
-      ByGroups([
-        Emit(tk_literal_string_interpol),
-        Emit(tk_name_variable),
-        Emit(tk_literal_string_interpol),
-      ]),
-      None,
-    ),
+    r(5522, 26, ByGroups([Emit(tk_literal_string_interpol), Using(This, None, [("_startinline", "true")]), Emit(tk_literal_string_interpol)]), None),
+    r(5523, 26, ByGroups([Emit(tk_literal_string_interpol), Using(This, None, [("_startinline", "true")]), Emit(tk_literal_string_interpol)]), None),
+    r(5524, 26, ByGroups([Emit(tk_literal_string_interpol), Emit(tk_name_variable), Emit(tk_literal_string_interpol)]), None),
     r(5525, 26, Emit(tk_literal_string_double), None),
     r(151, 26, Emit(tk_punctuation), Some([Pop])),
     r(138, 26, Emit(tk_punctuation), Some([Push("attributeparams")])),
@@ -143,35 +73,9 @@ let php_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "PhpLexer",
-    [
-      "root", "php", "magicconstants", "variablevariable", "magicfuncs", "classname",
-      "functionname", "string", "attribute", "attributeparams",
-    ],
+    ["root", "php", "magicconstants", "variablevariable", "magicfuncs", "classname", "functionname", "string", "attribute", "attributeparams"],
     rules,
-    [
-      [0, 1, 2],
-      [
-        3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-        23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-      ],
-      [23],
-      [
-        36, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-        22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-      ],
-      [37],
-      [38],
-      [37, 39, 40],
-      [41, 42, 43, 44, 45, 46, 47, 48],
-      [
-        49, 50, 51, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-      ],
-      [
-        52, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-        22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-      ],
-    ],
+    [[0, 1, 2], [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], [23], [36, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], [37], [38], [37, 39, 40], [41, 42, 43, 44, 45, 46, 47, 48], [49, 50, 51, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], [52, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]],
     extended=false,
   )
 })
@@ -179,11 +83,7 @@ let php_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PhpLexer` (PHP).
 pub fn php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(php_lexer_info, options, opts => php_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, php_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(php_lexer_info, options, opts => php_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, php_lexer_def.force(), text, stack))
 }
 
 ///|
@@ -202,15 +102,8 @@ pub let psysh_console_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `PsyshConsoleLexer` (PsySH console session for PHP).
-pub fn psysh_console_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    psysh_console_lexer_info,
-    options,
-    opts => psysh_console_lexer(options=opts),
-    (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack),
-  )
+pub fn psysh_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(psysh_console_lexer_info, options, opts => psysh_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
 }
 
 ///|
@@ -257,12 +150,7 @@ let zephir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "ZephirLexer",
     ["commentsandwhitespace", "slashstartsregex", "badregex", "root"],
     rules,
-    [
-      [0, 1, 2],
-      [0, 1, 2, 3, 4, 5],
-      [6],
-      [7, 0, 1, 2, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
-    ],
+    [[0, 1, 2], [0, 1, 2, 3, 4, 5], [6], [7, 0, 1, 2, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]],
     extended=false,
   )
 })
@@ -270,12 +158,5 @@ let zephir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ZephirLexer` (Zephir).
 pub fn zephir_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    zephir_lexer_info,
-    options,
-    opts => zephir_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, zephir_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(zephir_lexer_info, options, opts => zephir_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, zephir_lexer_def.force(), text, stack))
 }

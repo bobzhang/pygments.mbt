@@ -5,15 +5,9 @@ pub let asc_lexer_info : @lexer.LexerInfo = {
   class_name: "AscLexer",
   name: "ASCII armored",
   aliases: ["asc", "pem"],
-  filenames: [
-    "*.asc", "*.pem", "id_dsa", "id_ecdsa", "id_ecdsa_sk", "id_ed25519", "id_ed25519_sk",
-    "id_rsa",
-  ],
+  filenames: ["*.asc", "*.pem", "id_dsa", "id_ecdsa", "id_ecdsa_sk", "id_ed25519", "id_ed25519_sk", "id_rsa"],
   alias_filenames: [],
-  mimetypes: [
-    "application/pgp-keys", "application/pgp-encrypted", "application/pgp-signature",
-    "application/pem-certificate-chain",
-  ],
+  mimetypes: ["application/pgp-keys", "application/pgp-encrypted", "application/pgp-signature", "application/pem-certificate-chain"],
   priority: 0.0,
   url: "https://www.openpgp.org",
   version_added: "2.10",
@@ -27,17 +21,7 @@ let asc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(501, 8, Emit(tk_generic_heading), Some([Push("data")])),
     r(502, 8, Emit(tk_comment), None),
     r(0, 8, Emit(tk_text_whitespace), None),
-    r(
-      503,
-      8,
-      ByGroups([
-        Emit(tk_name_attribute),
-        Emit(tk_operator),
-        Emit(tk_text_whitespace),
-        Emit(tk_literal_string),
-      ]),
-      None,
-    ),
+    r(503, 8, ByGroups([Emit(tk_name_attribute), Emit(tk_operator), Emit(tk_text_whitespace), Emit(tk_literal_string)]), None),
     r(504, 8, Emit(tk_generic_heading), Some([Push("root")])),
     r(502, 8, Emit(tk_literal_string), None),
   ]
@@ -53,9 +37,5 @@ let asc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AscLexer` (ASCII armored).
 pub fn asc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(asc_lexer_info, options, opts => asc_lexer(options=opts), (
-    lx,
-    text,
-    stack,
-  ) => @lexer.run_regex(lx, asc_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(asc_lexer_info, options, opts => asc_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, asc_lexer_def.force(), text, stack))
 }

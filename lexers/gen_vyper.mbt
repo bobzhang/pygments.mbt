@@ -23,36 +23,9 @@ let vyper_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7694, 8, Emit(tk_comment_multiline), Some([Push("multiline-comment")])),
     r(224, 8, Emit(tk_literal_string_single), Some([Push("single-string")])),
     r(173, 8, Emit(tk_literal_string_double), Some([Push("double-string")])),
-    r(
-      7695,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_function),
-      ]),
-      None,
-    ),
-    r(
-      7696,
-      8,
-      ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]),
-      None,
-    ),
-    r(
-      7697,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_namespace),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_name_class),
-      ]),
-      None,
-    ),
+    r(7695, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_function)]), None),
+    r(7696, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
+    r(7697, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_namespace), Emit(tk_text_whitespace), Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_name_class)]), None),
     r(7698, 8, Emit(tk_literal_number_hex), None),
     r(7699, 8, Emit(tk_literal_number_integer), None),
     r(7700, 8, Emit(tk_literal_number_float), None),
@@ -61,19 +34,7 @@ let vyper_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     r(7703, 8, Emit(tk_name_builtin), None),
     r(7704, 8, Emit(tk_name_builtin_pseudo), None),
     r(7705, 8, Emit(tk_keyword_type), None),
-    r(
-      7706,
-      8,
-      ByGroups([
-        Emit(tk_keyword),
-        Emit(tk_text_whitespace),
-        Emit(tk_punctuation),
-        Emit(tk_text_whitespace),
-        Emit(tk_keyword_type),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(7706, 8, ByGroups([Emit(tk_keyword), Emit(tk_text_whitespace), Emit(tk_punctuation), Emit(tk_text_whitespace), Emit(tk_keyword_type), Emit(tk_punctuation)]), None),
     r(7707, 8, Emit(tk_operator), None),
     r(7708, 8, Emit(tk_punctuation), None),
     r(2643, 8, Emit(tk_name_decorator), None),
@@ -98,15 +59,7 @@ let vyper_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
     "VyperLexer",
     ["root", "multiline-comment", "single-string", "double-string"],
     rules,
-    [
-      [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-      ],
-      [28, 29, 30],
-      [31, 32, 33],
-      [34, 35, 36],
-    ],
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], [28, 29, 30], [31, 32, 33], [34, 35, 36]],
     extended=false,
   )
 })
@@ -114,12 +67,5 @@ let vyper_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VyperLexer` (Vyper).
 pub fn vyper_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    vyper_lexer_info,
-    options,
-    opts => vyper_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, vyper_lexer_def.force(), text, stack)
-    },
-  )
+  @lexer.Lexer::new(vyper_lexer_info, options, opts => vyper_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, vyper_lexer_def.force(), text, stack))
 }

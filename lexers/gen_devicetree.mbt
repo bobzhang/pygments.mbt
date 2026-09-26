@@ -17,127 +17,32 @@ pub let devicetree_lexer_info : @lexer.LexerInfo = {
 ///|
 let devicetree_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(
-      1946,
-      8,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_comment_multiline),
-        Emit(tk_comment_preprocfile),
-      ]),
-      None,
-    ),
-    r(
-      1947,
-      8,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_comment_multiline),
-        Emit(tk_comment_preproc),
-      ]),
-      None,
-    ),
-    r(
-      1948,
-      8,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_comment_multiline),
-        Emit(tk_comment_preprocfile),
-      ]),
-      None,
-    ),
-    r(
-      1949,
-      8,
-      ByGroups([
-        Emit(tk_comment_preproc),
-        Emit(tk_comment_multiline),
-        Emit(tk_comment_preproc),
-        Emit(tk_punctuation),
-      ]),
-      None,
-    ),
+    r(1946, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_comment_multiline), Emit(tk_comment_preprocfile)]), None),
+    r(1947, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_comment_multiline), Emit(tk_comment_preproc)]), None),
+    r(1948, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_comment_multiline), Emit(tk_comment_preprocfile)]), None),
+    r(1949, 8, ByGroups([Emit(tk_comment_preproc), Emit(tk_comment_multiline), Emit(tk_comment_preproc), Emit(tk_punctuation)]), None),
     r(264, 8, Emit(tk_text_whitespace), None),
     r(0, 8, Emit(tk_text_whitespace), None),
     r(351, 8, Emit(tk_text), None),
     r(1950, 8, Emit(tk_comment_single), None),
     r(1951, 8, Emit(tk_comment_multiline), None),
     r(422, 8, Emit(tk_comment_multiline), None),
-    r(
-      1952,
-      8,
-      ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]),
-      Some([Push("string")]),
-    ),
+    r(1952, 8, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string)]), Some([Push("string")])),
     r(189, 8, Emit(tk_literal_number_hex), None),
     r(223, 8, Emit(tk_literal_number_integer), None),
-    r(
-      1953,
-      8,
-      ByGroups([Emit(tk_name_label), Emit(tk_text), Emit(tk_punctuation)]),
-      Some([Pop]),
-    ),
+    r(1953, 8, ByGroups([Emit(tk_name_label), Emit(tk_text), Emit(tk_punctuation)]), Some([Pop])),
     r(1954, 8, Emit(tk_keyword_reserved), None),
     r(1955, 8, Emit(tk_operator), None),
     r(1956, 8, Emit(tk_punctuation), None),
     r(144, 8, Emit(tk_punctuation), Some([Push("bytestring")])),
     r(1957, 8, Emit(tk_name), None),
     r(274, 8, Emit(tk_name_attribute), None),
-    r(
-      1958,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_name_function),
-        Emit(tk_punctuation),
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Emit(tk_comment_multiline),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("node")]),
-    ),
-    r(
-      1959,
-      8,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_operator),
-        Emit(tk_literal_number_integer),
-        Emit(tk_comment_multiline),
-        Emit(tk_punctuation),
-      ]),
-      Some([Push("node")]),
-    ),
+    r(1958, 8, ByGroups([Emit(tk_operator), Emit(tk_name_function), Emit(tk_punctuation), Emit(tk_name_namespace), Emit(tk_punctuation), Emit(tk_comment_multiline), Emit(tk_punctuation)]), Some([Push("node")])),
+    r(1959, 8, ByGroups([Emit(tk_name_function), Emit(tk_operator), Emit(tk_literal_number_integer), Emit(tk_comment_multiline), Emit(tk_punctuation)]), Some([Push("node")])),
     r(98, 0, Nop, Some([Push("statement")])),
     r(139, 8, Emit(tk_punctuation), Some([Pop])),
-    r(
-      1958,
-      8,
-      ByGroups([
-        Emit(tk_operator),
-        Emit(tk_name_function),
-        Emit(tk_punctuation),
-        Emit(tk_name_namespace),
-        Emit(tk_punctuation),
-        Emit(tk_comment_multiline),
-        Emit(tk_punctuation),
-      ]),
-      Some([Dup]),
-    ),
-    r(
-      1959,
-      8,
-      ByGroups([
-        Emit(tk_name_function),
-        Emit(tk_operator),
-        Emit(tk_literal_number_integer),
-        Emit(tk_comment_multiline),
-        Emit(tk_punctuation),
-      ]),
-      Some([Dup]),
-    ),
+    r(1958, 8, ByGroups([Emit(tk_operator), Emit(tk_name_function), Emit(tk_punctuation), Emit(tk_name_namespace), Emit(tk_punctuation), Emit(tk_comment_multiline), Emit(tk_punctuation)]), Some([Dup])),
+    r(1959, 8, ByGroups([Emit(tk_name_function), Emit(tk_operator), Emit(tk_literal_number_integer), Emit(tk_comment_multiline), Emit(tk_punctuation)]), Some([Dup])),
     r(1960, 8, Emit(tk_punctuation), Some([Pop])),
     r(139, 8, Emit(tk_punctuation), None),
     r(173, 8, Emit(tk_literal_string), Some([Pop])),
@@ -151,39 +56,15 @@ let devicetree_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   ]
   @lexer.RegexDef::new(
     "DevicetreeLexer",
-    [
-      "macro", "whitespace", "statements", "root", "statement", "node", "string",
-      "bytestring",
-    ],
+    ["macro", "whitespace", "statements", "root", "statement", "node", "string", "bytestring"],
     rules,
-    [
-      [0, 1, 2, 3],
-      [4, 5, 6, 7, 8, 9],
-      [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-      [4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 20, 21, 22],
-      [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23],
-      [
-        4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 24, 25, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-        19, 26, 27,
-      ],
-      [28, 29, 30, 31, 32],
-      [33, 34, 35],
-    ],
+    [[0, 1, 2, 3], [4, 5, 6, 7, 8, 9], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], [4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 20, 21, 22], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23], [4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 24, 25, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 26, 27], [28, 29, 30, 31, 32], [33, 34, 35]],
     extended=false,
   )
 })
 
 ///|
 /// Creates a `DevicetreeLexer` (Devicetree).
-pub fn devicetree_lexer(
-  options? : @lexer.Options = Map([]),
-) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(
-    devicetree_lexer_info,
-    options,
-    opts => devicetree_lexer(options=opts),
-    (lx, text, stack) => {
-      @lexer.run_regex(lx, devicetree_lexer_def.force(), text, stack)
-    },
-  )
+pub fn devicetree_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(devicetree_lexer_info, options, opts => devicetree_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, devicetree_lexer_def.force(), text, stack))
 }
