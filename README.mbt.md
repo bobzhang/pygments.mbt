@@ -75,6 +75,9 @@ test "lexer lookup" {
 implementations (`scripts/cli_compare.py`):
 
 ```bash
+# run straight from mooncakes.io, no checkout needed
+moonx bobzhang/pygments/cmd/pygmentize -f terminal256 -O style=monokai main.py
+# or build it (native or wasm)
 moon build --target native --release cmd/pygmentize
 ./_build/native/release/build/cmd/pygmentize/pygmentize.exe -f terminal256 -O style=monokai main.py
 ```
