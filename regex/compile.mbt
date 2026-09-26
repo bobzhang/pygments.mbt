@@ -6,7 +6,7 @@ priv enum Inst {
   Jmp(Int)
   Save(Int)
   Assert(AssertKind)
-  Backref(Int, Bool)
+  Backref(Int, Int) // group, case folding mode
   RepChar(Int, CharSet?, Int, Int, Bool) // char (if set is None), set, min, max, greedy
   SetMark(Int) // regs[r] = pos
   IfEmpty(Int, Int) // if pos == regs[r] goto target
@@ -166,10 +166,24 @@ fn Compiler::compile_repeat(
       self.prog[check] = IfEmpty(reg, exit)
     }
   } else {
+    // optional iterations; like CPython, an iteration that consumed nothing
+    // ends the repetition
+    let can_be_empty = nullable(n)
+    let reg = self.nregs
+    if can_be_empty {
+      self.nregs += 1
+    }
     let splits = []
+    let checks = []
     for _ in min..<max {
       splits.push(self.emit(Split(0, 0)))
+      if can_be_empty {
+        ignore(self.emit(SetMark(reg)))
+      }
       self.compile(n)
+      if can_be_empty {
+        checks.push(self.emit(IfEmpty(reg, 0)))
+      }
     }
     let exit = self.pc()
     for s in splits {
@@ -178,6 +192,9 @@ fn Compiler::compile_repeat(
       } else {
         Split(exit, s + 1)
       }
+    }
+    for c in checks {
+      self.prog[c] = IfEmpty(reg, exit)
     }
   }
 }

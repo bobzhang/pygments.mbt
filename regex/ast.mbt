@@ -68,7 +68,7 @@ priv enum Node {
   Group(Int, Node) // capture index (>= 1)
   Repeat(Node, Int, Int, Greed) // min, max (-1 = unbounded)
   Assert(AssertKind)
-  Backref(Int, Bool) // group, ignorecase
+  Backref(Int, Int) // group, case folding (0: none, 1: unicode, 2: ascii)
   Look(Node, Bool, Bool) // behind?, negated?
   Atomic(Node)
   Cond(Int, Node, Node)
@@ -340,7 +340,7 @@ fn Parser::parse_quantifier(
       self.pos = start
       return false
     }
-    let min = if lo_s == "" { 0 } else { parse_dec(lo_s) }
+    let min = if lo_s == "" { 0 } else { self.parse_dec(lo_s) }
     let max = if hi_s == "" {
       if has_comma {
         -1
@@ -348,7 +348,7 @@ fn Parser::parse_quantifier(
         0
       }
     } else {
-      parse_dec(hi_s)
+      self.parse_dec(hi_s)
     }
     if max >= 0 && max < min {
       raise self.fail("min repeat greater than max repeat")
@@ -378,16 +378,20 @@ fn Parser::parse_quantifier(
 }
 
 ///|
-fn parse_dec(s : String) -> Int {
+fn Parser::parse_dec(self : Parser, s : String) -> Int raise RegexError {
   let mut v = 0
   for c in s {
     v = v * 10 + (c.to_int() - 48)
-    if v > 1000000 {
-      v = 1000000
+    if v > MAX_REPEAT {
+      raise self.fail("the repetition number is too large")
     }
   }
   v
 }
+
+///|
+/// Largest supported repeat count (CPython's limit is `MAXREPEAT - 1`).
+const MAX_REPEAT : Int = 0x7fffffff / 16
 
 ///|
 fn Parser::dot(self : Parser) -> Node {
@@ -566,7 +570,14 @@ fn Parser::backref(self : Parser, g : Int) -> Node raise RegexError {
   if self.open_groups.contains(g) {
     raise self.fail("cannot refer to an open group")
   }
-  Backref(g, (self.flags & IGNORECASE) != 0)
+  let fold = if (self.flags & IGNORECASE) == 0 {
+    0
+  } else if (self.flags & ASCII) != 0 {
+    2
+  } else {
+    1
+  }
+  Backref(g, fold)
 }
 
 ///|
@@ -825,7 +836,14 @@ fn Parser::parse_group(self : Parser) -> Node? raise RegexError {
       if !self.accept(':') {
         raise self.fail("unknown extension")
       }
-      let node = self.parse_sub((self.flags | add) & del.lnot())
+      let mut scoped = (self.flags | add) & del.lnot()
+      if (add & UNICODE) != 0 {
+        scoped = scoped & ASCII.lnot()
+      }
+      if (add & ASCII) != 0 {
+        scoped = scoped & UNICODE.lnot()
+      }
+      let node = self.parse_sub(scoped)
       self.expect_close()
       Some(node)
     }

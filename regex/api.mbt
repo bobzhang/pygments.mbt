@@ -43,7 +43,7 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
   let (node, ngroups, names, final_flags) = parse_pattern(pattern, flags)
   let c : Compiler = { prog: [], subs: [], nregs: 0, }
   c.compile(node)
-  ignore(c.emit(Match))
+  let main_end = c.emit(Match)
   c.finish()
   let fs : FirstSet = { lo: 0, hi: 0, non_ascii: false, }
   let nullable = first_chars(node, fs)
@@ -58,6 +58,10 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
     bt_pc: 0,
     bt_pos: 0,
     pattern,
+    main_end,
+    start: 0,
+    must_advance: false,
+    full: false,
   }
   { pattern, flags: final_flags, vm, ngroups, names, first: fs, nullable, }
 }
@@ -69,7 +73,7 @@ pub fn Regex::group_count(self : Regex) -> Int {
 }
 
 ///|
-/// Index of the named group `name`, if any.
+/// Index of the named group `name`.
 pub fn Regex::group_index(self : Regex, name : String) -> Int? {
   self.names.get(name)
 }
@@ -94,37 +98,46 @@ fn Regex::rejects(self : Regex, text : String, pos : Int, end : Int) -> Bool {
 }
 
 ///|
+/// Python's clamping of `pos`/`endpos` arguments.
+fn clamp_range(text : String, pos : Int, endpos : Int?) -> (Int, Int) {
+  let n = text.length()
+  let end = match endpos {
+    Some(e) => if e < 0 { 0 } else if e > n { n } else { e }
+    None => n
+  }
+  let p = if pos < 0 { 0 } else { pos }
+  (p, end)
+}
+
+///|
+/// Runs one match attempt at `pos`, charging `budget`.
 fn Regex::exec(
   self : Regex,
   text : String,
   pos : Int,
   end : Int,
-  budget : Budget?,
+  budget : Budget,
+  must_advance~ : Bool,
+  full~ : Bool,
 ) -> Match? raise RegexError {
   let vm = self.vm
   vm.text = text
   vm.end = end
+  vm.start = pos
+  vm.must_advance = must_advance
+  vm.full = full
   vm.caps.fill(-1)
   vm.regs.fill(-1)
   vm.stack.clear()
-  vm.steps = match budget {
-    Some(b) => b.remaining
-    None => default_steps
-  }
+  vm.steps = budget.remaining
   errdefer {
     // leave the shared VM clean before propagating
     vm.text = ""
     vm.stack.clear()
-    match budget {
-      Some(b) => b.remaining = 0
-      None => ()
-    }
+    budget.remaining = 0
   }
   let r = vm.run(0, pos)
-  match budget {
-    Some(b) => b.remaining = vm.steps
-    None => ()
-  }
+  budget.remaining = vm.steps
   vm.text = ""
   vm.stack.clear()
   if r < 0 {
@@ -149,57 +162,63 @@ pub fn Regex::match_at(
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let end = match endpos {
-    Some(e) => if e < text.length() { e } else { text.length() }
-    None => text.length()
-  }
+  let (pos, end) = clamp_range(text, pos, endpos)
   if pos > end || self.rejects(text, pos, end) {
     return None
   }
-  self.exec(text, pos, end, budget)
+  let budget = budget.unwrap_or(Budget::new(default_steps))
+  self.exec(text, pos, end, budget, must_advance=false, full=false)
 }
 
 ///|
-/// Python's `pattern.fullmatch(text)`.
+/// Python's `pattern.fullmatch(text, pos, endpos)`.
 pub fn Regex::fullmatch(
-  self : Regex,
-  text : String,
-  budget? : Budget,
-) -> Match? raise RegexError {
-  match self.match_at(text, 0, budget?) {
-    Some(m) if m.end() == text.length() => Some(m)
-    Some(_) =>
-      // retry with an explicit anchor to respect backtracking semantics
-      compile("(?:" + self.pattern + ")\\Z", flags=self.flags).match_at(
-        text,
-        0,
-        budget?,
-      )
-    None => None
-  }
-}
-
-///|
-/// Python's `pattern.search(text, pos, endpos)`.
-pub fn Regex::search(
   self : Regex,
   text : String,
   pos? : Int = 0,
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let end = match endpos {
-    Some(e) => if e < text.length() { e } else { text.length() }
-    None => text.length()
+  let (pos, end) = clamp_range(text, pos, endpos)
+  if pos > end || self.rejects(text, pos, end) {
+    return None
   }
+  let budget = budget.unwrap_or(Budget::new(default_steps))
+  self.exec(text, pos, end, budget, must_advance=false, full=true)
+}
+
+///|
+fn Regex::search_from(
+  self : Regex,
+  text : String,
+  pos : Int,
+  end : Int,
+  budget : Budget,
+  must_advance : Bool,
+) -> Match? raise RegexError {
   let mut p = pos
+  let mut first = true
   while p <= end {
     if !self.rejects(text, p, end) {
-      match self.exec(text, p, end, budget) {
+      match
+        self.exec(
+          text,
+          p,
+          end,
+          budget,
+          must_advance=first && must_advance,
+          full=false,
+        ) {
         Some(m) => return Some(m)
         None => ()
       }
+    } else {
+      budget.remaining -= 1
+      if budget.remaining < 0 {
+        raise BudgetExceeded(pattern=self.pattern)
+      }
     }
+    first = false
     if p < end &&
       is_high(text.unsafe_get(p).to_int()) &&
       p + 1 < end &&
@@ -213,40 +232,40 @@ pub fn Regex::search(
 }
 
 ///|
-/// All non-overlapping matches, like Python's `finditer`.
+/// Python's `pattern.search(text, pos, endpos)`. One budget covers the whole
+/// scan.
+pub fn Regex::search(
+  self : Regex,
+  text : String,
+  pos? : Int = 0,
+  endpos? : Int,
+  budget? : Budget,
+) -> Match? raise RegexError {
+  let (pos, end) = clamp_range(text, pos, endpos)
+  let budget = budget.unwrap_or(Budget::new(default_steps))
+  self.search_from(text, pos, end, budget, false)
+}
+
+///|
+/// All non-overlapping matches, like Python's `finditer` (an empty match may
+/// be followed by a non-empty match at the same position).
 pub fn Regex::find_all(
   self : Regex,
   text : String,
   budget? : Budget,
 ) -> Array[Match] raise RegexError {
+  let budget = budget.unwrap_or(Budget::new(default_steps))
   let out = []
+  let end = text.length()
   let mut p = 0
-  let mut last_empty_at = -1
-  while p <= text.length() {
-    match self.search(text, pos=p, budget?) {
+  let mut must_advance = false
+  while p <= end {
+    match self.search_from(text, p, end, budget, must_advance) {
       None => break
       Some(m) => {
-        if m.start() == m.end() && m.start() == last_empty_at {
-          p = m.start() + 1
-          continue
-        }
         out.push(m)
-        if m.start() == m.end() {
-          last_empty_at = m.end()
-          p = m.end()
-          // an empty match: the next match must start later or be non-empty
-          match self.match_at(text, p, budget?) {
-            Some(m2) if m2.end() > p => {
-              out.push(m2)
-              p = m2.end()
-              last_empty_at = -1
-            }
-            _ => p = p + 1
-          }
-        } else {
-          p = m.end()
-          last_empty_at = -1
-        }
+        must_advance = m.end() == m.start()
+        p = m.end()
       }
     }
   }

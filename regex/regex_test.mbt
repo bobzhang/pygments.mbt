@@ -117,3 +117,44 @@ test "search, find_all and replace_all" {
   )
   inspect(re.replace_all("a1b22", _ => "#"), content="a#b#")
 }
+
+///|
+test "CPython corner cases (codex review)" {
+  // bounded nullable repeats stop after an empty iteration
+  debug_inspect(
+    spans(@regex.compile("(?:(?(1)a|())){0,3}"), "a"),
+    content="Some([0, 0, 0, 0])",
+  )
+  // finditer: a non-empty match may follow an empty one at the same position
+  debug_inspect(
+    @regex.compile("|a").find_all("a").map(m => (m.start(), m.end())),
+    content="[(0, 0), (0, 1), (1, 1)]",
+  )
+  // fullmatch backtracks into longer alternatives, inline flags stay global
+  guard @regex.compile("(?i)a|ab").fullmatch("AB") is Some(m) else {
+    fail("expected fullmatch")
+  }
+  inspect(m.matched(), content="AB")
+  // ASCII folding for backreferences, scoped (?u) overrides (?a)
+  debug_inspect(spans(@regex.compile("(?ai:(é)\\1)"), "éÉ"), content="None")
+  debug_inspect(
+    spans(@regex.compile("(?a:(?u:\\w))"), "é"),
+    content="Some([0, 1])",
+  )
+  // \B matches the empty string (CPython 3.14), \b does not
+  debug_inspect(spans(@regex.compile("\\B"), ""), content="Some([0, 0])")
+  debug_inspect(spans(@regex.compile("\\b"), ""), content="None")
+  // positions are clamped like Python
+  debug_inspect(
+    @regex.compile("a").match_at("ab", -5).map(m => m.end()),
+    content="Some(1)",
+  )
+  // repeat counts are not silently truncated
+  try @regex.compile("a{4294967296}") catch {
+    Syntax(message~, ..) =>
+      inspect(message, content="the repetition number is too large")
+    _ => fail("unexpected")
+  } noraise {
+    _ => fail("expected error")
+  }
+}

@@ -26,7 +26,19 @@ priv struct Vm {
   mut bt_pc : Int
   mut bt_pos : Int
   pattern : String
+  /// pc of the `Match` ending the main program
+  main_end : Int
+  /// start position of the current attempt
+  mut start : Int
+  /// reject an empty match at `start` (Python's `must_advance`)
+  mut must_advance : Bool
+  /// require the match to end at `end` (`fullmatch`)
+  mut full : Bool
 }
+
+///|
+/// Maximum size of the backtrack stack (in `Int` slots).
+const MAX_STACK : Int = 1 << 25
 
 ///|
 fn is_high(c : Int) -> Bool {
@@ -111,17 +123,11 @@ fn Vm::check_assert(self : Vm, k : AssertKind, pos : Int) -> Bool {
     EolM => pos == self.end || self.text.unsafe_get(pos).to_int() == '\n'
     StrEnd => pos == self.end
     WordB(ascii) => {
-      if self.end == 0 {
-        return false
-      }
       let before = pos > 0 && is_word_cp(self.cp_before(pos), ascii)
       let after = pos < self.end && is_word_cp(self.cp_at(pos), ascii)
       before != after
     }
     NotWordB(ascii) => {
-      if self.end == 0 {
-        return false
-      }
       let before = pos > 0 && is_word_cp(self.cp_before(pos), ascii)
       let after = pos < self.end && is_word_cp(self.cp_at(pos), ascii)
       before == after
@@ -151,6 +157,15 @@ fn Vm::one(self : Vm, c : Int, set : CharSet?, pos : Int) -> Int {
 ///|
 fn Vm::tick(self : Vm) -> Unit raise RegexError {
   self.steps -= 1
+  if self.steps < 0 || self.stack.length() > MAX_STACK {
+    raise BudgetExceeded(pattern=self.pattern)
+  }
+}
+
+///|
+/// Charges `n` steps for work done inside one instruction (scans).
+fn Vm::charge(self : Vm, n : Int) -> Unit raise RegexError {
+  self.steps -= n
   if self.steps < 0 {
     raise BudgetExceeded(pattern=self.pattern)
   }
@@ -187,9 +202,11 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
       }
       let mut p = self.step_back(c, b)
       if next_char >= 0 {
+        let from = p
         while p > b && self.cp_at(p) != next_char {
           p = self.step_back(p, b)
         }
+        self.charge(from - p)
         if p == b && (p >= self.end || self.cp_at(p) != next_char) {
           st.truncate(top)
           continue
@@ -321,12 +338,13 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
         } else {
           false
         }
-      Backref(g, ic) => {
+      Backref(g, fold) => {
         let s = self.caps[g * 2]
         let e = self.caps[g * 2 + 1]
+        self.charge(if e > s { e - s } else { 0 })
         if s < 0 || e < 0 {
           false
-        } else if ic {
+        } else if fold != 0 {
           let mut p = pos
           let mut q = s
           let mut good = true
@@ -337,7 +355,13 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
             }
             let c1 = self.cp_at(q)
             let c2 = self.cp_at(p)
-            if c1 != c2 && to_lower(c1) != to_lower(c2) {
+            let same = c1 == c2 ||
+              (if fold == 2 {
+                ascii_lower(c1) == ascii_lower(c2)
+              } else {
+                to_lower(c1) == to_lower(c2)
+              })
+            if !same {
               good = false
               break
             }
@@ -393,6 +417,7 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
               p = np
               count += 1
             }
+            self.charge(count)
             if p > min_pos {
               self.push(BT_GREEDY, pc, min_pos, p)
             }
@@ -480,7 +505,16 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
         }
         true
       }
-      Match => return pos
+      Match =>
+        if pc == self.main_end &&
+          (
+            (self.full && pos != self.end) ||
+            (self.must_advance && pos == self.start)
+          ) {
+          false
+        } else {
+          return pos
+        }
     }
     if !ok {
       if self.backtrack(base) {
