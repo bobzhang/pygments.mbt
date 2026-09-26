@@ -5,11 +5,11 @@ pub suberror ClassNotFound {
 } derive(Debug)
 
 ///|
-/// Python's `find_lexer_class_by_name`: the lexer class with `alias`.
+/// Python's `find_lexer_class_by_name`: the lexer class with `lexer_alias`.
 pub fn find_lexer_class_by_name(
-  alias : String,
+  lexer_alias : String,
 ) -> (@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer raise) raise ClassNotFound {
-  let a = alias.to_lower()
+  let a = lexer_alias.to_lower()
   if a != "" {
     for entry in all_lexers {
       if entry.0.aliases.contains(a) {
@@ -17,7 +17,7 @@ pub fn find_lexer_class_by_name(
       }
     }
   }
-  raise ClassNotFound("no lexer for alias \{alias.escape()} found")
+  raise ClassNotFound("no lexer for lexer_alias \{lexer_alias.escape()} found")
 }
 
 ///|
@@ -30,10 +30,10 @@ pub fn find_lexer_class_by_name(
 /// }
 /// ```
 pub fn get_lexer_by_name(
-  alias : String,
+  lexer_alias : String,
   options? : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
-  (find_lexer_class_by_name(alias).1)(options)
+  (find_lexer_class_by_name(lexer_alias).1)(options)
 }
 
 ///|

@@ -406,7 +406,15 @@ with open(os.path.join(OUT, 'gen_registry.mbt'), 'w') as fh:
     fh.write(']\n')
 
 # ---------------------------------------------------------------- python data
-from pydata import DATA
+# `// pydata: <name> = <expr>` lines in hand-written lexers/*.mbt files
+DATA = {}
+for f in sorted(glob.glob(os.path.join(OUT, '*.mbt'))):
+    if os.path.basename(f).startswith('gen_'):
+        continue
+    for m in re.finditer(r'^// pydata: ([a-z0-9_]+) = (.+)$', open(f).read(), re.M):
+        if m.group(1) in DATA:
+            raise ExportError(f'duplicate pydata {m.group(1)}')
+        DATA[m.group(1)] = m.group(2).strip()
 
 
 class _Loader:

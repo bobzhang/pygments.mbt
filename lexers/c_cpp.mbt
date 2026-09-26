@@ -1,4 +1,8 @@
 // Hand-written parts of pygments/lexers/c_cpp.py.
+// pydata: c_stdlib_types = L.c_cpp.CFamilyLexer.stdlib_types
+// pydata: c_c99_types = L.c_cpp.CFamilyLexer.c99_types
+// pydata: c_linux_types = L.c_cpp.CFamilyLexer.linux_types
+// pydata: c_c11_atomic_types = L.c_cpp.CFamilyLexer.c11_atomic_types
 
 ///|
 /// `CFamilyLexer.get_tokens_unprocessed`: re-tags `Name` tokens that are
@@ -22,7 +26,7 @@ fn c_family_retag(
       (c99 && c_c99_types.contains(v)) ||
       (c11 && c_c11_atomic_types.contains(v)) ||
       (platform && c_linux_types.contains(v)) {
-      { ..t, ttype: @token.keyword_type }
+      { ..t, ttype: @token.keyword_type, }
     } else {
       t
     }

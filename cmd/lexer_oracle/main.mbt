@@ -3,17 +3,23 @@
 /// input with the MoonBit port and compares the token stream with Python's.
 ///
 /// Usage: lexer_oracle [corpus.jsonl] [-v] [--only ALIAS] [--quiet]
+///        lexer_oracle --analyse [.oracle/analyse.jsonl] [--only CLASS] [--quiet]
 async fn main {
   let args = @env.args()
   let mut path = ".oracle/lexers.jsonl"
   let mut verbose = false
   let mut quiet = false
   let mut only : String? = None
+  let mut analyse = false
   let mut i = 1
   while i < args.length() {
     match args[i] {
       "-v" => verbose = true
       "--quiet" => quiet = true
+      "--analyse" => {
+        analyse = true
+        path = ".oracle/analyse.jsonl"
+      }
       "--only" => {
         i += 1
         only = Some(args[i])
@@ -21,6 +27,10 @@ async fn main {
       p => path = p
     }
     i += 1
+  }
+  if analyse {
+    run_analyse(path, only, quiet)
+    return
   }
   let data = @fs.read_file(path).text()
   let mut pass = 0
@@ -41,7 +51,7 @@ async fn main {
     guard json
       is {
         "file": String(file),
-        "alias": String(alias),
+        "alias": String(lexer_alias),
         "input": String(input),
         "tokens": Array(expected),
         ..
@@ -49,7 +59,7 @@ async fn main {
       fail("bad corpus line")
     }
     match only {
-      Some(a) if a != alias => continue
+      Some(a) if a != lexer_alias => continue
       _ => ()
     }
     let want = expected.map(t => {
@@ -57,7 +67,7 @@ async fn main {
       (ty, v)
     })
     let got = try {
-      let lx = @lexers.get_lexer_by_name(alias)
+      let lx = @lexers.get_lexer_by_name(lexer_alias)
       lx
       .get_tokens(input)
       .map(t => {
@@ -74,7 +84,10 @@ async fn main {
     } catch {
       e => {
         errors += 1
-        failed_by_alias[alias] = failed_by_alias.get(alias).unwrap_or(0) + 1
+        failed_by_alias[lexer_alias] = failed_by_alias
+          .get(lexer_alias)
+          .unwrap_or(0) +
+          1
         if !quiet {
           println("ERROR \{file}: \{Repr(e)}")
         }
@@ -83,10 +96,16 @@ async fn main {
     }
     if got == want {
       pass += 1
-      passed_by_alias[alias] = passed_by_alias.get(alias).unwrap_or(0) + 1
+      passed_by_alias[lexer_alias] = passed_by_alias
+        .get(lexer_alias)
+        .unwrap_or(0) +
+        1
     } else {
       failed += 1
-      failed_by_alias[alias] = failed_by_alias.get(alias).unwrap_or(0) + 1
+      failed_by_alias[lexer_alias] = failed_by_alias
+        .get(lexer_alias)
+        .unwrap_or(0) +
+        1
       if !quiet {
         let mut k = 0
         while k < got.length() && k < want.length() && got[k] == want[k] {
