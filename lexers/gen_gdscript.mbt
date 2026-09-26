@@ -11,7 +11,7 @@ pub let gd_script_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.godotengine.org",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: gd_script_lexer_analyse,
 }
 
 ///|

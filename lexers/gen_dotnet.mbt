@@ -77,7 +77,7 @@ pub let c_sharp_aspx_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://dotnet.microsoft.com/en-us/apps/aspnet",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: c_sharp_aspx_lexer_analyse,
 }
 
 ///|
@@ -247,7 +247,7 @@ let c_sharp_lexer_variants : Array[(String, @lazy.Lazy[@lexer.RegexDef])] = [("n
 ///|
 /// Creates a `CSharpLexer` (C#).
 pub fn c_sharp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(c_sharp_lexer_info, options, opts => c_sharp_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, c_sharp_lexer_variants[0].1.force(), text, stack))
+  @lexer.Lexer::new(c_sharp_lexer_info, options, opts => c_sharp_lexer(options=opts), c_sharp_lexer_tokenizer)
 }
 
 ///|
@@ -261,7 +261,7 @@ pub let f_sharp_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://fsharp.org/",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: f_sharp_lexer_analyse,
 }
 
 ///|
@@ -355,7 +355,7 @@ pub let nemerle_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://nemerle.org",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: nemerle_lexer_analyse,
 }
 
 ///|
@@ -568,7 +568,7 @@ let nemerle_lexer_variants : Array[(String, @lazy.Lazy[@lexer.RegexDef])] = [("n
 ///|
 /// Creates a `NemerleLexer` (Nemerle).
 pub fn nemerle_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(nemerle_lexer_info, options, opts => nemerle_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nemerle_lexer_variants[0].1.force(), text, stack))
+  @lexer.Lexer::new(nemerle_lexer_info, options, opts => nemerle_lexer(options=opts), nemerle_lexer_tokenizer)
 }
 
 ///|
@@ -582,7 +582,7 @@ pub let vb_net_aspx_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://dotnet.microsoft.com/en-us/apps/aspnet",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: vb_net_aspx_lexer_analyse,
 }
 
 ///|
@@ -602,7 +602,7 @@ pub let vb_net_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://docs.microsoft.com/en-us/dotnet/visual-basic/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: vb_net_lexer_analyse,
 }
 
 ///|

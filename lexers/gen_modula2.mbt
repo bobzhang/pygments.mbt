@@ -11,7 +11,7 @@ pub let modula2_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.modula2.org/",
   version_added: "1.3",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: modula2_lexer_analyse,
 }
 
 ///|
@@ -85,5 +85,5 @@ let modula2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Modula2Lexer` (Modula-2).
 pub fn modula2_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(modula2_lexer_info, options, opts => modula2_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, modula2_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(modula2_lexer_info, options, opts => modula2_lexer(options=opts), modula2_lexer_tokenizer)
 }

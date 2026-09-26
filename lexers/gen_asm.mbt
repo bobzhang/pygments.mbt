@@ -31,7 +31,7 @@ pub let ca65_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://cc65.github.io",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ca65_lexer_analyse,
 }
 
 ///|
@@ -156,7 +156,7 @@ let dasm16_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Dasm16Lexer` (DASM16).
 pub fn dasm16_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dasm16_lexer_info, options, opts => dasm16_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dasm16_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(dasm16_lexer_info, options, opts => dasm16_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dasm16_lexer_def.force(), text, stack, callbacks=dasm16_lexer_callbacks(lx)))
 }
 
 ///|
@@ -170,7 +170,7 @@ pub let gas_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.gnu.org/software/binutils",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: gas_lexer_analyse,
 }
 
 ///|
@@ -480,7 +480,7 @@ pub let nasm_lexer_info : @lexer.LexerInfo = {
   priority: 1.0,
   url: "https://nasm.us",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: nasm_lexer_analyse,
 }
 
 ///|
@@ -631,7 +631,7 @@ pub let tasm_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Turbo_Assembler",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: tasm_lexer_analyse,
 }
 
 ///|

@@ -11,7 +11,7 @@ pub let free_fem_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://freefem.org/",
   version_added: "2.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: free_fem_lexer_analyse,
 }
 
 ///|
@@ -131,5 +131,5 @@ let free_fem_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FreeFemLexer` (Freefem).
 pub fn free_fem_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(free_fem_lexer_info, options, opts => free_fem_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, free_fem_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(free_fem_lexer_info, options, opts => free_fem_lexer(options=opts), free_fem_lexer_tokenizer)
 }

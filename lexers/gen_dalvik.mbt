@@ -11,7 +11,7 @@ pub let smali_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://code.google.com/p/smali/",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: smali_lexer_analyse,
 }
 
 ///|

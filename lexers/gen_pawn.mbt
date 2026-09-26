@@ -11,7 +11,7 @@ pub let pawn_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.compuphase.com/pawn/pawn.htm",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: pawn_lexer_analyse,
 }
 
 ///|
@@ -137,5 +137,5 @@ let source_pawn_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SourcePawnLexer` (SourcePawn).
 pub fn source_pawn_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(source_pawn_lexer_info, options, opts => source_pawn_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, source_pawn_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(source_pawn_lexer_info, options, opts => source_pawn_lexer(options=opts), source_pawn_lexer_tokenizer)
 }

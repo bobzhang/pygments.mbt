@@ -11,7 +11,7 @@ pub let ecl_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://hpccsystems.com/training/documentation/ecl-language-reference/html",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ecl_lexer_analyse,
 }
 
 ///|

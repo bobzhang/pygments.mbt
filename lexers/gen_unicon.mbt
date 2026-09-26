@@ -75,7 +75,7 @@ pub let ucode_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.unicon.org",
   version_added: "2.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ucode_lexer_analyse,
 }
 
 ///|

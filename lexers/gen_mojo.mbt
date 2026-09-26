@@ -11,7 +11,7 @@ pub let mojo_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://docs.modular.com/mojo/",
   version_added: "2.18",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: mojo_lexer_analyse,
 }
 
 ///|

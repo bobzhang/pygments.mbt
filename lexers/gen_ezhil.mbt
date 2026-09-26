@@ -11,7 +11,7 @@ pub let ezhil_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://ezhillang.org",
   version_added: "2.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ezhil_lexer_analyse,
 }
 
 ///|
@@ -42,5 +42,5 @@ let ezhil_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EzhilLexer` (Ezhil).
 pub fn ezhil_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ezhil_lexer_info, options, opts => ezhil_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ezhil_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ezhil_lexer_info, options, opts => ezhil_lexer(options=opts), ezhil_lexer_tokenizer)
 }

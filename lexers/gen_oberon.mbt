@@ -11,7 +11,7 @@ pub let component_pascal_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://blackboxframework.org",
   version_added: "2.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: component_pascal_lexer_analyse,
 }
 
 ///|

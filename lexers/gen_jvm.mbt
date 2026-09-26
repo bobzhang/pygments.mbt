@@ -73,7 +73,7 @@ let aspect_j_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AspectJLexer` (AspectJ).
 pub fn aspect_j_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(aspect_j_lexer_info, options, opts => aspect_j_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, aspect_j_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(aspect_j_lexer_info, options, opts => aspect_j_lexer(options=opts), aspect_j_lexer_tokenizer)
 }
 
 ///|
@@ -422,7 +422,7 @@ pub let groovy_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://groovy-lang.org/",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: groovy_lexer_analyse,
 }
 
 ///|
@@ -573,7 +573,7 @@ pub let jasmin_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://jasmin.sourceforge.net/",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: jasmin_lexer_analyse,
 }
 
 ///|

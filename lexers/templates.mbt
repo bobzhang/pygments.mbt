@@ -604,15 +604,3 @@ fn lasso_javascript_lexer_tokenizer(
   )
 }
 
-// ---------------------------------------------------------------- Gosu
-
-///|
-/// `GosuTemplateLexer.get_tokens_unprocessed` (pygments/lexers/jvm.py): a
-/// fresh `GosuLexer` (without options) starting in `templateText`.
-fn gosu_template_lexer_tokenizer(
-  _lx : @lexer.Lexer,
-  text : String,
-  _stack : Array[String],
-) -> Array[@lexer.Token] raise {
-  gosu_lexer().get_tokens_unprocessed(text, stack=["templateText"])
-}

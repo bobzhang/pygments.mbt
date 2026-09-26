@@ -11,7 +11,7 @@ pub let arduino_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://isocpp.org/",
   version_added: "2.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: arduino_lexer_analyse,
 }
 
 ///|
@@ -131,7 +131,7 @@ let arduino_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ArduinoLexer` (Arduino).
 pub fn arduino_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(arduino_lexer_info, options, opts => arduino_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, arduino_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(arduino_lexer_info, options, opts => arduino_lexer(options=opts), arduino_lexer_tokenizer)
 }
 
 ///|
@@ -145,7 +145,7 @@ pub let charmci_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://isocpp.org/",
   version_added: "2.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: charmci_lexer_analyse,
 }
 
 ///|
@@ -268,7 +268,7 @@ let charmci_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CharmciLexer` (Charmci).
 pub fn charmci_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(charmci_lexer_info, options, opts => charmci_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, charmci_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(charmci_lexer_info, options, opts => charmci_lexer(options=opts), charmci_lexer_tokenizer)
 }
 
 ///|
@@ -332,7 +332,7 @@ pub let cuda_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://developer.nvidia.com/category/zone/cuda-zone",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: cuda_lexer_analyse,
 }
 
 ///|
@@ -452,7 +452,7 @@ let cuda_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CudaLexer` (CUDA).
 pub fn cuda_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(cuda_lexer_info, options, opts => cuda_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, cuda_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(cuda_lexer_info, options, opts => cuda_lexer(options=opts), cuda_lexer_tokenizer)
 }
 
 ///|
@@ -466,7 +466,7 @@ pub let ec_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://ec-lang.org",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: ec_lexer_analyse,
 }
 
 ///|
@@ -562,7 +562,7 @@ let ec_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ECLexer` (eC).
 pub fn ec_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(ec_lexer_info, options, opts => ec_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, ec_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(ec_lexer_info, options, opts => ec_lexer(options=opts), ec_lexer_tokenizer)
 }
 
 ///|
@@ -576,7 +576,7 @@ pub let mql_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://isocpp.org/",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: mql_lexer_analyse,
 }
 
 ///|
@@ -701,7 +701,7 @@ let mql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MqlLexer` (MQL).
 pub fn mql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(mql_lexer_info, options, opts => mql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, mql_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(mql_lexer_info, options, opts => mql_lexer(options=opts), mql_lexer_tokenizer)
 }
 
 ///|
@@ -715,7 +715,7 @@ pub let nes_c_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://en.wikipedia.org/wiki/C_(programming_language)",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: nes_c_lexer_analyse,
 }
 
 ///|
@@ -809,7 +809,7 @@ let nes_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NesCLexer` (nesC).
 pub fn nes_c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(nes_c_lexer_info, options, opts => nes_c_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, nes_c_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(nes_c_lexer_info, options, opts => nes_c_lexer(options=opts), nes_c_lexer_tokenizer)
 }
 
 ///|
@@ -823,7 +823,7 @@ pub let omg_idl_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://www.omg.org/spec/IDL/About-IDL/",
   version_added: "2.9",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: omg_idl_lexer_analyse,
 }
 
 ///|
@@ -943,7 +943,7 @@ let omg_idl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OmgIdlLexer` (OMG Interface Definition Language).
 pub fn omg_idl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(omg_idl_lexer_info, options, opts => omg_idl_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, omg_idl_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(omg_idl_lexer_info, options, opts => omg_idl_lexer(options=opts), omg_idl_lexer_tokenizer)
 }
 
 ///|
@@ -957,7 +957,7 @@ pub let pike_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://isocpp.org/",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: pike_lexer_analyse,
 }
 
 ///|
@@ -1078,7 +1078,7 @@ let pike_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PikeLexer` (Pike).
 pub fn pike_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(pike_lexer_info, options, opts => pike_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pike_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(pike_lexer_info, options, opts => pike_lexer(options=opts), pike_lexer_tokenizer)
 }
 
 ///|
@@ -1092,7 +1092,7 @@ pub let promela_lexer_info : @lexer.LexerInfo = {
   priority: 0.1,
   url: "https://spinroot.com/spin/whatispin.html",
   version_added: "2.18",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: promela_lexer_analyse,
 }
 
 ///|
@@ -1188,7 +1188,7 @@ let promela_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PromelaLexer` (Promela).
 pub fn promela_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(promela_lexer_info, options, opts => promela_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, promela_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(promela_lexer_info, options, opts => promela_lexer(options=opts), promela_lexer_tokenizer)
 }
 
 ///|
@@ -1202,7 +1202,7 @@ pub let swig_lexer_info : @lexer.LexerInfo = {
   priority: 0.04,
   url: "https://isocpp.org/",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: swig_lexer_analyse,
 }
 
 ///|
@@ -1326,7 +1326,7 @@ let swig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SwigLexer` (SWIG).
 pub fn swig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(swig_lexer_info, options, opts => swig_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, swig_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(swig_lexer_info, options, opts => swig_lexer(options=opts), swig_lexer_tokenizer)
 }
 
 ///|

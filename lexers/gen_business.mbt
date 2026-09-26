@@ -272,7 +272,7 @@ pub let open_edge_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.progress.com/openedge/features/abl",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: open_edge_lexer_analyse,
 }
 
 ///|

@@ -11,7 +11,7 @@ pub let limbo_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.vitanuova.com/inferno/limbo.html",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: limbo_lexer_analyse,
 }
 
 ///|

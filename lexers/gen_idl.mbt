@@ -11,7 +11,7 @@ pub let idl_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.l3harrisgeospatial.com/Software-Technology/IDL",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: idl_lexer_analyse,
 }
 
 ///|

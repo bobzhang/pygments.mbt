@@ -88,7 +88,7 @@ pub let verilog_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Verilog",
   version_added: "1.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: verilog_lexer_analyse,
 }
 
 ///|

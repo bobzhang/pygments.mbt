@@ -11,7 +11,7 @@ pub let logos_lexer_info : @lexer.LexerInfo = {
   priority: 0.25,
   url: "https://isocpp.org/",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: logos_lexer_analyse,
 }
 
 ///|
@@ -198,7 +198,7 @@ let logos_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LogosLexer` (Logos).
 pub fn logos_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(logos_lexer_info, options, opts => logos_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, logos_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(logos_lexer_info, options, opts => logos_lexer(options=opts), logos_lexer_tokenizer)
 }
 
 ///|
@@ -212,7 +212,7 @@ pub let objective_c_lexer_info : @lexer.LexerInfo = {
   priority: 0.05,
   url: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: objective_c_lexer_analyse,
 }
 
 ///|
@@ -352,7 +352,7 @@ let objective_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ObjectiveCLexer` (Objective-C).
 pub fn objective_c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(objective_c_lexer_info, options, opts => objective_c_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, objective_c_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(objective_c_lexer_info, options, opts => objective_c_lexer(options=opts), objective_c_lexer_tokenizer)
 }
 
 ///|
@@ -366,7 +366,7 @@ pub let objective_cpp_lexer_info : @lexer.LexerInfo = {
   priority: 0.05,
   url: "https://isocpp.org/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: objective_cpp_lexer_analyse,
 }
 
 ///|
@@ -534,7 +534,7 @@ let objective_cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ObjectiveCppLexer` (Objective-C++).
 pub fn objective_cpp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(objective_cpp_lexer_info, options, opts => objective_cpp_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, objective_cpp_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(objective_cpp_lexer_info, options, opts => objective_cpp_lexer(options=opts), objective_cpp_lexer_tokenizer)
 }
 
 ///|
@@ -615,5 +615,5 @@ let swift_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SwiftLexer` (Swift).
 pub fn swift_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(swift_lexer_info, options, opts => swift_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, swift_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(swift_lexer_info, options, opts => swift_lexer(options=opts), swift_lexer_tokenizer)
 }
