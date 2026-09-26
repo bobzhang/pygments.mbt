@@ -1,11 +1,9 @@
 import {
   "bobzhang/pygments/lexers",
-  "bobzhang/pygments/lexer",
   "moonbitlang/async",
   "moonbitlang/async/fs",
-  "moonbitlang/core/json",
   "moonbitlang/core/env",
-  "moonbitlang/core/cmp",
+  "moonbitlang/core/string",
 }
 
 supported_targets = "native"

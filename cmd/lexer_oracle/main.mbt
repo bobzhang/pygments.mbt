@@ -11,11 +11,13 @@ async fn main {
   let mut quiet = false
   let mut only : String? = None
   let mut analyse = false
+  let mut timing = false
   let mut i = 1
   while i < args.length() {
     match args[i] {
       "-v" => verbose = true
       "--quiet" => quiet = true
+      "--time" => timing = true
       "--analyse" => {
         analyse = true
         path = ".oracle/analyse.jsonl"
@@ -38,6 +40,7 @@ async fn main {
   let mut errors = 0
   let failed_by_alias : Map[String, Int] = Map([])
   let passed_by_alias : Map[String, Int] = Map([])
+  let times : Array[(Int64, String)] = []
   for line in data.split("\n") {
     if line.length() == 0 {
       continue
@@ -66,6 +69,7 @@ async fn main {
       guard t is Array([String(ty), String(v)]) else { ("?", "?") }
       (ty, v)
     })
+    let t0 = @async.now()
     let got = try {
       let lx = @lexers.get_lexer_by_name(lexer_alias)
       lx
@@ -94,6 +98,7 @@ async fn main {
         continue
       }
     }
+    times.push((@async.now() - t0, file))
     if got == want {
       pass += 1
       passed_by_alias[lexer_alias] = passed_by_alias
@@ -127,6 +132,12 @@ async fn main {
           }
         }
       }
+    }
+  }
+  if timing {
+    times.sort_by((a, b) => b.0.compare(a.0))
+    for k in 0..<@cmp.minimum(15, times.length()) {
+      println("\{times[k].0}ms \{times[k].1}")
     }
   }
   let failing = failed_by_alias.keys().collect()

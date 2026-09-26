@@ -5,3 +5,4 @@ target/
 *.pyc
 __pycache__/
 .oracle/
+.claude/
