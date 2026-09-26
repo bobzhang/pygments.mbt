@@ -17,7 +17,10 @@ highlighter — to MoonBit.
 * All non-image formatters (HTML, terminal/256/true-color, LaTeX, RTF, SVG,
   BBCode, IRC, groff, Pango, raw, testcase), all 50 styles and all 8 filters,
   byte-identical to Python on 5,480 differential cases.
-* A `pygmentize` command line tool built on `moonbitlang/async`.
+* A **MoonBit lexer** (`moonbit`, `*.mbt`, `*.mbti`, `*.mbtx`) — not in
+  upstream Pygments.
+* Command line tools built on `moonbitlang/async`, runnable with `moonx`:
+  `scat` (cat with syntax highlighting) and a Python-compatible `pygmentize`.
 
 ## Usage
 
@@ -70,6 +73,16 @@ test "lexer lookup" {
 
 ## Command line
 
+`scat` prints files with syntax highlighting; the language comes from the file
+name, or is guessed from the contents:
+
+```bash
+moonx bobzhang/pygments/cmd/scat main.py             # 16-color, follows the terminal theme
+moonx bobzhang/pygments/cmd/scat -s monokai -n lib.rs  # a style, with line numbers
+cat build.log | moonx bobzhang/pygments/cmd/scat -l console
+moonx bobzhang/pygments/cmd/scat --langs            # all 600+ languages
+```
+
 `cmd/pygmentize` mirrors Python's `pygmentize` (`-l -g -f -O -P -F -o -s -S -a
 -L -N -C -H -V`, `--json`); a differential script compares both
 implementations (`scripts/cli_compare.py`):
@@ -95,7 +108,8 @@ in Python without PIL.
 | `lexer/` | lexer runtime: `RegexLexer`/`ExtendedRegexLexer` interpreter, `DelegatingLexer`, `do_insertions`, options |
 | `lexers/` | all lexers: tables generated from upstream (`gen_*.mbt`) plus hand-written parts, registry |
 | `styles/`, `formatters/`, `filters/` | styles, output formatters and token filters |
-| `cmd/pygmentize` | the command line tool |
+| `cmd/scat` | `cat` with syntax highlighting |
+| `cmd/pygmentize` | Python-compatible `pygmentize` |
 | `pystr/` | Python string semantics used by the formatters (`repr`, case mapping, …) |
 | `cmd/*_oracle` | differential test drivers against Python |
 

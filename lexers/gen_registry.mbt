@@ -338,6 +338,7 @@ pub let all_lexers : Array[
   (mojo_lexer_info, opts => mojo_lexer(options=opts)),
   (monkey_lexer_info, opts => monkey_lexer(options=opts)),
   (monte_lexer_info, opts => monte_lexer(options=opts)),
+  (moon_bit_lexer_info, opts => moon_bit_lexer(options=opts)),
   (moon_script_lexer_info, opts => moon_script_lexer(options=opts)),
   (mosel_lexer_info, opts => mosel_lexer(options=opts)),
   (moz_preproc_css_lexer_info, opts => moz_preproc_css_lexer(options=opts)),

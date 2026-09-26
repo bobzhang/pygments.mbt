@@ -1,0 +1,19 @@
+import {
+  "bobzhang/pygments/lexer",
+  "bobzhang/pygments/lexers",
+  "bobzhang/pygments/formatters",
+  "bobzhang/pygments/styles",
+  "moonbitlang/async",
+  "moonbitlang/async/fs",
+  "moonbitlang/async/os_error",
+  "moonbitlang/async/stdio",
+  "moonbitlang/core/env",
+  "moonbitlang/core/encoding/utf8",
+  "moonbitlang/x/sys",
+}
+
+supported_targets = "native+wasm"
+
+warnings = "-implicit_impl_as_method"
+
+pkgtype(kind: "executable")

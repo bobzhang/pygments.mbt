@@ -60,6 +60,15 @@ jobs:
           moonrun _build/wasm/release/build/cmd/pygmentize/pygmentize.wasm -- -f terminal256 /tmp/t.py
           echo 'print(1)' | moonrun _build/wasm/release/build/cmd/pygmentize/pygmentize.wasm -- -l python -f html
 
+      - name: Build scat (native and wasm)
+        run: |
+          moon build --target native --release cmd/scat
+          moon build --target wasm --release cmd/scat
+          ./_build/native/release/build/cmd/scat/scat.exe -n /tmp/t.py
+          moonrun _build/wasm/release/build/cmd/scat/scat.wasm -- -s monokai /tmp/t.py
+          printf 'fn main {\n  println("hi")\n}\n' > /tmp/t.mbt
+          moonrun _build/wasm/release/build/cmd/scat/scat.wasm -- /tmp/t.mbt
+
   conformance:
     name: Conformance against Python Pygments
     runs-on: ubuntu-latest

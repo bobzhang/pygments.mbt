@@ -38,8 +38,8 @@ fn error_message(e : Error) -> String {
 /// Python's `str(OSError)`: `[Errno N] message: 'path'`.
 fn os_error_message(e : Error, path : String) -> String {
   match e {
-    @os_error.OSError(errno, ..) =>
-      "[Errno \{errno}] \{@os_error.errno_to_string(errno)}: \{@pystr.repr(path)}"
+    @os_error.OSError(errno, ..) as e =>
+      "[Errno \{errno}] \{os_message(e)}: \{@pystr.repr(path)}"
     _ => error_message(e)
   }
 }
@@ -390,4 +390,20 @@ fn default_terminal_formatter(
     "terminal"
   }
   @formatters.get_formatter_by_name(name, options~)
+}
+
+///|
+/// The system message of an `OSError` ("No such file or directory").
+fn os_message(e : @os_error.OSError) -> String {
+  let s = e.to_string()
+  let msg = match s.rev_find(": ") {
+    Some(i) => s.unsafe_substring(start=i + 2, end=s.length())
+    None => s
+  }
+  // `to_string` renders `OSError("context: message")`
+  if msg.has_suffix("\")") {
+    msg.unsafe_substring(start=0, end=msg.length() - 2)
+  } else {
+    msg
+  }
 }

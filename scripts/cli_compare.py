@@ -46,6 +46,12 @@ def compare(args, stdin=None):
     global ok, bad
     a = run(py + args, stdin)
     b = run([exe] + args, stdin)
+    if '-L' in args:
+        # lexers that exist only in the MoonBit port are not in Python's list
+        import re as _re
+        out = _re.sub(rb'\* moonbit, mbt:\n    MoonBit [^\n]*\n', b'', b[1])
+        out = _re.sub(rb'"MoonBit": \{[^}]*\}, ', b'', out)
+        b = (b[0], out, b[2])
     # -V/-L headers mention the Python implementation identically; stderr for usage differs in wording
     same = a[0] == b[0] and a[1] == b[1]
     # error messages printed by pygmentize itself must match too

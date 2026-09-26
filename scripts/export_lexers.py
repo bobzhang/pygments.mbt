@@ -408,6 +408,15 @@ with open(os.path.join(OUT, 'gen_patterns.mbt'), 'w') as fh:
         fh.write(f'  {mbt_str(p)},\n')
     fh.write(']\n')
 
+# lexers that exist only in the MoonBit port: `// extra-lexer: <Class> <prefix>`
+for f in sorted(glob.glob(os.path.join(OUT, '*.mbt'))):
+    if os.path.basename(f).startswith('gen_'):
+        continue
+    for m in re.finditer(r'^// extra-lexer: (\w+) ([a-z0-9_]+)$', open(f).read(), re.M):
+        registry.append((m.group(1), m.group(2)))
+        manifest.append((m.group(1) + ' (MoonBit only)', os.path.basename(f)[:-4], 'extra', []))
+registry.sort(key=lambda r: r[0])
+
 with open(os.path.join(OUT, 'gen_registry.mbt'), 'w') as fh:
     fh.write(HEADER)
     fh.write('///|\n/// Every builtin lexer class: metadata and constructor.\n'

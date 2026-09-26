@@ -1339,6 +1339,10 @@ pub fn moo_code_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
 
 pub let moo_code_lexer_info : @lexer.LexerInfo
 
+pub fn moon_bit_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moon_bit_lexer_info : @lexer.LexerInfo
+
 pub fn moon_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
 
 pub let moon_script_lexer_info : @lexer.LexerInfo
