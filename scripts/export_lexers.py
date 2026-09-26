@@ -274,6 +274,16 @@ def reference(c):
                       list(c.filenames), list(c.mimetypes), False))
 
 
+# `// pyhelper: <module>.<Class>` lines in hand-written lexers/*.mbt files:
+# non-public lexer classes instantiated by hand-written tokenizers
+# (e.g. `sql.PsqlRegexLexer` used by `PostgresConsoleLexer`).
+for f in sorted(glob.glob(os.path.join(OUT, '*.mbt'))):
+    if os.path.basename(f).startswith('gen_'):
+        continue
+    for m in re.finditer(r'^// pyhelper: ([\w.]+)\.(\w+)$', open(f).read(), re.M):
+        reference(getattr(importlib.import_module('pygments.lexers.' + m.group(1)), m.group(2)))
+
+
 qi = 0
 while qi < len(queue):
     name, modname, lname, aliases, filenames, mimetypes, public = queue[qi]
