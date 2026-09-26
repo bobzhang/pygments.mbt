@@ -12,6 +12,7 @@ pub let ampl_lexer_info : @lexer.LexerInfo = {
   url: "http://ampl.com/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor AMPL source code.\n",
 }
 
 ///|

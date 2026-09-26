@@ -12,6 +12,7 @@ pub let cplint_lexer_info : @lexer.LexerInfo = {
   url: "https://cplint.eu",
   version_added: "2.12",
   analyse_text: cplint_lexer_analyse,
+  doc: "\nLexer for cplint files, including CP-logic, Logic Programs with Annotated\nDisjunctions, Distributional Clauses syntax, ProbLog, DTProbLog.\n",
 }
 
 ///|

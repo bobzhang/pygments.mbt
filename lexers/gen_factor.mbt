@@ -12,6 +12,7 @@ pub let factor_lexer_info : @lexer.LexerInfo = {
   url: "http://factorcode.org",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Factor language.\n",
 }
 
 ///|

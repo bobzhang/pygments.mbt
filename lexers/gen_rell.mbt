@@ -12,6 +12,7 @@ pub let rell_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.chromia.com/rell/rell-intro",
   version_added: "2.20",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Lexer for Rell.\n",
 }
 
 ///|

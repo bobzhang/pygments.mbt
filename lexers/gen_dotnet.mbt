@@ -12,6 +12,7 @@ pub let boo_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/boo-lang/boo",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Boo source code.\n",
 }
 
 ///|
@@ -78,6 +79,7 @@ pub let c_sharp_aspx_lexer_info : @lexer.LexerInfo = {
   url: "https://dotnet.microsoft.com/en-us/apps/aspnet",
   version_added: "",
   analyse_text: c_sharp_aspx_lexer_analyse,
+  doc: "\nLexer for highlighting C# within ASP.NET pages.\n",
 }
 
 ///|
@@ -98,6 +100,7 @@ pub let c_sharp_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.microsoft.com/en-us/dotnet/csharp/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor C# source code.\n\nAdditional options accepted:\n\n`unicodelevel`\n  Determines which Unicode characters this lexer allows for identifiers.\n  The possible values are:\n\n  * ``none`` -- only the ASCII letters and numbers are allowed. This\n    is the fastest selection.\n  * ``basic`` -- all Unicode characters from the specification except\n    category ``Lo`` are allowed.\n  * ``full`` -- all Unicode characters as specified in the C# specs\n    are allowed.  Note that this means a considerable slowdown since the\n    ``Lo`` category has more than 40,000 characters in it!\n\n  The default value is ``basic``.\n\n  .. versionadded:: 0.8\n",
 }
 
 ///|
@@ -262,6 +265,7 @@ pub let f_sharp_lexer_info : @lexer.LexerInfo = {
   url: "https://fsharp.org/",
   version_added: "1.5",
   analyse_text: f_sharp_lexer_analyse,
+  doc: "\nFor the F# language (version 3.0).\n",
 }
 
 ///|
@@ -356,6 +360,7 @@ pub let nemerle_lexer_info : @lexer.LexerInfo = {
   url: "http://nemerle.org",
   version_added: "1.5",
   analyse_text: nemerle_lexer_analyse,
+  doc: "\nFor Nemerle source code.\n\nAdditional options accepted:\n\n`unicodelevel`\n  Determines which Unicode characters this lexer allows for identifiers.\n  The possible values are:\n\n  * ``none`` -- only the ASCII letters and numbers are allowed. This\n    is the fastest selection.\n  * ``basic`` -- all Unicode characters from the specification except\n    category ``Lo`` are allowed.\n  * ``full`` -- all Unicode characters as specified in the C# specs\n    are allowed.  Note that this means a considerable slowdown since the\n    ``Lo`` category has more than 40,000 characters in it!\n\n  The default value is ``basic``.\n",
 }
 
 ///|
@@ -583,6 +588,7 @@ pub let vb_net_aspx_lexer_info : @lexer.LexerInfo = {
   url: "https://dotnet.microsoft.com/en-us/apps/aspnet",
   version_added: "",
   analyse_text: vb_net_aspx_lexer_analyse,
+  doc: "\nLexer for highlighting Visual Basic.net within ASP.NET pages.\n",
 }
 
 ///|
@@ -603,6 +609,7 @@ pub let vb_net_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.microsoft.com/en-us/dotnet/visual-basic/",
   version_added: "",
   analyse_text: vb_net_lexer_analyse,
+  doc: "\nFor Visual Basic.NET source code.\nAlso LibreOffice Basic, OpenOffice Basic, and StarOffice Basic.\n",
 }
 
 ///|
@@ -674,6 +681,7 @@ pub let xpp_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/dev-ref/xpp-language-reference",
   version_added: "2.15",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor X++ source code. This is based loosely on the CSharpLexer\n",
 }
 
 ///|
@@ -737,6 +745,7 @@ let generic_aspx_lexer_info : @lexer.LexerInfo = {
   url: "https://dotnet.microsoft.com/en-us/apps/aspnet",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for ASP.NET pages.\n",
 }
 
 ///|

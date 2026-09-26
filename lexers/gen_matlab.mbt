@@ -12,6 +12,7 @@ pub let matlab_lexer_info : @lexer.LexerInfo = {
   url: "https://www.mathworks.com/products/matlab.html",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Matlab source code.\n",
 }
 
 ///|
@@ -99,6 +100,7 @@ pub let matlab_session_lexer_info : @lexer.LexerInfo = {
   url: "https://www.mathworks.com/products/matlab.html",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Matlab sessions.  Modeled after PythonConsoleLexer.\nContributed by Ken Schutte <kschutte@csail.mit.edu>.\n",
 }
 
 ///|
@@ -119,6 +121,7 @@ pub let octave_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/octave/index",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor GNU Octave source code.\n",
 }
 
 ///|
@@ -193,6 +196,7 @@ pub let scilab_lexer_info : @lexer.LexerInfo = {
   url: "https://www.scilab.org/",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Scilab source code.\n",
 }
 
 ///|

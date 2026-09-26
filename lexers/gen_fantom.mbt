@@ -12,6 +12,7 @@ pub let fantom_lexer_info : @lexer.LexerInfo = {
   url: "https://www.fantom.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Fantom source code.\n",
 }
 
 ///|

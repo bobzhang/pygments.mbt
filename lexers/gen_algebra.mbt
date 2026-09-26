@@ -12,6 +12,7 @@ pub let bc_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/bc/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA BC lexer.\n",
 }
 
 ///|
@@ -56,6 +57,7 @@ pub let gap_console_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gap-system.org",
   version_added: "2.14",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor GAP console sessions. Modeled after JuliaConsoleLexer.\n",
 }
 
 ///|
@@ -76,6 +78,7 @@ pub let gap_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gap-system.org",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor GAP source code.\n",
 }
 
 ///|
@@ -121,6 +124,7 @@ pub let mathematica_lexer_info : @lexer.LexerInfo = {
   url: "https://www.wolfram.com/language/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Mathematica source code.\n",
 }
 
 ///|
@@ -167,6 +171,7 @@ pub let mu_pad_lexer_info : @lexer.LexerInfo = {
   url: "http://www.mupad.com",
   version_added: "0.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA MuPAD lexer.\nContributed by Christopher Creutzig <christopher@creutzig.de>.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let berry_lexer_info : @lexer.LexerInfo = {
   url: "https://berry-lang.github.io",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Berry source code.\n",
 }
 
 ///|

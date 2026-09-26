@@ -12,6 +12,7 @@ pub let tera_term_lexer_info : @lexer.LexerInfo = {
   url: "https://ttssh2.osdn.jp/",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Tera Term macro source code.\n",
 }
 
 ///|

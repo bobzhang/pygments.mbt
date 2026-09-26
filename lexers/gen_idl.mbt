@@ -12,6 +12,7 @@ pub let idl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.l3harrisgeospatial.com/Software-Technology/IDL",
   version_added: "1.6",
   analyse_text: idl_lexer_analyse,
+  doc: "\nPygments Lexer for IDL (Interactive Data Language).\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let r_console_lexer_info : @lexer.LexerInfo = {
   url: "https://www.r-project.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor R console transcripts or R CMD BATCH output files.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let rd_lexer_info : @lexer.LexerInfo = {
   url: "http://cran.r-project.org/doc/manuals/R-exts.html",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nPygments Lexer for R documentation (Rd) files\n\nThis is a very minimal implementation, highlighting little more\nthan the macros. A description of Rd syntax is found in `Writing R\nExtensions <http://cran.r-project.org/doc/manuals/R-exts.html>`_\nand `Parsing Rd files <http://developer.r-project.org/parseRd.pdf>`_.\n",
 }
 
 ///|
@@ -73,6 +75,7 @@ pub let s_lexer_info : @lexer.LexerInfo = {
   url: "https://www.r-project.org",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor S, S-plus, and R source code.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let elixir_console_lexer_info : @lexer.LexerInfo = {
   url: "https://elixir-lang.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Elixir interactive console (iex) output like:\n\n.. sourcecode:: iex\n\n    iex> [head | tail] = [1,2,3]\n    [1,2,3]\n    iex> head\n    1\n    iex> tail\n    [2,3]\n    iex> [head | tail]\n    [1,2,3]\n    iex> length [head | tail]\n    3\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let elixir_lexer_info : @lexer.LexerInfo = {
   url: "https://elixir-lang.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Elixir language.\n",
 }
 
 ///|
@@ -204,6 +206,7 @@ pub let erlang_lexer_info : @lexer.LexerInfo = {
   url: "https://www.erlang.org/",
   version_added: "0.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Erlang functional programming language.\n",
 }
 
 ///|
@@ -273,6 +276,7 @@ pub let erlang_shell_lexer_info : @lexer.LexerInfo = {
   url: "https://www.erlang.org/",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nShell sessions in erl (for Erlang code).\n",
 }
 
 ///|

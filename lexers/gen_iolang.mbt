@@ -12,6 +12,7 @@ pub let io_lexer_info : @lexer.LexerInfo = {
   url: "http://iolanguage.com/",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Io (a small, prototype-based programming language) source.\n",
 }
 
 ///|

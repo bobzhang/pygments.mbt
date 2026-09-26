@@ -12,6 +12,7 @@ pub let kusto_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query",
   version_added: "2.17",
   analyse_text: @lexer.no_analyse,
+  doc: "For Kusto Query Language source code.\n",
 }
 
 ///|

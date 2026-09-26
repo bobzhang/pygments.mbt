@@ -12,6 +12,7 @@ pub let bit_bake_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.yoctoproject.org/bitbake/",
   version_added: "2.21",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for BitBake recipes, classes, includes and configuration files\nused by the Yocto Project and OpenEmbedded build system.\n",
 }
 
 ///|

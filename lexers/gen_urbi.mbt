@@ -12,6 +12,7 @@ pub let urbiscript_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/urbiforge/urbi",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor UrbiScript source code.\n",
 }
 
 ///|

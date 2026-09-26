@@ -12,6 +12,7 @@ pub let scdoc_lexer_info : @lexer.LexerInfo = {
   url: "https://git.sr.ht/~sircmpwn/scdoc",
   version_added: "2.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\n`scdoc` is a simple man page generator for POSIX systems written in C99.\n",
 }
 
 ///|

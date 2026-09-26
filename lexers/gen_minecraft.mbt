@@ -12,6 +12,7 @@ pub let mc_function_lexer_info : @lexer.LexerInfo = {
   url: "https://minecraft.wiki/w/Commands",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for the mcfunction scripting language used in Minecraft.\n\nModelled somewhat after the `GitHub mcfunction grammar <https://github.com/Arcensoth/language-mcfunction>`_.\n",
 }
 
 ///|
@@ -104,6 +105,7 @@ pub let mc_schema_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/schemasreference/",
   version_added: "2.14",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for Minecraft Add-ons data Schemas, an interface structure standard used in Minecraft\n",
 }
 
 ///|
@@ -167,6 +169,7 @@ pub let snbt_lexer_info : @lexer.LexerInfo = {
   url: "https://minecraft.wiki/w/NBT_format",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for stringified NBT, a data format used in Minecraft\n",
 }
 
 ///|

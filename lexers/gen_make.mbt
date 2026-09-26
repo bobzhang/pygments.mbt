@@ -12,6 +12,7 @@ pub let base_makefile_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Make_(software)",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for simple Makefiles (no preprocessing).\n",
 }
 
 ///|
@@ -71,6 +72,7 @@ pub let c_make_lexer_info : @lexer.LexerInfo = {
   url: "https://cmake.org/documentation/",
   version_added: "1.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for CMake files.\n",
 }
 
 ///|
@@ -119,6 +121,7 @@ pub let makefile_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Make_(software)",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for BSD and GNU make extensions (lenient enough to handle both in\nthe same file even).\n\n*Rewritten in Pygments 0.10.*\n",
 }
 
 ///|

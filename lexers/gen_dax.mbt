@@ -12,6 +12,7 @@ pub let dax_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/dax/dax-function-reference",
   version_added: "2.15",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Power BI DAX\nReferenced from: https://github.com/sql-bi/SyntaxHighlighterBrushDax\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let nu_smv_lexer_info : @lexer.LexerInfo = {
   url: "https://nusmv.fbk.eu",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the NuSMV language.\n",
 }
 
 ///|

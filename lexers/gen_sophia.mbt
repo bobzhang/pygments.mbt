@@ -12,6 +12,7 @@ pub let sophia_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.aeternity.com/aesophia",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Sophia lexer.\n",
 }
 
 ///|

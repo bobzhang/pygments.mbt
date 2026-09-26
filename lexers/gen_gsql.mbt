@@ -12,6 +12,7 @@ pub let gsql_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.tigergraph.com/dev/gsql-ref",
   version_added: "2.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor GSQL queries (version 3.x).\n",
 }
 
 ///|

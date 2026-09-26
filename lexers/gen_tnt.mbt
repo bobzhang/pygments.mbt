@@ -12,6 +12,7 @@ pub let tnt_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/Kenny2github/language-tnt",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Typographic Number Theory, as described in the book\nGödel, Escher, Bach, by Douglas R. Hofstadter\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let coffee_script_lexer_info : @lexer.LexerInfo = {
   url: "http://coffeescript.org",
   version_added: "1.3",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor CoffeeScript source code.\n",
 }
 
 ///|
@@ -89,6 +90,7 @@ pub let dart_lexer_info : @lexer.LexerInfo = {
   url: "http://dart.dev/",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Dart source code.\n",
 }
 
 ///|
@@ -171,6 +173,7 @@ pub let earl_grey_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/breuleux/earl-grey",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Earl-Grey source code.\n\n.. versionadded: 2.1\n",
 }
 
 ///|
@@ -272,6 +275,7 @@ pub let javascript_lexer_info : @lexer.LexerInfo = {
   url: "https://www.ecma-international.org/publications-and-standards/standards/ecma-262/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor JavaScript source code.\n",
 }
 
 ///|
@@ -345,6 +349,7 @@ pub let juttle_lexer_info : @lexer.LexerInfo = {
   url: "http://juttle.github.io/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Juttle source code.\n",
 }
 
 ///|
@@ -403,6 +408,7 @@ pub let kal_lexer_info : @lexer.LexerInfo = {
   url: "http://rzimmerman.github.io/kal",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Kal source code.\n",
 }
 
 ///|
@@ -486,6 +492,7 @@ pub let lasso_lexer_info : @lexer.LexerInfo = {
   url: "https://www.lassosoft.com",
   version_added: "1.6",
   analyse_text: lasso_lexer_analyse,
+  doc: "\nFor Lasso source code, covering both Lasso 9\nsyntax and LassoScript for Lasso 8.6 and earlier. For Lasso embedded in\nHTML, use the `LassoHtmlLexer`.\n\nAdditional options accepted:\n\n`builtinshighlighting`\n    If given and ``True``, highlight builtin types, traits, methods, and\n    members (default: ``True``).\n`requiredelimiters`\n    If given and ``True``, only highlight code between delimiters as Lasso\n    (default: ``False``).\n",
 }
 
 ///|
@@ -607,6 +614,7 @@ pub let live_script_lexer_info : @lexer.LexerInfo = {
   url: "https://livescript.net/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor LiveScript source code.\n",
 }
 
 ///|
@@ -684,6 +692,7 @@ pub let mask_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/atmajs/MaskJS",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Mask markup.\n",
 }
 
 ///|
@@ -771,6 +780,7 @@ pub let node_console_lexer_info : @lexer.LexerInfo = {
   url: "https://nodejs.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor parsing within an interactive Node.js REPL, such as:\n\n.. sourcecode:: nodejsrepl\n\n    > let a = 3\n    undefined\n    > a\n    3\n    > let b = '4'\n    undefined\n    > b\n    '4'\n    > b == a\n    false\n\n.. versionadded: 2.10\n",
 }
 
 ///|
@@ -791,6 +801,7 @@ pub let objective_j_lexer_info : @lexer.LexerInfo = {
   url: "https://www.cappuccino.dev/learn/objective-j.html",
   version_added: "1.3",
   analyse_text: objective_j_lexer_analyse,
+  doc: "\nFor Objective-J source code with preprocessor directives.\n",
 }
 
 ///|
@@ -900,6 +911,7 @@ pub let type_script_lexer_info : @lexer.LexerInfo = {
   url: "https://www.typescriptlang.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor TypeScript source code.\n",
 }
 
 ///|

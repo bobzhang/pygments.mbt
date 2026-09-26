@@ -12,6 +12,7 @@ pub let c_objdump_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/binutils",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the output of ``objdump -Sr`` on compiled C files.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let ca65_lexer_info : @lexer.LexerInfo = {
   url: "https://cc65.github.io",
   version_added: "1.6",
   analyse_text: ca65_lexer_analyse,
+  doc: "\nFor ca65 assembler sources.\n",
 }
 
 ///|
@@ -78,6 +80,7 @@ pub let cpp_objdump_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/binutils",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the output of ``objdump -Sr`` on compiled C++ files.\n",
 }
 
 ///|
@@ -98,6 +101,7 @@ pub let d_objdump_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/binutils",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the output of ``objdump -Sr`` on compiled D files.\n",
 }
 
 ///|
@@ -118,6 +122,7 @@ pub let dasm16_lexer_info : @lexer.LexerInfo = {
   url: "http://0x10c.com/doc/dcpu-16.txt",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor DCPU-16 Assembly.\n",
 }
 
 ///|
@@ -171,6 +176,7 @@ pub let gas_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/binutils",
   version_added: "",
   analyse_text: gas_lexer_analyse,
+  doc: "\nFor Gas (AT&T) assembly code.\n",
 }
 
 ///|
@@ -234,6 +240,7 @@ pub let hsail_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Heterogeneous_System_Architecture#HSA_Intermediate_Layer",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor HSAIL assembly code.\n",
 }
 
 ///|
@@ -291,6 +298,7 @@ pub let llvm_lexer_info : @lexer.LexerInfo = {
   url: "https://llvm.org/docs/LangRef.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor LLVM assembly code.\n",
 }
 
 ///|
@@ -345,6 +353,7 @@ pub let llvm_mir_body_lexer_info : @lexer.LexerInfo = {
   url: "https://llvm.org/docs/MIRLangRef.html",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor LLVM MIR examples without the YAML wrapper.\n",
 }
 
 ///|
@@ -424,6 +433,7 @@ pub let llvm_mir_lexer_info : @lexer.LexerInfo = {
   url: "https://llvm.org/docs/MIRLangRef.html",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the overall LLVM MIR document format.\n\nMIR is a human readable serialization format that's used to represent LLVM's\nmachine specific intermediate representation. It allows LLVM's developers to\nsee the state of the compilation process at various points, as well as test\nindividual pieces of the compiler.\n",
 }
 
 ///|
@@ -481,6 +491,7 @@ pub let nasm_lexer_info : @lexer.LexerInfo = {
   url: "https://nasm.us",
   version_added: "",
   analyse_text: nasm_lexer_analyse,
+  doc: "\nFor Nasm (Intel) assembly code.\n",
 }
 
 ///|
@@ -542,6 +553,7 @@ pub let nasm_objdump_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/binutils",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the output of ``objdump -d -M intel``.\n",
 }
 
 ///|
@@ -587,6 +599,7 @@ pub let objdump_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/binutils",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the output of ``objdump -dr``.\n",
 }
 
 ///|
@@ -632,6 +645,7 @@ pub let tasm_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Turbo_Assembler",
   version_added: "",
   analyse_text: tasm_lexer_analyse,
+  doc: "\nFor Tasm (Turbo Assembler) assembly code.\n",
 }
 
 ///|

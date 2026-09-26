@@ -12,6 +12,7 @@ pub let maxima_lexer_info : @lexer.LexerInfo = {
   url: "http://maxima.sourceforge.net",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Maxima lexer.\nDerived from pygments.lexers.MuPADLexer.\n",
 }
 
 ///|

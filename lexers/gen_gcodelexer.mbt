@@ -12,6 +12,7 @@ pub let gcode_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/G-code",
   version_added: "2.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor gcode source code.\n",
 }
 
 ///|

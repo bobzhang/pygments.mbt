@@ -12,6 +12,7 @@ pub let asn1_lexer_info : @lexer.LexerInfo = {
   url: "https://www.itu.int/ITU-T/studygroups/com17/languages/X.680-0207.pdf",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for ASN.1 module definition\n",
 }
 
 ///|

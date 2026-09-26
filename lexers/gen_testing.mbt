@@ -12,6 +12,7 @@ pub let gherkin_lexer_info : @lexer.LexerInfo = {
   url: "https://cucumber.io/docs/gherkin",
   version_added: "1.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Gherkin syntax.\n",
 }
 
 ///|
@@ -80,6 +81,7 @@ pub let tap_lexer_info : @lexer.LexerInfo = {
   url: "https://testanything.org/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Test Anything Protocol (TAP) output.\n",
 }
 
 ///|

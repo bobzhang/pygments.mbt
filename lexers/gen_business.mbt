@@ -12,6 +12,7 @@ pub let abap_lexer_info : @lexer.LexerInfo = {
   url: "https://community.sap.com/topics/abap",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for ABAP, SAP's integrated language.\n",
 }
 
 ///|
@@ -74,6 +75,7 @@ pub let cobol_freeformat_lexer_info : @lexer.LexerInfo = {
   url: "https://opencobol.add1tocobol.com",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Free format OpenCOBOL code.\n",
 }
 
 ///|
@@ -125,6 +127,7 @@ pub let cobol_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/COBOL",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for OpenCOBOL code.\n",
 }
 
 ///|
@@ -176,6 +179,7 @@ pub let good_data_cl_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/gooddata/GoodData-CL",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for GoodData-CL script files.\n",
 }
 
 ///|
@@ -224,6 +228,7 @@ pub let maql_lexer_info : @lexer.LexerInfo = {
   url: "https://help.gooddata.com/doc/enterprise/en/dashboards-and-insights/maql-analytical-query-language",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for GoodData MAQL scripts.\n",
 }
 
 ///|
@@ -273,6 +278,7 @@ pub let open_edge_lexer_info : @lexer.LexerInfo = {
   url: "https://www.progress.com/openedge/features/abl",
   version_added: "1.5",
   analyse_text: open_edge_lexer_analyse,
+  doc: "\nLexer for OpenEdge ABL (formerly Progress) source code.\n",
 }
 
 ///|

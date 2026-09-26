@@ -12,6 +12,7 @@ pub let delphi_lexer_info : @lexer.LexerInfo = {
   url: "https://www.embarcadero.com/products/delphi",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Delphi (Borland Object Pascal),\nTurbo Pascal and Free Pascal source code.\n\nAdditional options accepted:\n\n`turbopascal`\n    Highlight Turbo Pascal specific keywords (default: ``True``).\n`delphi`\n    Highlight Borland Delphi specific keywords (default: ``True``).\n`freepascal`\n    Highlight Free Pascal specific keywords (default: ``True``).\n`units`\n    A list of units that should be considered builtin, supported are\n    ``System``, ``SysUtils``, ``Classes`` and ``Math``.\n    Default is to consider all of them builtin.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let portugol_lexer_info : @lexer.LexerInfo = {
   url: "https://www.apoioinformatica.inf.br/produtos/visualg/linguagem",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "For Portugol, a Pascal dialect with keywords in Portuguese.",
 }
 
 ///|

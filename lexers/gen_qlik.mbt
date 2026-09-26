@@ -12,6 +12,7 @@ pub let qlik_lexer_info : @lexer.LexerInfo = {
   url: "https://qlik.com",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for qlik code, including .qvs files\n",
 }
 
 ///|

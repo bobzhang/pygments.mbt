@@ -12,6 +12,7 @@ pub let bb_code_lexer_info : @lexer.LexerInfo = {
   url: "https://www.bbcode.org/",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer that highlights BBCode(-like) syntax.\n",
 }
 
 ///|
@@ -52,6 +53,7 @@ pub let groff_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/groff",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the (g)roff typesetting language, supporting groff\nextensions. Mainly useful for highlighting manpage sources.\n",
 }
 
 ///|
@@ -102,6 +104,7 @@ pub let markdown_lexer_info : @lexer.LexerInfo = {
   url: "https://daringfireball.net/projects/markdown/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Markdown markup.\n",
 }
 
 ///|
@@ -160,6 +163,7 @@ pub let moin_wiki_lexer_info : @lexer.LexerInfo = {
   url: "https://moinmo.in",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor MoinMoin (and Trac) Wiki markup.\n",
 }
 
 ///|
@@ -210,6 +214,7 @@ pub let moz_preproc_css_lexer_info : @lexer.LexerInfo = {
   url: "https://firefox-source-docs.mozilla.org/build/buildsystem/preprocessor.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MozPreprocHashLexer` that highlights unlexed data with the\n`CssLexer`.\n",
 }
 
 ///|
@@ -230,6 +235,7 @@ pub let moz_preproc_hash_lexer_info : @lexer.LexerInfo = {
   url: "https://firefox-source-docs.mozilla.org/build/buildsystem/preprocessor.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Mozilla Preprocessor files (with '#' as the marker).\n\nOther data is left untouched.\n",
 }
 
 ///|
@@ -277,6 +283,7 @@ pub let moz_preproc_javascript_lexer_info : @lexer.LexerInfo = {
   url: "https://firefox-source-docs.mozilla.org/build/buildsystem/preprocessor.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MozPreprocHashLexer` that highlights unlexed data with the\n`JavascriptLexer`.\n",
 }
 
 ///|
@@ -297,6 +304,7 @@ pub let moz_preproc_percent_lexer_info : @lexer.LexerInfo = {
   url: "https://firefox-source-docs.mozilla.org/build/buildsystem/preprocessor.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Mozilla Preprocessor files (with '%' as the marker).\n\nOther data is left untouched.\n",
 }
 
 ///|
@@ -344,6 +352,7 @@ pub let moz_preproc_xul_lexer_info : @lexer.LexerInfo = {
   url: "https://firefox-source-docs.mozilla.org/build/buildsystem/preprocessor.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MozPreprocHashLexer` that highlights unlexed data with the\n`XmlLexer`.\n",
 }
 
 ///|
@@ -364,6 +373,7 @@ pub let org_lexer_info : @lexer.LexerInfo = {
   url: "https://orgmode.org",
   version_added: "2.18",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Org Mode markup.\n",
 }
 
 ///|
@@ -438,6 +448,7 @@ pub let rst_lexer_info : @lexer.LexerInfo = {
   url: "https://docutils.sourceforge.io/rst.html",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor reStructuredText markup.\n\nAdditional options accepted:\n\n`handlecodeblocks`\n    Highlight the contents of ``.. sourcecode:: language``,\n    ``.. code:: language`` and ``.. code-block:: language``\n    directives with a lexer for the given language (default:\n    ``True``).\n\n    .. versionadded:: 0.8\n",
 }
 
 ///|
@@ -503,6 +514,7 @@ pub let tex_lexer_info : @lexer.LexerInfo = {
   url: "https://tug.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the TeX and LaTeX typesetting languages.\n",
 }
 
 ///|
@@ -560,6 +572,7 @@ pub let tiddly_wiki5_lexer_info : @lexer.LexerInfo = {
   url: "https://tiddlywiki.com/#TiddlerFiles",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor TiddlyWiki5 markup.\n",
 }
 
 ///|
@@ -627,6 +640,7 @@ pub let wikitext_lexer_info : @lexer.LexerInfo = {
   url: "https://www.mediawiki.org/wiki/Wikitext",
   version_added: "2.15",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor MediaWiki Wikitext.\n\nParsing Wikitext is tricky, and results vary between different MediaWiki\ninstallations, so we only highlight common syntaxes (built-in or from\npopular extensions), and also assume templates produce no unbalanced\nsyntaxes.\n",
 }
 
 ///|

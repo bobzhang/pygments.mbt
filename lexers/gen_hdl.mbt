@@ -12,6 +12,7 @@ pub let system_verilog_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/SystemVerilog",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nExtends verilog lexer to recognise all SystemVerilog keywords from IEEE\n1800-2009 standard.\n",
 }
 
 ///|
@@ -89,6 +90,7 @@ pub let verilog_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Verilog",
   version_added: "1.4",
   analyse_text: verilog_lexer_analyse,
+  doc: "\nFor verilog source code with preprocessor directives.\n",
 }
 
 ///|
@@ -162,6 +164,7 @@ pub let vhdl_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/VHDL",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor VHDL source code.\n",
 }
 
 ///|

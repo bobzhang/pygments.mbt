@@ -12,6 +12,7 @@ pub let gettext_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/gettext",
   version_added: "0.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Gettext catalog files.\n",
 }
 
 ///|
@@ -52,6 +53,7 @@ pub let http_lexer_info : @lexer.LexerInfo = {
   url: "https://httpwg.org/specs",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for HTTP sessions.\n",
 }
 
 ///|
@@ -91,6 +93,7 @@ pub let irc_logs_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Internet_Relay_Chat",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for IRC logs in *irssi*, *xchat* or *weechat* style.\n",
 }
 
 ///|
@@ -132,6 +135,7 @@ pub let kernel_log_lexer_info : @lexer.LexerInfo = {
   url: "https://fr.wikipedia.org/wiki/Dmesg",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Linux Kernel log (\"dmesg\") output.\n",
 }
 
 ///|
@@ -182,6 +186,7 @@ pub let notmuch_lexer_info : @lexer.LexerInfo = {
   url: "https://notmuchmail.org/",
   version_added: "2.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Notmuch email text format.\n\nAdditional options accepted:\n\n`body_lexer`\n    If given, highlight the contents of the message body with the specified\n    lexer, else guess it according to the body content (default: ``None``).\n",
 }
 
 ///|
@@ -237,6 +242,7 @@ pub let todotxt_lexer_info : @lexer.LexerInfo = {
   url: "http://todotxt.com/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Todo.txt todo list format.\n",
 }
 
 ///|

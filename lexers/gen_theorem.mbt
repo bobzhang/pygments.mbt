@@ -12,6 +12,7 @@ pub let isabelle_lexer_info : @lexer.LexerInfo = {
   url: "https://isabelle.in.tum.de/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Isabelle proof assistant.\n",
 }
 
 ///|
@@ -97,6 +98,7 @@ pub let rocq_lexer_info : @lexer.LexerInfo = {
   url: "https://rocq-prover.org/",
   version_added: "1.5",
   analyse_text: rocq_lexer_analyse,
+  doc: "\nFor the Rocq Prover.\n",
 }
 
 ///|

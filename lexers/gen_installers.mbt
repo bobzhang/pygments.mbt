@@ -12,6 +12,7 @@ pub let debian_control_lexer_info : @lexer.LexerInfo = {
   url: "https://www.debian.org/doc/debian-policy/ch-controlfields.html",
   version_added: "0.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Debian ``control`` files and ``apt-cache show <pkg>`` outputs.\n",
 }
 
 ///|
@@ -72,6 +73,7 @@ pub let debian_sources_lexer_info : @lexer.LexerInfo = {
   url: "https://manpages.debian.org/bookworm/apt/sources.list.5.en.html#THE_DEB_AND_DEB-SRC_TYPES:_GENERAL_FORMAT",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer that highlights debian.sources files.\n",
 }
 
 ///|
@@ -109,6 +111,7 @@ pub let nsis_lexer_info : @lexer.LexerInfo = {
   url: "http://nsis.sourceforge.net/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor NSIS scripts.\n",
 }
 
 ///|
@@ -169,6 +172,7 @@ pub let rpm_spec_lexer_info : @lexer.LexerInfo = {
   url: "https://rpm-software-management.github.io/rpm/manual/spec.html",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor RPM ``.spec`` files.\n",
 }
 
 ///|
@@ -230,6 +234,7 @@ pub let sources_list_lexer_info : @lexer.LexerInfo = {
   url: "https://wiki.debian.org/SourcesList",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer that highlights debian sources.list files.\n",
 }
 
 ///|

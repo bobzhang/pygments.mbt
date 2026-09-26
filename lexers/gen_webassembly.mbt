@@ -12,6 +12,7 @@ pub let wat_lexer_info : @lexer.LexerInfo = {
   url: "https://webassembly.org/",
   version_added: "2.9",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for the WebAssembly text format.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let free_fem_lexer_info : @lexer.LexerInfo = {
   url: "https://freefem.org/",
   version_added: "2.4",
   analyse_text: free_fem_lexer_analyse,
+  doc: "\nFor FreeFem++ source.\n\nThis is an extension of the CppLexer, as the FreeFem Language is a superset\nof C++.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let tcl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.tcl.tk/about/language.html",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Tcl source code.\n",
 }
 
 ///|

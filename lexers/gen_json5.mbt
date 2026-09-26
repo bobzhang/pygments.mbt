@@ -12,6 +12,7 @@ pub let json5_lexer_info : @lexer.LexerInfo = {
   url: "https://json5.org",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for JSON5 data structures.",
 }
 
 ///|

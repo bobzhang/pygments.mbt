@@ -12,6 +12,7 @@ pub let inform6_lexer_info : @lexer.LexerInfo = {
   url: "http://inform-fiction.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Inform 6 source code.\n",
 }
 
 ///|
@@ -240,6 +241,7 @@ pub let inform6_template_lexer_info : @lexer.LexerInfo = {
   url: "http://inform7.com/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Inform 6 template code.\n",
 }
 
 ///|
@@ -1112,6 +1114,7 @@ pub let inform7_lexer_info : @lexer.LexerInfo = {
   url: "http://inform7.com/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Inform 7 source code.\n",
 }
 
 ///|
@@ -1984,6 +1987,7 @@ pub let tads3_lexer_info : @lexer.LexerInfo = {
   url: "https://www.tads.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor TADS 3 source code.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let web_idl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/wiki/Web_IDL",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Web IDL.\n",
 }
 
 ///|

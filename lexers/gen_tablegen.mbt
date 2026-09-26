@@ -12,6 +12,7 @@ pub let table_gen_lexer_info : @lexer.LexerInfo = {
   url: "https://llvm.org/docs/TableGen/ProgRef.html",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for TableGen\n",
 }
 
 ///|

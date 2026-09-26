@@ -12,6 +12,7 @@ pub let crystal_lexer_info : @lexer.LexerInfo = {
   url: "https://crystal-lang.org",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Crystal source code.\n",
 }
 
 ///|

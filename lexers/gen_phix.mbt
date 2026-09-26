@@ -12,6 +12,7 @@ pub let phix_lexer_info : @lexer.LexerInfo = {
   url: "http://phix.x10.mx",
   version_added: "2.14",
   analyse_text: @lexer.no_analyse,
+  doc: "\nPygments Lexer for Phix files (.exw).\nSee http://phix.x10.mx\n",
 }
 
 ///|

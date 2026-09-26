@@ -12,6 +12,7 @@ pub let wgsl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/TR/WGSL/",
   version_added: "2.15",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the WebGPU Shading Language.\n",
 }
 
 ///|

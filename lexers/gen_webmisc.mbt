@@ -12,6 +12,7 @@ pub let cirru_lexer_info : @lexer.LexerInfo = {
   url: "http://cirru.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\n* using ``()`` for expressions, but restricted in a same line\n* using ``\"\"`` for strings, with ``\\`` for escaping chars\n* using ``$`` as folding operator\n* using ``,`` as unfolding operator\n* using indentations for nested blocks\n",
 }
 
 ///|
@@ -66,6 +67,7 @@ pub let duel_lexer_info : @lexer.LexerInfo = {
   url: "http://duelengine.org/",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Duel Views Engine (formerly JBST) markup with JavaScript code blocks.\n",
 }
 
 ///|
@@ -105,6 +107,7 @@ pub let qml_lexer_info : @lexer.LexerInfo = {
   url: "https://doc.qt.io/qt-6/qmlapplications.html",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor QML files.\n",
 }
 
 ///|
@@ -163,6 +166,7 @@ pub let slim_lexer_info : @lexer.LexerInfo = {
   url: "https://slim-template.github.io",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Slim markup.\n",
 }
 
 ///|
@@ -219,6 +223,7 @@ pub let x_query_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/XML/Query/",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nAn XQuery lexer, parsing a stream and outputting the tokens needed to\nhighlight xquery code.\n",
 }
 
 ///|

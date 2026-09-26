@@ -12,6 +12,7 @@ pub let func_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.ton.org/develop/func/overview",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor FunC source code.\n",
 }
 
 ///|

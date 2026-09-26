@@ -12,6 +12,7 @@ pub let hare_lexer_info : @lexer.LexerInfo = {
   url: "https://harelang.org/",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Hare programming language.\n",
 }
 
 ///|

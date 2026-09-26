@@ -12,6 +12,7 @@ pub let json_bare_object_lexer_info : @lexer.LexerInfo = {
   url: "https://www.json.org",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor JSON data structures (with missing object curly braces).\n\n.. deprecated:: 2.8.0\n\n   Behaves the same as `JsonLexer` now.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let json_ld_lexer_info : @lexer.LexerInfo = {
   url: "https://json-ld.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor JSON-LD linked data.\n",
 }
 
 ///|
@@ -52,6 +54,7 @@ pub let json_lexer_info : @lexer.LexerInfo = {
   url: "https://www.json.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor JSON data structures.\n\nJavascript-style comments are supported (like ``/* */`` and ``//``),\nthough comments are not part of the JSON specification.\nThis allows users to highlight JSON as it is used in the wild.\n\nNo validation is performed on the input JSON document.\n",
 }
 
 ///|
@@ -72,6 +75,7 @@ pub let yaml_lexer_info : @lexer.LexerInfo = {
   url: "http://yaml.org/",
   version_added: "0.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for YAML, a human-friendly data serialization\nlanguage.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let cddl_lexer_info : @lexer.LexerInfo = {
   url: "https://datatracker.ietf.org/doc/rfc8610/",
   version_added: "2.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for CDDL definitions.\n",
 }
 
 ///|

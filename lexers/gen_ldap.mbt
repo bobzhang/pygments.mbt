@@ -12,6 +12,7 @@ pub let ldaprc_lexer_info : @lexer.LexerInfo = {
   url: "https://www.openldap.org/software//man.cgi?query=ldap.conf&sektion=5&apropos=0&manpath=OpenLDAP+2.4-Release",
   version_added: "2.17",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for OpenLDAP configuration files.\n",
 }
 
 ///|
@@ -58,6 +59,7 @@ pub let ldif_lexer_info : @lexer.LexerInfo = {
   url: "https://datatracker.ietf.org/doc/html/rfc2849",
   version_added: "2.17",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for LDIF\n",
 }
 
 ///|

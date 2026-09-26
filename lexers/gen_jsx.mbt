@@ -12,6 +12,7 @@ pub let jsx_lexer_info : @lexer.LexerInfo = {
   url: "https://facebook.github.io/jsx/",
   version_added: "2.17",
   analyse_text: @lexer.no_analyse,
+  doc: "For JavaScript Syntax Extension (JSX).\n",
 }
 
 ///|
@@ -103,6 +104,7 @@ pub let tsx_lexer_info : @lexer.LexerInfo = {
   url: "https://www.typescriptlang.org/docs/handbook/jsx.html",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "For TypeScript with embedded JSX\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let output_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "2.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSimple lexer that highlights everything as ``Token.Generic.Output``.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let raw_token_lexer_info : @lexer.LexerInfo = {
   url: "https://pygments.org/docs/formatters/#RawTokenFormatter",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nRecreate a token stream formatted with the `RawTokenFormatter`.\n\nAdditional options accepted:\n\n`compress`\n    If set to ``\"gz\"`` or ``\"bz2\"``, decompress the token stream with\n    the given compression algorithm before lexing (default: ``\"\"``).\n",
 }
 
 ///|
@@ -52,6 +54,7 @@ pub let text_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\n\"Null\" lexer, doesn't highlight anything.\n",
 }
 
 ///|

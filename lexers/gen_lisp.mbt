@@ -12,6 +12,7 @@ pub let cpsa_lexer_info : @lexer.LexerInfo = {
   url: "https://web.cs.wpi.edu/~guttman/cs564/cpsauser.html",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA CPSA lexer based on the CPSA language as of version 2.2.12\n",
 }
 
 ///|
@@ -62,6 +63,7 @@ pub let common_lisp_lexer_info : @lexer.LexerInfo = {
   url: "https://lisp-lang.org/",
   version_added: "0.9",
   analyse_text: common_lisp_lexer_analyse,
+  doc: "\nA Common Lisp lexer.\n",
 }
 
 ///|
@@ -142,6 +144,7 @@ pub let emacs_lisp_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/emacs",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nAn ELisp lexer, parsing a stream and outputting the tokens\nneeded to highlight elisp code.\n",
 }
 
 ///|
@@ -211,6 +214,7 @@ pub let fennel_lexer_info : @lexer.LexerInfo = {
   url: "https://fennel-lang.org",
   version_added: "2.3",
   analyse_text: @lexer.no_analyse,
+  doc: "A lexer for the Fennel programming language.\n\nFennel compiles to Lua, so all the Lua builtins are recognized as well\nas the special forms that are particular to the Fennel compiler.\n",
 }
 
 ///|
@@ -262,6 +266,7 @@ pub let hy_lexer_info : @lexer.LexerInfo = {
   url: "http://hylang.org/",
   version_added: "2.0",
   analyse_text: hy_lexer_analyse,
+  doc: "\nLexer for Hy source code.\n",
 }
 
 ///|
@@ -321,6 +326,7 @@ pub let janet_lexer_info : @lexer.LexerInfo = {
   url: "https://janet-lang.org/",
   version_added: "2.18",
   analyse_text: @lexer.no_analyse,
+  doc: "A lexer for the Janet programming language.\n",
 }
 
 ///|
@@ -378,6 +384,7 @@ pub let new_lisp_lexer_info : @lexer.LexerInfo = {
   url: "http://www.newlisp.org/",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor newLISP source code (version 10.3.0).\n",
 }
 
 ///|
@@ -427,6 +434,7 @@ pub let racket_lexer_info : @lexer.LexerInfo = {
   url: "http://racket-lang.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Racket source code (formerly\nknown as PLT Scheme).\n",
 }
 
 ///|
@@ -511,6 +519,7 @@ pub let scheme_lexer_info : @lexer.LexerInfo = {
   url: "http://www.scheme-reports.org/",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Scheme lexer.\n\nThis parser is checked with pastes from the LISP pastebin\nat http://paste.lisp.org/ to cover as much syntax as possible.\n\nIt supports the full Scheme syntax as defined in R5RS.\n",
 }
 
 ///|
@@ -583,6 +592,7 @@ pub let shen_lexer_info : @lexer.LexerInfo = {
   url: "http://shenlanguage.org/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Shen source code.\n",
 }
 
 ///|
@@ -634,6 +644,7 @@ pub let xtlang_lexer_info : @lexer.LexerInfo = {
   url: "http://extempore.moso.com.au",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "An xtlang lexer for the Extempore programming environment.\n\nThis is a mixture of Scheme and xtlang, really. Keyword lists are\ntaken from the Extempore Emacs mode\n(https://github.com/extemporelang/extempore-emacs-mode)\n",
 }
 
 ///|

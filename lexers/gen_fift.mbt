@@ -12,6 +12,7 @@ pub let fift_lexer_info : @lexer.LexerInfo = {
   url: "https://ton-blockchain.github.io/docs/fiftbase.pdf",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Fift source code.\n",
 }
 
 ///|

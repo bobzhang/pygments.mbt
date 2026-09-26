@@ -12,6 +12,7 @@ pub let cython_lexer_info : @lexer.LexerInfo = {
   url: "https://cython.org",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Pyrex and Cython source code.\n",
 }
 
 ///|
@@ -117,6 +118,7 @@ pub let dg_lexer_info : @lexer.LexerInfo = {
   url: "http://pyos.github.io/dg",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for dg,\na functional and object-oriented programming language\nrunning on the CPython 3 VM.\n",
 }
 
 ///|
@@ -186,6 +188,7 @@ pub let num_py_lexer_info : @lexer.LexerInfo = {
   url: "https://numpy.org/",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Python lexer recognizing Numerical Python builtins.\n",
 }
 
 ///|
@@ -335,6 +338,7 @@ pub let python2_lexer_info : @lexer.LexerInfo = {
   url: "https://www.python.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Python 2.x source code.\n\n.. versionchanged:: 2.5\n   This class has been renamed from ``PythonLexer``.  ``PythonLexer`` now\n   refers to the Python 3 variant.  File name patterns like ``*.py`` have\n   been moved to Python 3 as well.\n",
 }
 
 ///|
@@ -437,6 +441,7 @@ pub let python2_traceback_lexer_info : @lexer.LexerInfo = {
   url: "https://python.org",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Python tracebacks.\n\n.. versionchanged:: 2.5\n   This class has been renamed from ``PythonTracebackLexer``.\n   ``PythonTracebackLexer`` now refers to the Python 3 variant.\n",
 }
 
 ///|
@@ -481,6 +486,7 @@ pub let python_console_lexer_info : @lexer.LexerInfo = {
   url: "https://python.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Python console output or doctests, such as:\n\n.. sourcecode:: pycon\n\n    >>> a = 'foo'\n    >>> print(a)\n    foo\n    >>> 1 / 0\n    Traceback (most recent call last):\n      File \"<stdin>\", line 1, in <module>\n    ZeroDivisionError: integer division or modulo by zero\n\nAdditional options:\n\n`python3`\n    Use Python 3 lexer for code.  Default is ``True``.\n\n    .. versionadded:: 1.0\n    .. versionchanged:: 2.5\n       Now defaults to ``True``.\n",
 }
 
 ///|
@@ -501,6 +507,7 @@ pub let python_lexer_info : @lexer.LexerInfo = {
   url: "https://www.python.org",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Python source code (version 3.x).\n\n.. versionchanged:: 2.5\n   This is now the default ``PythonLexer``.  It is still available as the\n   alias ``Python3Lexer``.\n",
 }
 
 ///|
@@ -650,6 +657,7 @@ pub let python_traceback_lexer_info : @lexer.LexerInfo = {
   url: "https://python.org",
   version_added: "1.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Python 3.x tracebacks, with support for chained exceptions.\n\n.. versionchanged:: 2.5\n   This is now the default ``PythonTracebackLexer``.  It is still available\n   as the alias ``Python3TracebackLexer``.\n",
 }
 
 ///|
@@ -698,6 +706,7 @@ let _replace_inner_code_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "",
 }
 
 ///|
@@ -718,6 +727,7 @@ let _python_console_lexer_base_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let monte_lexer_info : @lexer.LexerInfo = {
   url: "https://monte.readthedocs.io/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Monte programming language.\n",
 }
 
 ///|

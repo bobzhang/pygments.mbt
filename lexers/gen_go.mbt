@@ -12,6 +12,7 @@ pub let go_lexer_info : @lexer.LexerInfo = {
   url: "https://go.dev/",
   version_added: "1.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Go source.\n",
 }
 
 ///|

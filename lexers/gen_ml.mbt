@@ -12,6 +12,7 @@ pub let f_star_lexer_info : @lexer.LexerInfo = {
   url: "https://www.fstar-lang.org/",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the F* language.\n",
 }
 
 ///|
@@ -86,6 +87,7 @@ pub let ocaml_lexer_info : @lexer.LexerInfo = {
   url: "https://ocaml.org/",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the OCaml language.\n",
 }
 
 ///|
@@ -156,6 +158,7 @@ pub let opa_lexer_info : @lexer.LexerInfo = {
   url: "http://opalang.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Opa language.\n",
 }
 
 ///|
@@ -276,6 +279,7 @@ pub let reason_lexer_info : @lexer.LexerInfo = {
   url: "https://reasonml.github.io/",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the ReasonML language.\n",
 }
 
 ///|
@@ -347,6 +351,7 @@ pub let sml_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Standard_ML",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Standard ML language.\n",
 }
 
 ///|

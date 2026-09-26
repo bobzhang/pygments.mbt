@@ -12,6 +12,7 @@ pub let pawn_lexer_info : @lexer.LexerInfo = {
   url: "https://www.compuphase.com/pawn/pawn.htm",
   version_added: "2.0",
   analyse_text: pawn_lexer_analyse,
+  doc: "\nFor Pawn source code.\n",
 }
 
 ///|
@@ -82,6 +83,7 @@ pub let source_pawn_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/alliedmodders/sourcepawn",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor SourcePawn source code with preprocessor directives.\n",
 }
 
 ///|

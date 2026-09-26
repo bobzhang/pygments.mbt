@@ -12,6 +12,7 @@ pub let mime_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/MIME",
   version_added: "2.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Multipurpose Internet Mail Extensions (MIME) data. This lexer is\ndesigned to process nested multipart data.\n\nIt assumes that the given data contains both header and body (and is\nsplit at an empty line). If no valid header is found, then the entire data\nwill be treated as body.\n\nAdditional options accepted:\n\n`MIME-max-level`\n    Max recursion level for nested MIME structure. Any negative number\n    would treated as unlimited. (default: -1)\n\n`Content-Type`\n    Treat the data as a specific content type. Useful when header is\n    missing, or this lexer would try to parse from header. (default:\n    `text/plain`)\n\n`Multipart-Boundary`\n    Set the default multipart boundary delimiter. This option is only used\n    when `Content-Type` is `multipart` and header is missing. This lexer\n    would try to parse from header by default. (default: None)\n\n`Content-Transfer-Encoding`\n    Treat the data as a specific encoding. Or this lexer would try to parse\n    from header by default. (default: None)\n",
 }
 
 ///|

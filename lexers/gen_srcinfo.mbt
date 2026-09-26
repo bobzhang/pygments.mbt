@@ -12,6 +12,7 @@ pub let srcinfo_lexer_info : @lexer.LexerInfo = {
   url: "https://wiki.archlinux.org/title/.SRCINFO",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for .SRCINFO files used by Arch Linux Packages.\n",
 }
 
 ///|

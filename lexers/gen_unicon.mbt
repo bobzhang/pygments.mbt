@@ -12,6 +12,7 @@ pub let icon_lexer_info : @lexer.LexerInfo = {
   url: "https://www2.cs.arizona.edu/icon",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Icon.\n",
 }
 
 ///|
@@ -76,6 +77,7 @@ pub let ucode_lexer_info : @lexer.LexerInfo = {
   url: "http://www.unicon.org",
   version_added: "2.4",
   analyse_text: ucode_lexer_analyse,
+  doc: "\nLexer for Icon ucode files.\n",
 }
 
 ///|
@@ -120,6 +122,7 @@ pub let unicon_lexer_info : @lexer.LexerInfo = {
   url: "https://www.unicon.org",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Unicon source code.\n",
 }
 
 ///|

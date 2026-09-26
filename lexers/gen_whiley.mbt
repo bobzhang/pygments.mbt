@@ -12,6 +12,7 @@ pub let whiley_lexer_info : @lexer.LexerInfo = {
   url: "http://whiley.org/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Whiley programming language.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let alloy_lexer_info : @lexer.LexerInfo = {
   url: "http://alloy.mit.edu",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Alloy source code.\n",
 }
 
 ///|
@@ -79,6 +80,7 @@ pub let crmsh_lexer_info : @lexer.LexerInfo = {
   url: "http://crmsh.github.io/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for crmsh configuration files for Pacemaker clusters.\n",
 }
 
 ///|
@@ -128,6 +130,7 @@ pub let flatline_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/bigmlcom/flatline",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Flatline expressions.\n",
 }
 
 ///|
@@ -174,6 +177,7 @@ pub let mscgen_lexer_info : @lexer.LexerInfo = {
   url: "http://www.mcternan.me.uk/mscgen/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Mscgen files.\n",
 }
 
 ///|
@@ -222,6 +226,7 @@ pub let pan_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/quattor/pan/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for pan source files.\n\nBased on tcsh lexer.\n",
 }
 
 ///|
@@ -276,6 +281,7 @@ pub let proto_buf_lexer_info : @lexer.LexerInfo = {
   url: "https://developers.google.com/protocol-buffers/",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Protocol Buffer definition files.\n",
 }
 
 ///|
@@ -336,6 +342,7 @@ pub let puppet_lexer_info : @lexer.LexerInfo = {
   url: "https://puppet.com/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Puppet configuration DSL.\n",
 }
 
 ///|
@@ -387,6 +394,7 @@ pub let rsl_lexer_info : @lexer.LexerInfo = {
   url: "http://en.wikipedia.org/wiki/RAISE",
   version_added: "2.0",
   analyse_text: rsl_lexer_analyse,
+  doc: "\nRSL is the formal specification\nlanguage used in RAISE (Rigorous Approach to Industrial Software Engineering)\nmethod.\n",
 }
 
 ///|
@@ -438,6 +446,7 @@ pub let snowball_lexer_info : @lexer.LexerInfo = {
   url: "https://snowballstem.org/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Snowball source code.\n",
 }
 
 ///|
@@ -491,6 +500,7 @@ pub let thrift_lexer_info : @lexer.LexerInfo = {
   url: "https://thrift.apache.org/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Thrift interface definitions.\n",
 }
 
 ///|
@@ -555,6 +565,7 @@ pub let vgl_lexer_info : @lexer.LexerInfo = {
   url: "http://www.thermoscientific.com/samplemanager",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor SampleManager VGL source code.\n",
 }
 
 ///|
@@ -599,6 +610,7 @@ pub let zeek_lexer_info : @lexer.LexerInfo = {
   url: "https://www.zeek.org/",
   version_added: "2.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Zeek scripts.\n",
 }
 
 ///|

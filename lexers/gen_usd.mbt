@@ -12,6 +12,7 @@ pub let usd_lexer_info : @lexer.LexerInfo = {
   url: "https://graphics.pixar.com/usd/release/index.html",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer that parses Pixar's Universal Scene Description file format.\n",
 }
 
 ///|

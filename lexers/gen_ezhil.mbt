@@ -12,6 +12,7 @@ pub let ezhil_lexer_info : @lexer.LexerInfo = {
   url: "http://ezhillang.org",
   version_added: "2.1",
   analyse_text: ezhil_lexer_analyse,
+  doc: "\nLexer for Ezhil, a Tamil script-based programming language.\n",
 }
 
 ///|

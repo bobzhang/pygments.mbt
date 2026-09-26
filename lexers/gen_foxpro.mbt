@@ -12,6 +12,7 @@ pub let fox_pro_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/previous-versions/visualstudio/foxpro",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for Microsoft Visual FoxPro language.\n\nFoxPro syntax allows to shorten all keywords and function names\nto 4 characters.  Shortened forms are not recognized by this lexer.\n",
 }
 
 ///|

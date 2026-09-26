@@ -12,6 +12,7 @@ pub let typo_script_css_data_lexer_info : @lexer.LexerInfo = {
   url: "http://docs.typo3.org/typo3cms/TyposcriptReference/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer that highlights markers, constants and registers within css blocks.\n",
 }
 
 ///|
@@ -53,6 +54,7 @@ pub let typo_script_html_data_lexer_info : @lexer.LexerInfo = {
   url: "http://docs.typo3.org/typo3cms/TyposcriptReference/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer that highlights markers, constants and registers within html tags.\n",
 }
 
 ///|
@@ -94,6 +96,7 @@ pub let typo_script_lexer_info : @lexer.LexerInfo = {
   url: "http://docs.typo3.org/typo3cms/TyposcriptReference/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for TypoScript code.\n",
 }
 
 ///|

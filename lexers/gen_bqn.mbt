@@ -12,6 +12,7 @@ pub let bqn_lexer_info : @lexer.LexerInfo = {
   url: "https://mlochbaum.github.io/BQN/index.html",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA simple BQN lexer.\n",
 }
 
 ///|

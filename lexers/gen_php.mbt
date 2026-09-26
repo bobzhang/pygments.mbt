@@ -12,6 +12,7 @@ pub let php_lexer_info : @lexer.LexerInfo = {
   url: "https://www.php.net/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor PHP source code.\nFor PHP embedded in HTML, use the `HtmlPhpLexer`.\n\nAdditional options accepted:\n\n`startinline`\n    If given and ``True`` the lexer starts highlighting with\n    php code (i.e.: no starting ``<?php`` required).  The default\n    is ``False``.\n`funcnamehighlighting`\n    If given and ``True``, highlight builtin function names\n    (default: ``True``).\n`disabledmodules`\n    If given, must be a list of module names whose function names\n    should not be highlighted. By default all modules are highlighted\n    except the special ``'unknown'`` module that includes functions\n    that are known to php but are undocumented.\n\n    To get a list of allowed modules have a look into the\n    `_php_builtins` module:\n\n    .. sourcecode:: pycon\n\n        >>> from pygments.lexers._php_builtins import MODULES\n        >>> MODULES.keys()\n        ['PHP Options/Info', 'Zip', 'dba', ...]\n\n    In fact the names of those modules match the module names from\n    the php documentation.\n",
 }
 
 ///|
@@ -98,6 +99,7 @@ pub let psysh_console_lexer_info : @lexer.LexerInfo = {
   url: "https://psysh.org/",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor PsySH console output, such as:\n\n.. sourcecode:: psysh\n\n    >>> $greeting = function($name): string {\n    ...     return \"Hello, {$name}\";\n    ... };\n    => Closure($name): string {#2371 …3}\n    >>> $greeting('World')\n    => \"Hello, World\"\n",
 }
 
 ///|
@@ -118,6 +120,7 @@ pub let zephir_lexer_info : @lexer.LexerInfo = {
   url: "http://zephir-lang.com/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Zephir language source code.\n\nZephir is a compiled high level language aimed\nto the creation of C-extensions for PHP.\n",
 }
 
 ///|

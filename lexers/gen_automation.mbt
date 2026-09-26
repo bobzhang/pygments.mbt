@@ -12,6 +12,7 @@ pub let auto_it_lexer_info : @lexer.LexerInfo = {
   url: "http://www.autoitscript.com/site/autoit/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor AutoIt files.\n\nAutoIt is a freeware BASIC-like scripting language\ndesigned for automating the Windows GUI and general scripting\n",
 }
 
 ///|
@@ -74,6 +75,7 @@ pub let autohotkey_lexer_info : @lexer.LexerInfo = {
   url: "http://www.autohotkey.com/",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor autohotkey source code.\n",
 }
 
 ///|

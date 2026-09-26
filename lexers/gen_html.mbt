@@ -12,6 +12,7 @@ pub let dtd_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Document_type_definition",
   version_added: "1.5",
   analyse_text: dtd_lexer_analyse,
+  doc: "\nA lexer for DTDs (Document Type Definitions).\n",
 }
 
 ///|
@@ -76,6 +77,7 @@ pub let haml_lexer_info : @lexer.LexerInfo = {
   url: "https://haml.info",
   version_added: "1.3",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Haml markup.\n",
 }
 
 ///|
@@ -148,6 +150,7 @@ pub let html_lexer_info : @lexer.LexerInfo = {
   url: "https://html.spec.whatwg.org/",
   version_added: "",
   analyse_text: html_lexer_analyse,
+  doc: "\nFor HTML 4 and XHTML 1 markup. Nested JavaScript and CSS is highlighted\nby the appropriate lexer.\n",
 }
 
 ///|
@@ -206,6 +209,7 @@ pub let pug_lexer_info : @lexer.LexerInfo = {
   url: "https://pugjs.org",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Pug markup.\nPug is a variant of Scaml, see:\nhttp://scalate.fusesource.org/documentation/scaml-reference.html\n",
 }
 
 ///|
@@ -280,6 +284,7 @@ pub let scaml_lexer_info : @lexer.LexerInfo = {
   url: "https://scalate.github.io/scalate/",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Scaml markup.  Scaml is Haml for Scala.\n",
 }
 
 ///|
@@ -353,6 +358,7 @@ pub let url_encoded_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Percent-encoding",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for urlencoded data\n",
 }
 
 ///|
@@ -387,6 +393,7 @@ pub let vue_lexer_info : @lexer.LexerInfo = {
   url: "https://vuejs.org/api/sfc-spec.html",
   version_added: "2.19",
   analyse_text: vue_lexer_analyse,
+  doc: "\nFor Vue Single-File Component.\n",
 }
 
 ///|
@@ -453,6 +460,7 @@ pub let xml_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/XML",
   version_added: "",
   analyse_text: xml_lexer_analyse,
+  doc: "\nGeneric lexer for XML (eXtensible Markup Language).\n",
 }
 
 ///|
@@ -502,6 +510,7 @@ pub let xslt_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/TR/xslt-30",
   version_added: "0.10",
   analyse_text: xslt_lexer_analyse,
+  doc: "\nA lexer for XSLT.\n",
 }
 
 ///|

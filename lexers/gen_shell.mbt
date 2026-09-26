@@ -12,6 +12,7 @@ pub let bash_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/bash/manual/bash.html",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for (ba|k|z|)sh shell scripts.\n",
 }
 
 ///|
@@ -89,6 +90,7 @@ pub let bash_session_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Unix_shell",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Bash shell sessions, i.e. command lines, including a\nprompt, interspersed with output.\n",
 }
 
 ///|
@@ -109,6 +111,7 @@ pub let batch_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Batch_file",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the DOS/Windows Batch file format.\n",
 }
 
 ///|
@@ -249,6 +252,7 @@ pub let execline_lexer_info : @lexer.LexerInfo = {
   url: "https://skarnet.org/software/execline",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Laurent Bercot's execline language.\n",
 }
 
 ///|
@@ -297,6 +301,7 @@ pub let fish_shell_lexer_info : @lexer.LexerInfo = {
   url: "https://fishshell.com",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Fish shell scripts.\n",
 }
 
 ///|
@@ -357,6 +362,7 @@ pub let msdos_session_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/MS-DOS",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for MS DOS shell sessions, i.e. command lines, including a\nprompt, interspersed with output.\n",
 }
 
 ///|
@@ -377,6 +383,7 @@ pub let power_shell_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/powershell",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Windows PowerShell code.\n",
 }
 
 ///|
@@ -444,6 +451,7 @@ pub let power_shell_session_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/powershell",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for PowerShell sessions, i.e. command lines, including a\nprompt, interspersed with output.\n",
 }
 
 ///|
@@ -464,6 +472,7 @@ pub let slurm_bash_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/bash/manual/bash.html",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for (ba|k|z|)sh Slurm scripts.\n",
 }
 
 ///|
@@ -541,6 +550,7 @@ pub let tcsh_lexer_info : @lexer.LexerInfo = {
   url: "https://www.tcsh.org",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for tcsh scripts.\n",
 }
 
 ///|
@@ -598,6 +608,7 @@ pub let tcsh_session_lexer_info : @lexer.LexerInfo = {
   url: "https://www.tcsh.org",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Tcsh sessions, i.e. command lines, including a\nprompt, interspersed with output.\n",
 }
 
 ///|

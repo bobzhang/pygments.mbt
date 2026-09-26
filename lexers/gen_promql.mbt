@@ -12,6 +12,7 @@ pub let prom_ql_lexer_info : @lexer.LexerInfo = {
   url: "https://prometheus.io/docs/prometheus/latest/querying/basics/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor PromQL queries.\n\nFor details about the grammar see:\nhttps://github.com/prometheus/prometheus/tree/master/promql/parser\n\n.. versionadded: 2.7\n",
 }
 
 ///|

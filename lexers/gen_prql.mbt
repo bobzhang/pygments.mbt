@@ -12,6 +12,7 @@ pub let prql_lexer_info : @lexer.LexerInfo = {
   url: "https://prql-lang.org/",
   version_added: "2.17",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor PRQL source code.\n\ngrammar: https://github.com/PRQL/prql/tree/main/grammars\n",
 }
 
 ///|

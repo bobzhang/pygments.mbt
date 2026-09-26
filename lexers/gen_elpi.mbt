@@ -12,6 +12,7 @@ pub let elpi_lexer_info : @lexer.LexerInfo = {
   url: "http://github.com/LPCIC/elpi",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Elpi programming language.\n",
 }
 
 ///|

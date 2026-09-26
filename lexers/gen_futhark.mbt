@@ -12,6 +12,7 @@ pub let futhark_lexer_info : @lexer.LexerInfo = {
   url: "https://futhark-lang.org/",
   version_added: "2.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Futhark lexer\n",
 }
 
 ///|

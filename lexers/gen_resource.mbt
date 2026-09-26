@@ -12,6 +12,7 @@ pub let resource_lexer_info : @lexer.LexerInfo = {
   url: "https://unicode-org.github.io/icu/userguide/locale/resources.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for ICU Resource bundles.\n",
 }
 
 ///|

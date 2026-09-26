@@ -12,6 +12,7 @@ pub let ada_lexer_info : @lexer.LexerInfo = {
   url: "https://www.adaic.org",
   version_added: "1.3",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Ada source code.\n",
 }
 
 ///|

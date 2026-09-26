@@ -12,6 +12,7 @@ pub let things_db_lexer_info : @lexer.LexerInfo = {
   url: "https://www.thingsdb.net",
   version_added: "2.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the ThingsDB programming language.\n",
 }
 
 ///|

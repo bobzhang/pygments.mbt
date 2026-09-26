@@ -12,6 +12,7 @@ pub let bbc_basic_lexer_info : @lexer.LexerInfo = {
   url: "https://www.bbcbasic.co.uk/bbcbasic.html",
   version_added: "2.4",
   analyse_text: bbc_basic_lexer_analyse,
+  doc: "\nBBC Basic was supplied on the BBC Micro, and later Acorn RISC OS.\nIt is also used by BBC Basic For Windows.\n",
 }
 
 ///|
@@ -71,6 +72,7 @@ pub let blitz_basic_lexer_info : @lexer.LexerInfo = {
   url: "http://blitzbasic.com",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor BlitzBasic source code.\n",
 }
 
 ///|
@@ -129,6 +131,7 @@ pub let blitz_max_lexer_info : @lexer.LexerInfo = {
   url: "http://blitzbasic.com",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor BlitzMax source code.\n",
 }
 
 ///|
@@ -190,6 +193,7 @@ pub let cbm_basic_v2_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Commodore_BASIC",
   version_added: "1.6",
   analyse_text: cbm_basic_v2_lexer_analyse,
+  doc: "\nFor CBM BASIC V2 sources.\n",
 }
 
 ///|
@@ -234,6 +238,7 @@ pub let monkey_lexer_info : @lexer.LexerInfo = {
   url: "https://blitzresearch.itch.io/monkeyx",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Monkey source code.\n",
 }
 
 ///|
@@ -327,6 +332,7 @@ pub let q_basic_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/QBasic",
   version_added: "2.0",
   analyse_text: q_basic_lexer_analyse,
+  doc: "\nFor QBasic source code.\n",
 }
 
 ///|
@@ -388,6 +394,7 @@ pub let vb_script_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/previous-versions/t0aew7h6(v=vs.85)",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nVBScript is scripting language that is modeled on Visual Basic.\n",
 }
 
 ///|

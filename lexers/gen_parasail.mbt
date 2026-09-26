@@ -12,6 +12,7 @@ pub let para_sail_lexer_info : @lexer.LexerInfo = {
   url: "http://www.parasail-lang.org",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor ParaSail source code.\n",
 }
 
 ///|

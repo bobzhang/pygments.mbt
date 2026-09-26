@@ -12,6 +12,7 @@ pub let procfile_lexer_info : @lexer.LexerInfo = {
   url: "https://devcenter.heroku.com/articles/procfile#procfile-format",
   version_added: "2.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Procfile file format.\n\nThe format is used to run processes on Heroku or is used by Foreman or\nHoncho tools.\n",
 }
 
 ///|

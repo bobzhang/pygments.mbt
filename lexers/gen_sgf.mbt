@@ -12,6 +12,7 @@ pub let smart_game_format_lexer_info : @lexer.LexerInfo = {
   url: "https://www.red-bean.com/sgf/",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Smart Game Format (sgf) file format.\n\nThe format is used to store game records of board games for two players\n(mainly Go game).\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let jslt_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/schibsted/jslt",
   version_added: "2.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor JSLT source.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let graphviz_lexer_info : @lexer.LexerInfo = {
   url: "https://www.graphviz.org/doc/info/lang.html",
   version_added: "2.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor graphviz DOT graph description language.\n",
 }
 
 ///|

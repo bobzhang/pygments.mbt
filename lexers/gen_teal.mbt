@@ -12,6 +12,7 @@ pub let teal_lexer_info : @lexer.LexerInfo = {
   url: "https://developer.algorand.org/docs/reference/teal/specification/",
   version_added: "2.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Transaction Execution Approval Language (TEAL)\n\nFor more information about the grammar, see:\nhttps://github.com/algorand/go-algorand/blob/master/data/transactions/logic/assembler.go\n",
 }
 
 ///|

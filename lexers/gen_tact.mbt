@@ -12,6 +12,7 @@ pub let tact_lexer_info : @lexer.LexerInfo = {
   url: "https://tact-lang.org",
   version_added: "2.18",
   analyse_text: @lexer.no_analyse,
+  doc: "For Tact source code.",
 }
 
 ///|

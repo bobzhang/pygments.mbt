@@ -12,6 +12,7 @@ pub let darcs_patch_lexer_info : @lexer.LexerInfo = {
   url: "https://darcs.net",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nDarcsPatchLexer is a lexer for the various versions of the darcs patch\nformat.  Examples of this format are derived by commands such as\n``darcs annotate --patch`` and ``darcs send``.\n",
 }
 
 ///|
@@ -66,6 +67,7 @@ pub let diff_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Diff",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for unified or context-style diffs or patches.\n",
 }
 
 ///|
@@ -107,6 +109,7 @@ pub let w_diff_lexer_info : @lexer.LexerInfo = {
   url: "https://www.gnu.org/software/wdiff/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA wdiff lexer.\n\nNote that:\n\n* It only works with normal output (without options like ``-l``).\n* If the target files contain \"[-\", \"-]\", \"{+\", or \"+}\",\n  especially they are unbalanced, the lexer will get confused.\n",
 }
 
 ///|

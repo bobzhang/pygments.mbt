@@ -12,6 +12,7 @@ pub let pointless_lexer_info : @lexer.LexerInfo = {
   url: "https://ptls.dev",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Pointless source code.\n",
 }
 
 ///|

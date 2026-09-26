@@ -12,6 +12,7 @@ pub let slash_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/arturadib/Slash-A",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Slash programming language.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ let slash_language_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "",
 }
 
 ///|

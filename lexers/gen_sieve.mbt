@@ -12,6 +12,7 @@ pub let sieve_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Sieve_(mail_filtering_language)",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for sieve format.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let mosel_lexer_info : @lexer.LexerInfo = {
   url: "https://www.fico.com/fico-xpress-optimization/docs/latest/mosel/mosel_lang/dhtml/moselreflang.html",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Mosel optimization language.\n",
 }
 
 ///|

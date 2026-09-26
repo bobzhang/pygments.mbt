@@ -12,6 +12,7 @@ pub let action_script3_lexer_info : @lexer.LexerInfo = {
   url: "https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/index.html",
   version_added: "0.11",
   analyse_text: action_script3_lexer_analyse,
+  doc: "\nFor ActionScript 3 source code.\n",
 }
 
 ///|
@@ -74,6 +75,7 @@ pub let action_script_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/ActionScript",
   version_added: "0.9",
   analyse_text: action_script_lexer_analyse,
+  doc: "\nFor ActionScript source code.\n",
 }
 
 ///|
@@ -124,6 +126,7 @@ pub let mxml_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/MXML",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor MXML markup.\nNested AS3 in <script> tags is highlighted by the appropriate lexer.\n",
 }
 
 ///|

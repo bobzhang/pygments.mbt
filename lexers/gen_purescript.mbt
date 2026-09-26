@@ -12,6 +12,7 @@ pub let pure_script_lexer_info : @lexer.LexerInfo = {
   url: "https://www.purescript.org/",
   version_added: "2.21",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer for the PureScript language.\n",
 }
 
 ///|

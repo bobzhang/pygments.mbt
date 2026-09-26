@@ -12,6 +12,7 @@ pub let arrow_lexer_info : @lexer.LexerInfo = {
   url: "https://pypi.org/project/py-arrow-lang/",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Arrow\n",
 }
 
 ///|

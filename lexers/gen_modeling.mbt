@@ -12,6 +12,7 @@ pub let bugs_lexer_info : @lexer.LexerInfo = {
   url: "https://www.mrc-bsu.cam.ac.uk/software/bugs/openbugs",
   version_added: "1.6",
   analyse_text: bugs_lexer_analyse,
+  doc: "\nPygments Lexer for OpenBugs and WinBugs\nmodels.\n",
 }
 
 ///|
@@ -56,6 +57,7 @@ pub let jags_lexer_info : @lexer.LexerInfo = {
   url: "https://mcmc-jags.sourceforge.io",
   version_added: "1.6",
   analyse_text: jags_lexer_analyse,
+  doc: "\nPygments Lexer for JAGS.\n",
 }
 
 ///|
@@ -102,6 +104,7 @@ pub let modelica_lexer_info : @lexer.LexerInfo = {
   url: "http://www.modelica.org/",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Modelica source code.\n",
 }
 
 ///|
@@ -160,6 +163,7 @@ pub let stan_lexer_info : @lexer.LexerInfo = {
   url: "https://mc-stan.org",
   version_added: "1.6",
   analyse_text: stan_lexer_analyse,
+  doc: "Pygments Lexer for Stan models.\n\nThe Stan modeling language is specified in the *Stan Modeling Language\nUser's Guide and Reference Manual, v2.17.0*,\n`pdf <https://github.com/stan-dev/stan/releases/download/v2.17.0/stan-reference-2.17.0.pdf>`__.\n",
 }
 
 ///|

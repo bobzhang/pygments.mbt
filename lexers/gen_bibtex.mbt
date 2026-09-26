@@ -12,6 +12,7 @@ pub let bst_lexer_info : @lexer.LexerInfo = {
   url: "https://texfaq.org/FAQ-BibTeXing",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer for BibTeX bibliography styles.\n",
 }
 
 ///|
@@ -60,6 +61,7 @@ pub let bib_te_x_lexer_info : @lexer.LexerInfo = {
   url: "https://texfaq.org/FAQ-BibTeXing",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer for BibTeX bibliography data format.\n",
 }
 
 ///|

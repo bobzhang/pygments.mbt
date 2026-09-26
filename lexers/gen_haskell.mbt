@@ -12,6 +12,7 @@ pub let agda_lexer_info : @lexer.LexerInfo = {
   url: "http://wiki.portal.chalmers.se/agda/pmwiki.php",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Agda dependently typed functional programming language and\nproof assistant.\n",
 }
 
 ///|
@@ -86,6 +87,7 @@ pub let cryptol_lexer_info : @lexer.LexerInfo = {
   url: "https://www.cryptol.net",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFIXME: A Cryptol2 lexer based on the lexemes defined in the Haskell 98 Report.\n",
 }
 
 ///|
@@ -178,6 +180,7 @@ pub let haskell_lexer_info : @lexer.LexerInfo = {
   url: "https://www.haskell.org/",
   version_added: "0.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Haskell lexer based on the lexemes defined in the Haskell 98 Report.\n",
 }
 
 ///|
@@ -281,6 +284,7 @@ pub let hspec_lexer_info : @lexer.LexerInfo = {
   url: "https://www.haskell.org/",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Haskell lexer with support for Hspec constructs.\n",
 }
 
 ///|
@@ -387,6 +391,7 @@ pub let idris_lexer_info : @lexer.LexerInfo = {
   url: "https://www.idris-lang.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer for the dependently typed programming language Idris.\n\nBased on the Haskell and Agda Lexer.\n",
 }
 
 ///|
@@ -468,6 +473,7 @@ pub let koka_lexer_info : @lexer.LexerInfo = {
   url: "https://koka-lang.github.io/koka/doc/index.html",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Koka language.\n",
 }
 
 ///|
@@ -561,6 +567,7 @@ pub let literate_agda_lexer_info : @lexer.LexerInfo = {
   url: "https://agda.readthedocs.io/en/latest/tools/literate-programming.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Literate Agda source.\n\nAdditional options accepted:\n\n`litstyle`\n    If given, must be ``\"bird\"`` or ``\"latex\"``.  If not given, the style\n    is autodetected: if the first non-whitespace character in the source\n    is a backslash or percent character, LaTeX is assumed, else Bird.\n",
 }
 
 ///|
@@ -581,6 +588,7 @@ pub let literate_cryptol_lexer_info : @lexer.LexerInfo = {
   url: "https://www.cryptol.net",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Literate Cryptol (Bird-style or LaTeX) source.\n\nAdditional options accepted:\n\n`litstyle`\n    If given, must be ``\"bird\"`` or ``\"latex\"``.  If not given, the style\n    is autodetected: if the first non-whitespace character in the source\n    is a backslash or percent character, LaTeX is assumed, else Bird.\n",
 }
 
 ///|
@@ -601,6 +609,7 @@ pub let literate_haskell_lexer_info : @lexer.LexerInfo = {
   url: "https://wiki.haskell.org/Literate_programming",
   version_added: "0.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Literate Haskell (Bird-style or LaTeX) source.\n\nAdditional options accepted:\n\n`litstyle`\n    If given, must be ``\"bird\"`` or ``\"latex\"``.  If not given, the style\n    is autodetected: if the first non-whitespace character in the source\n    is a backslash or percent character, LaTeX is assumed, else Bird.\n",
 }
 
 ///|
@@ -621,6 +630,7 @@ pub let literate_idris_lexer_info : @lexer.LexerInfo = {
   url: "https://idris2.readthedocs.io/en/latest/reference/literate.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Literate Idris (Bird-style or LaTeX) source.\n\nAdditional options accepted:\n\n`litstyle`\n    If given, must be ``\"bird\"`` or ``\"latex\"``.  If not given, the style\n    is autodetected: if the first non-whitespace character in the source\n    is a backslash or percent character, LaTeX is assumed, else Bird.\n",
 }
 
 ///|

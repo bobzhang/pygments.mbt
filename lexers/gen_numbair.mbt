@@ -12,6 +12,7 @@ pub let numba_ir_lexer_info : @lexer.LexerInfo = {
   url: "https://numba.readthedocs.io/en/stable/developer/architecture.html#stage-2-generate-the-numba-ir",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Numba IR\n",
 }
 
 ///|

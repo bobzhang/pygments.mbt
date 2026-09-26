@@ -12,6 +12,7 @@ pub let awk_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/AWK",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Awk scripts.\n",
 }
 
 ///|
@@ -65,6 +66,7 @@ pub let sed_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Sed",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Sed script files.\n",
 }
 
 ///|
@@ -111,6 +113,7 @@ pub let vim_lexer_info : @lexer.LexerInfo = {
   url: "https://www.vim.org",
   version_added: "0.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for VimL script files.\n",
 }
 
 ///|

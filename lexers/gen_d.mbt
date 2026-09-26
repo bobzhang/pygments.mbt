@@ -12,6 +12,7 @@ pub let croc_lexer_info : @lexer.LexerInfo = {
   url: "http://jfbillingsley.com/croc",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Croc source.\n",
 }
 
 ///|
@@ -66,6 +67,7 @@ pub let d_lexer_info : @lexer.LexerInfo = {
   url: "https://dlang.org/",
   version_added: "1.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor D source.\n",
 }
 
 ///|
@@ -167,6 +169,7 @@ pub let mini_d_lexer_info : @lexer.LexerInfo = {
   url: "http://jfbillingsley.com/croc",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor MiniD source. MiniD is now known as Croc.\n",
 }
 
 ///|

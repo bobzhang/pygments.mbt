@@ -18,7 +18,7 @@ discovered by name:
 
 Unknown callables in token definitions abort the export.
 """
-import sys, os, re, importlib, glob, json, collections
+import sys, os, re, importlib, glob, json, collections, textwrap
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, '.repos', 'pygments'))
@@ -367,6 +367,7 @@ while qi < len(queue):
             f'  url: {mbt_str(cls.url or "")},\n'
             f'  version_added: {mbt_str(cls.version_added or "")},\n'
             f'  analyse_text: {analyse},\n'
+            f'  doc: {mbt_str(textwrap.dedent(cls.__doc__ or ""))},\n'
             f'}}\n')
     ctor = (f'///|\n/// Creates a `{name}` ({lname}).\n'
             f'{"pub " if public else ""}fn {sn}(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {{\n'

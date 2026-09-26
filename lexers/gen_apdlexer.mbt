@@ -12,6 +12,7 @@ pub let apdlexer_info : @lexer.LexerInfo = {
   url: "https://www.ansys.com",
   version_added: "2.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor APDL source code.\n",
 }
 
 ///|

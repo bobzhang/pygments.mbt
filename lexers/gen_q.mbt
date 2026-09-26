@@ -12,6 +12,7 @@ pub let k_lexer_info : @lexer.LexerInfo = {
   url: "https://code.kx.com",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor K source code.\n",
 }
 
 ///|
@@ -88,6 +89,7 @@ pub let q_lexer_info : @lexer.LexerInfo = {
   url: "https://code.kx.com",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor `Q <https://code.kx.com/>`_ source code.\n",
 }
 
 ///|

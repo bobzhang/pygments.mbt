@@ -12,6 +12,7 @@ pub let felix_lexer_info : @lexer.LexerInfo = {
   url: "http://www.felix-lang.org",
   version_added: "1.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Felix source code.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let asymptote_lexer_info : @lexer.LexerInfo = {
   url: "http://asymptote.sf.net/",
   version_added: "1.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Asymptote source code.\n",
 }
 
 ///|
@@ -80,6 +81,7 @@ pub let gl_shader_lexer_info : @lexer.LexerInfo = {
   url: "https://www.khronos.org/api/opengl",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGLSL (OpenGL Shader) lexer.\n",
 }
 
 ///|
@@ -133,6 +135,7 @@ pub let gnuplot_lexer_info : @lexer.LexerInfo = {
   url: "http://gnuplot.info/",
   version_added: "0.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Gnuplot plotting scripts.\n",
 }
 
 ///|
@@ -224,6 +227,7 @@ pub let hlsl_shader_lexer_info : @lexer.LexerInfo = {
   url: "https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl",
   version_added: "2.3",
   analyse_text: @lexer.no_analyse,
+  doc: "\nHLSL (Microsoft Direct3D Shader) lexer.\n",
 }
 
 ///|
@@ -287,6 +291,7 @@ pub let post_script_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/PostScript",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for PostScript files.\n",
 }
 
 ///|
@@ -342,6 +347,7 @@ pub let povray_lexer_info : @lexer.LexerInfo = {
   url: "http://www.povray.org/",
   version_added: "0.11",
   analyse_text: povray_lexer_analyse,
+  doc: "\nFor Persistence of Vision Raytracer files.\n",
 }
 
 ///|

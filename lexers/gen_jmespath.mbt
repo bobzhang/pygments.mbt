@@ -12,6 +12,7 @@ pub let jmes_path_lexer_info : @lexer.LexerInfo = {
   url: "https://jmespath.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor JMESPath queries.\n",
 }
 
 ///|

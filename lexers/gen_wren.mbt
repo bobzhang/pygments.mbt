@@ -12,6 +12,7 @@ pub let wren_lexer_info : @lexer.LexerInfo = {
   url: "https://wren.io",
   version_added: "2.14",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Wren source code, version 0.4.0.\n",
 }
 
 ///|

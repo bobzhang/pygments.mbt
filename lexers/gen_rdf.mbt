@@ -12,6 +12,7 @@ pub let sh_ex_c_lexer_info : @lexer.LexerInfo = {
   url: "https://shex.io/shex-semantics/#shexc",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for ShExC shape expressions language syntax.\n",
 }
 
 ///|
@@ -80,6 +81,7 @@ pub let sparql_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/TR/sparql11-query",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for SPARQL query language.\n",
 }
 
 ///|
@@ -150,6 +152,7 @@ pub let turtle_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/TR/turtle",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Turtle data language.\n",
 }
 
 ///|

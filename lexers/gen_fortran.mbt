@@ -12,6 +12,7 @@ pub let fortran_fixed_lexer_info : @lexer.LexerInfo = {
   url: "https://fortran-lang.org/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for fixed format Fortran.\n",
 }
 
 ///|
@@ -56,6 +57,7 @@ pub let fortran_lexer_info : @lexer.LexerInfo = {
   url: "https://fortran-lang.org/",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for FORTRAN 90 code.\n",
 }
 
 ///|

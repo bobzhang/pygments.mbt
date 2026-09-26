@@ -12,6 +12,7 @@ pub let julia_console_lexer_info : @lexer.LexerInfo = {
   url: "https://julialang.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Julia console sessions. Modeled after MatlabSessionLexer.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let julia_lexer_info : @lexer.LexerInfo = {
   url: "https://julialang.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Julia source code.\n",
 }
 
 ///|

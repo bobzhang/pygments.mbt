@@ -12,6 +12,7 @@ pub let google_sql_lexer_info : @lexer.LexerInfo = {
   url: "https://cloud.google.com/bigquery/googlesql",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGoogleSQL is Google's standard SQL dialect, formerly known as ZetaSQL.\n\nThe list of keywords includes reserved words for future use.\n",
 }
 
 ///|
@@ -100,6 +101,7 @@ pub let my_sql_lexer_info : @lexer.LexerInfo = {
   url: "https://www.mysql.com",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "The Oracle MySQL lexer.\n\nThis lexer does not attempt to maintain strict compatibility with\nMariaDB syntax or keywords. Although MySQL and MariaDB's common code\nhistory suggests there may be significant overlap between the two,\ncompatibility between the two is not a target for this lexer.\n",
 }
 
 ///|
@@ -194,6 +196,7 @@ pub let pl_pgsql_lexer_info : @lexer.LexerInfo = {
   url: "https://www.postgresql.org/docs/current/plpgsql.html",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nHandle the extra syntax in Pl/pgSQL language.\n",
 }
 
 ///|
@@ -257,6 +260,7 @@ pub let postgres_console_lexer_info : @lexer.LexerInfo = {
   url: "https://www.postgresql.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for psql sessions.\n",
 }
 
 ///|
@@ -277,6 +281,7 @@ pub let postgres_explain_lexer_info : @lexer.LexerInfo = {
   url: "https://www.postgresql.org/docs/current/using-explain.html",
   version_added: "2.15",
   analyse_text: @lexer.no_analyse,
+  doc: "\nHandle PostgreSQL EXPLAIN output\n",
 }
 
 ///|
@@ -388,6 +393,7 @@ pub let postgres_lexer_info : @lexer.LexerInfo = {
   url: "https://www.postgresql.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the PostgreSQL dialect of SQL.\n",
 }
 
 ///|
@@ -447,6 +453,7 @@ pub let rql_lexer_info : @lexer.LexerInfo = {
   url: "http://www.logilab.org/project/rql",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Relation Query Language.\n",
 }
 
 ///|
@@ -489,6 +496,7 @@ pub let sql_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/SQL",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Structured Query Language. Currently, this lexer does\nnot recognize any special syntax except ANSI SQL.\n",
 }
 
 ///|
@@ -537,6 +545,7 @@ pub let sqlite_console_lexer_info : @lexer.LexerInfo = {
   url: "https://www.sqlite.org",
   version_added: "0.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for example sessions using sqlite3.\n",
 }
 
 ///|
@@ -557,6 +566,7 @@ pub let transact_sql_lexer_info : @lexer.LexerInfo = {
   url: "https://www.tsql.info",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nTransact-SQL (T-SQL) is Microsoft's and Sybase's proprietary extension to\nSQL.\n\nThe list of keywords includes ODBC and keywords reserved for future use.\n",
 }
 
 ///|

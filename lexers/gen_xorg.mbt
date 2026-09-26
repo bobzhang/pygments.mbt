@@ -12,6 +12,7 @@ pub let xorg_lexer_info : @lexer.LexerInfo = {
   url: "https://www.x.org/wiki/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for xorg.conf files.",
 }
 
 ///|

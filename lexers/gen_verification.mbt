@@ -12,6 +12,7 @@ pub let boogie_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/boogie-org/boogie/blob/master/Source/Core/BoogiePL.atg",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Boogie source code.\n",
 }
 
 ///|
@@ -63,6 +64,7 @@ pub let silver_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/viperproject/silver",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Silver source code.\n",
 }
 
 ///|

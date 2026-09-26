@@ -12,6 +12,7 @@ pub let devicetree_lexer_info : @lexer.LexerInfo = {
   url: "https://www.devicetree.org/",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Devicetree files.\n",
 }
 
 ///|

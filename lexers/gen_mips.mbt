@@ -12,6 +12,7 @@ pub let mips_lexer_info : @lexer.LexerInfo = {
   url: "https://mips.com",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA MIPS Assembly Lexer.\n\nBased on the Emacs major mode by hlissner:\nhttps://github.com/hlissner/emacs-mips-mode\n",
 }
 
 ///|

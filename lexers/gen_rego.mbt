@@ -12,6 +12,7 @@ pub let rego_lexer_info : @lexer.LexerInfo = {
   url: "https://www.openpolicyagent.org/docs/latest/policy-language/",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Rego source.\n",
 }
 
 ///|

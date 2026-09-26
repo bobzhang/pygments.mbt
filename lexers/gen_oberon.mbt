@@ -12,6 +12,7 @@ pub let component_pascal_lexer_info : @lexer.LexerInfo = {
   url: "https://blackboxframework.org",
   version_added: "2.1",
   analyse_text: component_pascal_lexer_analyse,
+  doc: "\nFor Component Pascal source code.\n",
 }
 
 ///|

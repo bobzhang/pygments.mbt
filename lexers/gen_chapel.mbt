@@ -12,6 +12,7 @@ pub let chapel_lexer_info : @lexer.LexerInfo = {
   url: "https://chapel-lang.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Chapel source.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let meson_lexer_info : @lexer.LexerInfo = {
   url: "https://mesonbuild.com/",
   version_added: "2.10",
   analyse_text: @lexer.no_analyse,
+  doc: "Meson language lexer.\n\nThe grammar definition use to transcribe the syntax was retrieved from\nhttps://mesonbuild.com/Syntax.html#grammar for version 0.58.\nSome of those definitions are improperly transcribed, so the Meson++\nimplementation was also checked: https://github.com/dcbaker/meson-plus-plus.\n",
 }
 
 ///|

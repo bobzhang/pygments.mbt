@@ -12,6 +12,7 @@ pub let solidity_lexer_info : @lexer.LexerInfo = {
   url: "https://soliditylang.org",
   version_added: "2.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Solidity source code.\n",
 }
 
 ///|

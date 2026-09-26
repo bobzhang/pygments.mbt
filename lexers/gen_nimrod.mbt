@@ -12,6 +12,7 @@ pub let nimrod_lexer_info : @lexer.LexerInfo = {
   url: "http://nim-lang.org/",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Nim source code.\n",
 }
 
 ///|

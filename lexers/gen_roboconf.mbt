@@ -12,6 +12,7 @@ pub let roboconf_graph_lexer_info : @lexer.LexerInfo = {
   url: "https://roboconf.github.io/en/user-guide/graph-definition.html",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Roboconf graph files.\n",
 }
 
 ///|
@@ -52,6 +53,7 @@ pub let roboconf_instances_lexer_info : @lexer.LexerInfo = {
   url: "https://roboconf.github.io",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Roboconf instances files.\n",
 }
 
 ///|

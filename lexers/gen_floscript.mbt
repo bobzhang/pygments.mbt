@@ -12,6 +12,7 @@ pub let flo_script_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/ioflo/ioflo",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor FloScript configuration language source code.\n",
 }
 
 ///|

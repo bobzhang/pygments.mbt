@@ -12,6 +12,7 @@ pub let clean_lexer_info : @lexer.LexerInfo = {
   url: "http://clean.cs.ru.nl/Clean",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the general purpose, state-of-the-art, pure and lazy functional\nprogramming language Clean.\n\n.. versionadded: 2.2\n",
 }
 
 ///|

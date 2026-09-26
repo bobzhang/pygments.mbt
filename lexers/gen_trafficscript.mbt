@@ -12,6 +12,7 @@ pub let rts_lexer_info : @lexer.LexerInfo = {
   url: "https://riverbed.com",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Riverbed Stingray Traffic Manager\n",
 }
 
 ///|

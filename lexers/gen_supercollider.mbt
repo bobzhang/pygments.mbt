@@ -12,6 +12,7 @@ pub let super_collider_lexer_info : @lexer.LexerInfo = {
   url: "http://supercollider.github.io/",
   version_added: "2.1",
   analyse_text: super_collider_lexer_analyse,
+  doc: "\nFor SuperCollider source code.\n",
 }
 
 ///|

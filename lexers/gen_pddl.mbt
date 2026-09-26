@@ -12,6 +12,7 @@ pub let pddl_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Planning_Domain_Definition_Language",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA PDDL lexer.\n\nIt should support up to PDDL 3.1.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let rnc_compact_lexer_info : @lexer.LexerInfo = {
   url: "http://relaxng.org",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor RelaxNG-compact syntax.\n",
 }
 
 ///|

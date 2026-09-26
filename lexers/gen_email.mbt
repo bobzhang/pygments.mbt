@@ -12,6 +12,7 @@ pub let email_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Email#Message_format",
   version_added: "2.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for raw E-mail.\n\nAdditional options accepted:\n\n`highlight-X-header`\n    Highlight the fields of ``X-`` user-defined email header. (default:\n    ``False``).\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ let email_header_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSub-lexer for raw E-mail. This lexer only process header part of e-mail.\n\n.. versionadded:: 2.5\n",
 }
 
 ///|

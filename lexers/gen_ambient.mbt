@@ -12,6 +12,7 @@ pub let ambient_talk_lexer_info : @lexer.LexerInfo = {
   url: "https://code.google.com/p/ambienttalk",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for AmbientTalk source code.\n",
 }
 
 ///|

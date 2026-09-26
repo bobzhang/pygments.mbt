@@ -12,6 +12,7 @@ pub let verifpal_lexer_info : @lexer.LexerInfo = {
   url: "https://verifpal.com",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Verifpal code.\n",
 }
 
 ///|

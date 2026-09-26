@@ -12,6 +12,7 @@ pub let yara_lexer_info : @lexer.LexerInfo = {
   url: "https://virustotal.github.io/yara/",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor YARA rules\n",
 }
 
 ///|

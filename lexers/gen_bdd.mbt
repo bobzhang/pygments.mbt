@@ -12,6 +12,7 @@ pub let bdd_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Behavior-driven_development",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for BDD(Behavior-driven development), which highlights not only\nkeywords, but also comments, punctuations, strings, numbers, and variables.\n",
 }
 
 ///|

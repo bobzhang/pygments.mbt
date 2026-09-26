@@ -12,6 +12,7 @@ pub let adl_lexer_info : @lexer.LexerInfo = {
   url: "https://specifications.openehr.org/releases/AM/latest/ADL2.html",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for ADL syntax.\n",
 }
 
 ///|
@@ -114,6 +115,7 @@ pub let cadl_lexer_info : @lexer.LexerInfo = {
   url: "https://specifications.openehr.org/releases/AM/latest/ADL2.html#_cadl_constraint_adl",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for cADL syntax.\n",
 }
 
 ///|
@@ -219,6 +221,7 @@ pub let odin_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/openEHR/odin",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for ODIN syntax.\n",
 }
 
 ///|

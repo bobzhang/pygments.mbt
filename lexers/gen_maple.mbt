@@ -12,6 +12,7 @@ pub let maple_lexer_info : @lexer.LexerInfo = {
   url: "https://www.maplesoft.com/products/Maple/",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Maple.\n",
 }
 
 ///|

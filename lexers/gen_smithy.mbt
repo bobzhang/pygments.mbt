@@ -12,6 +12,7 @@ pub let smithy_lexer_info : @lexer.LexerInfo = {
   url: "https://awslabs.github.io/smithy/",
   version_added: "2.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Smithy IDL\n",
 }
 
 ///|

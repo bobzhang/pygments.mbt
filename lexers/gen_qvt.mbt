@@ -12,6 +12,7 @@ pub let qv_to_lexer_info : @lexer.LexerInfo = {
   url: "https://www.omg.org/spec/QVT/1.1",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the QVT Operational Mapping language.\n\nReference for implementing this: «Meta Object Facility (MOF) 2.0\nQuery/View/Transformation Specification», Version 1.1 - January 2011\n(https://www.omg.org/spec/QVT/1.1/), see §8.4, «Concrete Syntax» in\nparticular.\n\nNotable tokens assignments:\n\n- Name.Class is assigned to the identifier following any of the following\n  keywords: metamodel, class, exception, primitive, enum, transformation\n  or library\n\n- Name.Function is assigned to the names of mappings and queries\n\n- Name.Builtin.Pseudo is assigned to the pre-defined variables 'this',\n  'self' and 'result'.\n",
 }
 
 ///|

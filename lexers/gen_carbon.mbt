@@ -12,6 +12,7 @@ pub let carbon_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/carbon-language/carbon-lang",
   version_added: "2.15",
   analyse_text: carbon_lexer_analyse,
+  doc: "\nFor Carbon source.\n",
 }
 
 ///|

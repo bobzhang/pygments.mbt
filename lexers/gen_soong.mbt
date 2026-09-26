@@ -12,6 +12,7 @@ pub let soong_lexer_info : @lexer.LexerInfo = {
   url: "https://source.android.com/docs/setup/reference/androidbp",
   version_added: "2.18",
   analyse_text: @lexer.no_analyse,
+  doc: "",
 }
 
 ///|

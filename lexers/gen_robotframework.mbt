@@ -12,6 +12,7 @@ pub let robot_framework_lexer_info : @lexer.LexerInfo = {
   url: "http://robotframework.org",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Robot Framework test data.\n\nSupports both space and pipe separated plain text formats.\n",
 }
 
 ///|

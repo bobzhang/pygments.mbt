@@ -12,6 +12,7 @@ pub let rebol_lexer_info : @lexer.LexerInfo = {
   url: "http://www.rebol.com",
   version_added: "1.1",
   analyse_text: rebol_lexer_analyse,
+  doc: "\nA REBOL lexer.\n",
 }
 
 ///|
@@ -126,6 +127,7 @@ pub let red_lexer_info : @lexer.LexerInfo = {
   url: "https://www.red-lang.org",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA Red-language lexer.\n",
 }
 
 ///|

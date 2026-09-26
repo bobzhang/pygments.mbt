@@ -12,6 +12,7 @@ pub let tal_lexer_info : @lexer.LexerInfo = {
   url: "https://wiki.xxiivv.com/site/uxntal.html",
   version_added: "2.12",
   analyse_text: tal_lexer_analyse,
+  doc: "\nFor Uxntal source code.\n",
 }
 
 ///|

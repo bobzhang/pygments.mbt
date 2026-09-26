@@ -12,6 +12,7 @@ pub let perl6_lexer_info : @lexer.LexerInfo = {
   url: "https://www.raku.org",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Raku (a.k.a. Perl 6) source code.\n",
 }
 
 ///|
@@ -93,6 +94,7 @@ pub let perl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.perl.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Perl source code.\n",
 }
 
 ///|

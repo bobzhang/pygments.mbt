@@ -12,6 +12,7 @@ pub let apache_conf_lexer_info : @lexer.LexerInfo = {
   url: "https://httpd.apache.org/docs/current/configuring.html",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for configuration files following the Apache config file\nformat.\n",
 }
 
 ///|
@@ -61,6 +62,7 @@ pub let augeas_lexer_info : @lexer.LexerInfo = {
   url: "http://augeas.net",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Augeas.\n",
 }
 
 ///|
@@ -116,6 +118,7 @@ pub let caddyfile_lexer_info : @lexer.LexerInfo = {
   url: "https://caddyserver.com/docs/caddyfile",
   version_added: "2.21",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Caddyfile, the configuration file format of the Caddy web server.\n",
 }
 
 ///|
@@ -167,6 +170,7 @@ pub let cfengine3_lexer_info : @lexer.LexerInfo = {
   url: "http://cfengine.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for CFEngine3 policy files.\n",
 }
 
 ///|
@@ -230,6 +234,7 @@ pub let desktop_lexer_info : @lexer.LexerInfo = {
   url: "https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for .desktop files.\n",
 }
 
 ///|
@@ -267,6 +272,7 @@ pub let docker_lexer_info : @lexer.LexerInfo = {
   url: "http://docker.io",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Docker configuration files.\n",
 }
 
 ///|
@@ -309,6 +315,7 @@ pub let ini_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/INI_file",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for configuration files in INI style.\n",
 }
 
 ///|
@@ -355,6 +362,7 @@ pub let kconfig_lexer_info : @lexer.LexerInfo = {
   url: "https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Linux-style Kconfig files.\n",
 }
 
 ///|
@@ -429,6 +437,7 @@ pub let lighttpd_conf_lexer_info : @lexer.LexerInfo = {
   url: "http://lighttpd.net/",
   version_added: "0.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Lighttpd configuration files.\n",
 }
 
 ///|
@@ -472,6 +481,7 @@ pub let nested_text_lexer_info : @lexer.LexerInfo = {
   url: "https://nestedtext.org",
   version_added: "2.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for *NextedText*, a human-friendly data format.\n\n.. versionchanged:: 2.16\n    Added support for *NextedText* v3.0.\n",
 }
 
 ///|
@@ -530,6 +540,7 @@ pub let nginx_conf_lexer_info : @lexer.LexerInfo = {
   url: "http://nginx.net/",
   version_added: "0.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Nginx configuration files.\n",
 }
 
 ///|
@@ -581,6 +592,7 @@ pub let pacman_conf_lexer_info : @lexer.LexerInfo = {
   url: "https://www.archlinux.org/pacman/pacman.conf.5.html",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for pacman.conf.\n\nActually, IniLexer works almost fine for this format,\nbut it yield error token. It is because pacman.conf has\na form without assignment like:\n\n    UseSyslog\n    Color\n    TotalDownload\n    CheckSpace\n    VerbosePkgLists\n\nThese are flags to switch on.\n",
 }
 
 ///|
@@ -621,6 +633,7 @@ pub let pkg_config_lexer_info : @lexer.LexerInfo = {
   url: "http://www.freedesktop.org/wiki/Software/pkg-config/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for pkg-config\n(see also `manual page <http://linux.die.net/man/1/pkg-config>`_).\n",
 }
 
 ///|
@@ -669,6 +682,7 @@ pub let properties_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/.properties",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for configuration files in Java's properties format.\n\nNote: trailing whitespace counts as part of the value as per spec\n",
 }
 
 ///|
@@ -714,6 +728,7 @@ pub let regedit_lexer_info : @lexer.LexerInfo = {
   url: "http://en.wikipedia.org/wiki/Windows_Registry#.REG_files",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Windows Registry files produced by regedit.\n",
 }
 
 ///|
@@ -757,6 +772,7 @@ pub let singularity_lexer_info : @lexer.LexerInfo = {
   url: "https://www.sylabs.io/guides/3.0/user-guide/definition_files.html",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Singularity definition files.\n",
 }
 
 ///|
@@ -798,6 +814,7 @@ pub let squid_conf_lexer_info : @lexer.LexerInfo = {
   url: "http://www.squid-cache.org/",
   version_added: "0.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for squid configuration files.\n",
 }
 
 ///|
@@ -845,6 +862,7 @@ pub let systemd_lexer_info : @lexer.LexerInfo = {
   url: "https://www.freedesktop.org/software/systemd/man/systemd.syntax.html",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for systemd unit files.\n",
 }
 
 ///|
@@ -886,6 +904,7 @@ pub let toml_lexer_info : @lexer.LexerInfo = {
   url: "https://toml.io",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for TOML, a simple language for config files.\n",
 }
 
 ///|
@@ -971,6 +990,7 @@ pub let termcap_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Termcap",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for termcap database source.\n\nThis is very simple and minimal.\n",
 }
 
 ///|
@@ -1021,6 +1041,7 @@ pub let terminfo_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Terminfo",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for terminfo database source.\n\nThis is very simple and minimal.\n",
 }
 
 ///|
@@ -1071,6 +1092,7 @@ pub let terraform_lexer_info : @lexer.LexerInfo = {
   url: "https://www.terraform.io/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for terraformi ``.tf`` files.\n",
 }
 
 ///|
@@ -1127,6 +1149,7 @@ pub let unix_config_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Configuration_file#Unix_and_Unix-like_operating_systems",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Unix/Linux config files using colon-separated values, e.g.\n\n* ``/etc/group``\n* ``/etc/passwd``\n* ``/etc/shadow``\n",
 }
 
 ///|

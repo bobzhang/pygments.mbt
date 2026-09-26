@@ -12,6 +12,7 @@ pub let logtalk_lexer_info : @lexer.LexerInfo = {
   url: "http://logtalk.org/",
   version_added: "0.10",
   analyse_text: logtalk_lexer_analyse,
+  doc: "\nFor Logtalk source code.\n",
 }
 
 ///|
@@ -168,6 +169,7 @@ pub let prolog_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Prolog",
   version_added: "",
   analyse_text: prolog_lexer_analyse,
+  doc: "\nLexer for Prolog files.\n",
 }
 
 ///|

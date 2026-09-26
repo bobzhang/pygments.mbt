@@ -12,6 +12,7 @@ pub let stata_lexer_info : @lexer.LexerInfo = {
   url: "http://www.stata.com/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Stata do files.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let limbo_lexer_info : @lexer.LexerInfo = {
   url: "http://www.vitanuova.com/inferno/limbo.html",
   version_added: "2.0",
   analyse_text: limbo_lexer_analyse,
+  doc: "\nLexer for Limbo programming language\n\nTODO:\n    - maybe implement better var declaration highlighting\n    - some simple syntax error highlighting\n",
 }
 
 ///|

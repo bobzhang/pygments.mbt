@@ -12,6 +12,7 @@ pub let smali_lexer_info : @lexer.LexerInfo = {
   url: "http://code.google.com/p/smali/",
   version_added: "1.6",
   analyse_text: smali_lexer_analyse,
+  doc: "\nFor Smali (Android/Dalvik) assembly\ncode.\n",
 }
 
 ///|

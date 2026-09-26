@@ -12,6 +12,7 @@ pub let angular2_html_lexer_info : @lexer.LexerInfo = {
   url: "https://angular.io/guide/template-syntax",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `Angular2Lexer` that highlights unlexed data with the\n`HtmlLexer`.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let angular2_lexer_info : @lexer.LexerInfo = {
   url: "https://angular.io/guide/template-syntax",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGeneric angular2 template lexer.\n\nHighlights only the Angular template tags (stuff between `{{` and `}}` and\nspecial attributes: '(event)=', '[property]=', '[(twoWayBinding)]=').\nEverything else is left for a delegating lexer.\n",
 }
 
 ///|
@@ -83,6 +85,7 @@ pub let cheetah_html_lexer_info : @lexer.LexerInfo = {
   url: "http://www.cheetahtemplate.org/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `CheetahLexer` that highlights unlexed data\nwith the `HtmlLexer`.\n",
 }
 
 ///|
@@ -103,6 +106,7 @@ pub let cheetah_javascript_lexer_info : @lexer.LexerInfo = {
   url: "http://www.cheetahtemplate.org/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `CheetahLexer` that highlights unlexed data\nwith the `JavascriptLexer`.\n",
 }
 
 ///|
@@ -123,6 +127,7 @@ pub let cheetah_lexer_info : @lexer.LexerInfo = {
   url: "http://www.cheetahtemplate.org/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGeneric cheetah templates lexer. Code that isn't Cheetah\nmarkup is yielded as `Token.Other`.  This also works for\n`spitfire templates`_ which use the same syntax.\n\n.. _spitfire templates: http://code.google.com/p/spitfire/\n",
 }
 
 ///|
@@ -165,6 +170,7 @@ pub let cheetah_xml_lexer_info : @lexer.LexerInfo = {
   url: "http://www.cheetahtemplate.org/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `CheetahLexer` that highlights unlexed data\nwith the `XmlLexer`.\n",
 }
 
 ///|
@@ -185,6 +191,7 @@ pub let coldfusion_cfc_lexer_info : @lexer.LexerInfo = {
   url: "https://www.adobe.com/products/coldfusion-family.html",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nColdfusion markup/script components\n",
 }
 
 ///|
@@ -205,6 +212,7 @@ pub let coldfusion_html_lexer_info : @lexer.LexerInfo = {
   url: "https://www.adobe.com/products/coldfusion-family.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nColdfusion markup in html\n",
 }
 
 ///|
@@ -225,6 +233,7 @@ pub let coldfusion_lexer_info : @lexer.LexerInfo = {
   url: "https://www.adobe.com/products/coldfusion-family.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nColdfusion statements\n",
 }
 
 ///|
@@ -282,6 +291,7 @@ pub let css_django_lexer_info : @lexer.LexerInfo = {
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
   analyse_text: css_django_lexer_analyse,
+  doc: "\nSubclass of the `DjangoLexer` that highlights unlexed data with the\n`CssLexer`.\n",
 }
 
 ///|
@@ -302,6 +312,7 @@ pub let css_erb_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/ruby/erb",
   version_added: "",
   analyse_text: css_erb_lexer_analyse,
+  doc: "\nSubclass of `ErbLexer` which highlights unlexed data with the `CssLexer`.\n",
 }
 
 ///|
@@ -322,6 +333,7 @@ pub let css_genshi_lexer_info : @lexer.LexerInfo = {
   url: "https://genshi.edgewall.org",
   version_added: "",
   analyse_text: css_genshi_lexer_analyse,
+  doc: "\nA lexer that highlights CSS definitions in genshi text templates.\n",
 }
 
 ///|
@@ -342,6 +354,7 @@ pub let css_php_lexer_info : @lexer.LexerInfo = {
   url: "https://www.php.net",
   version_added: "",
   analyse_text: css_php_lexer_analyse,
+  doc: "\nSubclass of `PhpLexer` which highlights unmatched data with the `CssLexer`.\n",
 }
 
 ///|
@@ -362,6 +375,7 @@ pub let css_smarty_lexer_info : @lexer.LexerInfo = {
   url: "https://www.smarty.net/",
   version_added: "",
   analyse_text: css_smarty_lexer_analyse,
+  doc: "\nSubclass of the `SmartyLexer` that highlights unlexed data with the\n`CssLexer`.\n",
 }
 
 ///|
@@ -382,6 +396,7 @@ pub let django_lexer_info : @lexer.LexerInfo = {
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
   analyse_text: django_lexer_analyse,
+  doc: "\nGeneric `Django <https://www.djangoproject.com/documentation/templates/>`_\nand `Jinja <https://jinja.palletsprojects.com>`_ template lexer.\n\nIt just highlights django/jinja code between the preprocessor directives,\nother data is left untouched by the lexer.\n",
 }
 
 ///|
@@ -439,6 +454,7 @@ pub let erb_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/ruby/erb",
   version_added: "",
   analyse_text: erb_lexer_analyse,
+  doc: "\nGeneric ERB (Ruby Templating) lexer.\n\nJust highlights ruby code between the preprocessor directives, other data\nis left untouched by the lexer.\n\nAll options are also forwarded to the `RubyLexer`.\n",
 }
 
 ///|
@@ -459,6 +475,7 @@ pub let evoque_html_lexer_info : @lexer.LexerInfo = {
   url: "https://gizmojo.org/templating",
   version_added: "1.1",
   analyse_text: evoque_html_lexer_analyse,
+  doc: "\nSubclass of the `EvoqueLexer` that highlights unlexed data with the\n`HtmlLexer`.\n",
 }
 
 ///|
@@ -479,6 +496,7 @@ pub let evoque_lexer_info : @lexer.LexerInfo = {
   url: "https://gizmojo.org/templating",
   version_added: "1.1",
   analyse_text: evoque_lexer_analyse,
+  doc: "\nFor files using the Evoque templating system.\n",
 }
 
 ///|
@@ -526,6 +544,7 @@ pub let evoque_xml_lexer_info : @lexer.LexerInfo = {
   url: "https://gizmojo.org/templating",
   version_added: "1.1",
   analyse_text: evoque_xml_lexer_analyse,
+  doc: "\nSubclass of the `EvoqueLexer` that highlights unlexed data with the\n`XmlLexer`.\n",
 }
 
 ///|
@@ -546,6 +565,7 @@ pub let genshi_lexer_info : @lexer.LexerInfo = {
   url: "https://genshi.edgewall.org/",
   version_added: "",
   analyse_text: genshi_lexer_analyse,
+  doc: "\nA lexer that highlights `genshi <https://genshi.edgewall.org/>`_ and\n`kid <http://kid-templating.org/>`_ kid XML templates.\n",
 }
 
 ///|
@@ -566,6 +586,7 @@ pub let genshi_text_lexer_info : @lexer.LexerInfo = {
   url: "https://genshi.edgewall.org/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer that highlights genshi text templates.\n",
 }
 
 ///|
@@ -610,6 +631,7 @@ pub let handlebars_html_lexer_info : @lexer.LexerInfo = {
   url: "https://handlebarsjs.com/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `HandlebarsLexer` that highlights unlexed data with the\n`HtmlLexer`.\n",
 }
 
 ///|
@@ -630,6 +652,7 @@ pub let handlebars_lexer_info : @lexer.LexerInfo = {
   url: "https://handlebarsjs.com/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGeneric handlebars template lexer.\n\nHighlights only the Handlebars template tags (stuff between `{{` and `}}`).\nEverything else is left for a delegating lexer.\n",
 }
 
 ///|
@@ -686,6 +709,7 @@ pub let html_django_lexer_info : @lexer.LexerInfo = {
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
   analyse_text: html_django_lexer_analyse,
+  doc: "\nSubclass of the `DjangoLexer` that highlights unlexed data with the\n`HtmlLexer`.\n\nNested Javascript and CSS is highlighted too.\n",
 }
 
 ///|
@@ -706,6 +730,7 @@ pub let html_genshi_lexer_info : @lexer.LexerInfo = {
   url: "https://genshi.edgewall.org/",
   version_added: "",
   analyse_text: html_genshi_lexer_analyse,
+  doc: "\nA lexer that highlights `genshi <https://genshi.edgewall.org/>`_ and\n`kid <http://kid-templating.org/>`_ kid HTML templates.\n",
 }
 
 ///|
@@ -726,6 +751,7 @@ pub let html_php_lexer_info : @lexer.LexerInfo = {
   url: "https://www.php.net",
   version_added: "",
   analyse_text: html_php_lexer_analyse,
+  doc: "\nSubclass of `PhpLexer` that highlights unhandled data with the `HtmlLexer`.\n\nNested Javascript and CSS is highlighted too.\n",
 }
 
 ///|
@@ -746,6 +772,7 @@ pub let html_smarty_lexer_info : @lexer.LexerInfo = {
   url: "https://www.smarty.net/",
   version_added: "",
   analyse_text: html_smarty_lexer_analyse,
+  doc: "\nSubclass of the `SmartyLexer` that highlights unlexed data with the\n`HtmlLexer`.\n\nNested Javascript and CSS is highlighted too.\n",
 }
 
 ///|
@@ -766,6 +793,7 @@ pub let javascript_django_lexer_info : @lexer.LexerInfo = {
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
   analyse_text: javascript_django_lexer_analyse,
+  doc: "\nSubclass of the `DjangoLexer` that highlights unlexed data with the\n`JavascriptLexer`.\n",
 }
 
 ///|
@@ -786,6 +814,7 @@ pub let javascript_erb_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/ruby/erb",
   version_added: "",
   analyse_text: javascript_erb_lexer_analyse,
+  doc: "\nSubclass of `ErbLexer` which highlights unlexed data with the\n`JavascriptLexer`.\n",
 }
 
 ///|
@@ -806,6 +835,7 @@ pub let javascript_genshi_lexer_info : @lexer.LexerInfo = {
   url: "https://genshi.edgewall.org",
   version_added: "",
   analyse_text: javascript_genshi_lexer_analyse,
+  doc: "\nA lexer that highlights javascript code in genshi text templates.\n",
 }
 
 ///|
@@ -826,6 +856,7 @@ pub let javascript_php_lexer_info : @lexer.LexerInfo = {
   url: "https://www.php.net",
   version_added: "",
   analyse_text: javascript_php_lexer_analyse,
+  doc: "\nSubclass of `PhpLexer` which highlights unmatched data with the\n`JavascriptLexer`.\n",
 }
 
 ///|
@@ -846,6 +877,7 @@ pub let javascript_smarty_lexer_info : @lexer.LexerInfo = {
   url: "https://www.smarty.net/",
   version_added: "",
   analyse_text: javascript_smarty_lexer_analyse,
+  doc: "\nSubclass of the `SmartyLexer` that highlights unlexed data with the\n`JavascriptLexer`.\n",
 }
 
 ///|
@@ -866,6 +898,7 @@ pub let jsp_lexer_info : @lexer.LexerInfo = {
   url: "https://projects.eclipse.org/projects/ee4j.jsp",
   version_added: "0.7",
   analyse_text: jsp_lexer_analyse,
+  doc: "\nLexer for Java Server Pages.\n",
 }
 
 ///|
@@ -886,6 +919,7 @@ pub let lasso_css_lexer_info : @lexer.LexerInfo = {
   url: "https://www.lassosoft.com",
   version_added: "1.6",
   analyse_text: lasso_css_lexer_analyse,
+  doc: "\nSubclass of the `LassoLexer` which highlights unhandled data with the\n`CssLexer`.\n",
 }
 
 ///|
@@ -906,6 +940,7 @@ pub let lasso_html_lexer_info : @lexer.LexerInfo = {
   url: "https://www.lassosoft.com",
   version_added: "1.6",
   analyse_text: lasso_html_lexer_analyse,
+  doc: "\nSubclass of the `LassoLexer` which highlights unhandled data with the\n`HtmlLexer`.\n\nNested JavaScript and CSS is also highlighted.\n",
 }
 
 ///|
@@ -926,6 +961,7 @@ pub let lasso_javascript_lexer_info : @lexer.LexerInfo = {
   url: "https://www.lassosoft.com",
   version_added: "1.6",
   analyse_text: lasso_javascript_lexer_analyse,
+  doc: "\nSubclass of the `LassoLexer` which highlights unhandled data with the\n`JavascriptLexer`.\n",
 }
 
 ///|
@@ -946,6 +982,7 @@ pub let lasso_xml_lexer_info : @lexer.LexerInfo = {
   url: "https://www.lassosoft.com",
   version_added: "1.6",
   analyse_text: lasso_xml_lexer_analyse,
+  doc: "\nSubclass of the `LassoLexer` which highlights unhandled data with the\n`XmlLexer`.\n",
 }
 
 ///|
@@ -966,6 +1003,7 @@ pub let liquid_lexer_info : @lexer.LexerInfo = {
   url: "https://www.rubydoc.info/github/Shopify/liquid",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Liquid templates.\n",
 }
 
 ///|
@@ -1047,6 +1085,7 @@ pub let mako_css_lexer_info : @lexer.LexerInfo = {
   url: "http://www.makotemplates.org/",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MakoLexer` that highlights unlexed data\nwith the `CssLexer`.\n",
 }
 
 ///|
@@ -1067,6 +1106,7 @@ pub let mako_html_lexer_info : @lexer.LexerInfo = {
   url: "http://www.makotemplates.org/",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MakoLexer` that highlights unlexed data\nwith the `HtmlLexer`.\n",
 }
 
 ///|
@@ -1087,6 +1127,7 @@ pub let mako_javascript_lexer_info : @lexer.LexerInfo = {
   url: "http://www.makotemplates.org/",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MakoLexer` that highlights unlexed data\nwith the `JavascriptLexer`.\n",
 }
 
 ///|
@@ -1107,6 +1148,7 @@ pub let mako_lexer_info : @lexer.LexerInfo = {
   url: "http://www.makotemplates.org/",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGeneric mako templates lexer. Code that isn't Mako\nmarkup is yielded as `Token.Other`.\n",
 }
 
 ///|
@@ -1159,6 +1201,7 @@ pub let mako_xml_lexer_info : @lexer.LexerInfo = {
   url: "http://www.makotemplates.org/",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MakoLexer` that highlights unlexed data\nwith the `XmlLexer`.\n",
 }
 
 ///|
@@ -1179,6 +1222,7 @@ pub let mason_lexer_info : @lexer.LexerInfo = {
   url: "http://www.masonhq.com/",
   version_added: "1.4",
   analyse_text: mason_lexer_analyse,
+  doc: "\nGeneric mason templates lexer. Stolen from Myghty lexer. Code that isn't\nMason markup is HTML.\n",
 }
 
 ///|
@@ -1223,6 +1267,7 @@ pub let myghty_css_lexer_info : @lexer.LexerInfo = {
   url: "http://www.myghty.org/",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MyghtyLexer` that highlights unlexed data\nwith the `CssLexer`.\n",
 }
 
 ///|
@@ -1243,6 +1288,7 @@ pub let myghty_html_lexer_info : @lexer.LexerInfo = {
   url: "http://www.myghty.org/",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MyghtyLexer` that highlights unlexed data\nwith the `HtmlLexer`.\n",
 }
 
 ///|
@@ -1263,6 +1309,7 @@ pub let myghty_javascript_lexer_info : @lexer.LexerInfo = {
   url: "http://www.myghty.org/",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MyghtyLexer` that highlights unlexed data\nwith the `JavascriptLexer`.\n",
 }
 
 ///|
@@ -1283,6 +1330,7 @@ pub let myghty_lexer_info : @lexer.LexerInfo = {
   url: "http://www.myghty.org/",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGeneric myghty templates lexer. Code that isn't Myghty\nmarkup is yielded as `Token.Other`.\n",
 }
 
 ///|
@@ -1326,6 +1374,7 @@ pub let myghty_xml_lexer_info : @lexer.LexerInfo = {
   url: "http://www.myghty.org/",
   version_added: "0.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `MyghtyLexer` that highlights unlexed data\nwith the `XmlLexer`.\n",
 }
 
 ///|
@@ -1346,6 +1395,7 @@ pub let rhtml_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/ruby/erb",
   version_added: "",
   analyse_text: rhtml_lexer_analyse,
+  doc: "\nSubclass of the ERB lexer that highlights the unlexed data with the\nhtml lexer.\n\nNested Javascript and CSS is highlighted too.\n",
 }
 
 ///|
@@ -1366,6 +1416,7 @@ pub let smarty_lexer_info : @lexer.LexerInfo = {
   url: "https://www.smarty.net/",
   version_added: "",
   analyse_text: smarty_lexer_analyse,
+  doc: "\nGeneric Smarty template lexer.\n\nJust highlights smarty code between the preprocessor directives, other\ndata is left untouched by the lexer.\n",
 }
 
 ///|
@@ -1415,6 +1466,7 @@ pub let sql_jinja_lexer_info : @lexer.LexerInfo = {
   url: "https://jinja.palletsprojects.com",
   version_added: "2.13",
   analyse_text: sql_jinja_lexer_analyse,
+  doc: "\nTemplated SQL lexer.\n",
 }
 
 ///|
@@ -1435,6 +1487,7 @@ pub let ssp_lexer_info : @lexer.LexerInfo = {
   url: "https://scalate.github.io/scalate/",
   version_added: "1.4",
   analyse_text: ssp_lexer_analyse,
+  doc: "\nLexer for Scalate Server Pages.\n",
 }
 
 ///|
@@ -1455,6 +1508,7 @@ pub let tea_template_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/teatrove/teatrove",
   version_added: "1.5",
   analyse_text: tea_template_lexer_analyse,
+  doc: "\nLexer for Tea Templates.\n",
 }
 
 ///|
@@ -1475,6 +1529,7 @@ pub let twig_html_lexer_info : @lexer.LexerInfo = {
   url: "https://twig.symfony.com",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `TwigLexer` that highlights unlexed data with the\n`HtmlLexer`.\n",
 }
 
 ///|
@@ -1495,6 +1550,7 @@ pub let twig_lexer_info : @lexer.LexerInfo = {
   url: "https://twig.symfony.com",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nTwig template lexer.\n\nIt just highlights Twig code between the preprocessor directives,\nother data is left untouched by the lexer.\n",
 }
 
 ///|
@@ -1553,6 +1609,7 @@ pub let velocity_html_lexer_info : @lexer.LexerInfo = {
   url: "https://velocity.apache.org/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `VelocityLexer` that highlights unlexed data\nwith the `HtmlLexer`.\n\n",
 }
 
 ///|
@@ -1573,6 +1630,7 @@ pub let velocity_lexer_info : @lexer.LexerInfo = {
   url: "https://velocity.apache.org/",
   version_added: "",
   analyse_text: velocity_lexer_analyse,
+  doc: "\nGeneric Velocity template lexer.\n\nJust highlights velocity directives and variable references, other\ndata is left untouched by the lexer.\n",
 }
 
 ///|
@@ -1636,6 +1694,7 @@ pub let velocity_xml_lexer_info : @lexer.LexerInfo = {
   url: "https://velocity.apache.org/",
   version_added: "",
   analyse_text: velocity_xml_lexer_analyse,
+  doc: "\nSubclass of the `VelocityLexer` that highlights unlexed data\nwith the `XmlLexer`.\n\n",
 }
 
 ///|
@@ -1656,6 +1715,7 @@ pub let xml_django_lexer_info : @lexer.LexerInfo = {
   url: "https://www.djangoproject.com/documentation/templates",
   version_added: "",
   analyse_text: xml_django_lexer_analyse,
+  doc: "\nSubclass of the `DjangoLexer` that highlights unlexed data with the\n`XmlLexer`.\n",
 }
 
 ///|
@@ -1676,6 +1736,7 @@ pub let xml_erb_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/ruby/erb",
   version_added: "",
   analyse_text: xml_erb_lexer_analyse,
+  doc: "\nSubclass of `ErbLexer` which highlights data outside preprocessor\ndirectives with the `XmlLexer`.\n",
 }
 
 ///|
@@ -1696,6 +1757,7 @@ pub let xml_php_lexer_info : @lexer.LexerInfo = {
   url: "https://www.php.net",
   version_added: "",
   analyse_text: xml_php_lexer_analyse,
+  doc: "\nSubclass of `PhpLexer` that highlights unhandled data with the `XmlLexer`.\n",
 }
 
 ///|
@@ -1716,6 +1778,7 @@ pub let xml_smarty_lexer_info : @lexer.LexerInfo = {
   url: "https://www.smarty.net/",
   version_added: "",
   analyse_text: xml_smarty_lexer_analyse,
+  doc: "\nSubclass of the `SmartyLexer` that highlights unlexed data with the\n`XmlLexer`.\n",
 }
 
 ///|
@@ -1736,6 +1799,7 @@ pub let yaml_jinja_lexer_info : @lexer.LexerInfo = {
   url: "https://jinja.palletsprojects.com",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nSubclass of the `DjangoLexer` that highlights unlexed data with the\n`YamlLexer`.\n\nCommonly used in Saltstack salt states.\n",
 }
 
 ///|
@@ -1756,6 +1820,7 @@ let cheetah_python_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for handling Cheetah's special $ tokens in Python syntax.\n",
 }
 
 ///|
@@ -1776,6 +1841,7 @@ let coldfusion_markup_lexer_info : @lexer.LexerInfo = {
   url: "https://www.adobe.com/products/coldfusion-family.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nColdfusion markup only\n",
 }
 
 ///|
@@ -1824,6 +1890,7 @@ let genshi_markup_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nBase lexer for Genshi markup, used by `HtmlGenshiLexer` and\n`GenshiLexer`.\n",
 }
 
 ///|
@@ -1883,6 +1950,7 @@ let jsp_root_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nBase for the `JspLexer`. Yields `Token.Other` for area outside of\nJSP tags.\n\n.. versionadded:: 0.7\n",
 }
 
 ///|
@@ -1922,6 +1990,7 @@ let tea_template_root_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nBase for the `TeaTemplateLexer`. Yields `Token.Other` for area outside of\ncode blocks.\n\n.. versionadded:: 1.5\n",
 }
 
 ///|

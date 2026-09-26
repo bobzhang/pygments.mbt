@@ -12,6 +12,7 @@ pub let yang_lexer_info : @lexer.LexerInfo = {
   url: "https://tools.ietf.org/html/rfc7950/",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for YANG, based on RFC7950.\n",
 }
 
 ///|

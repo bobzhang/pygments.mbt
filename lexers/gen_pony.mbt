@@ -12,6 +12,7 @@ pub let pony_lexer_info : @lexer.LexerInfo = {
   url: "https://www.ponylang.io",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Pony source code.\n",
 }
 
 ///|

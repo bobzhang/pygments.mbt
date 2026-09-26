@@ -12,6 +12,7 @@ pub let ooc_lexer_info : @lexer.LexerInfo = {
   url: "https://ooc-lang.github.io/",
   version_added: "1.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Ooc source code\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let code_ql_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/github/codeql",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let jsonnet_lexer_info : @lexer.LexerInfo = {
   url: "https://jsonnet.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for Jsonnet source code.",
 }
 
 ///|

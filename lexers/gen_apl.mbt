@@ -12,6 +12,7 @@ pub let apl_lexer_info : @lexer.LexerInfo = {
   url: "https://en.m.wikipedia.org/wiki/APL_(programming_language)",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA simple APL lexer.\n",
 }
 
 ///|

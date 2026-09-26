@@ -12,6 +12,7 @@ pub let csound_document_lexer_info : @lexer.LexerInfo = {
   url: "https://csound.com",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Csound documents.\n",
 }
 
 ///|
@@ -66,6 +67,7 @@ pub let csound_orchestra_lexer_info : @lexer.LexerInfo = {
   url: "https://csound.com/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor `Csound <https://csound.com>`_ orchestras.\n",
 }
 
 ///|
@@ -202,6 +204,7 @@ pub let csound_score_lexer_info : @lexer.LexerInfo = {
   url: "https://csound.com/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor `Csound <https://csound.com>`_ scores.\n",
 }
 
 ///|

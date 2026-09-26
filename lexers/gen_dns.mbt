@@ -12,6 +12,7 @@ pub let dns_zone_lexer_info : @lexer.LexerInfo = {
   url: "https://datatracker.ietf.org/doc/html/rfc1035",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for DNS zone file\n",
 }
 
 ///|

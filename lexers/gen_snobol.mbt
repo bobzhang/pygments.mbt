@@ -12,6 +12,7 @@ pub let snobol_lexer_info : @lexer.LexerInfo = {
   url: "https://www.regressive.org/snobol4",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the SNOBOL4 programming language.\n\nRecognizes the common ASCII equivalents of the original SNOBOL4 operators.\nDoes not require spaces around binary operators.\n",
 }
 
 ///|

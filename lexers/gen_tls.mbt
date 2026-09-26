@@ -12,6 +12,7 @@ pub let tls_lexer_info : @lexer.LexerInfo = {
   url: "https://www.rfc-editor.org/rfc/rfc8446#section-3",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nThe TLS presentation language, described in RFC 8446.\n",
 }
 
 ///|

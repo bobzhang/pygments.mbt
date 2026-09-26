@@ -12,6 +12,7 @@ pub let typst_lexer_info : @lexer.LexerInfo = {
   url: "https://typst.app",
   version_added: "2.18",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Typst code.\n\nAdditional options accepted:\n\n`start`\n    Specifies the starting state of the lexer (one of 'markup', 'math',\n    'code'). The default is 'markup'.\n",
 }
 
 ///|

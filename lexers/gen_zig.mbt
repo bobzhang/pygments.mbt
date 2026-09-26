@@ -12,6 +12,7 @@ pub let zig_lexer_info : @lexer.LexerInfo = {
   url: "http://ziglang.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Zig language.\n\ngrammar: https://ziglang.org/documentation/master/#Grammar\n",
 }
 
 ///|

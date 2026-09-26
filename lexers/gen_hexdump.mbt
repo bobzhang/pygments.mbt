@@ -12,6 +12,7 @@ pub let hexdump_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Hex_dump",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor typical hex dump output formats by the UNIX and GNU/Linux tools ``hexdump``,\n``hd``, ``hexcat``, ``od`` and ``xxd``, and the DOS tool ``DEBUG``. For example:\n\n.. sourcecode:: hexdump\n\n    00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|\n    00000010  02 00 3e 00 01 00 00 00  c5 48 40 00 00 00 00 00  |..>......H@.....|\n\nThe specific supported formats are the outputs of:\n\n* ``hexdump FILE``\n* ``hexdump -C FILE`` -- the `canonical` format used in the example.\n* ``hd FILE`` -- same as ``hexdump -C FILE``.\n* ``hexcat FILE``\n* ``od -t x1z FILE``\n* ``xxd FILE``\n* ``DEBUG.EXE FILE.COM`` and entering ``d`` to the prompt.\n",
 }
 
 ///|

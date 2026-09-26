@@ -12,6 +12,7 @@ pub let savi_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/savi-lang/savi",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Savi source code.\n\n.. versionadded: 2.10\n",
 }
 
 ///|

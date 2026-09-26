@@ -12,6 +12,7 @@ pub let cssul4_lexer_info : @lexer.LexerInfo = {
   url: "https://python.livinglogic.de/UL4.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for UL4 embedded in CSS.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let htmlul4_lexer_info : @lexer.LexerInfo = {
   url: "https://python.livinglogic.de/UL4.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for UL4 embedded in HTML.\n",
 }
 
 ///|
@@ -52,6 +54,7 @@ pub let javascript_ul4_lexer_info : @lexer.LexerInfo = {
   url: "https://python.livinglogic.de/UL4.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for UL4 embedded in Javascript.\n",
 }
 
 ///|
@@ -72,6 +75,7 @@ pub let python_ul4_lexer_info : @lexer.LexerInfo = {
   url: "https://python.livinglogic.de/UL4.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for UL4 embedded in Python.\n",
 }
 
 ///|
@@ -92,6 +96,7 @@ pub let ul4_lexer_info : @lexer.LexerInfo = {
   url: "https://python.livinglogic.de/UL4.html",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "\nGeneric lexer for UL4.\n",
 }
 
 ///|
@@ -193,6 +198,7 @@ pub let xmlul4_lexer_info : @lexer.LexerInfo = {
   url: "https://python.livinglogic.de/UL4.html",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for UL4 embedded in XML.\n",
 }
 
 ///|

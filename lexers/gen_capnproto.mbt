@@ -12,6 +12,7 @@ pub let capn_proto_lexer_info : @lexer.LexerInfo = {
   url: "https://capnproto.org",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Cap'n Proto source.\n",
 }
 
 ///|

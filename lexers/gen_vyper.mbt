@@ -12,6 +12,7 @@ pub let vyper_lexer_info : @lexer.LexerInfo = {
   url: "https://vyper.readthedocs.io",
   version_added: "2.17",
   analyse_text: @lexer.no_analyse,
+  doc: "For the Vyper smart contract language.\n",
 }
 
 ///|

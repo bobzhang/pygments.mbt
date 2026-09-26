@@ -12,6 +12,7 @@ pub let ecl_lexer_info : @lexer.LexerInfo = {
   url: "https://hpccsystems.com/training/documentation/ecl-language-reference/html",
   version_added: "1.5",
   analyse_text: ecl_lexer_analyse,
+  doc: "\nLexer for the declarative big-data ECL language.\n",
 }
 
 ///|

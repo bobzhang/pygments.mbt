@@ -12,6 +12,7 @@ pub let eiffel_lexer_info : @lexer.LexerInfo = {
   url: "https://www.eiffel.com",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Eiffel source code.\n",
 }
 
 ///|

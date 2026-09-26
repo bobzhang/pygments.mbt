@@ -12,6 +12,7 @@ pub let praat_lexer_info : @lexer.LexerInfo = {
   url: "http://www.praat.org",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Praat scripts.\n",
 }
 
 ///|

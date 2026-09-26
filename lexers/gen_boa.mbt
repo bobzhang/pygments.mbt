@@ -12,6 +12,7 @@ pub let boa_lexer_info : @lexer.LexerInfo = {
   url: "https://boa.cs.iastate.edu/docs",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Boa language.\n",
 }
 
 ///|

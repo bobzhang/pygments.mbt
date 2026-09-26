@@ -12,6 +12,7 @@ pub let haxe_lexer_info : @lexer.LexerInfo = {
   url: "http://haxe.org/",
   version_added: "1.3",
   analyse_text: haxe_lexer_analyse,
+  doc: "\nFor Haxe source code.\n",
 }
 
 ///|
@@ -327,6 +328,7 @@ pub let hxml_lexer_info : @lexer.LexerInfo = {
   url: "https://haxe.org/manual/compiler-usage-hxml.html",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for haXe build files.\n",
 }
 
 ///|

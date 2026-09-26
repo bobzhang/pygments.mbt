@@ -12,6 +12,7 @@ pub let mojo_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.modular.com/mojo/",
   version_added: "2.18",
   analyse_text: mojo_lexer_analyse,
+  doc: "\nFor Mojo source code (version 24.2.1).\n",
 }
 
 ///|

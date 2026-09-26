@@ -12,6 +12,7 @@ pub let tlb_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.ton.org/#/overviews/TL-B",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor TL-b source code.\n",
 }
 
 ///|

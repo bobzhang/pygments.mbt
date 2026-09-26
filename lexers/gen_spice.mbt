@@ -12,6 +12,7 @@ pub let spice_lexer_info : @lexer.LexerInfo = {
   url: "https://www.spicelang.com",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Spice source.\n",
 }
 
 ///|

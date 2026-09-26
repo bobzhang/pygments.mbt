@@ -12,6 +12,7 @@ pub let antlr_action_script_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_action_script_lexer_analyse,
+  doc: "\nANTLR with ActionScript Target\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let antlr_c_sharp_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_c_sharp_lexer_analyse,
+  doc: "\nANTLR with C# Target\n",
 }
 
 ///|
@@ -52,6 +54,7 @@ pub let antlr_cpp_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_cpp_lexer_analyse,
+  doc: "\nANTLR with C++ Target\n",
 }
 
 ///|
@@ -72,6 +75,7 @@ pub let antlr_java_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_java_lexer_analyse,
+  doc: "\nANTLR with Java Target\n",
 }
 
 ///|
@@ -92,6 +96,7 @@ pub let antlr_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_lexer_analyse,
+  doc: "\nGeneric ANTLR Lexer.\nShould not be called directly, instead\nuse DelegatingLexer for your target language.\n",
 }
 
 ///|
@@ -177,6 +182,7 @@ pub let antlr_objective_c_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_objective_c_lexer_analyse,
+  doc: "\nANTLR with Objective-C Target\n",
 }
 
 ///|
@@ -197,6 +203,7 @@ pub let antlr_perl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_perl_lexer_analyse,
+  doc: "\nANTLR with Perl Target\n",
 }
 
 ///|
@@ -217,6 +224,7 @@ pub let antlr_python_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_python_lexer_analyse,
+  doc: "\nANTLR with Python Target\n",
 }
 
 ///|
@@ -237,6 +245,7 @@ pub let antlr_ruby_lexer_info : @lexer.LexerInfo = {
   url: "https://www.antlr.org",
   version_added: "1.1",
   analyse_text: antlr_ruby_lexer_analyse,
+  doc: "\nANTLR with Ruby Target\n",
 }
 
 ///|
@@ -257,6 +266,7 @@ pub let ebnf_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for `ISO/IEC 14977 EBNF\n<https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form>`_\ngrammars.\n",
 }
 
 ///|
@@ -304,6 +314,7 @@ pub let ragel_c_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: ragel_c_lexer_analyse,
+  doc: "\nA lexer for Ragel in a C host file.\n",
 }
 
 ///|
@@ -324,6 +335,7 @@ pub let ragel_cpp_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: ragel_cpp_lexer_analyse,
+  doc: "\nA lexer for Ragel in a C++ host file.\n",
 }
 
 ///|
@@ -344,6 +356,7 @@ pub let ragel_d_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: ragel_d_lexer_analyse,
+  doc: "\nA lexer for Ragel in a D host file.\n",
 }
 
 ///|
@@ -364,6 +377,7 @@ pub let ragel_embedded_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: ragel_embedded_lexer_analyse,
+  doc: "\nA lexer for Ragel embedded in a host language file.\n\nThis will only highlight Ragel statements. If you want host language\nhighlighting then call the language-specific Ragel lexer.\n",
 }
 
 ///|
@@ -402,6 +416,7 @@ pub let ragel_java_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: ragel_java_lexer_analyse,
+  doc: "\nA lexer for Ragel in a Java host file.\n",
 }
 
 ///|
@@ -422,6 +437,7 @@ pub let ragel_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "A pure `Ragel <www.colm.net/open-source/ragel>`_ lexer.\n\nUse this for fragments of Ragel.  For ``.rl`` files, use\n:class:`RagelEmbeddedLexer` instead (or one of the language-specific\nsubclasses).\n",
 }
 
 ///|
@@ -488,6 +504,7 @@ pub let ragel_objective_c_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: ragel_objective_c_lexer_analyse,
+  doc: "\nA lexer for Ragel in an Objective C host file.\n",
 }
 
 ///|
@@ -508,6 +525,7 @@ pub let ragel_ruby_lexer_info : @lexer.LexerInfo = {
   url: "http://www.colm.net/open-source/ragel/",
   version_added: "1.1",
   analyse_text: ragel_ruby_lexer_analyse,
+  doc: "\nA lexer for Ragel in a Ruby host file.\n",
 }
 
 ///|
@@ -528,6 +546,7 @@ pub let treetop_lexer_info : @lexer.LexerInfo = {
   url: "https://cjheath.github.io/treetop",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA lexer for Treetop grammars.\n",
 }
 
 ///|
@@ -548,6 +567,7 @@ let treetop_base_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA base lexer for `Treetop <http://treetop.rubyforge.org/>`_ grammars.\nNot for direct use; use :class:`TreetopLexer` instead.\n\n.. versionadded:: 1.6\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let c_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/C_(programming_language)",
   version_added: "",
   analyse_text: c_lexer_analyse,
+  doc: "\nFor C source code with preprocessor directives.\n\nAdditional options accepted:\n\n`stdlibhighlighting`\n    Highlight common types found in the C/C++ standard library (e.g. `size_t`).\n    (default: ``True``).\n\n`c99highlighting`\n    Highlight common types found in the C99 standard library (e.g. `int8_t`).\n    Actually, this includes all fixed-width integer types.\n    (default: ``True``).\n\n`c11highlighting`\n    Highlight atomic types found in the C11 standard library (e.g. `atomic_bool`).\n    (default: ``True``).\n\n`platformhighlighting`\n    Highlight common types found in the platform SDK headers (e.g. `clockid_t` on Linux).\n    (default: ``True``).\n",
 }
 
 ///|
@@ -118,6 +119,7 @@ pub let cpp_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "",
   analyse_text: cpp_lexer_analyse,
+  doc: "\nFor C++ source code with preprocessor directives.\n\nAdditional options accepted:\n\n`stdlibhighlighting`\n    Highlight common types found in the C/C++ standard library (e.g. `size_t`).\n    (default: ``True``).\n\n`c99highlighting`\n    Highlight common types found in the C99 standard library (e.g. `int8_t`).\n    Actually, this includes all fixed-width integer types.\n    (default: ``True``).\n\n`c11highlighting`\n    Highlight atomic types found in the C11 standard library (e.g. `atomic_bool`).\n    (default: ``True``).\n\n`platformhighlighting`\n    Highlight common types found in the platform SDK headers (e.g. `clockid_t` on Linux).\n    (default: ``True``).\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let gleam_lexer_info : @lexer.LexerInfo = {
   url: "https://gleam.run/",
   version_added: "2.19",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Gleam programming language (version 1.0.0).\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let arduino_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "2.1",
   analyse_text: arduino_lexer_analyse,
+  doc: "\nFor `Arduino(tm) <https://arduino.cc/>`_ source.\n\nThis is an extension of the CppLexer, as the Arduino® Language is a superset\nof C++\n",
 }
 
 ///|
@@ -146,6 +147,7 @@ pub let charmci_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "2.4",
   analyse_text: charmci_lexer_analyse,
+  doc: "\nFor `Charm++ <https://charm.cs.illinois.edu>`_ interface files (.ci).\n",
 }
 
 ///|
@@ -283,6 +285,7 @@ pub let clay_lexer_info : @lexer.LexerInfo = {
   url: "http://claylabs.com/clay",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Clay source.\n",
 }
 
 ///|
@@ -333,6 +336,7 @@ pub let cuda_lexer_info : @lexer.LexerInfo = {
   url: "https://developer.nvidia.com/category/zone/cuda-zone",
   version_added: "1.6",
   analyse_text: cuda_lexer_analyse,
+  doc: "\nFor NVIDIA CUDA™ source.\n",
 }
 
 ///|
@@ -467,6 +471,7 @@ pub let ec_lexer_info : @lexer.LexerInfo = {
   url: "https://ec-lang.org",
   version_added: "1.5",
   analyse_text: ec_lexer_analyse,
+  doc: "\nFor eC source code with preprocessor directives.\n",
 }
 
 ///|
@@ -577,6 +582,7 @@ pub let mql_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "2.0",
   analyse_text: mql_lexer_analyse,
+  doc: "\nFor `MQL4 <http://docs.mql4.com/>`_ and\n`MQL5 <http://www.mql5.com/en/docs>`_ source code.\n",
 }
 
 ///|
@@ -716,6 +722,7 @@ pub let nes_c_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/C_(programming_language)",
   version_added: "2.0",
   analyse_text: nes_c_lexer_analyse,
+  doc: "\nFor `nesC <https://github.com/tinyos/nesc>`_ source code with preprocessor\ndirectives.\n",
 }
 
 ///|
@@ -824,6 +831,7 @@ pub let omg_idl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.omg.org/spec/IDL/About-IDL/",
   version_added: "2.9",
   analyse_text: omg_idl_lexer_analyse,
+  doc: "\nLexer for Object Management Group Interface Definition Language.\n",
 }
 
 ///|
@@ -958,6 +966,7 @@ pub let pike_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "2.0",
   analyse_text: pike_lexer_analyse,
+  doc: "\nFor `Pike <http://pike.lysator.liu.se/>`_ source code.\n",
 }
 
 ///|
@@ -1093,6 +1102,7 @@ pub let promela_lexer_info : @lexer.LexerInfo = {
   url: "https://spinroot.com/spin/whatispin.html",
   version_added: "2.18",
   analyse_text: promela_lexer_analyse,
+  doc: "\nFor the Promela language used with SPIN.\n",
 }
 
 ///|
@@ -1203,6 +1213,7 @@ pub let swig_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "2.0",
   analyse_text: swig_lexer_analyse,
+  doc: "\nFor `SWIG <http://www.swig.org/>`_ source code.\n",
 }
 
 ///|
@@ -1341,6 +1352,7 @@ pub let vala_lexer_info : @lexer.LexerInfo = {
   url: "https://vala.dev",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Vala source code with preprocessor directives.\n",
 }
 
 ///|

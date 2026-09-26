@@ -12,6 +12,7 @@ pub let ptx_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.nvidia.com/cuda/parallel-thread-execution/",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor NVIDIA `PTX <https://docs.nvidia.com/cuda/parallel-thread-execution/>`_\nsource.\n",
 }
 
 ///|

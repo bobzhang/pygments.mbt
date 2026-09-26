@@ -12,6 +12,7 @@ pub let newspeak_lexer_info : @lexer.LexerInfo = {
   url: "http://newspeaklanguage.org/",
   version_added: "1.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Newspeak syntax.\n",
 }
 
 ///|
@@ -70,6 +71,7 @@ pub let smalltalk_lexer_info : @lexer.LexerInfo = {
   url: "http://www.smalltalk.org/",
   version_added: "0.10",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Smalltalk syntax.\nContributed by Stefan Matthias Aust.\nRewritten by Nils Winter.\n",
 }
 
 ///|

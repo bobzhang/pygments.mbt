@@ -12,6 +12,7 @@ pub let gd_script_lexer_info : @lexer.LexerInfo = {
   url: "https://www.godotengine.org",
   version_added: "",
   analyse_text: gd_script_lexer_analyse,
+  doc: "\nFor GDScript source code.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let dylan_console_lexer_info : @lexer.LexerInfo = {
   url: "http://www.opendylan.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Dylan interactive console output.\n\nThis is based on a copy of the ``RubyConsoleLexer``.\n",
 }
 
 ///|
@@ -32,6 +33,7 @@ pub let dylan_lexer_info : @lexer.LexerInfo = {
   url: "http://www.opendylan.org/",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the Dylan language.\n",
 }
 
 ///|
@@ -103,6 +105,7 @@ pub let dylan_lid_lexer_info : @lexer.LexerInfo = {
   url: "http://www.opendylan.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Dylan LID (Library Interchange Definition) files.\n",
 }
 
 ///|

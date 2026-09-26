@@ -12,6 +12,7 @@ pub let arturo_lexer_info : @lexer.LexerInfo = {
   url: "https://arturo-lang.io/",
   version_added: "2.14",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Arturo source code.\n\nSee `Arturo's Github <https://github.com/arturo-lang/arturo>`_\nand `Arturo's Website <https://arturo-lang.io/>`_.\n",
 }
 
 ///|

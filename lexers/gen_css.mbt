@@ -12,6 +12,7 @@ pub let css_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/TR/CSS/#css",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor CSS (Cascading Style Sheets).\n",
 }
 
 ///|
@@ -109,6 +110,7 @@ pub let less_css_lexer_info : @lexer.LexerInfo = {
   url: "http://lesscss.org/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor LESS styleshets.\n",
 }
 
 ///|
@@ -220,6 +222,7 @@ pub let sass_lexer_info : @lexer.LexerInfo = {
   url: "https://sass-lang.com/",
   version_added: "1.3",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Sass stylesheets.\n",
 }
 
 ///|
@@ -341,6 +344,7 @@ pub let scss_lexer_info : @lexer.LexerInfo = {
   url: "https://sass-lang.com/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor SCSS stylesheets.\n",
 }
 
 ///|

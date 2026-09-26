@@ -12,6 +12,7 @@ pub let logos_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "1.6",
   analyse_text: logos_lexer_analyse,
+  doc: "\nFor Logos + Objective-C source code with preprocessor directives.\n",
 }
 
 ///|
@@ -213,6 +214,7 @@ pub let objective_c_lexer_info : @lexer.LexerInfo = {
   url: "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html",
   version_added: "",
   analyse_text: objective_c_lexer_analyse,
+  doc: "\nFor Objective-C source code with preprocessor directives.\n",
 }
 
 ///|
@@ -367,6 +369,7 @@ pub let objective_cpp_lexer_info : @lexer.LexerInfo = {
   url: "https://isocpp.org/",
   version_added: "",
   analyse_text: objective_cpp_lexer_analyse,
+  doc: "\nFor Objective-C++ source code with preprocessor directives.\n",
 }
 
 ///|
@@ -549,6 +552,7 @@ pub let swift_lexer_info : @lexer.LexerInfo = {
   url: "https://www.swift.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Swift source.\n",
 }
 
 ///|

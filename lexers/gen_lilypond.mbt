@@ -12,6 +12,7 @@ pub let lily_pond_lexer_info : @lexer.LexerInfo = {
   url: "https://lilypond.org",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for input to LilyPond, a text-based music typesetter.\n\n.. important::\n\n   This lexer is meant to be used in conjunction with the ``lilypond`` style.\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let py_py_log_lexer_info : @lexer.LexerInfo = {
   url: "pypy.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for PyPy log files.\n",
 }
 
 ///|
@@ -66,6 +67,7 @@ pub let vc_tree_status_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor colorizing output of version control status commands, like \"hg\nstatus\" or \"svn status\".\n",
 }
 
 ///|

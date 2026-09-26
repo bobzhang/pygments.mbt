@@ -12,6 +12,7 @@ pub let asc_lexer_info : @lexer.LexerInfo = {
   url: "https://www.openpgp.org",
   version_added: "2.10",
   analyse_text: asc_lexer_analyse,
+  doc: "\nLexer for ASCII armored files, containing `-----BEGIN/END ...-----` wrapped\nbase64 data.\n",
 }
 
 ///|

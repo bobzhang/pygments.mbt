@@ -12,6 +12,7 @@ pub let bare_lexer_info : @lexer.LexerInfo = {
   url: "https://baremessages.org",
   version_added: "2.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor BARE schema source.\n",
 }
 
 ///|

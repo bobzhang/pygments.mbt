@@ -12,6 +12,7 @@ pub let macaulay2_lexer_info : @lexer.LexerInfo = {
   url: "https://macaulay2.com/",
   version_added: "2.12",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for Macaulay2, a software system for research in algebraic geometry.",
 }
 
 ///|

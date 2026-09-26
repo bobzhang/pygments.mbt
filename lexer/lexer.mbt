@@ -21,6 +21,8 @@ pub(all) struct LexerInfo {
   version_added : String
   /// Python's `analyse_text`: a score in `[0, 1]`.
   analyse_text : (String) -> Double
+  /// The class docstring (dedented), shown by `pygmentize -H lexer NAME`.
+  doc : String
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let abnf_lexer_info : @lexer.LexerInfo = {
   url: "http://www.ietf.org/rfc/rfc7405.txt",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for IETF 7405 ABNF.\n\n(Updates `5234 <http://www.ietf.org/rfc/rfc5234.txt>`_) grammars.\n",
 }
 
 ///|
@@ -63,6 +64,7 @@ pub let bnf_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nThis lexer is for grammar notations which are similar to\noriginal BNF.\n\nIn order to maximize a number of targets of this lexer,\nlet's decide some designs:\n\n* We don't distinguish `Terminal Symbol`.\n\n* We do assume that `NonTerminal Symbol` are always enclosed\n  with arrow brackets.\n\n* We do assume that `NonTerminal Symbol` may include\n  any printable characters except arrow brackets and ASCII 0x20.\n  This assumption is for `RBNF <http://www.rfc-base.org/txt/rfc-5511.txt>`_.\n\n* We do assume that target notation doesn't support comment.\n\n* We don't distinguish any operators and punctuation except\n  `::=`.\n\nThough these decision making might cause too minimal highlighting\nand you might be disappointed, but it is reasonable for us.\n",
 }
 
 ///|
@@ -100,6 +102,7 @@ pub let jsgf_lexer_info : @lexer.LexerInfo = {
   url: "https://www.w3.org/TR/jsgf/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor JSpeech Grammar Format grammars.\n",
 }
 
 ///|
@@ -169,6 +172,7 @@ pub let peg_lexer_info : @lexer.LexerInfo = {
   url: "https://bford.info/pub/lang/peg.pdf",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nThis lexer is for Parsing Expression Grammars (PEG).\n\nVarious implementations of PEG have made different decisions\nregarding the syntax, so let's try to be accommodating:\n\n* `<-`, `←`, `:`, and `=` are all accepted as rule operators.\n\n* Both `|` and `/` are choice operators.\n\n* `^`, `↑`, and `~` are cut operators.\n\n* A single `a-z` character immediately before a string, or\n  multiple `a-z` characters following a string, are part of the\n  string (e.g., `r\"...\"` or `\"...\"ilmsuxa`).\n",
 }
 
 ///|

@@ -12,6 +12,7 @@ pub let x10_lexer_info : @lexer.LexerInfo = {
   url: "http://x10-lang.org/",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor the X10 language.\n",
 }
 
 ///|

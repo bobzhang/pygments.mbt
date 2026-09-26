@@ -12,6 +12,7 @@ pub let wo_w_toc_lexer_info : @lexer.LexerInfo = {
   url: "https://wowpedia.fandom.com/wiki/TOC_format",
   version_added: "2.14",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for World of Warcraft TOC files.\n",
 }
 
 ///|

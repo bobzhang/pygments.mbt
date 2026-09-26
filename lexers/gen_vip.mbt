@@ -12,6 +12,7 @@ pub let visual_prolog_grammar_lexer_info : @lexer.LexerInfo = {
   url: "https://www.visual-prolog.com/",
   version_added: "2.17",
   analyse_text: visual_prolog_grammar_lexer_analyse,
+  doc: "Lexer for VisualProlog grammar\n",
 }
 
 ///|
@@ -84,6 +85,7 @@ pub let visual_prolog_lexer_info : @lexer.LexerInfo = {
   url: "https://www.visual-prolog.com/",
   version_added: "2.17",
   analyse_text: visual_prolog_lexer_analyse,
+  doc: "Lexer for VisualProlog\n",
 }
 
 ///|

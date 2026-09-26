@@ -12,6 +12,7 @@ pub let fancy_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/bakkdoor/fancy",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nPygments Lexer For Fancy.\n\nFancy is a self-hosted, pure object-oriented, dynamic,\nclass-based, concurrent general-purpose programming language\nrunning on Rubinius, the Ruby VM.\n",
 }
 
 ///|
@@ -83,6 +84,7 @@ pub let ruby_console_lexer_info : @lexer.LexerInfo = {
   url: "https://www.ruby-lang.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Ruby interactive console (**irb**) output.\n",
 }
 
 ///|
@@ -103,6 +105,7 @@ pub let ruby_lexer_info : @lexer.LexerInfo = {
   url: "http://www.ruby-lang.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Ruby source code.\n",
 }
 
 ///|

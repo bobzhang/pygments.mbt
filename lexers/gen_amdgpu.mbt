@@ -12,6 +12,7 @@ pub let amdgpu_lexer_info : @lexer.LexerInfo = {
   url: "https://gpuopen.com/amd-isa-documentation",
   version_added: "2.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor AMD GPU assembly.\n",
 }
 
 ///|

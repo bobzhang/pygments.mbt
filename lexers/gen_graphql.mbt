@@ -12,6 +12,7 @@ pub let graph_ql_lexer_info : @lexer.LexerInfo = {
   url: "https://graphql.org",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for GraphQL syntax\n",
 }
 
 ///|

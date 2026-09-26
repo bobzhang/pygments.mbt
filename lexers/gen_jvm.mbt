@@ -12,6 +12,7 @@ pub let aspect_j_lexer_info : @lexer.LexerInfo = {
   url: "http://www.eclipse.org/aspectj/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor AspectJ source code.\n",
 }
 
 ///|
@@ -88,6 +89,7 @@ pub let ceylon_lexer_info : @lexer.LexerInfo = {
   url: "http://ceylon-lang.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Ceylon source code.\n",
 }
 
 ///|
@@ -156,6 +158,7 @@ pub let clojure_lexer_info : @lexer.LexerInfo = {
   url: "http://clojure.org/",
   version_added: "0.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for Clojure source code.\n",
 }
 
 ///|
@@ -209,6 +212,7 @@ pub let clojure_script_lexer_info : @lexer.LexerInfo = {
   url: "http://clojure.org/clojurescript",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for ClojureScript source code.\n",
 }
 
 ///|
@@ -262,6 +266,7 @@ pub let golo_lexer_info : @lexer.LexerInfo = {
   url: "http://golo-lang.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Golo source code.\n",
 }
 
 ///|
@@ -337,6 +342,7 @@ pub let gosu_lexer_info : @lexer.LexerInfo = {
   url: "https://gosu-lang.github.io",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Gosu source code.\n",
 }
 
 ///|
@@ -403,6 +409,7 @@ pub let gosu_template_lexer_info : @lexer.LexerInfo = {
   url: "https://gosu-lang.github.io",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Gosu templates.\n",
 }
 
 ///|
@@ -423,6 +430,7 @@ pub let groovy_lexer_info : @lexer.LexerInfo = {
   url: "https://groovy-lang.org/",
   version_added: "1.5",
   analyse_text: groovy_lexer_analyse,
+  doc: "\nFor Groovy source code.\n",
 }
 
 ///|
@@ -487,6 +495,7 @@ pub let ioke_lexer_info : @lexer.LexerInfo = {
   url: "https://ioke.org/",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Ioke (a strongly typed, dynamic,\nprototype based programming language) source.\n",
 }
 
 ///|
@@ -574,6 +583,7 @@ pub let jasmin_lexer_info : @lexer.LexerInfo = {
   url: "http://jasmin.sourceforge.net/",
   version_added: "2.0",
   analyse_text: jasmin_lexer_analyse,
+  doc: "\nFor Jasmin assembly code.\n",
 }
 
 ///|
@@ -693,6 +703,7 @@ pub let java_lexer_info : @lexer.LexerInfo = {
   url: "https://www.oracle.com/technetwork/java/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Java source code.\n",
 }
 
 ///|
@@ -769,6 +780,7 @@ pub let kotlin_lexer_info : @lexer.LexerInfo = {
   url: "http://kotlinlang.org/",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Kotlin source code.\n",
 }
 
 ///|
@@ -869,6 +881,7 @@ pub let pig_lexer_info : @lexer.LexerInfo = {
   url: "https://pig.apache.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Pig Latin source code.\n",
 }
 
 ///|
@@ -923,6 +936,7 @@ pub let sarl_lexer_info : @lexer.LexerInfo = {
   url: "http://www.sarl.io",
   version_added: "2.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor SARL source code.\n",
 }
 
 ///|
@@ -979,6 +993,7 @@ pub let scala_lexer_info : @lexer.LexerInfo = {
   url: "http://www.scala-lang.org",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Scala source code.\n",
 }
 
 ///|
@@ -1103,6 +1118,7 @@ pub let xtend_lexer_info : @lexer.LexerInfo = {
   url: "https://www.eclipse.org/xtend/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Xtend source code.\n",
 }
 
 ///|
@@ -1164,6 +1180,7 @@ let tea_lang_lexer_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Tea source code. Only used within a\nTeaTemplateLexer.\n\n.. versionadded:: 1.5\n",
 }
 
 ///|

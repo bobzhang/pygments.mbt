@@ -12,6 +12,7 @@ pub let sas_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/SAS_(software)",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor SAS files.\n",
 }
 
 ///|

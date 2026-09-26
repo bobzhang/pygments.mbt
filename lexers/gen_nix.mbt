@@ -12,6 +12,7 @@ pub let nix_lexer_info : @lexer.LexerInfo = {
   url: "http://nixos.org/nix/",
   version_added: "2.0",
   analyse_text: nix_lexer_analyse,
+  doc: "\nFor the Nix language.\n",
 }
 
 ///|

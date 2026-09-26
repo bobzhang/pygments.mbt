@@ -12,6 +12,7 @@ pub let blueprint_lexer_info : @lexer.LexerInfo = {
   url: "https://gitlab.gnome.org/jwestman/blueprint-compiler",
   version_added: "2.16",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Blueprint UI markup.\n",
 }
 
 ///|

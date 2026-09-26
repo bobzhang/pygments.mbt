@@ -12,6 +12,7 @@ pub let cel_lexer_info : @lexer.LexerInfo = {
   url: "https://cel.dev",
   version_added: "2.21",
   analyse_text: @lexer.no_analyse,
+  doc: "Lexer for CEL (Common Expression Language).",
 }
 
 ///|

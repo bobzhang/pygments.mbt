@@ -12,6 +12,7 @@ pub let ncl_lexer_info : @lexer.LexerInfo = {
   url: "https://www.ncl.ucar.edu",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for NCL code.\n",
 }
 
 ///|

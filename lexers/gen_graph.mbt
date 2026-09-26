@@ -12,6 +12,7 @@ pub let cypher_lexer_info : @lexer.LexerInfo = {
   url: "https://neo4j.com/docs/developer-manual/3.3/cypher/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Cypher Query Language\n\nFor the Cypher version in Neo4j 3.3\n",
 }
 
 ///|

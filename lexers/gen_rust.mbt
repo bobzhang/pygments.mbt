@@ -12,6 +12,7 @@ pub let rust_lexer_info : @lexer.LexerInfo = {
   url: "https://www.rust-lang.org/",
   version_added: "1.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the Rust programming language (version 1.47).\n",
 }
 
 ///|

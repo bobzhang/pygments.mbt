@@ -12,6 +12,7 @@ pub let rita_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/zaibacu/rita-dsl",
   version_added: "2.11",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for RITA.\n",
 }
 
 ///|

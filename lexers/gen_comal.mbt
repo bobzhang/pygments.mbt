@@ -12,6 +12,7 @@ pub let comal80_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/COMAL",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor COMAL-80 source code.\n",
 }
 
 ///|

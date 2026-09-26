@@ -12,6 +12,7 @@ pub let aheui_lexer_info : @lexer.LexerInfo = {
   url: "http://aheui.github.io/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nAheui is esoteric language based on Korean alphabets.\n",
 }
 
 ///|
@@ -47,6 +48,7 @@ pub let befunge_lexer_info : @lexer.LexerInfo = {
   url: "http://en.wikipedia.org/wiki/Befunge",
   version_added: "0.7",
   analyse_text: @lexer.no_analyse,
+  doc: "\nLexer for the esoteric Befunge language.\n",
 }
 
 ///|
@@ -92,6 +94,7 @@ pub let brainfuck_lexer_info : @lexer.LexerInfo = {
   url: "http://www.muppetlabs.com/~breadbox/bf/",
   version_added: "",
   analyse_text: brainfuck_lexer_analyse,
+  doc: "\nLexer for the esoteric BrainFuck language.\n",
 }
 
 ///|
@@ -133,6 +136,7 @@ pub let c_amk_es_lexer_info : @lexer.LexerInfo = {
   url: "https://sel4.systems/CAmkES/",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nBasic lexer for the input language for the CAmkES component platform.\n",
 }
 
 ///|
@@ -184,6 +188,7 @@ pub let cap_dl_lexer_info : @lexer.LexerInfo = {
   url: "https://ssrg.nicta.com.au/publications/nictaabstracts/Kuz_KLW_10.abstract.pml",
   version_added: "2.2",
   analyse_text: @lexer.no_analyse,
+  doc: "\nBasic lexer for CapDL.\n\nThe source of the primary tool that reads such specifications is available\nat https://github.com/seL4/capdl/tree/master/capDL-tool. Note that this\nlexer only supports a subset of the grammar. For example, identifiers can\nshadow type names, but these instances are currently incorrectly\nhighlighted as types. Supporting this would need a stateful lexer that is\nconsidered unnecessarily complex for now.\n",
 }
 
 ///|
@@ -231,6 +236,7 @@ pub let redcode_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Core_War",
   version_added: "0.8",
   analyse_text: @lexer.no_analyse,
+  doc: "\nA simple Redcode lexer based on ICWS'94.\nContributed by Adam Blinkinsop <blinks@acm.org>.\n",
 }
 
 ///|

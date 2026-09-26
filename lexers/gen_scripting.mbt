@@ -12,6 +12,7 @@ pub let apple_script_lexer_info : @lexer.LexerInfo = {
   url: "https://developer.apple.com/library/archive/documentation/AppleScript/Conceptual/AppleScriptLangGuide/introduction/ASLR_intro.html",
   version_added: "1.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor AppleScript source code,\nincluding `AppleScript Studio\n<http://developer.apple.com/documentation/AppleScript/\nReference/StudioReference>`_.\nContributed by Andreas Amann <aamann@mac.com>.\n",
 }
 
 ///|
@@ -77,6 +78,7 @@ pub let chaiscript_lexer_info : @lexer.LexerInfo = {
   url: "http://chaiscript.com/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor ChaiScript source code.\n",
 }
 
 ///|
@@ -142,6 +144,7 @@ pub let easytrieve_lexer_info : @lexer.LexerInfo = {
   url: "https://www.broadcom.com/products/mainframe/application-development/easytrieve-report-generator",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nEasytrieve Plus is a programming language for extracting, filtering and\nconverting sequential data. Furthermore it can layout data for reports.\nIt is mainly used on mainframe platforms and can access several of the\nmainframe's native file formats. It is somewhat comparable to awk.\n",
 }
 
 ///|
@@ -196,6 +199,7 @@ pub let hybris_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/evilsocket/hybris",
   version_added: "1.4",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Hybris source code.\n",
 }
 
 ///|
@@ -253,6 +257,7 @@ pub let jcl_lexer_info : @lexer.LexerInfo = {
   url: "https://en.wikipedia.org/wiki/Job_Control_Language",
   version_added: "2.1",
   analyse_text: @lexer.no_analyse,
+  doc: "\nJob Control Language (JCL)\nis a scripting language used on mainframe platforms to instruct the system\non how to run a batch job or start a subsystem. It is somewhat\ncomparable to MS DOS batch and Unix shell scripts.\n",
 }
 
 ///|
@@ -313,6 +318,7 @@ pub let lsl_lexer_info : @lexer.LexerInfo = {
   url: "https://wiki.secondlife.com/wiki/Linden_Scripting_Language",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Second Life's Linden Scripting Language source code.\n",
 }
 
 ///|
@@ -384,6 +390,7 @@ pub let lua_lexer_info : @lexer.LexerInfo = {
   url: "https://www.lua.org/",
   version_added: "",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Lua source code.\n\nAdditional options accepted:\n\n`func_name_highlighting`\n    If given and ``True``, highlight builtin function names\n    (default: ``True``).\n`disabled_modules`\n    If given, must be a list of module names whose function names\n    should not be highlighted. By default, all modules are highlighted.\n\n    To get a list of allowed modules have a look into the\n    `_lua_builtins` module:\n\n    .. sourcecode:: pycon\n\n        >>> from pygments.lexers._lua_builtins import MODULES\n        >>> MODULES.keys()\n        ['string', 'coroutine', 'modules', 'io', 'basic', ...]\n",
 }
 
 ///|
@@ -464,6 +471,7 @@ pub let luau_lexer_info : @lexer.LexerInfo = {
   url: "https://luau-lang.org/",
   version_added: "2.18",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Luau source code.\n\nAdditional options accepted:\n\n`include_luau_builtins`\n    If given and ``True``, automatically highlight Luau builtins\n    (default: ``True``).\n`include_roblox_builtins`\n    If given and ``True``, automatically highlight Roblox-specific builtins\n    (default: ``False``).\n`additional_builtins`\n    If given, must be a list of additional builtins to highlight.\n`disabled_builtins`\n    If given, must be a list of builtins that will not be highlighted.\n",
 }
 
 ///|
@@ -592,6 +600,7 @@ pub let moo_code_lexer_info : @lexer.LexerInfo = {
   url: "http://www.moo.mud.org/",
   version_added: "0.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor MOOCode (the MOO scripting language).\n",
 }
 
 ///|
@@ -637,6 +646,7 @@ pub let mini_script_lexer_info : @lexer.LexerInfo = {
   url: "https://miniscript.org",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor MiniScript source code.\n",
 }
 
 ///|
@@ -691,6 +701,7 @@ pub let moon_script_lexer_info : @lexer.LexerInfo = {
   url: "http://moonscript.org",
   version_added: "1.5",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor MoonScript source code.\n",
 }
 
 ///|
@@ -777,6 +788,7 @@ pub let rexx_lexer_info : @lexer.LexerInfo = {
   url: "http://www.rexxinfo.org/",
   version_added: "2.0",
   analyse_text: @lexer.no_analyse,
+  doc: "\nRexx is a scripting language available for\na wide range of different platforms with its roots found on mainframe\nsystems. It is popular for I/O- and data based tasks and can act as glue\nlanguage to bind different applications together.\n",
 }
 
 ///|

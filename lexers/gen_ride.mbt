@@ -12,6 +12,7 @@ pub let ride_lexer_info : @lexer.LexerInfo = {
   url: "https://docs.waves.tech/en/ride",
   version_added: "2.6",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Ride source code.\n",
 }
 
 ///|

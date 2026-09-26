@@ -12,6 +12,7 @@ pub let kuin_lexer_info : @lexer.LexerInfo = {
   url: "https://github.com/kuina/Kuin",
   version_added: "2.9",
   analyse_text: @lexer.no_analyse,
+  doc: "\nFor Kuin source code.\n",
 }
 
 ///|

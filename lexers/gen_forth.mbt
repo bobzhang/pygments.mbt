@@ -12,6 +12,7 @@ pub let forth_lexer_info : @lexer.LexerInfo = {
   url: "https://www.forth.com/forth/",
   version_added: "2.2",
   analyse_text: forth_lexer_analyse,
+  doc: "\nLexer for Forth files.\n",
 }
 
 ///|
