@@ -43,8 +43,13 @@ async fn main {
       }
       cases += 1
       let text = texts[tid.to_int()]
-      let got : Array[Int]? = match (try? re.match_at(text, pos.to_int())) {
-        Ok(Some(m)) => {
+      let got : Array[Int]? = try re.match_at(text, pos.to_int()) catch {
+        e => {
+          println("ERROR \{pat.escape()}: \{Repr(e)}")
+          Some([-99])
+        }
+      } noraise {
+        Some(m) => {
           let spans = []
           for g in 0..<=m.group_count() {
             spans.push(m.start(group=g))
@@ -52,11 +57,7 @@ async fn main {
           }
           Some(spans)
         }
-        Ok(None) => None
-        Err(e) => {
-          println("ERROR \{pat.escape()}: \{Repr(e)}")
-          Some([-99])
-        }
+        None => None
       }
       let want : Array[Int]? = match expected {
         Null => None
