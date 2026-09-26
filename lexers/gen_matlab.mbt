@@ -11,7 +11,7 @@ pub let matlab_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.mathworks.com/products/matlab.html",
   version_added: "0.10",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: matlab_lexer_analyse,
   doc: "\nFor Matlab source code.\n",
 }
 
@@ -106,7 +106,7 @@ pub let matlab_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MatlabSessionLexer` (Matlab session).
 pub fn matlab_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(matlab_session_lexer_info, options, opts => matlab_session_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(matlab_session_lexer_info, options, opts => matlab_session_lexer(options=opts), matlab_session_lexer_tokenizer)
 }
 
 ///|
@@ -120,7 +120,7 @@ pub let octave_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.gnu.org/software/octave/index",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: octave_lexer_analyse,
   doc: "\nFor GNU Octave source code.\n",
 }
 
@@ -195,7 +195,7 @@ pub let scilab_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.scilab.org/",
   version_added: "1.5",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: scilab_lexer_analyse,
   doc: "\nFor Scilab source code.\n",
 }
 

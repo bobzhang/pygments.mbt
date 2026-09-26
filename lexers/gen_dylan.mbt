@@ -18,7 +18,7 @@ pub let dylan_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `DylanConsoleLexer` (Dylan session).
 pub fn dylan_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dylan_console_lexer_info, options, opts => dylan_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(dylan_console_lexer_info, options, opts => dylan_console_lexer(options=opts), dylan_console_lexer_tokenizer)
 }
 
 ///|
@@ -90,7 +90,7 @@ let dylan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DylanLexer` (Dylan).
 pub fn dylan_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(dylan_lexer_info, options, opts => dylan_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, dylan_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(dylan_lexer_info, options, opts => dylan_lexer(options=opts), dylan_lexer_tokenizer)
 }
 
 ///|

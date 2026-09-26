@@ -1848,20 +1848,20 @@ let coldfusion_markup_lexer_info : @lexer.LexerInfo = {
 let coldfusion_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
     r(5499, 8, Emit(tk_other), None),
-    r(8276, 8, Emit(tk_comment_multiline), Some([Push("cfcomment")])),
-    r(8277, 24, Emit(tk_comment), None),
-    r(8278, 8, Emit(tk_name_builtin), Some([Push("cfoutput")])),
-    r(8279, 24, ByGroups([Emit(tk_name_builtin), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_name_builtin)]), None),
-    r(8280, 24, ByGroups([Emit(tk_name_builtin), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_name_builtin)]), None),
-    r(8281, 8, Emit(tk_other), None),
-    r(8282, 8, Emit(tk_other), None),
-    r(8283, 8, ByGroups([Emit(tk_punctuation), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_punctuation)]), None),
-    r(8284, 8, Emit(tk_name_builtin), Some([Pop])),
-    r(8285, 24, Emit(tk_other), None),
+    r(8278, 8, Emit(tk_comment_multiline), Some([Push("cfcomment")])),
+    r(8279, 24, Emit(tk_comment), None),
+    r(8280, 8, Emit(tk_name_builtin), Some([Push("cfoutput")])),
+    r(8281, 24, ByGroups([Emit(tk_name_builtin), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_name_builtin)]), None),
+    r(8282, 24, ByGroups([Emit(tk_name_builtin), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_name_builtin)]), None),
+    r(8283, 8, Emit(tk_other), None),
+    r(8284, 8, Emit(tk_other), None),
+    r(8285, 8, ByGroups([Emit(tk_punctuation), Using(Other(opts => coldfusion_lexer(options=opts)), None, []), Emit(tk_punctuation)]), None),
+    r(8286, 8, Emit(tk_name_builtin), Some([Pop])),
+    r(8287, 24, Emit(tk_other), None),
     r(861, 8, Emit(tk_other), None),
-    r(8276, 8, Emit(tk_comment_multiline), Some([Dup])),
-    r(8286, 8, Emit(tk_comment_multiline), Some([Pop])),
-    r(8287, 8, Emit(tk_comment_multiline), None),
+    r(8278, 8, Emit(tk_comment_multiline), Some([Dup])),
+    r(8288, 8, Emit(tk_comment_multiline), Some([Pop])),
+    r(8289, 8, Emit(tk_comment_multiline), None),
   ]
   @lexer.RegexDef::new(
     "ColdfusionMarkupLexer",
@@ -1896,29 +1896,29 @@ let genshi_markup_lexer_info : @lexer.LexerInfo = {
 ///|
 let genshi_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(8311, 16, Emit(tk_other), None),
-    r(8312, 16, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
     r(8313, 16, Emit(tk_other), None),
-    r(8314, 16, Emit(tk_name_tag), Some([Push("pytag")])),
-    r(8315, 16, Emit(tk_name_tag), Some([Push("tag")])),
+    r(8314, 16, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
+    r(8315, 16, Emit(tk_other), None),
+    r(8316, 16, Emit(tk_name_tag), Some([Push("pytag")])),
+    r(8317, 16, Emit(tk_name_tag), Some([Push("tag")])),
     r(2806, 16, ByGroups([Emit(tk_comment_preproc), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_comment_preproc)]), None),
-    r(8316, 16, Emit(tk_name_variable), None),
-    r(8317, 16, Emit(tk_other), None),
+    r(8318, 16, Emit(tk_name_variable), None),
+    r(8319, 16, Emit(tk_other), None),
     r(0, 16, Emit(tk_text), None),
-    r(8318, 16, Emit(tk_name_attribute), Some([Push("pyattr")])),
+    r(8320, 16, Emit(tk_name_attribute), Some([Push("pyattr")])),
     r(1650, 16, Emit(tk_name_tag), Some([Pop])),
-    r(8319, 16, ByGroups([Emit(tk_literal_string), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_literal_string)]), Some([Pop])),
-    r(8320, 16, ByGroups([Emit(tk_literal_string), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_literal_string)]), Some([Pop])),
+    r(8321, 16, ByGroups([Emit(tk_literal_string), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_literal_string)]), Some([Pop])),
+    r(8322, 16, ByGroups([Emit(tk_literal_string), Using(Other(opts => python_lexer(options=opts)), None, []), Emit(tk_literal_string)]), Some([Pop])),
     r(316, 16, Emit(tk_literal_string), Some([Pop])),
     r(0, 16, Emit(tk_text), None),
-    r(8321, 16, Emit(tk_name_attribute), Some([Push("pyattr")])),
-    r(8318, 16, Emit(tk_name_attribute), Some([Push("attr")])),
+    r(8323, 16, Emit(tk_name_attribute), Some([Push("pyattr")])),
+    r(8320, 16, Emit(tk_name_attribute), Some([Push("attr")])),
     r(1650, 16, Emit(tk_name_tag), Some([Pop])),
     r(173, 16, Emit(tk_literal_string), Some([Push("attr-dstring")])),
     r(224, 16, Emit(tk_literal_string), Some([Push("attr-sstring")])),
-    r(8322, 16, Emit(tk_literal_string), Some([Pop])),
+    r(8324, 16, Emit(tk_literal_string), Some([Pop])),
     r(173, 16, Emit(tk_literal_string), Some([Pop])),
-    r(8323, 16, Emit(tk_literal_string), None),
+    r(8325, 16, Emit(tk_literal_string), None),
     r(224, 16, Emit(tk_literal_string), None),
     r(224, 16, Emit(tk_literal_string), Some([Pop])),
     r(224, 16, Emit(tk_literal_string), None),
@@ -1956,12 +1956,12 @@ let jsp_root_lexer_info : @lexer.LexerInfo = {
 ///|
 let jsp_root_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(8324, 8, Emit(tk_keyword), Some([Push("sec")])),
-    r(8325, 8, Emit(tk_keyword), None),
+    r(8326, 8, Emit(tk_keyword), Some([Push("sec")])),
+    r(8327, 8, Emit(tk_keyword), None),
     r(5499, 8, Emit(tk_other), None),
     r(736, 8, Emit(tk_other), None),
     r(2963, 8, Emit(tk_keyword), Some([Pop])),
-    r(8326, 8, Using(Other(opts => java_lexer(options=opts)), None, []), None),
+    r(8328, 8, Using(Other(opts => java_lexer(options=opts)), None, []), None),
   ]
   @lexer.RegexDef::new(
     "JspRootLexer",
@@ -1996,11 +1996,11 @@ let tea_template_root_lexer_info : @lexer.LexerInfo = {
 ///|
 let tea_template_root_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(8324, 8, Emit(tk_keyword), Some([Push("sec")])),
+    r(8326, 8, Emit(tk_keyword), Some([Push("sec")])),
     r(5499, 8, Emit(tk_other), None),
     r(736, 8, Emit(tk_other), None),
     r(2963, 8, Emit(tk_keyword), Some([Pop])),
-    r(8326, 8, Using(Other(opts => tea_lang_lexer(options=opts)), None, []), None),
+    r(8328, 8, Using(Other(opts => tea_lang_lexer(options=opts)), None, []), None),
   ]
   @lexer.RegexDef::new(
     "TeaTemplateRootLexer",

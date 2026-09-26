@@ -15,7 +15,7 @@ let sql_do_re : @regex.Regex = @lexer.re("\\bDO\\b", flags=@regex.IGNORECASE)
 /// `PostgresBase._get_lexer`: the lexer for a `LANGUAGE` name, if any.
 fn postgres_get_lexer(lx : @lexer.Lexer, lang : String) -> @lexer.Lexer? {
   if lang.to_lower() == "sql" {
-    return Some(pyport_get_lexer_by_name("postgresql", lx.options)) catch {
+    return Some(lookup_lexer("postgresql", options=lx.options)) catch {
       _ => None
     }
   }
@@ -30,7 +30,7 @@ fn postgres_get_lexer(lx : @lexer.Lexer, lang : String) -> @lexer.Lexer? {
     tries.push(@lexer.py_slice(lang, 2, -1))
   }
   for name in tries {
-    try pyport_get_lexer_by_name(name, lx.options) catch {
+    try lookup_lexer(name, options=lx.options) catch {
       _ => continue
     } noraise {
       l => return Some(l)
@@ -189,7 +189,7 @@ fn postgres_console_lexer_tokenizer(
       i += 1
       // a shell prompt in case of psql commandline example
       if line.has_prefix("$") && curcode == "" {
-        let console = pyport_get_lexer_by_name("console", lx.options)
+        let console = lookup_lexer("console", options=lx.options)
         out.append(console.get_tokens_unprocessed(line))
         break
       }

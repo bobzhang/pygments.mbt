@@ -17,30 +17,6 @@ fn pystr_lines(text : String) -> Array[(Int, String)] {
 }
 
 ///|
-/// Late-bound `get_lexer_by_name`. Constructors cannot refer to it directly:
-/// that would make `all_lexers` (which refers to every constructor) part of
-/// a definition cycle, so it is installed by `init`.
-let pyport_lexer_lookup : Ref[(String, @lexer.Options) -> @lexer.Lexer raise] = Ref((
-    name,
-    _,
-  ) => raise ClassNotFound("no lexer for lexer_alias \{name.escape()} found"),
-)
-
-///|
-fn init {
-  pyport_lexer_lookup.val = (name, options) => get_lexer_by_name(name, options~)
-}
-
-///|
-/// Python's `get_lexer_by_name(name, **options)` for hand-written lexers.
-fn pyport_get_lexer_by_name(
-  name : String,
-  options : @lexer.Options,
-) -> @lexer.Lexer raise {
-  (pyport_lexer_lookup.val)(name, options)
-}
-
-///|
 /// A single token at offset 0 (the shape of Python's insertion lists).
 fn pystr_itok(ttype : @token.TokenType, value : String) -> @lexer.Token {
   { index: 0, ttype, value, }

@@ -143,7 +143,7 @@ pub let easytrieve_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.broadcom.com/products/mainframe/application-development/easytrieve-report-generator",
   version_added: "2.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: easytrieve_lexer_analyse,
   doc: "\nEasytrieve Plus is a programming language for extracting, filtering and\nconverting sequential data. Furthermore it can layout data for reports.\nIt is mainly used on mainframe platforms and can access several of the\nmainframe's native file formats. It is somewhat comparable to awk.\n",
 }
 
@@ -198,7 +198,7 @@ pub let hybris_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://github.com/evilsocket/hybris",
   version_added: "1.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: hybris_lexer_analyse,
   doc: "\nFor Hybris source code.\n",
 }
 
@@ -256,7 +256,7 @@ pub let jcl_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/Job_Control_Language",
   version_added: "2.1",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: jcl_lexer_analyse,
   doc: "\nJob Control Language (JCL)\nis a scripting language used on mainframe platforms to instruct the system\non how to run a batch job or start a subsystem. It is somewhat\ncomparable to MS DOS batch and Unix shell scripts.\n",
 }
 
@@ -456,7 +456,7 @@ let lua_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LuaLexer` (Lua).
 pub fn lua_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(lua_lexer_info, options, opts => lua_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, lua_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(lua_lexer_info, options, opts => lua_lexer(options=opts), lua_lexer_tokenizer)
 }
 
 ///|
@@ -585,7 +585,7 @@ let luau_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LuauLexer` (Luau).
 pub fn luau_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(luau_lexer_info, options, opts => luau_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, luau_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(luau_lexer_info, options, opts => luau_lexer(options=opts), luau_lexer_tokenizer)
 }
 
 ///|
@@ -773,7 +773,7 @@ let moon_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MoonScriptLexer` (MoonScript).
 pub fn moon_script_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(moon_script_lexer_info, options, opts => moon_script_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, moon_script_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(moon_script_lexer_info, options, opts => moon_script_lexer(options=opts), moon_script_lexer_tokenizer)
 }
 
 ///|
@@ -787,7 +787,7 @@ pub let rexx_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "http://www.rexxinfo.org/",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: rexx_lexer_analyse,
   doc: "\nRexx is a scripting language available for\na wide range of different platforms with its roots found on mainframe\nsystems. It is popular for I/O- and data based tasks and can act as glue\nlanguage to bind different applications together.\n",
 }
 

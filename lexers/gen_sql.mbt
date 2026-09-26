@@ -11,7 +11,7 @@ pub let google_sql_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://cloud.google.com/bigquery/googlesql",
   version_added: "2.19",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: google_sql_lexer_analyse,
   doc: "\nGoogleSQL is Google's standard SQL dialect, formerly known as ZetaSQL.\n\nThe list of keywords includes reserved words for future use.\n",
 }
 
@@ -100,7 +100,7 @@ pub let my_sql_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.mysql.com",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: my_sql_lexer_analyse,
   doc: "The Oracle MySQL lexer.\n\nThis lexer does not attempt to maintain strict compatibility with\nMariaDB syntax or keywords. Although MySQL and MariaDB's common code\nhistory suggests there may be significant overlap between the two,\ncompatibility between the two is not a target for this lexer.\n",
 }
 
@@ -245,7 +245,7 @@ let pl_pgsql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PlPgsqlLexer` (PL/pgSQL).
 pub fn pl_pgsql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(pl_pgsql_lexer_info, options, opts => pl_pgsql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, pl_pgsql_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(pl_pgsql_lexer_info, options, opts => pl_pgsql_lexer(options=opts), pl_pgsql_lexer_tokenizer)
 }
 
 ///|
@@ -266,7 +266,7 @@ pub let postgres_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PostgresConsoleLexer` (PostgreSQL console (psql)).
 pub fn postgres_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(postgres_console_lexer_info, options, opts => postgres_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(postgres_console_lexer_info, options, opts => postgres_console_lexer(options=opts), postgres_console_lexer_tokenizer)
 }
 
 ///|
@@ -438,7 +438,7 @@ let postgres_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PostgresLexer` (PostgreSQL SQL dialect).
 pub fn postgres_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(postgres_lexer_info, options, opts => postgres_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, postgres_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(postgres_lexer_info, options, opts => postgres_lexer(options=opts), postgres_lexer_tokenizer)
 }
 
 ///|
@@ -495,7 +495,7 @@ pub let sql_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://en.wikipedia.org/wiki/SQL",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: sql_lexer_analyse,
   doc: "\nLexer for Structured Query Language. Currently, this lexer does\nnot recognize any special syntax except ANSI SQL.\n",
 }
 
@@ -551,7 +551,7 @@ pub let sqlite_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `SqliteConsoleLexer` (sqlite3con).
 pub fn sqlite_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(sqlite_console_lexer_info, options, opts => sqlite_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(sqlite_console_lexer_info, options, opts => sqlite_console_lexer(options=opts), sqlite_console_lexer_tokenizer)
 }
 
 ///|
@@ -565,7 +565,7 @@ pub let transact_sql_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.tsql.info",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: transact_sql_lexer_analyse,
   doc: "\nTransact-SQL (T-SQL) is Microsoft's and Sybase's proprietary extension to\nSQL.\n\nThe list of keywords includes ODBC and keywords reserved for future use.\n",
 }
 
@@ -613,4 +613,72 @@ let transact_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 /// Creates a `TransactSqlLexer` (Transact-SQL).
 pub fn transact_sql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(transact_sql_lexer_info, options, opts => transact_sql_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, transact_sql_lexer_def.force(), text, stack))
+}
+
+///|
+let psql_regex_lexer_info : @lexer.LexerInfo = {
+  class_name: "PsqlRegexLexer",
+  name: "PostgreSQL console - regexp based lexer",
+  aliases: [],
+  filenames: [],
+  alias_filenames: [],
+  mimetypes: [],
+  priority: 0.0,
+  url: "",
+  version_added: "",
+  analyse_text: @lexer.no_analyse,
+  doc: "\nExtend the PostgresLexer adding support specific for psql commands.\n\nThis is not a complete psql lexer yet as it lacks prompt support\nand output rendering.\n",
+}
+
+///|
+let psql_regex_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
+  let rules = [
+    r(0, 2, Emit(tk_text_whitespace), None),
+    r(1905, 2, Emit(tk_comment_single), None),
+    r(506, 2, Emit(tk_comment_multiline), Some([Push("multiline-comments")])),
+    r(5546, 2, Emit(tk_name_builtin), None),
+    r(5651, 2, Emit(tk_keyword), None),
+    r(5548, 2, Emit(tk_operator), None),
+    r(431, 2, Emit(tk_operator), None),
+    r(5549, 2, Emit(tk_name_variable), None),
+    r(5550, 2, Emit(tk_literal_number_float), None),
+    r(21, 2, Emit(tk_literal_number_integer), None),
+    r(5551, 2, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_single)]), Some([Push("string")])),
+    r(5552, 2, ByGroups([Emit(tk_literal_string_affix), Emit(tk_literal_string_name)]), Some([Push("quoted-ident")])),
+    r(5553, 18, Call("language_callback", []), None),
+    r(207, 2, Emit(tk_name), None),
+    r(5554, 2, Emit(tk_name_variable), None),
+    r(5555, 2, Emit(tk_punctuation), None),
+    r(8275, 2, Emit(tk_keyword_pseudo), Some([Push("psql-command")])),
+    r(506, 2, Emit(tk_comment_multiline), Some([Push("multiline-comments")])),
+    r(524, 2, Emit(tk_comment_multiline), Some([Pop])),
+    r(1535, 2, Emit(tk_comment_multiline), None),
+    r(1916, 2, Emit(tk_comment_multiline), None),
+    r(1029, 2, Emit(tk_literal_string_single), None),
+    r(2862, 2, Emit(tk_literal_string_single), None),
+    r(224, 2, Emit(tk_literal_string_single), Some([Pop])),
+    r(920, 2, Emit(tk_literal_string_name), None),
+    r(526, 2, Emit(tk_literal_string_name), None),
+    r(173, 2, Emit(tk_literal_string_name), Some([Pop])),
+    r(264, 2, Emit(tk_text), Some([Push("root")])),
+    r(0, 2, Emit(tk_text_whitespace), None),
+    r(8275, 2, Emit(tk_keyword_pseudo), None),
+    r(5554, 2, Emit(tk_name_variable), None),
+    r(24, 2, Emit(tk_literal_string_single), None),
+    r(25, 2, Emit(tk_literal_string_backtick), None),
+    r(8276, 2, Emit(tk_literal_string_symbol), None),
+  ]
+  @lexer.RegexDef::new(
+    "PsqlRegexLexer",
+    ["root", "multiline-comments", "string", "quoted-ident", "psql-command"],
+    rules,
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [17, 18, 19, 20], [21, 22, 23], [24, 25, 26], [27, 28, 29, 30, 31, 32, 33]],
+    extended=false,
+  )
+})
+
+///|
+/// Creates a `PsqlRegexLexer` (PostgreSQL console - regexp based lexer).
+fn psql_regex_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+  @lexer.Lexer::new(psql_regex_lexer_info, options, opts => psql_regex_lexer(options=opts), psql_regex_lexer_tokenizer)
 }

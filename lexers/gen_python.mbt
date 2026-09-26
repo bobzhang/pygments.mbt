@@ -187,7 +187,7 @@ pub let num_py_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://numpy.org/",
   version_added: "0.10",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: num_py_lexer_analyse,
   doc: "\nA Python lexer recognizing Numerical Python builtins.\n",
 }
 
@@ -323,7 +323,7 @@ let num_py_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NumPyLexer` (NumPy).
 pub fn num_py_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(num_py_lexer_info, options, opts => num_py_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, num_py_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(num_py_lexer_info, options, opts => num_py_lexer(options=opts), num_py_lexer_tokenizer)
 }
 
 ///|
@@ -337,7 +337,7 @@ pub let python2_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.python.org",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: python2_lexer_analyse,
   doc: "\nFor Python 2.x source code.\n\n.. versionchanged:: 2.5\n   This class has been renamed from ``PythonLexer``.  ``PythonLexer`` now\n   refers to the Python 3 variant.  File name patterns like ``*.py`` have\n   been moved to Python 3 as well.\n",
 }
 
@@ -506,7 +506,7 @@ pub let python_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.python.org",
   version_added: "0.10",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: python_lexer_analyse,
   doc: "\nFor Python source code (version 3.x).\n\n.. versionchanged:: 2.5\n   This is now the default ``PythonLexer``.  It is still available as the\n   alias ``Python3Lexer``.\n",
 }
 
@@ -733,16 +733,16 @@ let _python_console_lexer_base_info : @lexer.LexerInfo = {
 ///|
 let _python_console_lexer_base_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(8409, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_other_code)]), Some([Push("continuations")])),
-    r(8410, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]), None),
-    r(8411, 8, Emit(tk_other_traceback), Some([Push("traceback")])),
-    r(8412, 8, Emit(tk_other_traceback), Some([Push("traceback")])),
+    r(8411, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_other_code)]), Some([Push("continuations")])),
+    r(8412, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]), None),
+    r(8413, 8, Emit(tk_other_traceback), Some([Push("traceback")])),
+    r(8414, 8, Emit(tk_other_traceback), Some([Push("traceback")])),
     r(1915, 8, Emit(tk_generic_output), None),
-    r(8413, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_other_code)]), None),
-    r(8414, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]), None),
+    r(8415, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_other_code)]), None),
+    r(8416, 8, ByGroups([Emit(tk_generic_prompt), Emit(tk_text_whitespace)]), None),
     r(98, 0, Nop, Some([Pop])),
-    r(8415, 8, Emit(tk_text), Some([Pop])),
-    r(8416, 8, ByGroups([Emit(tk_name_class), Emit(tk_text_whitespace)]), None),
+    r(8417, 8, Emit(tk_text), Some([Pop])),
+    r(8418, 8, ByGroups([Emit(tk_name_class), Emit(tk_text_whitespace)]), None),
     r(1915, 8, Emit(tk_other_traceback), None),
   ]
   @lexer.RegexDef::new(

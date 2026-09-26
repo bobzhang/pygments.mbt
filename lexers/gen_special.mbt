@@ -18,7 +18,7 @@ pub let output_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `OutputLexer` (Text output).
 pub fn output_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(output_lexer_info, options, opts => output_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(output_lexer_info, options, opts => output_lexer(options=opts), output_lexer_tokenizer)
 }
 
 ///|
@@ -39,7 +39,7 @@ pub let raw_token_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RawTokenLexer` (Raw token data).
 pub fn raw_token_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(raw_token_lexer_info, options, opts => raw_token_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(raw_token_lexer_info, options, opts => raw_token_lexer(options=opts), raw_token_lexer_tokenizer)
 }
 
 ///|
@@ -53,12 +53,12 @@ pub let text_lexer_info : @lexer.LexerInfo = {
   priority: 0.01,
   url: "",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: text_lexer_analyse,
   doc: "\n\"Null\" lexer, doesn't highlight anything.\n",
 }
 
 ///|
 /// Creates a `TextLexer` (Text only).
 pub fn text_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(text_lexer_info, options, opts => text_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(text_lexer_info, options, opts => text_lexer(options=opts), text_lexer_tokenizer)
 }

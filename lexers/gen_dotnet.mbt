@@ -751,7 +751,7 @@ let generic_aspx_lexer_info : @lexer.LexerInfo = {
 ///|
 let generic_aspx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules = [
-    r(8275, 16, ByGroups([Emit(tk_name_tag), Emit(tk_other), Emit(tk_name_tag)]), None),
+    r(8277, 16, ByGroups([Emit(tk_name_tag), Emit(tk_other), Emit(tk_name_tag)]), None),
     r(2055, 16, ByGroups([Using(Other(opts => xml_lexer(options=opts)), None, []), Emit(tk_other), Using(Other(opts => xml_lexer(options=opts)), None, [])]), None),
     r(2056, 16, Using(Other(opts => xml_lexer(options=opts)), None, []), None),
     r(855, 16, Using(Other(opts => xml_lexer(options=opts)), None, []), None),

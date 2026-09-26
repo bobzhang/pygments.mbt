@@ -56,14 +56,14 @@ pub let gap_console_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.gap-system.org",
   version_added: "2.14",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: gap_console_lexer_analyse,
   doc: "\nFor GAP console sessions. Modeled after JuliaConsoleLexer.\n",
 }
 
 ///|
 /// Creates a `GAPConsoleLexer` (GAP session).
 pub fn gap_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(gap_console_lexer_info, options, opts => gap_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(gap_console_lexer_info, options, opts => gap_console_lexer(options=opts), gap_console_lexer_tokenizer)
 }
 
 ///|
@@ -77,7 +77,7 @@ pub let gap_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.gap-system.org",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: gap_lexer_analyse,
   doc: "\nFor GAP source code.\n",
 }
 

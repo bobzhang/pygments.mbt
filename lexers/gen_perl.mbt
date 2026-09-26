@@ -11,7 +11,7 @@ pub let perl6_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.raku.org",
   version_added: "2.0",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: perl6_lexer_analyse,
   doc: "\nFor Raku (a.k.a. Perl 6) source code.\n",
 }
 
@@ -79,7 +79,7 @@ let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Perl6Lexer` (Perl6).
 pub fn perl6_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(perl6_lexer_info, options, opts => perl6_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, perl6_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(perl6_lexer_info, options, opts => perl6_lexer(options=opts), perl6_lexer_tokenizer)
 }
 
 ///|
@@ -93,7 +93,7 @@ pub let perl_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.perl.org",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: perl_lexer_analyse,
   doc: "\nFor Perl source code.\n",
 }
 

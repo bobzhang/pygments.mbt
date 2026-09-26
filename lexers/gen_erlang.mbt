@@ -18,7 +18,7 @@ pub let elixir_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `ElixirConsoleLexer` (Elixir iex session).
 pub fn elixir_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(elixir_console_lexer_info, options, opts => elixir_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(elixir_console_lexer_info, options, opts => elixir_console_lexer(options=opts), elixir_console_lexer_tokenizer)
 }
 
 ///|
@@ -191,7 +191,7 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ElixirLexer` (Elixir).
 pub fn elixir_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(elixir_lexer_info, options, opts => elixir_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, elixir_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(elixir_lexer_info, options, opts => elixir_lexer(options=opts), elixir_lexer_tokenizer)
 }
 
 ///|
@@ -282,5 +282,5 @@ pub let erlang_shell_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `ErlangShellLexer` (Erlang erl session).
 pub fn erlang_shell_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(erlang_shell_lexer_info, options, opts => erlang_shell_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(erlang_shell_lexer_info, options, opts => erlang_shell_lexer(options=opts), erlang_shell_lexer_tokenizer)
 }

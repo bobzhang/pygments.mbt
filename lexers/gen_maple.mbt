@@ -11,7 +11,7 @@ pub let maple_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.maplesoft.com/products/Maple/",
   version_added: "2.19",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: maple_lexer_analyse,
   doc: "\nLexer for Maple.\n",
 }
 
@@ -48,5 +48,5 @@ let maple_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MapleLexer` (Maple).
 pub fn maple_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(maple_lexer_info, options, opts => maple_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, maple_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(maple_lexer_info, options, opts => maple_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, maple_lexer_def.force(), text, stack, callbacks=maple_lexer_callbacks(lx)))
 }

@@ -18,7 +18,7 @@ pub let r_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RConsoleLexer` (RConsole).
 pub fn r_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(r_console_lexer_info, options, opts => r_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(r_console_lexer_info, options, opts => r_console_lexer(options=opts), r_console_lexer_tokenizer)
 }
 
 ///|
@@ -74,7 +74,7 @@ pub let s_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.r-project.org",
   version_added: "0.10",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: s_lexer_analyse,
   doc: "\nFor S, S-plus, and R source code.\n",
 }
 

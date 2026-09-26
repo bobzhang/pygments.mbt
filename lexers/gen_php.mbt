@@ -11,7 +11,7 @@ pub let php_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.php.net/",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: php_lexer_analyse,
   doc: "\nFor PHP source code.\nFor PHP embedded in HTML, use the `HtmlPhpLexer`.\n\nAdditional options accepted:\n\n`startinline`\n    If given and ``True`` the lexer starts highlighting with\n    php code (i.e.: no starting ``<?php`` required).  The default\n    is ``False``.\n`funcnamehighlighting`\n    If given and ``True``, highlight builtin function names\n    (default: ``True``).\n`disabledmodules`\n    If given, must be a list of module names whose function names\n    should not be highlighted. By default all modules are highlighted\n    except the special ``'unknown'`` module that includes functions\n    that are known to php but are undocumented.\n\n    To get a list of allowed modules have a look into the\n    `_php_builtins` module:\n\n    .. sourcecode:: pycon\n\n        >>> from pygments.lexers._php_builtins import MODULES\n        >>> MODULES.keys()\n        ['PHP Options/Info', 'Zip', 'dba', ...]\n\n    In fact the names of those modules match the module names from\n    the php documentation.\n",
 }
 
@@ -84,7 +84,7 @@ let php_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PhpLexer` (PHP).
 pub fn php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(php_lexer_info, options, opts => php_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, php_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(php_lexer_info, options, opts => php_lexer(options=opts), php_lexer_tokenizer)
 }
 
 ///|
@@ -105,7 +105,7 @@ pub let psysh_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PsyshConsoleLexer` (PsySH console session for PHP).
 pub fn psysh_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(psysh_console_lexer_info, options, opts => psysh_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(psysh_console_lexer_info, options, opts => psysh_console_lexer(options=opts), psysh_console_lexer_tokenizer)
 }
 
 ///|

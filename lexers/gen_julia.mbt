@@ -18,7 +18,7 @@ pub let julia_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JuliaConsoleLexer` (Julia console).
 pub fn julia_console_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(julia_console_lexer_info, options, opts => julia_console_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(julia_console_lexer_info, options, opts => julia_console_lexer(options=opts), julia_console_lexer_tokenizer)
 }
 
 ///|
@@ -32,7 +32,7 @@ pub let julia_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://julialang.org/",
   version_added: "1.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: julia_lexer_analyse,
   doc: "\nFor Julia source code.\n",
 }
 

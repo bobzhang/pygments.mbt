@@ -11,7 +11,7 @@ pub let bash_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.gnu.org/software/bash/manual/bash.html",
   version_added: "0.6",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: bash_lexer_analyse,
   doc: "\nLexer for (ba|k|z|)sh shell scripts.\n",
 }
 
@@ -96,7 +96,7 @@ pub let bash_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `BashSessionLexer` (Bash Session).
 pub fn bash_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(bash_session_lexer_info, options, opts => bash_session_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(bash_session_lexer_info, options, opts => bash_session_lexer(options=opts), bash_session_lexer_tokenizer)
 }
 
 ///|
@@ -251,7 +251,7 @@ pub let execline_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://skarnet.org/software/execline",
   version_added: "2.7",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: execline_lexer_analyse,
   doc: "\nLexer for Laurent Bercot's execline language.\n",
 }
 
@@ -368,7 +368,7 @@ pub let msdos_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MSDOSSessionLexer` (MSDOS Session).
 pub fn msdos_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(msdos_session_lexer_info, options, opts => msdos_session_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(msdos_session_lexer_info, options, opts => msdos_session_lexer(options=opts), msdos_session_lexer_tokenizer)
 }
 
 ///|
@@ -457,7 +457,7 @@ pub let power_shell_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PowerShellSessionLexer` (PowerShell Session).
 pub fn power_shell_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(power_shell_session_lexer_info, options, opts => power_shell_session_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(power_shell_session_lexer_info, options, opts => power_shell_session_lexer(options=opts), power_shell_session_lexer_tokenizer)
 }
 
 ///|
@@ -471,7 +471,7 @@ pub let slurm_bash_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.gnu.org/software/bash/manual/bash.html",
   version_added: "2.4",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: slurm_bash_lexer_analyse,
   doc: "\nLexer for (ba|k|z|)sh Slurm scripts.\n",
 }
 
@@ -535,7 +535,7 @@ let slurm_bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SlurmBashLexer` (Slurm).
 pub fn slurm_bash_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(slurm_bash_lexer_info, options, opts => slurm_bash_lexer(options=opts), (lx, text, stack) => @lexer.run_regex(lx, slurm_bash_lexer_def.force(), text, stack))
+  @lexer.Lexer::new(slurm_bash_lexer_info, options, opts => slurm_bash_lexer(options=opts), slurm_bash_lexer_tokenizer)
 }
 
 ///|
@@ -614,5 +614,5 @@ pub let tcsh_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `TcshSessionLexer` (Tcsh Session).
 pub fn tcsh_session_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
-  @lexer.Lexer::new(tcsh_session_lexer_info, options, opts => tcsh_session_lexer(options=opts), (lx, text, stack) => @lexer.text_tokenizer(lx, text, stack))
+  @lexer.Lexer::new(tcsh_session_lexer_info, options, opts => tcsh_session_lexer(options=opts), tcsh_session_lexer_tokenizer)
 }
