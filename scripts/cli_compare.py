@@ -29,6 +29,7 @@ cases += [
     ['-H', 'lexer', 'python'], ['-H', 'formatter', 'html'], ['-H', 'filter', 'keywordcase'],
     ['-H', 'lexer', 'nonexistent'],
     ['-l', 'nonexistent', f'{EX}/c/example.c'], ['-f', 'nonexistent', f'{EX}/c/example.c'],
+    ['-f', 'html', 'does-not-exist.txt'], ['-f', 'html', f'{EX}/c/example.c', 'extra'],
     ['-l', 'python', '-F', 'keywordcase:case=upper', '-f', 'text', f'{EX}/python/switch_case.py'],
     ['-l', 'c', '-f', 'latex', '-O', 'escapeinside=||', f'{EX}/c/example.c'],
     ['-a', 'x'], ['-l', 'python', '-g'], ['-V'],
@@ -47,6 +48,10 @@ def compare(args, stdin=None):
     b = run([exe] + args, stdin)
     # -V/-L headers mention the Python implementation identically; stderr for usage differs in wording
     same = a[0] == b[0] and a[1] == b[1]
+    # error messages printed by pygmentize itself must match too
+    if a[2].startswith(b'Error:') and a[2] != b[2]:
+        same = False
+        print('   stderr', repr(a[2][:200]), 'vs', repr(b[2][:200]))
     if same:
         ok += 1
     else:

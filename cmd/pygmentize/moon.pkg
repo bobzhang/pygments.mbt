@@ -7,6 +7,8 @@ import {
   "bobzhang/pygments/styles",
   "moonbitlang/async",
   "moonbitlang/async/fs",
+  "moonbitlang/async/os_error",
+  "bobzhang/pygments/pystr",
   "moonbitlang/async/stdio",
   "moonbitlang/core/env",
   "moonbitlang/core/cmp",

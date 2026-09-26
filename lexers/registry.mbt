@@ -5,7 +5,7 @@ pub suberror ClassNotFound {
 } derive(Debug)
 
 ///|
-/// Python's `find_lexer_class_by_name`: the lexer class with `lexer_alias`.
+/// Python's `find_lexer_class_by_name`: the lexer class with `alias`.
 pub fn find_lexer_class_by_name(
   lexer_alias : String,
 ) -> (@lexer.LexerInfo, (@lexer.Options) -> @lexer.Lexer raise) raise ClassNotFound {
@@ -17,7 +17,7 @@ pub fn find_lexer_class_by_name(
       }
     }
   }
-  raise ClassNotFound("no lexer for lexer_alias \{lexer_alias.escape()} found")
+  raise ClassNotFound("no lexer for alias \{@pystr.repr(lexer_alias)} found")
 }
 
 ///|
@@ -181,7 +181,9 @@ pub fn get_lexer_for_filename(
   match find_lexer_class_for_filename(filename, code?) {
     Some(entry) => (entry.1)(options)
     None =>
-      raise ClassNotFound("no lexer for filename \{filename.escape()} found")
+      raise ClassNotFound(
+        "no lexer for filename \{@pystr.repr(filename)} found",
+      )
   }
 }
 
@@ -196,7 +198,7 @@ pub fn get_lexer_for_mimetype(
       return (entry.1)(options)
     }
   }
-  raise ClassNotFound("no lexer for mimetype \{mime.escape()} found")
+  raise ClassNotFound("no lexer for mimetype \{@pystr.repr(mime)} found")
 }
 
 ///|
@@ -262,7 +264,7 @@ pub fn guess_lexer_for_filename(
     }
   }
   if matching.is_empty() {
-    raise ClassNotFound("no lexer for filename \{fname.escape()} found")
+    raise ClassNotFound("no lexer for filename \{@pystr.repr(fname)} found")
   }
   if matching.length() == 1 {
     return (matching[0].1)(options)

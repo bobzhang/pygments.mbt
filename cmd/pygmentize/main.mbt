@@ -28,7 +28,19 @@ fn error_message(e : Error) -> String {
   match e {
     @lexers.ClassNotFound(msg) => msg
     @lexer.OptionError(msg) => msg
+    @formatters.ClassNotFound(msg) => msg
+    @formatters.FormatterError(msg) => msg
     _ => Repr(e).to_string()
+  }
+}
+
+///|
+/// Python's `str(OSError)`: `[Errno N] message: 'path'`.
+fn os_error_message(e : Error, path : String) -> String {
+  match e {
+    @os_error.OSError(errno, ..) =>
+      "[Errno \{errno}] \{@os_error.errno_to_string(errno)}: \{@pystr.repr(path)}"
+    _ => error_message(e)
   }
 }
 
@@ -214,7 +226,7 @@ async fn run(argv : Array[String]) -> Int {
       }
       let data = @fs.read_file(infn) catch {
         e => {
-          eprint("Error: cannot read infile: \{error_message(e)}\n")
+          eprint("Error: cannot read infile: \{os_error_message(e, infn)}\n")
           return 1
         }
       }
@@ -304,7 +316,9 @@ async fn run(argv : Array[String]) -> Int {
       Some(outfn) =>
         @fs.write_file(outfn, out, permission=0o644) catch {
           e => {
-            eprint("Error: cannot open outfile: \{error_message(e)}\n")
+            eprint(
+              "Error: cannot open outfile: \{os_error_message(e, outfn)}\n",
+            )
             return 1
           }
         }

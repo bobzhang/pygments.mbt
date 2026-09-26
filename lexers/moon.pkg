@@ -1,5 +1,6 @@
 import {
   "bobzhang/pygments/lexer",
+  "bobzhang/pygments/pystr",
   "bobzhang/pygments/regex",
   "bobzhang/pygments/token",
   "moonbitlang/core/lazy",
