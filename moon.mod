@@ -1,0 +1,17 @@
+name = "bobzhang/pygments"
+
+version = "0.1.0"
+
+readme = "README.mbt.md"
+
+repository = "https://github.com/bobzhang/pygments.mbt"
+
+license = "BSD-2-Clause"
+
+keywords = [ "syntax-highlighting", "pygments", "lexer" ]
+
+description = "A port of Pygments (generic syntax highlighter) to MoonBit"
+
+options(
+  "preferred-target": "native",
+)
