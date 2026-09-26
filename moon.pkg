@@ -1,10 +1,12 @@
 import {
+  "bobzhang/pygments/formatters",
   "bobzhang/pygments/lexer",
   "bobzhang/pygments/lexers",
   "bobzhang/pygments/token",
 }
 
 warnings = "-implicit_impl_as_method"
+
 import {
   "bobzhang/pygments/lexers",
 } for "test"

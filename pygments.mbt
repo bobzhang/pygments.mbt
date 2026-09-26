@@ -29,3 +29,44 @@ pub using @lexers {
   guess_lexer,
   guess_lexer_for_filename,
 }
+
+///|
+/// Python's `pygments.format`: renders a token stream with `formatter`.
+pub fn format(
+  tokens : Array[(@token.TokenType, String)],
+  formatter : @formatters.Formatter,
+) -> String raise {
+  formatter.format(tokens)
+}
+
+///|
+/// Python's `pygments.highlight`: lexes `code` with `lexer` and renders it
+/// with `formatter`.
+///
+/// ```mbt check
+/// test {
+///   let html = @pygments.highlight(
+///     "x = 1\n",
+///     @pygments.get_lexer_by_name("python"),
+///     @pygments.get_formatter_by_name("html"),
+///   )
+///   inspect(
+///     html,
+///     content=(
+///       #|<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+///       #|</pre></div>
+///       #|
+///     ),
+///   )
+/// }
+/// ```
+pub fn highlight(
+  code : String,
+  lexer : @lexer.Lexer,
+  formatter : @formatters.Formatter,
+) -> String raise {
+  @formatters.highlight(code, lexer, formatter)
+}
+
+///|
+pub using @formatters {get_formatter_by_name, get_formatter_for_filename}

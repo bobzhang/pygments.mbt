@@ -7,13 +7,17 @@ pub type FormatterClass = (
 )
 
 ///|
-/// All formatters, in Python's `FORMATTERS` order (the PIL image formatters
-/// `img`, `gif`, `jpg` and `bmp` are not ported).
+/// All formatters, in Python's `FORMATTERS` order. The PIL image formatters
+/// `img`, `gif`, `jpg` and `bmp` are listed but raise when constructed.
 let all_formatters : Array[FormatterClass] = [
   (bbcode_info, (o, s) => bbcode_formatter(options=o, style?=s)),
+  (image_formatter_infos[0], image_formatter),
+  (image_formatter_infos[1], image_formatter),
   (groff_info, (o, s) => groff_formatter(options=o, style?=s)),
   (html_info, (o, s) => HtmlFormatter::new(options=o, style?=s).to_formatter()),
   (irc_info, (o, s) => irc_formatter(options=o, style?=s)),
+  (image_formatter_infos[2], image_formatter),
+  (image_formatter_infos[3], image_formatter),
   (
     latex_info,
     (o, s) => LatexFormatter::new(options=o, style?=s).to_formatter(),

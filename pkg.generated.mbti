@@ -1,0 +1,40 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments"
+
+import {
+  "bobzhang/pygments/formatters",
+  "bobzhang/pygments/lexer",
+  "bobzhang/pygments/styles",
+  "bobzhang/pygments/token",
+}
+
+// Values
+pub fn format(Array[(@token.TokenType, String)], @formatters.Formatter) -> String raise
+
+pub fn get_formatter_by_name(String, options? : Map[String, String], style? : @styles.Style) -> @formatters.Formatter raise
+
+pub fn get_formatter_for_filename(String, options? : Map[String, String], style? : @styles.Style) -> @formatters.Formatter raise
+
+pub fn get_lexer_by_name(String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn get_lexer_for_filename(String, code? : String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn get_lexer_for_mimetype(String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn guess_lexer(String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn guess_lexer_for_filename(String, String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn highlight(String, @lexer.Lexer, @formatters.Formatter) -> String raise
+
+pub fn lex(String, @lexer.Lexer) -> Array[(@token.TokenType, String)] raise
+
+pub let version : String
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

@@ -12,7 +12,9 @@ highlighter — to MoonBit.
   `\w\d\s` and case folding generated from CPython 3.14, a step budget
   against catastrophic backtracking. Differentially tested against CPython on
   all 8,838 patterns used by the lexers.
-* Formatters (HTML, terminal, LaTeX, RTF, SVG, …), styles and filters.
+* All non-image formatters (HTML, terminal/256/true-color, LaTeX, RTF, SVG,
+  BBCode, IRC, groff, Pango, raw, testcase), all 50 styles and all 8 filters,
+  byte-identical to Python on 5,480 differential cases.
 * A `pygmentize` command line tool built on `moonbitlang/async`.
 
 ## Usage
@@ -37,6 +39,20 @@ test "lex some Python" {
 }
 ```
 
+Render with any formatter (`html`, `terminal256`, `latex`, `rtf`, `svg`, …):
+
+```mbt check
+///|
+test "highlight to HTML" {
+  let html = @pygments.highlight(
+    "print('hi')\n",
+    @pygments.get_lexer_by_name("python"),
+    @pygments.get_formatter_by_name("html", options={ "noclasses": "True" }),
+  )
+  inspect(html.has_prefix("<div class=\"highlight\""), content="true")
+}
+```
+
 Lexers can be looked up by alias, file name, MIME type or content:
 
 ```mbt check
@@ -50,6 +66,21 @@ test "lexer lookup" {
 }
 ```
 
+## Command line
+
+`cmd/pygmentize` mirrors Python's `pygmentize` (`-l -g -f -O -P -F -o -s -S -a
+-L -N -C -H -V`, `--json`); a differential script compares both
+implementations (`scripts/cli_compare.py`):
+
+```bash
+moon build --target native --release cmd/pygmentize
+./_build/native/release/build/cmd/pygmentize/pygmentize.exe -f terminal256 -O style=monokai main.py
+```
+
+Not supported: `-x` (loading lexers/formatters from Python files) and the PIL
+image formatters (`img`, `gif`, `jpg`, `bmp`), which are listed but raise, as
+in Python without PIL.
+
 ## Layout
 
 | Package | Contents |
@@ -60,6 +91,7 @@ test "lexer lookup" {
 | `lexers/` | all lexers: tables generated from upstream (`gen_*.mbt`) plus hand-written parts, registry |
 | `styles/`, `formatters/`, `filters/` | styles, output formatters and token filters |
 | `cmd/pygmentize` | the command line tool |
+| `pystr/` | Python string semantics used by the formatters (`repr`, case mapping, …) |
 | `cmd/*_oracle` | differential test drivers against Python |
 
 ## How the port works

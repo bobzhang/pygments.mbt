@@ -11,6 +11,7 @@ let latex_embedded_info : @lexer.LexerInfo = {
   url: "",
   version_added: "",
   analyse_text: _ => 0.0,
+  doc: "",
 }
 
 ///|

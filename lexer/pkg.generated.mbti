@@ -82,12 +82,12 @@ pub(all) enum CallbackArg {
   Int(Int)
 } derive(@debug.Debug)
 
-pub struct Ctx {
+pub(all) struct Ctx {
   lexer : Lexer
   def : RegexDef
   text : String
   mut pos : Int
-  end : Int
+  mut end : Int
   stack : Array[Int]
   out : Array[Token]
   callbacks : Map[String, (Ctx, @regex.Match, Array[CallbackArg]) -> Unit raise]
@@ -137,6 +137,7 @@ pub(all) struct LexerInfo {
   url : String
   version_added : String
   analyse_text : (String) -> Double
+  doc : String
 }
 
 pub struct RegexDef {

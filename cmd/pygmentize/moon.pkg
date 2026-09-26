@@ -1,0 +1,21 @@
+import {
+  "bobzhang/pygments",
+  "bobzhang/pygments/lexer",
+  "bobzhang/pygments/lexers",
+  "bobzhang/pygments/formatters",
+  "bobzhang/pygments/filters",
+  "bobzhang/pygments/styles",
+  "moonbitlang/async",
+  "moonbitlang/async/fs",
+  "moonbitlang/async/stdio",
+  "moonbitlang/core/env",
+  "moonbitlang/core/cmp",
+  "moonbitlang/core/encoding/utf8",
+  "moonbitlang/x/sys",
+}
+
+supported_targets = "native"
+
+warnings = "-implicit_impl_as_method"
+
+pkgtype(kind: "executable")
