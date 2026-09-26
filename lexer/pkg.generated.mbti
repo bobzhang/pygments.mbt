@@ -1,0 +1,184 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/lexer"
+
+import {
+  "bobzhang/pygments/regex",
+  "bobzhang/pygments/token",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn budget() -> @regex.Budget
+
+pub fn clamp_score(Double) -> Double
+
+pub let default_budget_steps : Int
+
+pub fn delegate(Lexer, Lexer, String, needle? : @token.TokenType) -> Array[Token] raise
+
+pub fn do_insertions(Array[(Int, Array[Token])], Array[Token]) -> Array[Token]
+
+pub fn doctype_matches(String, String) -> Bool
+
+pub fn expand_tabs(String, Int) -> String
+
+pub fn get_bool_opt(Map[String, String], String, Bool) -> Bool raise OptionError
+
+pub fn get_choice_opt(Map[String, String], String, Array[String], String, normcase? : Bool) -> String raise OptionError
+
+pub fn get_int_opt(Map[String, String], String, Int) -> Int raise OptionError
+
+pub fn get_list_opt(Map[String, String], String, Array[String]) -> Array[String]
+
+pub fn html_doctype_matches(String) -> Bool
+
+pub fn is_space(Char) -> Bool
+
+pub fn looks_like_xml(String) -> Bool
+
+pub fn matches(@regex.Regex, String) -> Bool
+
+pub fn no_analyse(String) -> Double
+
+pub fn py_slice(String, Int, Int) -> String
+
+pub fn re(String, flags? : Int) -> @regex.Regex
+
+pub fn run_context(Ctx) -> Unit raise
+
+pub fn run_regex(Lexer, RegexDef, String, Array[String], callbacks? : Map[String, (Ctx, @regex.Match, Array[CallbackArg]) -> Unit raise]) -> Array[Token] raise
+
+pub fn search(@regex.Regex, String) -> Bool
+
+pub fn shebang_matches(String, String) -> Bool
+
+pub fn split_whitespace(String) -> Array[String]
+
+pub fn text_tokenizer(Lexer, String, Array[String]) -> Array[Token]
+
+// Errors
+pub suberror LexError {
+  MissingCallback(String)
+  UnknownState(String)
+} derive(@debug.Debug)
+
+pub suberror OptionError {
+  OptionError(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub(all) enum Action {
+  Nop
+  Emit(@token.TokenType)
+  ByGroups(Array[Action])
+  Using(UsingTarget, Array[String]?, Array[(String, String)])
+  Call(String, Array[CallbackArg])
+}
+
+pub(all) enum CallbackArg {
+  Str(String)
+  Tok(@token.TokenType)
+  Bool(Bool)
+  Int(Int)
+} derive(@debug.Debug)
+
+pub struct Ctx {
+  lexer : Lexer
+  def : RegexDef
+  text : String
+  mut pos : Int
+  end : Int
+  stack : Array[Int]
+  out : Array[Token]
+  callbacks : Map[String, (Ctx, @regex.Match, Array[CallbackArg]) -> Unit raise]
+}
+pub fn Ctx::apply(Self, Action, @regex.Match) -> Unit raise
+pub fn Ctx::emit(Self, Int, @token.TokenType, String) -> Unit
+pub fn Ctx::emit_lexed(Self, Lexer, String, Int, stack? : Array[String]) -> Unit raise
+pub fn Ctx::is_extended(Self) -> Bool
+pub fn Ctx::new(Lexer, RegexDef, String, callbacks? : Map[String, (Self, @regex.Match, Array[CallbackArg]) -> Unit raise], pos? : Int, end? : Int, stack? : Array[String]) -> Self raise
+pub fn Ctx::pop_state(Self) -> Unit
+pub fn Ctx::push_state(Self, String) -> Unit raise
+pub fn Ctx::set_state_stack(Self, Array[String]) -> Unit raise
+pub fn Ctx::state_stack(Self) -> Array[String]
+pub fn Ctx::top_state(Self) -> String
+
+pub(all) struct Filter {
+  name : String
+  apply : (Lexer?, Array[(@token.TokenType, String)]) -> Array[(@token.TokenType, String)] raise
+}
+
+pub struct Lexer {
+  info : LexerInfo
+  options : Map[String, String]
+  stripnl : Bool
+  stripall : Bool
+  ensurenl : Bool
+  tabsize : Int
+  filters : Array[Filter]
+  // private fields
+}
+pub fn Lexer::add_filter(Self, Filter) -> Unit
+pub fn Lexer::get_tokens(Self, String, unfiltered? : Bool) -> Array[(@token.TokenType, String)] raise
+pub fn Lexer::get_tokens_unprocessed(Self, String, stack? : Array[String]) -> Array[Token] raise
+pub fn Lexer::name(Self) -> String
+pub fn Lexer::new(LexerInfo, Map[String, String], (Map[String, String]) -> Self raise, (Self, String, Array[String]) -> Array[Token] raise) -> Self raise OptionError
+pub fn Lexer::preprocess(Self, String) -> String
+pub fn Lexer::recreate(Self, Map[String, String]) -> Self raise
+
+pub(all) struct LexerInfo {
+  class_name : String
+  name : String
+  aliases : Array[String]
+  filenames : Array[String]
+  alias_filenames : Array[String]
+  mimetypes : Array[String]
+  priority : Double
+  url : String
+  version_added : String
+  analyse_text : (String) -> Double
+}
+
+pub struct RegexDef {
+  name : String
+  state_names : Array[String]
+  extended : Bool
+  // private fields
+}
+pub fn RegexDef::new(String, Array[String], Array[Rule], Array[Array[Int]], extended? : Bool) -> Self
+pub fn RegexDef::state(Self, String) -> Int
+
+pub struct Rule {
+  pattern : String
+  flags : Int
+  action : Action
+  transition : Array[StateOp]?
+  // private fields
+}
+pub fn Rule::new(String, Int, Action, Array[StateOp]?) -> Self
+
+pub(all) enum StateOp {
+  Push(String)
+  Pop
+  Dup
+} derive(@debug.Debug)
+
+pub(all) struct Token {
+  index : Int
+  ttype : @token.TokenType
+  value : String
+} derive(Eq, @debug.Debug)
+
+pub(all) enum UsingTarget {
+  This
+  Other((Map[String, String]) -> Lexer raise)
+}
+
+// Type aliases
+pub type CallbackFn = (Ctx, @regex.Match, Array[CallbackArg]) -> Unit raise
+
+pub type Options = Map[String, String]
+
+pub type Tokenizer = (Lexer, String, Array[String]) -> Array[Token] raise
+
+// Traits

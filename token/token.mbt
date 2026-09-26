@@ -40,7 +40,7 @@ let registry : Registry = {
 
 ///|
 /// The root token type `Token`.
-pub let token : TokenType = { id: 0 }
+pub let token : TokenType = { id: 0, }
 
 ///|
 /// The child token type `self.<name>`, created on first use.
@@ -74,7 +74,7 @@ pub fn TokenType::parent(self : TokenType) -> TokenType? {
   if p < 0 {
     None
   } else {
-    Some({ id: p })
+    Some({ id: p, })
   }
 }
 
@@ -104,7 +104,7 @@ pub fn TokenType::split(self : TokenType) -> Array[TokenType] {
   let out = []
   let mut t = self.id
   while t >= 0 {
-    out.push({ id: t })
+    out.push({ id: t, })
     t = registry.parents[t]
   }
   out.rev_in_place()
@@ -133,12 +133,12 @@ pub fn TokenType::subtypes(self : TokenType) -> Array[TokenType] {
 
 ///|
 /// Canonical name, e.g. `Token.Literal.String.Double`.
-pub impl Show for TokenType with output(self, logger) {
+pub impl Show for TokenType with fn output(self, logger) {
   logger.write_string(registry.full_names[self.id])
 }
 
 ///|
-pub impl Debug for TokenType with to_repr(self) {
+pub impl Debug for TokenType with fn to_repr(self) {
   @debug.Repr::literal(registry.full_names[self.id])
 }
 
@@ -154,7 +154,10 @@ pub fn TokenType::to_string(self : TokenType) -> String {
 ///
 /// ```mbt check
 /// test {
-///   inspect(@token.from_string("String.Double"), content="Token.Literal.String.Double")
+///   inspect(
+///     @token.from_string("String.Double"),
+///     content="Token.Literal.String.Double",
+///   )
 ///   inspect(@token.from_string(""), content="Token")
 /// }
 /// ```
@@ -220,6 +223,10 @@ pub let text : TokenType = token.sub("Text")
 ///|
 /// `Token.Text.Whitespace`
 pub let text_whitespace : TokenType = text.sub("Whitespace")
+
+///|
+/// `Token.Text.Whitespace` (Python's `Whitespace`)
+pub let whitespace : TokenType = text_whitespace
 
 ///|
 /// `Token.Escape`

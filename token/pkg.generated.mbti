@@ -1,0 +1,210 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/token"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub let comment : TokenType
+
+pub let comment_hashbang : TokenType
+
+pub let comment_multiline : TokenType
+
+pub let comment_preproc : TokenType
+
+pub let comment_preprocfile : TokenType
+
+pub let comment_single : TokenType
+
+pub let comment_special : TokenType
+
+pub fn css_class(TokenType) -> String
+
+pub let error : TokenType
+
+pub let escape : TokenType
+
+pub fn from_string(StringView) -> TokenType
+
+pub let generic : TokenType
+
+pub let generic_deleted : TokenType
+
+pub let generic_emph : TokenType
+
+pub let generic_emphstrong : TokenType
+
+pub let generic_error : TokenType
+
+pub let generic_heading : TokenType
+
+pub let generic_inserted : TokenType
+
+pub let generic_output : TokenType
+
+pub let generic_prompt : TokenType
+
+pub let generic_strong : TokenType
+
+pub let generic_subheading : TokenType
+
+pub let generic_traceback : TokenType
+
+pub let keyword : TokenType
+
+pub let keyword_constant : TokenType
+
+pub let keyword_declaration : TokenType
+
+pub let keyword_namespace : TokenType
+
+pub let keyword_pseudo : TokenType
+
+pub let keyword_reserved : TokenType
+
+pub let keyword_type : TokenType
+
+pub let literal : TokenType
+
+pub let literal_date : TokenType
+
+pub let name : TokenType
+
+pub let name_attribute : TokenType
+
+pub let name_builtin : TokenType
+
+pub let name_builtin_pseudo : TokenType
+
+pub let name_class : TokenType
+
+pub let name_constant : TokenType
+
+pub let name_decorator : TokenType
+
+pub let name_entity : TokenType
+
+pub let name_exception : TokenType
+
+pub let name_function : TokenType
+
+pub let name_function_magic : TokenType
+
+pub let name_label : TokenType
+
+pub let name_namespace : TokenType
+
+pub let name_other : TokenType
+
+pub let name_property : TokenType
+
+pub let name_tag : TokenType
+
+pub let name_variable : TokenType
+
+pub let name_variable_class : TokenType
+
+pub let name_variable_global : TokenType
+
+pub let name_variable_instance : TokenType
+
+pub let name_variable_magic : TokenType
+
+pub let number : TokenType
+
+pub let number_bin : TokenType
+
+pub let number_float : TokenType
+
+pub let number_hex : TokenType
+
+pub let number_integer : TokenType
+
+pub let number_integer_long : TokenType
+
+pub let number_oct : TokenType
+
+pub let operator : TokenType
+
+pub let operator_word : TokenType
+
+pub let other : TokenType
+
+pub let punctuation : TokenType
+
+pub let punctuation_marker : TokenType
+
+pub fn standard_names() -> Map[TokenType, String]
+
+pub fn standard_short_name(TokenType) -> String?
+
+pub let string : TokenType
+
+pub let string_affix : TokenType
+
+pub let string_backtick : TokenType
+
+pub let string_char : TokenType
+
+pub let string_delimiter : TokenType
+
+pub let string_doc : TokenType
+
+pub let string_double : TokenType
+
+pub let string_escape : TokenType
+
+pub let string_heredoc : TokenType
+
+pub let string_interpol : TokenType
+
+pub let string_other : TokenType
+
+pub let string_regex : TokenType
+
+pub let string_single : TokenType
+
+pub let string_symbol : TokenType
+
+pub let text : TokenType
+
+pub let text_whitespace : TokenType
+
+pub let token : TokenType
+
+pub let whitespace : TokenType
+
+// Errors
+
+// Types and methods
+pub struct TokenType {
+  // private fields
+} derive(Compare, Eq, Hash)
+pub fn TokenType::compare(Self, Self) -> Int
+pub fn TokenType::equal(Self, Self) -> Bool
+pub fn TokenType::hash(Self) -> Int
+pub fn TokenType::hash_combine(Self, Hasher) -> Unit
+pub fn TokenType::is_subtype_of(Self, Self) -> Bool
+pub fn TokenType::last(Self) -> String
+pub fn TokenType::not_equal(Self, Self) -> Bool
+pub fn TokenType::op_ge(Self, Self) -> Bool
+pub fn TokenType::op_gt(Self, Self) -> Bool
+pub fn TokenType::op_le(Self, Self) -> Bool
+pub fn TokenType::op_lt(Self, Self) -> Bool
+#deprecated
+pub fn TokenType::output(Self, &Logger) -> Unit
+pub fn TokenType::parent(Self) -> Self?
+pub fn TokenType::path(Self) -> Array[String]
+pub fn TokenType::split(Self) -> Array[Self]
+pub fn TokenType::sub(Self, String) -> Self
+pub fn TokenType::subtypes(Self) -> Array[Self]
+pub fn TokenType::to_repr(Self) -> @debug.Repr
+pub fn TokenType::to_string(Self) -> String
+pub impl Show for TokenType
+pub impl @debug.Debug for TokenType
+
+// Type aliases
+
+// Traits

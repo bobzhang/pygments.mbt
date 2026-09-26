@@ -1,0 +1,12 @@
+import {
+  "bobzhang/pygments/lexers",
+  "bobzhang/pygments/lexer",
+  "moonbitlang/async",
+  "moonbitlang/async/fs",
+  "moonbitlang/core/json",
+  "moonbitlang/core/env",
+}
+
+supported_targets = "native"
+
+pkgtype(kind: "executable")

@@ -42,6 +42,7 @@ pub struct Match {
   // private fields
 }
 pub fn Match::end(Self, group? : Int) -> Int
+pub fn Match::from_span(String, Int, Int) -> Self
 pub fn Match::group(Self, Int) -> String?
 pub fn Match::group_count(Self) -> Int
 pub fn Match::matched(Self) -> String

@@ -1,0 +1,2453 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/pygments/lexers"
+
+import {
+  "bobzhang/pygments/lexer",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn abap_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let abap_lexer_info : @lexer.LexerInfo
+
+pub fn abnf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let abnf_lexer_info : @lexer.LexerInfo
+
+pub fn action_script3_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let action_script3_lexer_info : @lexer.LexerInfo
+
+pub fn action_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let action_script_lexer_info : @lexer.LexerInfo
+
+pub fn ada_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ada_lexer_info : @lexer.LexerInfo
+
+pub fn adl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let adl_lexer_info : @lexer.LexerInfo
+
+pub fn agda_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let agda_lexer_info : @lexer.LexerInfo
+
+pub fn aheui_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let aheui_lexer_info : @lexer.LexerInfo
+
+pub let all_lexers : Array[(@lexer.LexerInfo, (Map[String, String]) -> @lexer.Lexer raise)]
+
+pub fn alloy_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let alloy_lexer_info : @lexer.LexerInfo
+
+pub fn ambient_talk_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ambient_talk_lexer_info : @lexer.LexerInfo
+
+pub fn amdgpu_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let amdgpu_lexer_info : @lexer.LexerInfo
+
+pub fn ampl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ampl_lexer_info : @lexer.LexerInfo
+
+pub fn angular2_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let angular2_html_lexer_info : @lexer.LexerInfo
+
+pub fn angular2_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let angular2_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_action_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_action_script_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_c_sharp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_c_sharp_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_cpp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_cpp_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_java_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_java_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_objective_c_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_objective_c_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_perl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_perl_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_python_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_python_lexer_info : @lexer.LexerInfo
+
+pub fn antlr_ruby_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let antlr_ruby_lexer_info : @lexer.LexerInfo
+
+pub fn apache_conf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let apache_conf_lexer_info : @lexer.LexerInfo
+
+pub fn apdlexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let apdlexer_info : @lexer.LexerInfo
+
+pub fn apl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let apl_lexer_info : @lexer.LexerInfo
+
+pub fn apple_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let apple_script_lexer_info : @lexer.LexerInfo
+
+pub fn arduino_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let arduino_lexer_info : @lexer.LexerInfo
+
+pub fn arrow_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let arrow_lexer_info : @lexer.LexerInfo
+
+pub fn arturo_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let arturo_lexer_info : @lexer.LexerInfo
+
+pub fn asc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let asc_lexer_info : @lexer.LexerInfo
+
+pub fn asn1_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let asn1_lexer_info : @lexer.LexerInfo
+
+pub fn aspect_j_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let aspect_j_lexer_info : @lexer.LexerInfo
+
+pub fn asymptote_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let asymptote_lexer_info : @lexer.LexerInfo
+
+pub fn augeas_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let augeas_lexer_info : @lexer.LexerInfo
+
+pub fn auto_it_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let auto_it_lexer_info : @lexer.LexerInfo
+
+pub fn autohotkey_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let autohotkey_lexer_info : @lexer.LexerInfo
+
+pub fn awk_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let awk_lexer_info : @lexer.LexerInfo
+
+pub fn bare_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bare_lexer_info : @lexer.LexerInfo
+
+pub fn base_makefile_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let base_makefile_lexer_info : @lexer.LexerInfo
+
+pub fn basename(String) -> String
+
+pub fn bash_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bash_lexer_info : @lexer.LexerInfo
+
+pub fn bash_session_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bash_session_lexer_info : @lexer.LexerInfo
+
+pub fn batch_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let batch_lexer_info : @lexer.LexerInfo
+
+pub fn bb_code_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bb_code_lexer_info : @lexer.LexerInfo
+
+pub fn bbc_basic_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bbc_basic_lexer_info : @lexer.LexerInfo
+
+pub fn bc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bc_lexer_info : @lexer.LexerInfo
+
+pub fn bdd_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bdd_lexer_info : @lexer.LexerInfo
+
+pub fn befunge_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let befunge_lexer_info : @lexer.LexerInfo
+
+pub fn berry_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let berry_lexer_info : @lexer.LexerInfo
+
+pub fn bib_te_x_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bib_te_x_lexer_info : @lexer.LexerInfo
+
+pub fn bit_bake_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bit_bake_lexer_info : @lexer.LexerInfo
+
+pub fn blitz_basic_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let blitz_basic_lexer_info : @lexer.LexerInfo
+
+pub fn blitz_max_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let blitz_max_lexer_info : @lexer.LexerInfo
+
+pub fn blueprint_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let blueprint_lexer_info : @lexer.LexerInfo
+
+pub fn bnf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bnf_lexer_info : @lexer.LexerInfo
+
+pub fn boa_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let boa_lexer_info : @lexer.LexerInfo
+
+pub fn boo_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let boo_lexer_info : @lexer.LexerInfo
+
+pub fn boogie_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let boogie_lexer_info : @lexer.LexerInfo
+
+pub fn bqn_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bqn_lexer_info : @lexer.LexerInfo
+
+pub fn brainfuck_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let brainfuck_lexer_info : @lexer.LexerInfo
+
+pub fn bst_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bst_lexer_info : @lexer.LexerInfo
+
+pub fn bugs_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let bugs_lexer_info : @lexer.LexerInfo
+
+pub fn c_amk_es_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let c_amk_es_lexer_info : @lexer.LexerInfo
+
+pub fn c_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let c_lexer_info : @lexer.LexerInfo
+
+pub fn c_make_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let c_make_lexer_info : @lexer.LexerInfo
+
+pub fn c_objdump_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let c_objdump_lexer_info : @lexer.LexerInfo
+
+pub fn c_sharp_aspx_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let c_sharp_aspx_lexer_info : @lexer.LexerInfo
+
+pub fn c_sharp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let c_sharp_lexer_info : @lexer.LexerInfo
+
+pub fn ca65_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ca65_lexer_info : @lexer.LexerInfo
+
+pub fn caddyfile_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let caddyfile_lexer_info : @lexer.LexerInfo
+
+pub fn cadl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cadl_lexer_info : @lexer.LexerInfo
+
+pub fn cap_dl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cap_dl_lexer_info : @lexer.LexerInfo
+
+pub fn capn_proto_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let capn_proto_lexer_info : @lexer.LexerInfo
+
+pub fn carbon_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let carbon_lexer_info : @lexer.LexerInfo
+
+pub fn cbm_basic_v2_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cbm_basic_v2_lexer_info : @lexer.LexerInfo
+
+pub fn cddl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cddl_lexer_info : @lexer.LexerInfo
+
+pub fn cel_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cel_lexer_info : @lexer.LexerInfo
+
+pub fn ceylon_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ceylon_lexer_info : @lexer.LexerInfo
+
+pub fn cfengine3_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cfengine3_lexer_info : @lexer.LexerInfo
+
+pub fn chaiscript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let chaiscript_lexer_info : @lexer.LexerInfo
+
+pub fn chapel_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let chapel_lexer_info : @lexer.LexerInfo
+
+pub fn charmci_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let charmci_lexer_info : @lexer.LexerInfo
+
+pub fn cheetah_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cheetah_html_lexer_info : @lexer.LexerInfo
+
+pub fn cheetah_javascript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cheetah_javascript_lexer_info : @lexer.LexerInfo
+
+pub fn cheetah_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cheetah_lexer_info : @lexer.LexerInfo
+
+pub fn cheetah_xml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cheetah_xml_lexer_info : @lexer.LexerInfo
+
+pub fn cirru_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cirru_lexer_info : @lexer.LexerInfo
+
+pub fn clay_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let clay_lexer_info : @lexer.LexerInfo
+
+pub fn clean_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let clean_lexer_info : @lexer.LexerInfo
+
+pub fn clojure_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let clojure_lexer_info : @lexer.LexerInfo
+
+pub fn clojure_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let clojure_script_lexer_info : @lexer.LexerInfo
+
+pub fn cobol_freeformat_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cobol_freeformat_lexer_info : @lexer.LexerInfo
+
+pub fn cobol_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cobol_lexer_info : @lexer.LexerInfo
+
+pub fn code_ql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let code_ql_lexer_info : @lexer.LexerInfo
+
+pub fn coffee_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let coffee_script_lexer_info : @lexer.LexerInfo
+
+pub fn coldfusion_cfc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let coldfusion_cfc_lexer_info : @lexer.LexerInfo
+
+pub fn coldfusion_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let coldfusion_html_lexer_info : @lexer.LexerInfo
+
+pub fn coldfusion_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let coldfusion_lexer_info : @lexer.LexerInfo
+
+pub fn comal80_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let comal80_lexer_info : @lexer.LexerInfo
+
+pub fn common_lisp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let common_lisp_lexer_info : @lexer.LexerInfo
+
+pub fn component_pascal_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let component_pascal_lexer_info : @lexer.LexerInfo
+
+pub fn cplint_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cplint_lexer_info : @lexer.LexerInfo
+
+pub fn cpp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cpp_lexer_info : @lexer.LexerInfo
+
+pub fn cpp_objdump_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cpp_objdump_lexer_info : @lexer.LexerInfo
+
+pub fn cpsa_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cpsa_lexer_info : @lexer.LexerInfo
+
+pub fn crmsh_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let crmsh_lexer_info : @lexer.LexerInfo
+
+pub fn croc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let croc_lexer_info : @lexer.LexerInfo
+
+pub fn cryptol_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cryptol_lexer_info : @lexer.LexerInfo
+
+pub fn crystal_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let crystal_lexer_info : @lexer.LexerInfo
+
+pub fn csound_document_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let csound_document_lexer_info : @lexer.LexerInfo
+
+pub fn csound_orchestra_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let csound_orchestra_lexer_info : @lexer.LexerInfo
+
+pub fn csound_score_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let csound_score_lexer_info : @lexer.LexerInfo
+
+pub fn css_django_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let css_django_lexer_info : @lexer.LexerInfo
+
+pub fn css_erb_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let css_erb_lexer_info : @lexer.LexerInfo
+
+pub fn css_genshi_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let css_genshi_lexer_info : @lexer.LexerInfo
+
+pub fn css_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let css_lexer_info : @lexer.LexerInfo
+
+pub fn css_php_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let css_php_lexer_info : @lexer.LexerInfo
+
+pub fn css_smarty_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let css_smarty_lexer_info : @lexer.LexerInfo
+
+pub fn cssul4_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cssul4_lexer_info : @lexer.LexerInfo
+
+pub fn cuda_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cuda_lexer_info : @lexer.LexerInfo
+
+pub fn cypher_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cypher_lexer_info : @lexer.LexerInfo
+
+pub fn cython_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let cython_lexer_info : @lexer.LexerInfo
+
+pub fn d_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let d_lexer_info : @lexer.LexerInfo
+
+pub fn d_objdump_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let d_objdump_lexer_info : @lexer.LexerInfo
+
+pub fn darcs_patch_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let darcs_patch_lexer_info : @lexer.LexerInfo
+
+pub fn dart_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dart_lexer_info : @lexer.LexerInfo
+
+pub fn dasm16_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dasm16_lexer_info : @lexer.LexerInfo
+
+pub fn dax_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dax_lexer_info : @lexer.LexerInfo
+
+pub fn debian_control_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let debian_control_lexer_info : @lexer.LexerInfo
+
+pub fn debian_sources_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let debian_sources_lexer_info : @lexer.LexerInfo
+
+pub fn delphi_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let delphi_lexer_info : @lexer.LexerInfo
+
+pub fn desktop_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let desktop_lexer_info : @lexer.LexerInfo
+
+pub fn devicetree_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let devicetree_lexer_info : @lexer.LexerInfo
+
+pub fn dg_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dg_lexer_info : @lexer.LexerInfo
+
+pub fn diff_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let diff_lexer_info : @lexer.LexerInfo
+
+pub fn django_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let django_lexer_info : @lexer.LexerInfo
+
+pub fn dns_zone_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dns_zone_lexer_info : @lexer.LexerInfo
+
+pub fn docker_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let docker_lexer_info : @lexer.LexerInfo
+
+pub fn dtd_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dtd_lexer_info : @lexer.LexerInfo
+
+pub fn duel_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let duel_lexer_info : @lexer.LexerInfo
+
+pub fn dylan_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dylan_console_lexer_info : @lexer.LexerInfo
+
+pub fn dylan_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dylan_lexer_info : @lexer.LexerInfo
+
+pub fn dylan_lid_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let dylan_lid_lexer_info : @lexer.LexerInfo
+
+pub fn earl_grey_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let earl_grey_lexer_info : @lexer.LexerInfo
+
+pub fn easytrieve_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let easytrieve_lexer_info : @lexer.LexerInfo
+
+pub fn ebnf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ebnf_lexer_info : @lexer.LexerInfo
+
+pub fn ec_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ec_lexer_info : @lexer.LexerInfo
+
+pub fn ecl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ecl_lexer_info : @lexer.LexerInfo
+
+pub fn eiffel_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let eiffel_lexer_info : @lexer.LexerInfo
+
+pub fn elixir_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let elixir_console_lexer_info : @lexer.LexerInfo
+
+pub fn elixir_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let elixir_lexer_info : @lexer.LexerInfo
+
+pub fn elm_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let elm_lexer_info : @lexer.LexerInfo
+
+pub fn elpi_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let elpi_lexer_info : @lexer.LexerInfo
+
+pub fn emacs_lisp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let emacs_lisp_lexer_info : @lexer.LexerInfo
+
+pub fn email_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let email_lexer_info : @lexer.LexerInfo
+
+pub fn erb_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let erb_lexer_info : @lexer.LexerInfo
+
+pub fn erlang_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let erlang_lexer_info : @lexer.LexerInfo
+
+pub fn erlang_shell_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let erlang_shell_lexer_info : @lexer.LexerInfo
+
+pub fn evoque_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let evoque_html_lexer_info : @lexer.LexerInfo
+
+pub fn evoque_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let evoque_lexer_info : @lexer.LexerInfo
+
+pub fn evoque_xml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let evoque_xml_lexer_info : @lexer.LexerInfo
+
+pub fn execline_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let execline_lexer_info : @lexer.LexerInfo
+
+pub fn ezhil_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ezhil_lexer_info : @lexer.LexerInfo
+
+pub fn f_sharp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let f_sharp_lexer_info : @lexer.LexerInfo
+
+pub fn f_star_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let f_star_lexer_info : @lexer.LexerInfo
+
+pub fn factor_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let factor_lexer_info : @lexer.LexerInfo
+
+pub fn fancy_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fancy_lexer_info : @lexer.LexerInfo
+
+pub fn fantom_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fantom_lexer_info : @lexer.LexerInfo
+
+pub fn felix_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let felix_lexer_info : @lexer.LexerInfo
+
+pub fn fennel_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fennel_lexer_info : @lexer.LexerInfo
+
+pub fn fift_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fift_lexer_info : @lexer.LexerInfo
+
+pub fn find_lexer_class(String) -> (@lexer.LexerInfo, (Map[String, String]) -> @lexer.Lexer raise)?
+
+pub fn find_lexer_class_by_name(String) -> (@lexer.LexerInfo, (Map[String, String]) -> @lexer.Lexer raise) raise ClassNotFound
+
+pub fn find_lexer_class_for_filename(String, code? : String) -> (@lexer.LexerInfo, (Map[String, String]) -> @lexer.Lexer raise)?
+
+pub fn fish_shell_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fish_shell_lexer_info : @lexer.LexerInfo
+
+pub fn flatline_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let flatline_lexer_info : @lexer.LexerInfo
+
+pub fn flo_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let flo_script_lexer_info : @lexer.LexerInfo
+
+pub fn fn_matches(String, String) -> Bool
+
+pub fn forth_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let forth_lexer_info : @lexer.LexerInfo
+
+pub fn fortran_fixed_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fortran_fixed_lexer_info : @lexer.LexerInfo
+
+pub fn fortran_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fortran_lexer_info : @lexer.LexerInfo
+
+pub fn fox_pro_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let fox_pro_lexer_info : @lexer.LexerInfo
+
+pub fn free_fem_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let free_fem_lexer_info : @lexer.LexerInfo
+
+pub fn func_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let func_lexer_info : @lexer.LexerInfo
+
+pub fn futhark_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let futhark_lexer_info : @lexer.LexerInfo
+
+pub fn gap_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gap_console_lexer_info : @lexer.LexerInfo
+
+pub fn gap_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gap_lexer_info : @lexer.LexerInfo
+
+pub fn gas_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gas_lexer_info : @lexer.LexerInfo
+
+pub fn gcode_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gcode_lexer_info : @lexer.LexerInfo
+
+pub fn gd_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gd_script_lexer_info : @lexer.LexerInfo
+
+pub fn genshi_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let genshi_lexer_info : @lexer.LexerInfo
+
+pub fn genshi_text_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let genshi_text_lexer_info : @lexer.LexerInfo
+
+pub fn get_filetype_from_buffer(String, max_lines? : Int) -> String?
+
+pub fn get_lexer_by_name(String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn get_lexer_for_filename(String, code? : String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn get_lexer_for_mimetype(String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn gettext_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gettext_lexer_info : @lexer.LexerInfo
+
+pub fn gherkin_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gherkin_lexer_info : @lexer.LexerInfo
+
+pub fn gl_shader_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gl_shader_lexer_info : @lexer.LexerInfo
+
+pub fn gleam_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gleam_lexer_info : @lexer.LexerInfo
+
+pub fn gnuplot_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gnuplot_lexer_info : @lexer.LexerInfo
+
+pub fn go_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let go_lexer_info : @lexer.LexerInfo
+
+pub fn golo_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let golo_lexer_info : @lexer.LexerInfo
+
+pub fn good_data_cl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let good_data_cl_lexer_info : @lexer.LexerInfo
+
+pub fn google_sql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let google_sql_lexer_info : @lexer.LexerInfo
+
+pub fn gosu_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gosu_lexer_info : @lexer.LexerInfo
+
+pub fn gosu_template_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gosu_template_lexer_info : @lexer.LexerInfo
+
+pub fn graph_ql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let graph_ql_lexer_info : @lexer.LexerInfo
+
+pub fn graphviz_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let graphviz_lexer_info : @lexer.LexerInfo
+
+pub fn groff_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let groff_lexer_info : @lexer.LexerInfo
+
+pub fn groovy_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let groovy_lexer_info : @lexer.LexerInfo
+
+pub fn gsql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let gsql_lexer_info : @lexer.LexerInfo
+
+pub fn guess_lexer(String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn guess_lexer_for_filename(String, String, options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub fn haml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let haml_lexer_info : @lexer.LexerInfo
+
+pub fn handlebars_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let handlebars_html_lexer_info : @lexer.LexerInfo
+
+pub fn handlebars_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let handlebars_lexer_info : @lexer.LexerInfo
+
+pub fn hare_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hare_lexer_info : @lexer.LexerInfo
+
+pub fn haskell_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let haskell_lexer_info : @lexer.LexerInfo
+
+pub fn haxe_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let haxe_lexer_info : @lexer.LexerInfo
+
+pub fn hexdump_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hexdump_lexer_info : @lexer.LexerInfo
+
+pub fn hlsl_shader_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hlsl_shader_lexer_info : @lexer.LexerInfo
+
+pub fn hsail_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hsail_lexer_info : @lexer.LexerInfo
+
+pub fn hspec_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hspec_lexer_info : @lexer.LexerInfo
+
+pub fn html_django_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let html_django_lexer_info : @lexer.LexerInfo
+
+pub fn html_genshi_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let html_genshi_lexer_info : @lexer.LexerInfo
+
+pub fn html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let html_lexer_info : @lexer.LexerInfo
+
+pub fn html_php_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let html_php_lexer_info : @lexer.LexerInfo
+
+pub fn html_smarty_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let html_smarty_lexer_info : @lexer.LexerInfo
+
+pub fn htmlul4_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let htmlul4_lexer_info : @lexer.LexerInfo
+
+pub fn http_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let http_lexer_info : @lexer.LexerInfo
+
+pub fn hxml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hxml_lexer_info : @lexer.LexerInfo
+
+pub fn hy_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hy_lexer_info : @lexer.LexerInfo
+
+pub fn hybris_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let hybris_lexer_info : @lexer.LexerInfo
+
+pub fn icon_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let icon_lexer_info : @lexer.LexerInfo
+
+pub fn idl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let idl_lexer_info : @lexer.LexerInfo
+
+pub fn idris_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let idris_lexer_info : @lexer.LexerInfo
+
+pub fn igor_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let igor_lexer_info : @lexer.LexerInfo
+
+pub fn inform6_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let inform6_lexer_info : @lexer.LexerInfo
+
+pub fn inform6_template_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let inform6_template_lexer_info : @lexer.LexerInfo
+
+pub fn inform7_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let inform7_lexer_info : @lexer.LexerInfo
+
+pub fn ini_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ini_lexer_info : @lexer.LexerInfo
+
+pub fn io_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let io_lexer_info : @lexer.LexerInfo
+
+pub fn ioke_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ioke_lexer_info : @lexer.LexerInfo
+
+pub fn irc_logs_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let irc_logs_lexer_info : @lexer.LexerInfo
+
+pub fn isabelle_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let isabelle_lexer_info : @lexer.LexerInfo
+
+pub fn j_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let j_lexer_info : @lexer.LexerInfo
+
+pub fn jags_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jags_lexer_info : @lexer.LexerInfo
+
+pub fn janet_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let janet_lexer_info : @lexer.LexerInfo
+
+pub fn jasmin_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jasmin_lexer_info : @lexer.LexerInfo
+
+pub fn java_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let java_lexer_info : @lexer.LexerInfo
+
+pub fn javascript_django_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let javascript_django_lexer_info : @lexer.LexerInfo
+
+pub fn javascript_erb_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let javascript_erb_lexer_info : @lexer.LexerInfo
+
+pub fn javascript_genshi_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let javascript_genshi_lexer_info : @lexer.LexerInfo
+
+pub fn javascript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let javascript_lexer_info : @lexer.LexerInfo
+
+pub fn javascript_php_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let javascript_php_lexer_info : @lexer.LexerInfo
+
+pub fn javascript_smarty_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let javascript_smarty_lexer_info : @lexer.LexerInfo
+
+pub fn javascript_ul4_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let javascript_ul4_lexer_info : @lexer.LexerInfo
+
+pub fn jcl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jcl_lexer_info : @lexer.LexerInfo
+
+pub fn jmes_path_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jmes_path_lexer_info : @lexer.LexerInfo
+
+pub fn jsgf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jsgf_lexer_info : @lexer.LexerInfo
+
+pub fn jslt_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jslt_lexer_info : @lexer.LexerInfo
+
+pub fn json5_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let json5_lexer_info : @lexer.LexerInfo
+
+pub fn json_bare_object_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let json_bare_object_lexer_info : @lexer.LexerInfo
+
+pub fn json_ld_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let json_ld_lexer_info : @lexer.LexerInfo
+
+pub fn json_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let json_lexer_info : @lexer.LexerInfo
+
+pub fn jsonnet_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jsonnet_lexer_info : @lexer.LexerInfo
+
+pub fn jsp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jsp_lexer_info : @lexer.LexerInfo
+
+pub fn jsx_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let jsx_lexer_info : @lexer.LexerInfo
+
+pub fn julia_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let julia_console_lexer_info : @lexer.LexerInfo
+
+pub fn julia_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let julia_lexer_info : @lexer.LexerInfo
+
+pub fn juttle_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let juttle_lexer_info : @lexer.LexerInfo
+
+pub fn k_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let k_lexer_info : @lexer.LexerInfo
+
+pub fn kal_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let kal_lexer_info : @lexer.LexerInfo
+
+pub fn kconfig_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let kconfig_lexer_info : @lexer.LexerInfo
+
+pub fn kernel_log_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let kernel_log_lexer_info : @lexer.LexerInfo
+
+pub fn koka_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let koka_lexer_info : @lexer.LexerInfo
+
+pub fn kotlin_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let kotlin_lexer_info : @lexer.LexerInfo
+
+pub fn kuin_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let kuin_lexer_info : @lexer.LexerInfo
+
+pub fn kusto_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let kusto_lexer_info : @lexer.LexerInfo
+
+pub fn lasso_css_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lasso_css_lexer_info : @lexer.LexerInfo
+
+pub fn lasso_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lasso_html_lexer_info : @lexer.LexerInfo
+
+pub fn lasso_javascript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lasso_javascript_lexer_info : @lexer.LexerInfo
+
+pub fn lasso_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lasso_lexer_info : @lexer.LexerInfo
+
+pub fn lasso_xml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lasso_xml_lexer_info : @lexer.LexerInfo
+
+pub fn ldaprc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ldaprc_lexer_info : @lexer.LexerInfo
+
+pub fn ldif_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ldif_lexer_info : @lexer.LexerInfo
+
+pub fn lean3_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lean3_lexer_info : @lexer.LexerInfo
+
+pub fn lean4_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lean4_lexer_info : @lexer.LexerInfo
+
+pub fn less_css_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let less_css_lexer_info : @lexer.LexerInfo
+
+pub fn lighttpd_conf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lighttpd_conf_lexer_info : @lexer.LexerInfo
+
+pub fn lily_pond_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lily_pond_lexer_info : @lexer.LexerInfo
+
+pub fn limbo_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let limbo_lexer_info : @lexer.LexerInfo
+
+pub fn liquid_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let liquid_lexer_info : @lexer.LexerInfo
+
+pub fn literate_agda_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let literate_agda_lexer_info : @lexer.LexerInfo
+
+pub fn literate_cryptol_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let literate_cryptol_lexer_info : @lexer.LexerInfo
+
+pub fn literate_haskell_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let literate_haskell_lexer_info : @lexer.LexerInfo
+
+pub fn literate_idris_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let literate_idris_lexer_info : @lexer.LexerInfo
+
+pub fn live_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let live_script_lexer_info : @lexer.LexerInfo
+
+pub fn llvm_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let llvm_lexer_info : @lexer.LexerInfo
+
+pub fn llvm_mir_body_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let llvm_mir_body_lexer_info : @lexer.LexerInfo
+
+pub fn llvm_mir_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let llvm_mir_lexer_info : @lexer.LexerInfo
+
+pub fn logos_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let logos_lexer_info : @lexer.LexerInfo
+
+pub fn logtalk_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let logtalk_lexer_info : @lexer.LexerInfo
+
+pub fn lsl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lsl_lexer_info : @lexer.LexerInfo
+
+pub fn lua_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let lua_lexer_info : @lexer.LexerInfo
+
+pub fn luau_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let luau_lexer_info : @lexer.LexerInfo
+
+pub fn macaulay2_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let macaulay2_lexer_info : @lexer.LexerInfo
+
+pub fn makefile_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let makefile_lexer_info : @lexer.LexerInfo
+
+pub fn mako_css_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mako_css_lexer_info : @lexer.LexerInfo
+
+pub fn mako_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mako_html_lexer_info : @lexer.LexerInfo
+
+pub fn mako_javascript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mako_javascript_lexer_info : @lexer.LexerInfo
+
+pub fn mako_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mako_lexer_info : @lexer.LexerInfo
+
+pub fn mako_xml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mako_xml_lexer_info : @lexer.LexerInfo
+
+pub fn maple_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let maple_lexer_info : @lexer.LexerInfo
+
+pub fn maql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let maql_lexer_info : @lexer.LexerInfo
+
+pub fn markdown_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let markdown_lexer_info : @lexer.LexerInfo
+
+pub fn mask_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mask_lexer_info : @lexer.LexerInfo
+
+pub fn mason_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mason_lexer_info : @lexer.LexerInfo
+
+pub fn mathematica_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mathematica_lexer_info : @lexer.LexerInfo
+
+pub fn matlab_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let matlab_lexer_info : @lexer.LexerInfo
+
+pub fn matlab_session_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let matlab_session_lexer_info : @lexer.LexerInfo
+
+pub fn maxima_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let maxima_lexer_info : @lexer.LexerInfo
+
+pub fn mc_function_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mc_function_lexer_info : @lexer.LexerInfo
+
+pub fn mc_schema_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mc_schema_lexer_info : @lexer.LexerInfo
+
+pub fn meson_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let meson_lexer_info : @lexer.LexerInfo
+
+pub fn mime_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mime_lexer_info : @lexer.LexerInfo
+
+pub fn mini_d_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mini_d_lexer_info : @lexer.LexerInfo
+
+pub fn mini_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mini_script_lexer_info : @lexer.LexerInfo
+
+pub fn mips_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mips_lexer_info : @lexer.LexerInfo
+
+pub fn modelica_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let modelica_lexer_info : @lexer.LexerInfo
+
+pub fn modula2_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let modula2_lexer_info : @lexer.LexerInfo
+
+pub fn moin_wiki_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moin_wiki_lexer_info : @lexer.LexerInfo
+
+pub fn mojo_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mojo_lexer_info : @lexer.LexerInfo
+
+pub fn monkey_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let monkey_lexer_info : @lexer.LexerInfo
+
+pub fn monte_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let monte_lexer_info : @lexer.LexerInfo
+
+pub fn moo_code_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moo_code_lexer_info : @lexer.LexerInfo
+
+pub fn moon_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moon_script_lexer_info : @lexer.LexerInfo
+
+pub fn mosel_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mosel_lexer_info : @lexer.LexerInfo
+
+pub fn moz_preproc_css_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moz_preproc_css_lexer_info : @lexer.LexerInfo
+
+pub fn moz_preproc_hash_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moz_preproc_hash_lexer_info : @lexer.LexerInfo
+
+pub fn moz_preproc_javascript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moz_preproc_javascript_lexer_info : @lexer.LexerInfo
+
+pub fn moz_preproc_percent_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moz_preproc_percent_lexer_info : @lexer.LexerInfo
+
+pub fn moz_preproc_xul_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let moz_preproc_xul_lexer_info : @lexer.LexerInfo
+
+pub fn mql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mql_lexer_info : @lexer.LexerInfo
+
+pub fn mscgen_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mscgen_lexer_info : @lexer.LexerInfo
+
+pub fn msdos_session_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let msdos_session_lexer_info : @lexer.LexerInfo
+
+pub fn mu_pad_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mu_pad_lexer_info : @lexer.LexerInfo
+
+pub fn mxml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let mxml_lexer_info : @lexer.LexerInfo
+
+pub fn my_sql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let my_sql_lexer_info : @lexer.LexerInfo
+
+pub fn myghty_css_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let myghty_css_lexer_info : @lexer.LexerInfo
+
+pub fn myghty_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let myghty_html_lexer_info : @lexer.LexerInfo
+
+pub fn myghty_javascript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let myghty_javascript_lexer_info : @lexer.LexerInfo
+
+pub fn myghty_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let myghty_lexer_info : @lexer.LexerInfo
+
+pub fn myghty_xml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let myghty_xml_lexer_info : @lexer.LexerInfo
+
+pub fn nasm_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nasm_lexer_info : @lexer.LexerInfo
+
+pub fn nasm_objdump_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nasm_objdump_lexer_info : @lexer.LexerInfo
+
+pub fn ncl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ncl_lexer_info : @lexer.LexerInfo
+
+pub fn nemerle_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nemerle_lexer_info : @lexer.LexerInfo
+
+pub fn nes_c_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nes_c_lexer_info : @lexer.LexerInfo
+
+pub fn nested_text_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nested_text_lexer_info : @lexer.LexerInfo
+
+pub fn new_lisp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let new_lisp_lexer_info : @lexer.LexerInfo
+
+pub fn newspeak_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let newspeak_lexer_info : @lexer.LexerInfo
+
+pub fn nginx_conf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nginx_conf_lexer_info : @lexer.LexerInfo
+
+pub fn nimrod_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nimrod_lexer_info : @lexer.LexerInfo
+
+pub fn nit_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nit_lexer_info : @lexer.LexerInfo
+
+pub fn nix_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nix_lexer_info : @lexer.LexerInfo
+
+pub fn node_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let node_console_lexer_info : @lexer.LexerInfo
+
+pub fn notmuch_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let notmuch_lexer_info : @lexer.LexerInfo
+
+pub fn nsis_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nsis_lexer_info : @lexer.LexerInfo
+
+pub fn nu_smv_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let nu_smv_lexer_info : @lexer.LexerInfo
+
+pub fn num_py_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let num_py_lexer_info : @lexer.LexerInfo
+
+pub fn numba_ir_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let numba_ir_lexer_info : @lexer.LexerInfo
+
+pub fn objdump_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let objdump_lexer_info : @lexer.LexerInfo
+
+pub fn objective_c_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let objective_c_lexer_info : @lexer.LexerInfo
+
+pub fn objective_cpp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let objective_cpp_lexer_info : @lexer.LexerInfo
+
+pub fn objective_j_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let objective_j_lexer_info : @lexer.LexerInfo
+
+pub fn ocaml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ocaml_lexer_info : @lexer.LexerInfo
+
+pub fn octave_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let octave_lexer_info : @lexer.LexerInfo
+
+pub fn odin_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let odin_lexer_info : @lexer.LexerInfo
+
+pub fn omg_idl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let omg_idl_lexer_info : @lexer.LexerInfo
+
+pub fn ooc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ooc_lexer_info : @lexer.LexerInfo
+
+pub fn opa_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let opa_lexer_info : @lexer.LexerInfo
+
+pub fn open_edge_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let open_edge_lexer_info : @lexer.LexerInfo
+
+pub fn open_scad_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let open_scad_lexer_info : @lexer.LexerInfo
+
+pub fn org_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let org_lexer_info : @lexer.LexerInfo
+
+pub fn output_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let output_lexer_info : @lexer.LexerInfo
+
+pub fn pacman_conf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pacman_conf_lexer_info : @lexer.LexerInfo
+
+pub fn pan_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pan_lexer_info : @lexer.LexerInfo
+
+pub fn para_sail_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let para_sail_lexer_info : @lexer.LexerInfo
+
+pub fn pawn_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pawn_lexer_info : @lexer.LexerInfo
+
+pub fn pddl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pddl_lexer_info : @lexer.LexerInfo
+
+pub fn peg_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let peg_lexer_info : @lexer.LexerInfo
+
+pub fn perl6_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let perl6_lexer_info : @lexer.LexerInfo
+
+pub fn perl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let perl_lexer_info : @lexer.LexerInfo
+
+pub fn phix_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let phix_lexer_info : @lexer.LexerInfo
+
+pub fn php_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let php_lexer_info : @lexer.LexerInfo
+
+pub fn pig_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pig_lexer_info : @lexer.LexerInfo
+
+pub fn pike_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pike_lexer_info : @lexer.LexerInfo
+
+pub fn pkg_config_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pkg_config_lexer_info : @lexer.LexerInfo
+
+pub fn pl_pgsql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pl_pgsql_lexer_info : @lexer.LexerInfo
+
+pub fn pointless_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pointless_lexer_info : @lexer.LexerInfo
+
+pub fn pony_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pony_lexer_info : @lexer.LexerInfo
+
+pub fn portugol_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let portugol_lexer_info : @lexer.LexerInfo
+
+pub fn post_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let post_script_lexer_info : @lexer.LexerInfo
+
+pub fn postgres_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let postgres_console_lexer_info : @lexer.LexerInfo
+
+pub fn postgres_explain_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let postgres_explain_lexer_info : @lexer.LexerInfo
+
+pub fn postgres_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let postgres_lexer_info : @lexer.LexerInfo
+
+pub fn povray_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let povray_lexer_info : @lexer.LexerInfo
+
+pub fn power_shell_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let power_shell_lexer_info : @lexer.LexerInfo
+
+pub fn power_shell_session_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let power_shell_session_lexer_info : @lexer.LexerInfo
+
+pub fn praat_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let praat_lexer_info : @lexer.LexerInfo
+
+pub fn procfile_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let procfile_lexer_info : @lexer.LexerInfo
+
+pub fn prolog_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let prolog_lexer_info : @lexer.LexerInfo
+
+pub fn prom_ql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let prom_ql_lexer_info : @lexer.LexerInfo
+
+pub fn promela_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let promela_lexer_info : @lexer.LexerInfo
+
+pub fn properties_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let properties_lexer_info : @lexer.LexerInfo
+
+pub fn proto_buf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let proto_buf_lexer_info : @lexer.LexerInfo
+
+pub fn prql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let prql_lexer_info : @lexer.LexerInfo
+
+pub fn psysh_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let psysh_console_lexer_info : @lexer.LexerInfo
+
+pub fn ptx_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ptx_lexer_info : @lexer.LexerInfo
+
+pub fn pug_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pug_lexer_info : @lexer.LexerInfo
+
+pub fn puppet_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let puppet_lexer_info : @lexer.LexerInfo
+
+pub fn pure_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let pure_script_lexer_info : @lexer.LexerInfo
+
+pub fn py_py_log_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let py_py_log_lexer_info : @lexer.LexerInfo
+
+pub fn python2_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let python2_lexer_info : @lexer.LexerInfo
+
+pub fn python2_traceback_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let python2_traceback_lexer_info : @lexer.LexerInfo
+
+pub fn python_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let python_console_lexer_info : @lexer.LexerInfo
+
+pub fn python_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let python_lexer_info : @lexer.LexerInfo
+
+pub fn python_traceback_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let python_traceback_lexer_info : @lexer.LexerInfo
+
+pub fn python_ul4_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let python_ul4_lexer_info : @lexer.LexerInfo
+
+pub fn q_basic_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let q_basic_lexer_info : @lexer.LexerInfo
+
+pub fn q_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let q_lexer_info : @lexer.LexerInfo
+
+pub fn qlik_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let qlik_lexer_info : @lexer.LexerInfo
+
+pub fn qml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let qml_lexer_info : @lexer.LexerInfo
+
+pub fn qv_to_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let qv_to_lexer_info : @lexer.LexerInfo
+
+pub fn r_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let r_console_lexer_info : @lexer.LexerInfo
+
+pub fn racket_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let racket_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_c_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_c_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_cpp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_cpp_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_d_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_d_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_embedded_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_embedded_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_java_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_java_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_objective_c_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_objective_c_lexer_info : @lexer.LexerInfo
+
+pub fn ragel_ruby_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ragel_ruby_lexer_info : @lexer.LexerInfo
+
+pub fn raw_token_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let raw_token_lexer_info : @lexer.LexerInfo
+
+pub fn rd_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rd_lexer_info : @lexer.LexerInfo
+
+pub fn reason_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let reason_lexer_info : @lexer.LexerInfo
+
+pub fn rebol_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rebol_lexer_info : @lexer.LexerInfo
+
+pub fn red_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let red_lexer_info : @lexer.LexerInfo
+
+pub fn redcode_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let redcode_lexer_info : @lexer.LexerInfo
+
+pub fn regedit_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let regedit_lexer_info : @lexer.LexerInfo
+
+pub fn rego_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rego_lexer_info : @lexer.LexerInfo
+
+pub fn rell_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rell_lexer_info : @lexer.LexerInfo
+
+pub fn resource_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let resource_lexer_info : @lexer.LexerInfo
+
+pub fn rexx_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rexx_lexer_info : @lexer.LexerInfo
+
+pub fn rhtml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rhtml_lexer_info : @lexer.LexerInfo
+
+pub fn ride_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ride_lexer_info : @lexer.LexerInfo
+
+pub fn rita_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rita_lexer_info : @lexer.LexerInfo
+
+pub fn rnc_compact_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rnc_compact_lexer_info : @lexer.LexerInfo
+
+pub fn roboconf_graph_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let roboconf_graph_lexer_info : @lexer.LexerInfo
+
+pub fn roboconf_instances_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let roboconf_instances_lexer_info : @lexer.LexerInfo
+
+pub fn robot_framework_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let robot_framework_lexer_info : @lexer.LexerInfo
+
+pub fn rocq_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rocq_lexer_info : @lexer.LexerInfo
+
+pub fn rpm_spec_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rpm_spec_lexer_info : @lexer.LexerInfo
+
+pub fn rql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rql_lexer_info : @lexer.LexerInfo
+
+pub fn rsl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rsl_lexer_info : @lexer.LexerInfo
+
+pub fn rst_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rst_lexer_info : @lexer.LexerInfo
+
+pub fn rts_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rts_lexer_info : @lexer.LexerInfo
+
+pub fn ruby_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ruby_console_lexer_info : @lexer.LexerInfo
+
+pub fn ruby_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ruby_lexer_info : @lexer.LexerInfo
+
+pub fn rust_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let rust_lexer_info : @lexer.LexerInfo
+
+pub fn s_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let s_lexer_info : @lexer.LexerInfo
+
+pub fn sarl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sarl_lexer_info : @lexer.LexerInfo
+
+pub fn sas_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sas_lexer_info : @lexer.LexerInfo
+
+pub fn sass_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sass_lexer_info : @lexer.LexerInfo
+
+pub fn savi_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let savi_lexer_info : @lexer.LexerInfo
+
+pub fn scala_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let scala_lexer_info : @lexer.LexerInfo
+
+pub fn scaml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let scaml_lexer_info : @lexer.LexerInfo
+
+pub fn scdoc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let scdoc_lexer_info : @lexer.LexerInfo
+
+pub fn scheme_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let scheme_lexer_info : @lexer.LexerInfo
+
+pub fn scilab_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let scilab_lexer_info : @lexer.LexerInfo
+
+pub fn scss_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let scss_lexer_info : @lexer.LexerInfo
+
+pub fn sed_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sed_lexer_info : @lexer.LexerInfo
+
+pub fn sh_ex_c_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sh_ex_c_lexer_info : @lexer.LexerInfo
+
+pub fn shen_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let shen_lexer_info : @lexer.LexerInfo
+
+pub fn sieve_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sieve_lexer_info : @lexer.LexerInfo
+
+pub fn silver_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let silver_lexer_info : @lexer.LexerInfo
+
+pub fn singularity_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let singularity_lexer_info : @lexer.LexerInfo
+
+pub fn slash_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let slash_lexer_info : @lexer.LexerInfo
+
+pub fn slim_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let slim_lexer_info : @lexer.LexerInfo
+
+pub fn slurm_bash_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let slurm_bash_lexer_info : @lexer.LexerInfo
+
+pub fn smali_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let smali_lexer_info : @lexer.LexerInfo
+
+pub fn smalltalk_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let smalltalk_lexer_info : @lexer.LexerInfo
+
+pub fn smart_game_format_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let smart_game_format_lexer_info : @lexer.LexerInfo
+
+pub fn smarty_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let smarty_lexer_info : @lexer.LexerInfo
+
+pub fn smithy_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let smithy_lexer_info : @lexer.LexerInfo
+
+pub fn sml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sml_lexer_info : @lexer.LexerInfo
+
+pub fn snbt_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let snbt_lexer_info : @lexer.LexerInfo
+
+pub fn snobol_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let snobol_lexer_info : @lexer.LexerInfo
+
+pub fn snowball_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let snowball_lexer_info : @lexer.LexerInfo
+
+pub fn solidity_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let solidity_lexer_info : @lexer.LexerInfo
+
+pub fn soong_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let soong_lexer_info : @lexer.LexerInfo
+
+pub fn sophia_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sophia_lexer_info : @lexer.LexerInfo
+
+pub fn source_pawn_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let source_pawn_lexer_info : @lexer.LexerInfo
+
+pub fn sources_list_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sources_list_lexer_info : @lexer.LexerInfo
+
+pub fn sparql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sparql_lexer_info : @lexer.LexerInfo
+
+pub fn spice_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let spice_lexer_info : @lexer.LexerInfo
+
+pub fn splitlines(String) -> Array[String]
+
+pub fn sql_jinja_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sql_jinja_lexer_info : @lexer.LexerInfo
+
+pub fn sql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sql_lexer_info : @lexer.LexerInfo
+
+pub fn sqlite_console_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let sqlite_console_lexer_info : @lexer.LexerInfo
+
+pub fn squid_conf_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let squid_conf_lexer_info : @lexer.LexerInfo
+
+pub fn srcinfo_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let srcinfo_lexer_info : @lexer.LexerInfo
+
+pub fn ssp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ssp_lexer_info : @lexer.LexerInfo
+
+pub fn stan_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let stan_lexer_info : @lexer.LexerInfo
+
+pub fn stata_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let stata_lexer_info : @lexer.LexerInfo
+
+pub fn super_collider_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let super_collider_lexer_info : @lexer.LexerInfo
+
+pub fn swift_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let swift_lexer_info : @lexer.LexerInfo
+
+pub fn swig_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let swig_lexer_info : @lexer.LexerInfo
+
+pub fn system_verilog_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let system_verilog_lexer_info : @lexer.LexerInfo
+
+pub fn systemd_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let systemd_lexer_info : @lexer.LexerInfo
+
+pub fn table_gen_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let table_gen_lexer_info : @lexer.LexerInfo
+
+pub fn tact_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tact_lexer_info : @lexer.LexerInfo
+
+pub fn tads3_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tads3_lexer_info : @lexer.LexerInfo
+
+pub fn tal_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tal_lexer_info : @lexer.LexerInfo
+
+pub fn tap_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tap_lexer_info : @lexer.LexerInfo
+
+pub fn tasm_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tasm_lexer_info : @lexer.LexerInfo
+
+pub fn tcl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tcl_lexer_info : @lexer.LexerInfo
+
+pub fn tcsh_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tcsh_lexer_info : @lexer.LexerInfo
+
+pub fn tcsh_session_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tcsh_session_lexer_info : @lexer.LexerInfo
+
+pub fn tea_template_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tea_template_lexer_info : @lexer.LexerInfo
+
+pub fn teal_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let teal_lexer_info : @lexer.LexerInfo
+
+pub fn tera_term_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tera_term_lexer_info : @lexer.LexerInfo
+
+pub fn termcap_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let termcap_lexer_info : @lexer.LexerInfo
+
+pub fn terminfo_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let terminfo_lexer_info : @lexer.LexerInfo
+
+pub fn terraform_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let terraform_lexer_info : @lexer.LexerInfo
+
+pub fn tex_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tex_lexer_info : @lexer.LexerInfo
+
+pub fn text_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let text_lexer_info : @lexer.LexerInfo
+
+pub fn things_db_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let things_db_lexer_info : @lexer.LexerInfo
+
+pub fn thrift_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let thrift_lexer_info : @lexer.LexerInfo
+
+pub fn tiddly_wiki5_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tiddly_wiki5_lexer_info : @lexer.LexerInfo
+
+pub fn tlb_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tlb_lexer_info : @lexer.LexerInfo
+
+pub fn tls_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tls_lexer_info : @lexer.LexerInfo
+
+pub fn tnt_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tnt_lexer_info : @lexer.LexerInfo
+
+pub fn todotxt_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let todotxt_lexer_info : @lexer.LexerInfo
+
+pub fn toml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let toml_lexer_info : @lexer.LexerInfo
+
+pub fn transact_sql_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let transact_sql_lexer_info : @lexer.LexerInfo
+
+pub fn treetop_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let treetop_lexer_info : @lexer.LexerInfo
+
+pub fn tsx_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let tsx_lexer_info : @lexer.LexerInfo
+
+pub fn turtle_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let turtle_lexer_info : @lexer.LexerInfo
+
+pub fn twig_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let twig_html_lexer_info : @lexer.LexerInfo
+
+pub fn twig_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let twig_lexer_info : @lexer.LexerInfo
+
+pub fn type_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let type_script_lexer_info : @lexer.LexerInfo
+
+pub fn typo_script_css_data_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let typo_script_css_data_lexer_info : @lexer.LexerInfo
+
+pub fn typo_script_html_data_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let typo_script_html_data_lexer_info : @lexer.LexerInfo
+
+pub fn typo_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let typo_script_lexer_info : @lexer.LexerInfo
+
+pub fn typst_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let typst_lexer_info : @lexer.LexerInfo
+
+pub fn ucode_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ucode_lexer_info : @lexer.LexerInfo
+
+pub fn ul4_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let ul4_lexer_info : @lexer.LexerInfo
+
+pub fn unicon_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let unicon_lexer_info : @lexer.LexerInfo
+
+pub fn unix_config_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let unix_config_lexer_info : @lexer.LexerInfo
+
+pub fn urbiscript_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let urbiscript_lexer_info : @lexer.LexerInfo
+
+pub fn url_encoded_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let url_encoded_lexer_info : @lexer.LexerInfo
+
+pub fn usd_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let usd_lexer_info : @lexer.LexerInfo
+
+pub fn vala_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vala_lexer_info : @lexer.LexerInfo
+
+pub fn vb_net_aspx_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vb_net_aspx_lexer_info : @lexer.LexerInfo
+
+pub fn vb_net_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vb_net_lexer_info : @lexer.LexerInfo
+
+pub fn vb_script_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vb_script_lexer_info : @lexer.LexerInfo
+
+pub fn vc_tree_status_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vc_tree_status_lexer_info : @lexer.LexerInfo
+
+pub fn vcl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vcl_lexer_info : @lexer.LexerInfo
+
+pub fn vcl_snippet_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vcl_snippet_lexer_info : @lexer.LexerInfo
+
+pub fn velocity_html_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let velocity_html_lexer_info : @lexer.LexerInfo
+
+pub fn velocity_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let velocity_lexer_info : @lexer.LexerInfo
+
+pub fn velocity_xml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let velocity_xml_lexer_info : @lexer.LexerInfo
+
+pub fn verifpal_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let verifpal_lexer_info : @lexer.LexerInfo
+
+pub fn verilog_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let verilog_lexer_info : @lexer.LexerInfo
+
+pub fn vgl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vgl_lexer_info : @lexer.LexerInfo
+
+pub fn vhdl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vhdl_lexer_info : @lexer.LexerInfo
+
+pub fn vim_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vim_lexer_info : @lexer.LexerInfo
+
+pub fn visual_prolog_grammar_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let visual_prolog_grammar_lexer_info : @lexer.LexerInfo
+
+pub fn visual_prolog_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let visual_prolog_lexer_info : @lexer.LexerInfo
+
+pub fn vue_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vue_lexer_info : @lexer.LexerInfo
+
+pub fn vyper_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let vyper_lexer_info : @lexer.LexerInfo
+
+pub fn w_diff_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let w_diff_lexer_info : @lexer.LexerInfo
+
+pub fn wat_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let wat_lexer_info : @lexer.LexerInfo
+
+pub fn web_idl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let web_idl_lexer_info : @lexer.LexerInfo
+
+pub fn wgsl_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let wgsl_lexer_info : @lexer.LexerInfo
+
+pub fn whiley_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let whiley_lexer_info : @lexer.LexerInfo
+
+pub fn wikitext_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let wikitext_lexer_info : @lexer.LexerInfo
+
+pub fn wo_w_toc_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let wo_w_toc_lexer_info : @lexer.LexerInfo
+
+pub fn wren_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let wren_lexer_info : @lexer.LexerInfo
+
+pub fn x10_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let x10_lexer_info : @lexer.LexerInfo
+
+pub fn x_query_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let x_query_lexer_info : @lexer.LexerInfo
+
+pub fn xml_django_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xml_django_lexer_info : @lexer.LexerInfo
+
+pub fn xml_erb_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xml_erb_lexer_info : @lexer.LexerInfo
+
+pub fn xml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xml_lexer_info : @lexer.LexerInfo
+
+pub fn xml_php_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xml_php_lexer_info : @lexer.LexerInfo
+
+pub fn xml_smarty_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xml_smarty_lexer_info : @lexer.LexerInfo
+
+pub fn xmlul4_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xmlul4_lexer_info : @lexer.LexerInfo
+
+pub fn xorg_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xorg_lexer_info : @lexer.LexerInfo
+
+pub fn xpp_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xpp_lexer_info : @lexer.LexerInfo
+
+pub fn xslt_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xslt_lexer_info : @lexer.LexerInfo
+
+pub fn xtend_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xtend_lexer_info : @lexer.LexerInfo
+
+pub fn xtlang_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let xtlang_lexer_info : @lexer.LexerInfo
+
+pub fn yaml_jinja_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let yaml_jinja_lexer_info : @lexer.LexerInfo
+
+pub fn yaml_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let yaml_lexer_info : @lexer.LexerInfo
+
+pub fn yang_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let yang_lexer_info : @lexer.LexerInfo
+
+pub fn yara_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let yara_lexer_info : @lexer.LexerInfo
+
+pub fn zeek_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let zeek_lexer_info : @lexer.LexerInfo
+
+pub fn zephir_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let zephir_lexer_info : @lexer.LexerInfo
+
+pub fn zig_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
+
+pub let zig_lexer_info : @lexer.LexerInfo
+
+// Errors
+pub suberror ClassNotFound {
+  ClassNotFound(String)
+} derive(@debug.Debug)
+
+// Types and methods
+
+// Type aliases
+
+// Traits

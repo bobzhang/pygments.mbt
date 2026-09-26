@@ -351,3 +351,10 @@ pub fn Match::named(self : Match, name : String) -> String? {
 pub fn Match::name_index(self : Match, name : String) -> Int? {
   self.names.get(name)
 }
+
+///|
+/// A match object covering `text[start:end]` with no groups (Python's
+/// `_PseudoMatch`, used when a callback is applied to a sub-group).
+pub fn Match::from_span(text : String, start : Int, end : Int) -> Match {
+  { text, caps: [start, end], names: {}, }
+}
