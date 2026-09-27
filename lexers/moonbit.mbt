@@ -24,14 +24,21 @@ let mbt_block_sep_re : @regex.Regex = @lexer.re(
 )
 
 ///|
-/// Weaker evidence: each hit adds its weight.
+/// Weaker evidence: each hit adds its weight. A single weak hint is not
+/// enough (see `moon_bit_lexer_analyse`): `@app.route(` decorators (Python),
+/// `test "..." do` (Ruby) and `#| ... |#` comments (Lisp) each match one.
 let mbt_evidence : Array[(@regex.Regex, Double)] = [
-  (@lexer.re("^(pub )?(async )?fn main \\{", flags=@regex.MULTILINE), 0.3),
+  // `fn main {` without parentheses (Rust and Go have `main()`)
+  (@lexer.re("^(pub )?(async )?fn main \\{", flags=@regex.MULTILINE), 0.4),
   (
     @lexer.re("\\bpub\\((all|open|readonly)\\) (struct|enum|trait|type)\\b"),
-    0.3,
+    0.4,
   ),
-  (@lexer.re("@[a-z][a-z0-9_]*(/[a-z0-9_]+)*\\.[a-z_][a-z0-9_]*\\("), 0.2),
+  // `@pkg.fn(` inside an expression, not a line-leading decorator
+  (
+    @lexer.re("[(=,:] ?@[a-z][a-z0-9_]*(/[a-z0-9_]+)*\\.[a-z_][a-z0-9_]*\\("),
+    0.2,
+  ),
   (@lexer.re("^\\s*#\\|", flags=@regex.MULTILINE), 0.2),
   (@lexer.re("\\} derive\\("), 0.2),
   (@lexer.re("-> Unit\\b|\\braise\\s*\\{|\\bnoraise\\b"), 0.2),
@@ -40,7 +47,8 @@ let mbt_evidence : Array[(@regex.Regex, Double)] = [
 
 ///|
 /// `analyse_text` for MoonBit: `///|` block separators on their own line
-/// are nearly unique to MoonBit; other hints add up, capped below 1.0.
+/// are nearly unique to MoonBit (0.9); otherwise hints add up, counting only
+/// from 0.4 (two weak hints or one strong one) and capped at 0.8.
 fn moon_bit_lexer_analyse(text : String) -> Double {
   if @lexer.search(mbt_block_sep_re, text) {
     return 0.9
@@ -51,7 +59,9 @@ fn moon_bit_lexer_analyse(text : String) -> Double {
       score += e.1
     }
   }
-  if score > 0.8 {
+  if score < 0.4 {
+    0.0
+  } else if score > 0.8 {
     0.8
   } else {
     score

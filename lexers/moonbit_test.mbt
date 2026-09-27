@@ -136,4 +136,17 @@ test "moonbit content detection" {
     #|}
     #|
   inspect((@lexers.moon_bit_lexer_info.analyse_text)(rust), content="0")
+  // a single weak hint is not enough
+  let python =
+    #|@app.route("/")
+    #|def index():
+    #|    return render(x)
+    #|
+  inspect((@lexers.moon_bit_lexer_info.analyse_text)(python), content="0")
+  let rails =
+    #|test "creates a user" do
+    #|  assert User.create
+    #|end
+    #|
+  inspect((@lexers.moon_bit_lexer_info.analyse_text)(rails), content="0")
 }
