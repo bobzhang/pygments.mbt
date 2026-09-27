@@ -13,8 +13,49 @@ pub let moon_bit_lexer_info : @lexer.LexerInfo = {
   priority: 0.0,
   url: "https://www.moonbitlang.com",
   version_added: "",
-  analyse_text: @lexer.no_analyse,
+  analyse_text: moon_bit_lexer_analyse,
   doc: "\n    For MoonBit source code (`.mbt`, `.mbti`, `.mbtx`).\n\n    Not part of upstream Pygments; provided by the MoonBit port.\n    ",
+}
+
+///|
+let mbt_block_sep_re : @regex.Regex = @lexer.re(
+  "^///\\|[ \\t]*$",
+  flags=@regex.MULTILINE,
+)
+
+///|
+/// Weaker evidence: each hit adds its weight.
+let mbt_evidence : Array[(@regex.Regex, Double)] = [
+  (@lexer.re("^(pub )?(async )?fn main \\{", flags=@regex.MULTILINE), 0.3),
+  (
+    @lexer.re("\\bpub\\((all|open|readonly)\\) (struct|enum|trait|type)\\b"),
+    0.3,
+  ),
+  (@lexer.re("@[a-z][a-z0-9_]*(/[a-z0-9_]+)*\\.[a-z_][a-z0-9_]*\\("), 0.2),
+  (@lexer.re("^\\s*#\\|", flags=@regex.MULTILINE), 0.2),
+  (@lexer.re("\\} derive\\("), 0.2),
+  (@lexer.re("-> Unit\\b|\\braise\\s*\\{|\\bnoraise\\b"), 0.2),
+  (@lexer.re("^test \"", flags=@regex.MULTILINE), 0.2),
+]
+
+///|
+/// `analyse_text` for MoonBit: `///|` block separators on their own line
+/// are nearly unique to MoonBit; other hints add up, capped below 1.0.
+fn moon_bit_lexer_analyse(text : String) -> Double {
+  if @lexer.search(mbt_block_sep_re, text) {
+    return 0.9
+  }
+  let mut score = 0.0
+  for e in mbt_evidence {
+    if @lexer.search(e.0, text) {
+      score += e.1
+    }
+  }
+  if score > 0.8 {
+    0.8
+  } else {
+    score
+  }
 }
 
 ///|
