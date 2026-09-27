@@ -113,3 +113,27 @@ test "moonbit lexer" {
   )
   inspect(@lexers.get_lexer_for_filename("main.mbt").name(), content="MoonBit")
 }
+
+///|
+test "moonbit content detection" {
+  let src =
+    #|///|
+    #|fn main {
+    #|  println("hi")
+    #|}
+    #|
+  inspect(@lexers.guess_lexer(src).name(), content="MoonBit")
+  let hints =
+    #|fn main {
+    #|  println(@json.stringify(1))
+    #|}
+    #|
+  inspect(@lexers.guess_lexer(hints).name(), content="MoonBit")
+  // Rust is not mistaken for MoonBit
+  let rust =
+    #|fn main() {
+    #|    println!("hi");
+    #|}
+    #|
+  inspect((@lexers.moon_bit_lexer_info.analyse_text)(rust), content="0")
+}

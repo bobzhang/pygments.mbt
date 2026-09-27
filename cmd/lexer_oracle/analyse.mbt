@@ -27,6 +27,10 @@ async fn run_analyse(path : String, only : String?, quiet : Bool) -> Unit {
         Some(c) if c != info.class_name => continue
         _ => ()
       }
+      // lexers that exist only in the MoonBit port have no Python score
+      if info.class_name == "MoonBitLexer" {
+        continue
+      }
       let want = match scores.get(info.class_name) {
         Some(Number(x, ..)) => x
         _ => 0.0
