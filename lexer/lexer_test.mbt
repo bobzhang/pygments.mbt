@@ -68,3 +68,64 @@ test "shebang and doctype helpers" {
   )
   inspect(@lexer.looks_like_xml("<?xml version=\"1.0\"?><a/>"), content="true")
 }
+
+///|
+/// A one-rule lexer: `a` is `Text`.
+fn tiny_lexer(extended : Bool) -> (@lexer.Lexer, @lexer.RegexDef) raise {
+  let def = @lexer.RegexDef::new(
+    "Tiny",
+    ["root"],
+    [@lexer.Rule::new("a", 0, Emit(@token.text), None)],
+    [[0]],
+    extended~,
+  )
+  let info : @lexer.LexerInfo = {
+    class_name: "TinyLexer",
+    name: "Tiny",
+    aliases: [],
+    filenames: [],
+    alias_filenames: [],
+    mimetypes: [],
+    priority: 0.0,
+    url: "",
+    version_added: "",
+    analyse_text: @lexer.no_analyse,
+    doc: "",
+  }
+  fn make(opts : @lexer.Options) -> @lexer.Lexer raise {
+    @lexer.Lexer::new(info, opts, make, (lx, text, stack) => {
+      @lexer.run_regex(lx, def, text, stack)
+    })
+  }
+
+  (make(Map([])), def)
+}
+
+///|
+fn run_ctx(ctx : @lexer.Ctx) -> String raise {
+  @lexer.run_context(ctx)
+  ctx.out.map(t => "\{t.index}:\{t.ttype}:\{t.value.escape()}").join(" ")
+}
+
+///|
+test "context positions are clamped like Python (pos < 0, end > len)" {
+  for extended in [true, false] {
+    let (lx, def) = tiny_lexer(extended)
+    // Python: [(-1, Text, 'a')]
+    inspect(
+      run_ctx(@lexer.Ctx::new(lx, def, "a", pos=-1)),
+      content="-1:Token.Text:\"a\"",
+    )
+  }
+  let (lx, def) = tiny_lexer(true)
+  // `end` beyond the text: the loop stops at the end of the text
+  inspect(
+    run_ctx(@lexer.Ctx::new(lx, def, "ab", end=10)),
+    content="0:Token.Text:\"a\" 1:Token.Error:\"b\"",
+  )
+  // no rule matches at a negative position: Python reads text[-1]
+  inspect(
+    run_ctx(@lexer.Ctx::new(lx, def, "xb", pos=-1)),
+    content="-1:Token.Error:\"b\" 0:Token.Error:\"x\" 1:Token.Error:\"b\"",
+  )
+}

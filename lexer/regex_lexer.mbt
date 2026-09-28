@@ -91,8 +91,69 @@ pub struct RegexDef {
   state_names : Array[String]
   priv state_index : Map[String, Int]
   priv states : Array[Array[Rule]]
+  /// per state, the rules that can match at a position, indexed by the code
+  /// unit there (0-127 ASCII, 128 other, 129 end of input); built lazily
+  priv dispatch : Array[FixedArray[FixedArray[Rule]]?]
   /// `ExtendedRegexLexer` semantics (callbacks own `ctx.pos`)
   extended : Bool
+}
+
+///|
+/// The dispatch table of state `i` (see `RegexDef::dispatch`).
+fn RegexDef::table(
+  self : RegexDef,
+  i : Int,
+) -> FixedArray[FixedArray[Rule]] raise {
+  match self.dispatch[i] {
+    Some(t) => t
+    None => {
+      let rules = self.states[i]
+      let regexes = rules.map(r => r.compiled())
+      let t : FixedArray[FixedArray[Rule]] = FixedArray::make(130, [])
+      for cls in 0..<130 {
+        let c = if cls == 129 { -1 } else { cls }
+        let bucket = []
+        for k, r in rules {
+          if regexes[k].may_start_with(c) {
+            bucket.push(r)
+          }
+        }
+        t[cls] = FixedArray::from_array(bucket)
+      }
+      self.dispatch[i] = Some(t)
+      t
+    }
+  }
+}
+
+///|
+/// The dispatch class of `pos` in `text` (see `RegexDef::dispatch`).
+fn dispatch_class(text : String, pos : Int, end : Int) -> Int {
+  // clamp like the regex layer (and Python's `pattern.match(text, pos, end)`)
+  let p = if pos < 0 { 0 } else { pos }
+  let e = if end > text.length() { text.length() } else { end }
+  if p >= e {
+    129
+  } else {
+    let c = text.unsafe_get(p).to_int()
+    if c < 128 {
+      c
+    } else {
+      128
+    }
+  }
+}
+
+///|
+/// Python's `text[pos]` index: negative positions count from the end;
+/// -1 when out of range (Python raises `IndexError`, ending the loop).
+fn py_index(text : String, pos : Int) -> Int {
+  let i = if pos < 0 { text.length() + pos } else { pos }
+  if i < 0 || i >= text.length() {
+    -1
+  } else {
+    i
+  }
 }
 
 ///|
@@ -128,7 +189,14 @@ pub fn RegexDef::new(
         )
     }
   }
-  { name, state_names, state_index, states: resolved, extended, }
+  {
+    name,
+    state_names,
+    state_index,
+    states: resolved,
+    dispatch: Array::make(state_names.length(), None),
+    extended,
+  }
 }
 
 ///|
@@ -407,48 +475,62 @@ pub fn Ctx::new(
 fn run_simple(ctx : Ctx) -> Unit raise {
   let def = ctx.def
   let text = ctx.text
+  let len = text.length()
   let budget = budget()
   let root = def.state("root")
-  let mut rules = def.states[ctx.stack[ctx.stack.length() - 1]]
+  let mut table = def.table(ctx.stack[ctx.stack.length() - 1])
   while true {
     let mut matched = false
-    for rule in rules {
-      match rule.compiled().match_at(text, ctx.pos, budget~) {
-        None => ()
-        Some(m) => {
-          match rule.action {
-            Nop => ()
-            Emit(t) => ctx.emit(ctx.pos, t, m.matched())
-            a => ctx.apply(a, m)
+    let pos = ctx.pos
+    for rule in table[dispatch_class(text, pos, len)] {
+      let re = rule.compiled()
+      match rule.action {
+        // whole-match actions need no groups: skip the `Match` allocation
+        Nop | Emit(_) => {
+          let end = re.match_end(text, pos, budget~)
+          if end < 0 {
+            continue
           }
-          ctx.pos = m.end()
-          if rule.transition is Some(_) {
-            ctx.transition(rule.ops)
-            rules = def.states[ctx.stack[ctx.stack.length() - 1]]
+          if rule.action is Emit(t) {
+            ctx.emit(
+              pos,
+              t,
+              text.unsafe_substring(start=@cmp.maximum(pos, 0), end~),
+            )
           }
-          matched = true
-          break
+          ctx.pos = end
         }
+        a =>
+          match re.match_at(text, pos, budget~) {
+            None => continue
+            Some(m) => {
+              ctx.apply(a, m)
+              ctx.pos = m.end()
+            }
+          }
       }
+      if rule.transition is Some(_) {
+        ctx.transition(rule.ops)
+        table = def.table(ctx.stack[ctx.stack.length() - 1])
+      }
+      matched = true
+      break
     }
     if !matched {
-      if ctx.pos >= text.length() {
+      let i = py_index(text, ctx.pos)
+      if i < 0 {
         break
       }
-      if text.unsafe_get(ctx.pos) == '\n' {
+      if text.unsafe_get(i) == '\n' {
         ctx.stack.clear()
         ctx.stack.push(root)
-        rules = def.states[root]
+        table = def.table(root)
         ctx.emit(ctx.pos, @token.whitespace, "\n")
         ctx.pos += 1
         continue
       }
-      let w = code_point_width(text, ctx.pos)
-      ctx.emit(
-        ctx.pos,
-        @token.error,
-        text.unsafe_substring(start=ctx.pos, end=ctx.pos + w),
-      )
+      let w = code_point_width(text, i)
+      ctx.emit(ctx.pos, @token.error, text.unsafe_substring(start=i, end=i + w))
       ctx.pos += w
     }
   }
@@ -460,53 +542,66 @@ fn run_extended(ctx : Ctx) -> Unit raise {
   let text = ctx.text
   let budget = budget()
   let root = def.state("root")
-  let mut rules = def.states[ctx.stack[ctx.stack.length() - 1]]
+  let mut table = def.table(ctx.stack[ctx.stack.length() - 1])
   while true {
     let mut matched = false
-    for rule in rules {
-      match rule.compiled().match_at(text, ctx.pos, endpos=ctx.end, budget~) {
-        None => ()
-        Some(m) => {
-          match rule.action {
-            Nop => ()
-            Emit(t) => {
-              ctx.emit(ctx.pos, t, m.matched())
-              ctx.pos = m.end()
-            }
-            a => {
+    let pos = ctx.pos
+    for rule in table[dispatch_class(text, pos, ctx.end)] {
+      let re = rule.compiled()
+      match rule.action {
+        // like Python: with no action the position does not move
+        Nop =>
+          if re.match_end(text, pos, endpos=ctx.end, budget~) < 0 {
+            continue
+          }
+        Emit(t) => {
+          let end = re.match_end(text, pos, endpos=ctx.end, budget~)
+          if end < 0 {
+            continue
+          }
+          ctx.emit(
+            pos,
+            t,
+            text.unsafe_substring(start=@cmp.maximum(pos, 0), end~),
+          )
+          ctx.pos = end
+        }
+        a =>
+          match re.match_at(text, pos, endpos=ctx.end, budget~) {
+            None => continue
+            Some(m) => {
               ctx.apply(a, m)
               if rule.transition is None {
-                rules = def.states[ctx.stack[ctx.stack.length() - 1]]
+                table = def.table(ctx.stack[ctx.stack.length() - 1])
               }
             }
           }
-          if rule.transition is Some(_) {
-            ctx.transition(rule.ops)
-            rules = def.states[ctx.stack[ctx.stack.length() - 1]]
-          }
-          matched = true
-          break
-        }
       }
+      if rule.transition is Some(_) {
+        ctx.transition(rule.ops)
+        table = def.table(ctx.stack[ctx.stack.length() - 1])
+      }
+      matched = true
+      break
     }
     if !matched {
       if ctx.pos >= ctx.end {
         break
       }
-      if text.unsafe_get(ctx.pos) == '\n' {
+      let i = py_index(text, ctx.pos)
+      if i < 0 {
+        break
+      }
+      if text.unsafe_get(i) == '\n' {
         ctx.stack.clear()
         ctx.stack.push(root)
-        rules = def.states[root]
+        table = def.table(root)
         ctx.emit(ctx.pos, @token.text, "\n")
         ctx.pos += 1
         continue
       }
-      let w = code_point_width(text, ctx.pos)
-      ctx.emit(
-        ctx.pos,
-        @token.error,
-        text.unsafe_substring(start=ctx.pos, end=ctx.pos + w),
-      )
+      let w = code_point_width(text, i)
+      ctx.emit(ctx.pos, @token.error, text.unsafe_substring(start=i, end=i + w))
       ctx.pos += w
     }
   }

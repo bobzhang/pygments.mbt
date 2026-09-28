@@ -290,12 +290,21 @@ fn terminal256_impl(
         }
       }
       match found {
+        // fast path: most tokens contain no newline
+        Some((on, off)) if !value.contains("\n") =>
+          if value != "" {
+            buf.write_string(on)
+            buf.write_string(value)
+            buf.write_string(off)
+          }
         Some((on, off)) => {
           let spl = @pystr.split(value, "\n")
           for i in 0..<(spl.length() - 1) {
             let line = spl[i]
             if line != "" {
-              buf.write_string(on + line + off)
+              buf.write_string(on)
+              buf.write_string(line)
+              buf.write_string(off)
             }
             if linenos {
               write_lineno(buf)
@@ -305,7 +314,9 @@ fn terminal256_impl(
           }
           let last = spl[spl.length() - 1]
           if last != "" {
-            buf.write_string(on + last + off)
+            buf.write_string(on)
+            buf.write_string(last)
+            buf.write_string(off)
           }
         }
         None => buf.write_string(value)

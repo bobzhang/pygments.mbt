@@ -53,7 +53,8 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
     end: 0,
     caps: FixedArray::make((ngroups + 1) * 2, -1),
     regs: FixedArray::make(c.nregs, -1),
-    stack: [],
+    stack: FixedArray::make(64, 0),
+    sp: 0,
     steps: 0,
     bt_pc: 0,
     bt_pos: 0,
@@ -110,6 +111,45 @@ fn clamp_range(text : String, pos : Int, endpos : Int?) -> (Int, Int) {
 }
 
 ///|
+/// Runs one match attempt at `pos`, charging `budget`. Returns the end of
+/// the match or -1; on success the groups are left in the VM.
+fn Regex::exec_end(
+  self : Regex,
+  text : String,
+  pos : Int,
+  end : Int,
+  budget : Budget,
+  must_advance~ : Bool,
+  full~ : Bool,
+) -> Int raise RegexError {
+  let vm = self.vm
+  vm.text = text
+  vm.end = end
+  vm.start = pos
+  vm.must_advance = must_advance
+  vm.full = full
+  if vm.caps.length() > 2 {
+    vm.caps.fill(-1)
+  }
+  if vm.regs.length() > 0 {
+    vm.regs.fill(-1)
+  }
+  vm.sp = 0
+  vm.steps = budget.remaining
+  errdefer {
+    // leave the shared VM clean before propagating
+    vm.text = ""
+    vm.sp = 0
+    budget.remaining = 0
+  }
+  let r = vm.run(0, pos)
+  budget.remaining = vm.steps
+  // do not keep the input alive through the cached VM
+  vm.text = ""
+  r
+}
+
+///|
 /// Runs one match attempt at `pos`, charging `budget`.
 fn Regex::exec(
   self : Regex,
@@ -120,29 +160,11 @@ fn Regex::exec(
   must_advance~ : Bool,
   full~ : Bool,
 ) -> Match? raise RegexError {
-  let vm = self.vm
-  vm.text = text
-  vm.end = end
-  vm.start = pos
-  vm.must_advance = must_advance
-  vm.full = full
-  vm.caps.fill(-1)
-  vm.regs.fill(-1)
-  vm.stack.clear()
-  vm.steps = budget.remaining
-  errdefer {
-    // leave the shared VM clean before propagating
-    vm.text = ""
-    vm.stack.clear()
-    budget.remaining = 0
-  }
-  let r = vm.run(0, pos)
-  budget.remaining = vm.steps
-  vm.text = ""
-  vm.stack.clear()
+  let r = self.exec_end(text, pos, end, budget, must_advance~, full~)
   if r < 0 {
     None
   } else {
+    let vm = self.vm
     let caps = FixedArray::make(vm.caps.length(), -1)
     for i in 2..<caps.length() {
       caps[i] = vm.caps[i]
@@ -150,6 +172,43 @@ fn Regex::exec(
     caps[0] = pos
     caps[1] = r
     Some({ text, caps, names: self.names, })
+  }
+}
+
+///|
+/// Like `match_at`, but returns only the end offset of the match (or -1)
+/// without allocating a `Match`: for callers that need the whole-match span
+/// only. The prefilter is not applied (see `may_start_with`).
+pub fn Regex::match_end(
+  self : Regex,
+  text : String,
+  pos : Int,
+  endpos? : Int,
+  budget? : Budget,
+) -> Int raise RegexError {
+  let (pos, end) = clamp_range(text, pos, endpos)
+  if pos > end {
+    return -1
+  }
+  let budget = budget.unwrap_or(Budget::new(default_steps))
+  self.exec_end(text, pos, end, budget, must_advance=false, full=false)
+}
+
+///|
+/// Whether a match can start at a position whose UTF-16 code unit is `c`
+/// (`-1`: the end of the input). Conservative: `true` may still fail to
+/// match, `false` never matches.
+pub fn Regex::may_start_with(self : Regex, c : Int) -> Bool {
+  if self.nullable {
+    true
+  } else if c < 0 {
+    false
+  } else if c < 64 {
+    ((self.first.lo >> c) & 1) != 0
+  } else if c < 128 {
+    ((self.first.hi >> (c - 64)) & 1) != 0
+  } else {
+    self.first.non_ascii
   }
 }
 
