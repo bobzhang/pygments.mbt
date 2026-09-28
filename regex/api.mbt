@@ -144,6 +144,8 @@ fn Regex::exec_end(
   }
   let r = vm.run(0, pos)
   budget.remaining = vm.steps
+  // do not keep the input alive through the cached VM
+  vm.text = ""
   r
 }
 
