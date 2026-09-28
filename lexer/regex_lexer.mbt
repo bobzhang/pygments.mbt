@@ -129,15 +129,30 @@ fn RegexDef::table(
 ///|
 /// The dispatch class of `pos` in `text` (see `RegexDef::dispatch`).
 fn dispatch_class(text : String, pos : Int, end : Int) -> Int {
-  if pos >= end {
+  // clamp like the regex layer (and Python's `pattern.match(text, pos, end)`)
+  let p = if pos < 0 { 0 } else { pos }
+  let e = if end > text.length() { text.length() } else { end }
+  if p >= e {
     129
   } else {
-    let c = text.unsafe_get(pos).to_int()
+    let c = text.unsafe_get(p).to_int()
     if c < 128 {
       c
     } else {
       128
     }
+  }
+}
+
+///|
+/// Python's `text[pos]` index: negative positions count from the end;
+/// -1 when out of range (Python raises `IndexError`, ending the loop).
+fn py_index(text : String, pos : Int) -> Int {
+  let i = if pos < 0 { text.length() + pos } else { pos }
+  if i < 0 || i >= text.length() {
+    -1
+  } else {
+    i
   }
 }
 
@@ -477,7 +492,11 @@ fn run_simple(ctx : Ctx) -> Unit raise {
             continue
           }
           if rule.action is Emit(t) {
-            ctx.emit(pos, t, text.unsafe_substring(start=pos, end~))
+            ctx.emit(
+              pos,
+              t,
+              text.unsafe_substring(start=@cmp.maximum(pos, 0), end~),
+            )
           }
           ctx.pos = end
         }
@@ -498,10 +517,11 @@ fn run_simple(ctx : Ctx) -> Unit raise {
       break
     }
     if !matched {
-      if ctx.pos >= len {
+      let i = py_index(text, ctx.pos)
+      if i < 0 {
         break
       }
-      if text.unsafe_get(ctx.pos) == '\n' {
+      if text.unsafe_get(i) == '\n' {
         ctx.stack.clear()
         ctx.stack.push(root)
         table = def.table(root)
@@ -509,12 +529,8 @@ fn run_simple(ctx : Ctx) -> Unit raise {
         ctx.pos += 1
         continue
       }
-      let w = code_point_width(text, ctx.pos)
-      ctx.emit(
-        ctx.pos,
-        @token.error,
-        text.unsafe_substring(start=ctx.pos, end=ctx.pos + w),
-      )
+      let w = code_point_width(text, i)
+      ctx.emit(ctx.pos, @token.error, text.unsafe_substring(start=i, end=i + w))
       ctx.pos += w
     }
   }
@@ -543,7 +559,11 @@ fn run_extended(ctx : Ctx) -> Unit raise {
           if end < 0 {
             continue
           }
-          ctx.emit(pos, t, text.unsafe_substring(start=pos, end~))
+          ctx.emit(
+            pos,
+            t,
+            text.unsafe_substring(start=@cmp.maximum(pos, 0), end~),
+          )
           ctx.pos = end
         }
         a =>
@@ -568,7 +588,11 @@ fn run_extended(ctx : Ctx) -> Unit raise {
       if ctx.pos >= ctx.end {
         break
       }
-      if text.unsafe_get(ctx.pos) == '\n' {
+      let i = py_index(text, ctx.pos)
+      if i < 0 {
+        break
+      }
+      if text.unsafe_get(i) == '\n' {
         ctx.stack.clear()
         ctx.stack.push(root)
         table = def.table(root)
@@ -576,12 +600,8 @@ fn run_extended(ctx : Ctx) -> Unit raise {
         ctx.pos += 1
         continue
       }
-      let w = code_point_width(text, ctx.pos)
-      ctx.emit(
-        ctx.pos,
-        @token.error,
-        text.unsafe_substring(start=ctx.pos, end=ctx.pos + w),
-      )
+      let w = code_point_width(text, i)
+      ctx.emit(ctx.pos, @token.error, text.unsafe_substring(start=i, end=i + w))
       ctx.pos += w
     }
   }

@@ -2,6 +2,7 @@ import {
   "bobzhang/pygments/regex",
   "bobzhang/pygments/token",
   "moonbitlang/core/string",
+  "moonbitlang/core/cmp",
 }
 
 warnings = "-implicit_impl_as_method"
