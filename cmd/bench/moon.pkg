@@ -1,11 +1,12 @@
 import {
   "bobzhang/pygments/lexers",
+  "bobzhang/pygments/formatters",
   "moonbitlang/async",
   "moonbitlang/async/fs",
   "moonbitlang/core/env",
   "moonbitlang/core/string",
 }
 
-supported_targets = "native"
+supported_targets = "native+wasm"
 
 pkgtype(kind: "executable")

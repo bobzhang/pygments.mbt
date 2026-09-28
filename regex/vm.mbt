@@ -21,7 +21,9 @@ priv struct Vm {
   mut end : Int
   caps : FixedArray[Int]
   regs : FixedArray[Int]
-  stack : Array[Int]
+  mut stack : FixedArray[Int]
+  /// number of used slots of `stack`
+  mut sp : Int
   mut steps : Int
   mut bt_pc : Int
   mut bt_pos : Int
@@ -96,11 +98,35 @@ fn Vm::cp_before(self : Vm, pos : Int) -> Int {
 }
 
 ///|
-fn Vm::push(self : Vm, kind : Int, a : Int, b : Int, c : Int) -> Unit {
-  self.stack.push(kind)
-  self.stack.push(a)
-  self.stack.push(b)
-  self.stack.push(c)
+fn Vm::push(
+  self : Vm,
+  kind : Int,
+  a : Int,
+  b : Int,
+  c : Int,
+) -> Unit raise RegexError {
+  let sp = self.sp
+  if sp + 4 > self.stack.length() {
+    self.grow()
+  }
+  let st = self.stack
+  st.unsafe_set(sp, kind)
+  st.unsafe_set(sp + 1, a)
+  st.unsafe_set(sp + 2, b)
+  st.unsafe_set(sp + 3, c)
+  self.sp = sp + 4
+}
+
+///|
+/// Doubles the backtrack stack, failing beyond `MAX_STACK` slots.
+fn Vm::grow(self : Vm) -> Unit raise RegexError {
+  let n = self.stack.length() * 2
+  if n > MAX_STACK {
+    raise BudgetExceeded(pattern=self.pattern)
+  }
+  let bigger = FixedArray::make(n, 0)
+  bigger.unsafe_blit(0, self.stack, 0, self.sp)
+  self.stack = bigger
 }
 
 ///|
@@ -155,10 +181,18 @@ fn Vm::one(self : Vm, c : Int, set : CharSet?, pos : Int) -> Int {
 }
 
 ///|
-fn Vm::tick(self : Vm) -> Unit raise RegexError {
-  self.steps -= 1
-  if self.steps < 0 || self.stack.length() > MAX_STACK {
-    raise BudgetExceeded(pattern=self.pattern)
+/// Whether instruction `i` fails at `pos` before consuming anything.
+fn Vm::cannot_start(self : Vm, i : Inst, pos : Int) -> Bool {
+  match i {
+    Char(c) => pos >= self.end || self.cp_at(pos) != c
+    Set(s) => pos >= self.end || !s.contains(self.cp_at(pos))
+    RepChar(c, set, min, _, _) if min > 0 =>
+      pos >= self.end ||
+      (match set {
+        None => self.cp_at(pos) != c
+        Some(s) => !s.contains(self.cp_at(pos))
+      })
+    _ => false
   }
 }
 
@@ -175,25 +209,28 @@ fn Vm::charge(self : Vm, n : Int) -> Unit raise RegexError {
 /// Pops frames down to `base` until a resumable one is found. On success the
 /// resume point is stored in `bt_pc`/`bt_pos`.
 fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
-  let st = self.stack
-  while st.length() > base {
-    self.tick()
-    let top = st.length() - 4
+  while self.sp > base {
+    self.steps -= 1
+    if self.steps < 0 {
+      raise BudgetExceeded(pattern=self.pattern)
+    }
+    let st = self.stack
+    let top = self.sp - 4
     let kind = st[top]
     let a = st[top + 1]
     let b = st[top + 2]
     let c = st[top + 3]
     if kind == BT_ALT {
-      st.truncate(top)
+      self.sp = top
       self.bt_pc = a
       self.bt_pos = b
       return true
     } else if kind == BT_CAP {
       self.caps[a] = b
-      st.truncate(top)
+      self.sp = top
     } else if kind == BT_REG {
       self.regs[a] = b
-      st.truncate(top)
+      self.sp = top
     } else if kind == BT_GREEDY {
       // a = pc of RepChar, b = min_pos, c = current position
       let next_char = match self.prog[a + 1] {
@@ -208,12 +245,12 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
         }
         self.charge(from - p)
         if p == b && (p >= self.end || self.cp_at(p) != next_char) {
-          st.truncate(top)
+          self.sp = top
           continue
         }
       }
       if p <= b {
-        st.truncate(top)
+        self.sp = top
       } else {
         st[top + 3] = p
       }
@@ -225,11 +262,11 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
       guard self.prog[a] is RepChar(ch, set, _, max, _) else { panic() }
       let np = self.one(ch, set, c)
       if np < 0 {
-        st.truncate(top)
+        self.sp = top
         continue
       }
       if max >= 0 && b + 1 >= max {
-        st.truncate(top)
+        self.sp = top
       } else {
         st[top + 2] = b + 1
         st[top + 3] = np
@@ -248,7 +285,7 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
 fn Vm::commit(self : Vm, base : Int) -> Unit {
   let st = self.stack
   let mut w = base
-  for r = base; r < st.length(); r = r + 4 {
+  for r = base; r < self.sp; r = r + 4 {
     let kind = st[r]
     if kind == BT_CAP || kind == BT_REG {
       if w != r {
@@ -260,22 +297,22 @@ fn Vm::commit(self : Vm, base : Int) -> Unit {
       w += 4
     }
   }
-  st.truncate(w)
+  self.sp = w
 }
 
 ///|
 /// Undoes every frame above `base`.
 fn Vm::unwind(self : Vm, base : Int) -> Unit {
   let st = self.stack
-  while st.length() > base {
-    let top = st.length() - 4
+  while self.sp > base {
+    let top = self.sp - 4
     let kind = st[top]
     if kind == BT_CAP {
       self.caps[st[top + 1]] = st[top + 2]
     } else if kind == BT_REG {
       self.regs[st[top + 1]] = st[top + 2]
     }
-    st.truncate(top)
+    self.sp = top
   }
 }
 
@@ -283,12 +320,15 @@ fn Vm::unwind(self : Vm, base : Int) -> Unit {
 /// Runs the program from `start_pc` at `start_pos`. Returns the end position
 /// of the first successful path, or -1.
 fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
-  let base = self.stack.length()
+  let base = self.sp
   let prog = self.prog
   let mut pc = start_pc
   let mut pos = start_pos
   while true {
-    self.tick()
+    self.steps -= 1
+    if self.steps < 0 {
+      raise BudgetExceeded(pattern=self.pattern)
+    }
     let ok = match prog[pc] {
       Char(c) =>
         if pos < self.end {
@@ -317,8 +357,14 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           false
         }
       Split(x, y) => {
-        self.push(BT_ALT, y, pos, 0)
-        pc = x
+        // a first branch that cannot even start here fails immediately and
+        // without side effects: go straight to the second one
+        if self.cannot_start(prog[x], pos) {
+          pc = y
+        } else {
+          self.push(BT_ALT, y, pos, 0)
+          pc = x
+        }
         true
       }
       Jmp(x) => {
@@ -444,7 +490,7 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
         true
       }
       Look(behind, neg, width, body) => {
-        let sub_base = self.stack.length()
+        let sub_base = self.sp
         let mut start = pos
         let mut possible = true
         if behind {
@@ -484,7 +530,7 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
         }
       }
       Atomic(body) => {
-        let sub_base = self.stack.length()
+        let sub_base = self.sp
         let r = self.run(body, pos)
         if r >= 0 {
           self.commit(sub_base)

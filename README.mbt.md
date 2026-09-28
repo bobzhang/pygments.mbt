@@ -99,6 +99,17 @@ Not supported: `-x` (loading lexers/formatters from Python files) and the PIL
 image formatters (`img`, `gif`, `jpg`, `bmp`), which are listed but raise, as
 in Python without PIL.
 
+## Performance
+
+Best of 3 runs, lexing then formatting with `terminal256`, on an Apple M-series
+machine (`cmd/bench` vs `scripts/bench.py`, CPython 3.14):
+
+| Input | Python lex / format | native lex / format | wasm (`moonx`) lex / format |
+|---|---|---|---|
+| Python, 4.1 MB | 3361 / 550 ms | 253 / 54 ms (13× / 10×) | 715 / 102 ms (4.7× / 5.4×) |
+| C, 1.1 MB | 835 / 131 ms | 108 / 13 ms (7.7× / 10×) | 327 / 30 ms (2.6× / 4.4×) |
+| HTML, 1.4 MB | 470 / 239 ms | 81 / 17 ms (5.8× / 14×) | 224 / 44 ms (2.1× / 5.4×) |
+
 ## Layout
 
 | Package | Contents |
