@@ -162,10 +162,5 @@ test "CPython corner cases (codex review)" {
 ///|
 test "group_names" {
   let re = @regex.compile("(?P<b>x)(y)(?P<a>z)")
-  inspect(
-    re.group_names(),
-    content=(
-      #|[(b, 1), (a, 3)]
-    ),
-  )
+  assert_eq(re.group_names(), [("b", 1), ("a", 3)])
 }
