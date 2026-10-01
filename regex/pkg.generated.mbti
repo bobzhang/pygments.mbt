@@ -59,6 +59,7 @@ pub fn Regex::find_all(Self, String, budget? : Budget) -> Array[Match] raise Reg
 pub fn Regex::fullmatch(Self, String, pos? : Int, endpos? : Int, budget? : Budget) -> Match? raise RegexError
 pub fn Regex::group_count(Self) -> Int
 pub fn Regex::group_index(Self, String) -> Int?
+pub fn Regex::group_names(Self) -> Array[(String, Int)]
 pub fn Regex::match_at(Self, String, Int, endpos? : Int, budget? : Budget) -> Match? raise RegexError
 pub fn Regex::match_end(Self, String, Int, endpos? : Int, budget? : Budget) -> Int raise RegexError
 pub fn Regex::may_start_with(Self, Int) -> Bool

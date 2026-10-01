@@ -80,6 +80,15 @@ pub fn Regex::group_index(self : Regex, name : String) -> Int? {
 }
 
 ///|
+/// The named groups and their indices, ordered by index (the keys of
+/// Python's `pattern.groupindex` / `match.groupdict()`).
+pub fn Regex::group_names(self : Regex) -> Array[(String, Int)] {
+  let out = self.names.to_array()
+  out.sort_by_key(p => p.1)
+  out
+}
+
+///|
 /// Whether the prefilter rules out a match starting at `pos`.
 fn Regex::rejects(self : Regex, text : String, pos : Int, end : Int) -> Bool {
   if self.nullable {
