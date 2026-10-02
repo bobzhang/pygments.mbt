@@ -99,3 +99,26 @@ test "repetitions guarded by the characters that follow them" {
     assert_eq("\{Repr(got)}", expected)
   }
 }
+
+///|
+test "search skips starts inside a failed leading repetition" {
+  // expected values from CPython's re.finditer (UTF-16 offsets)
+  let cases : Array[(String, String, String)] = [
+    // stopped at its maximum: no skipping
+    ("\\w{1,3}=", "abcdef= x=1", "[[3, 7], [8, 10]]"),
+    // backreferences depend on the start: no skipping
+    ("(\\w+)\\1", "abcbc xyzz", "[[1, 5, 1, 3], [8, 10, 8, 9]]"),
+    (
+      "(?P<a>[\\w_]{1,50})=(?P<v>\"?[\\w_]+\"?)?", "foo bar=1 baz_qux=\"x\" =", "[[4, 9, 4, 7, 8, 9], [10, 21, 10, 17, 18, 21]]",
+    ),
+    ("[a-z]+(?<=cd)e", "abcde xcde", "[[0, 5], [6, 10]]"),
+    ("\\w+?=", "aaa= b=", "[[0, 4], [5, 7]]"),
+    ("[a-z]{2,}\\d", "a1 ab1 abc 1abc2", "[[3, 6], [12, 16]]"),
+    ("\\w+(?=😀)", "ab😀cd 😀", "[[0, 2]]"),
+  ]
+  for case in cases {
+    let (pattern, text, expected) = case
+    let got = all_spans(@regex.compile(pattern), text)
+    assert_eq("\{Repr(got)}", expected)
+  }
+}

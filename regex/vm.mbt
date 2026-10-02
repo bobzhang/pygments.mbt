@@ -38,6 +38,33 @@ priv struct Vm {
   mut full : Bool
   /// capture/register slots may hold values from a successful attempt
   mut dirty : Bool
+  /// pc of a greedy `RepChar` (at least one character) that starts every
+  /// match, in a program without backreferences; -1 if there is none
+  lead_pc : Int
+  /// where the last attempt's scan of the `lead_pc` repetition stopped at a
+  /// character outside it (or the end); -1 if it stopped at its maximum
+  mut lead_stop : Int
+}
+
+///|
+/// The `lead_pc` of a program (see `Vm`). A failed attempt at `p` whose
+/// leading repetition stopped at `q` rules out every start in `(p, q)`: from
+/// there the repetition can only end at a subset of the same positions, and
+/// without backreferences the rest of the match only depends on that end.
+fn lead_repetition(prog : Array[Inst]) -> Int {
+  for i in prog {
+    if i is (Backref(_) | CondRef(_)) {
+      return -1
+    }
+  }
+  let mut pc = 0
+  while prog[pc] is Save(_) {
+    pc += 1
+  }
+  match prog[pc] {
+    RepChar(_, _, min, _, true, _) if min > 0 => pc
+    _ => -1
+  }
 }
 
 ///|
@@ -465,6 +492,9 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           p = np
           count += 1
         }
+        if !good && pc == self.lead_pc {
+          self.lead_stop = p
+        }
         if good {
           if greedy {
             let min_pos = p
@@ -475,6 +505,9 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
               }
               p = np
               count += 1
+            }
+            if pc == self.lead_pc && (max < 0 || count < max) {
+              self.lead_stop = p
             }
             self.charge(count)
             if p > min_pos {

@@ -65,6 +65,8 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
     must_advance: false,
     full: false,
     dirty: false,
+    lead_pc: lead_repetition(c.prog),
+    lead_stop: -1,
   }
   { pattern, flags: final_flags, vm, ngroups, names, first: fs, nullable, }
 }
@@ -172,6 +174,7 @@ fn Vm::attempt(
     self.dirty = false
   }
   self.sp = 0
+  self.lead_stop = -1
   self.start = pos
   self.must_advance = must_advance
   self.full = full
@@ -351,7 +354,8 @@ fn Regex::search_from(
       vm.leave(budget)
       return Some(self.make_match(text, p, r))
     }
-    p = next_position(text, p, end)
+    let stop = vm.lead_stop
+    p = if stop > p { stop } else { next_position(text, p, end) }
   }
   vm.leave(budget)
   None
