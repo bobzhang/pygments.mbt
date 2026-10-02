@@ -1,0 +1,7 @@
+import {
+  "bobzhang/pygments/regex",
+  "moonbitlang/core/env",
+  "moonbitlang/core/string",
+}
+
+pkgtype(kind: "executable")

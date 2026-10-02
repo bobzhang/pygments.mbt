@@ -3,14 +3,18 @@ priv enum Inst {
   Char(Int)
   Set(CharSet)
   Split(Int, Int) // try first, backtrack to second
+  SplitIf(Int, Int, FirstSet) // Split, but go straight to the second when the first cannot start here
   Jmp(Int)
   Save(Int)
   Assert(AssertKind)
   Backref(Int, Int) // group, case folding mode
-  RepChar(Int, CharSet?, Int, Int, Bool) // char (if set is None), set, min, max, greedy
+  // char (if set is None), set, min, max, greedy, and the characters the
+  // continuation can start with (None: unknown), see `Compiler::follow_set`
+  RepChar(Int, CharSet?, Int, Int, Bool, CharSet?)
   SetMark(Int) // regs[r] = pos
   IfEmpty(Int, Int) // if pos == regs[r] goto target
   Look(Bool, Bool, Int, Int) // behind, negated, width, body pc
+  LookSet(Bool, Bool, CharSet) // Look whose body is one character: behind, negated, set
   Atomic(Int) // body pc
   CondRef(Int, Int) // group, pc of the "no" branch
   Match
@@ -72,7 +76,7 @@ fn Compiler::compile(self : Compiler, node : Node) -> Unit raise RegexError {
           let split = self.emit(Split(0, 0))
           self.compile(b)
           jumps.push(self.emit(Jmp(0)))
-          self.prog[split] = Split(split + 1, self.pc())
+          self.prog[split] = split_guarded(b, split + 1, self.pc())
         } else {
           self.compile(b)
         }
@@ -89,6 +93,9 @@ fn Compiler::compile(self : Compiler, node : Node) -> Unit raise RegexError {
     }
     Assert(k) => ignore(self.emit(Assert(k)))
     Backref(g, ic) => ignore(self.emit(Backref(g, ic)))
+    Look(Char(c), behind, neg) =>
+      ignore(self.emit(LookSet(behind, neg, CharSet::from_ranges([(c, c)]))))
+    Look(Set(s), behind, neg) => ignore(self.emit(LookSet(behind, neg, s)))
     Look(n, behind, neg) => {
       let width = match fixed_width(n) {
         Some(w) => w
@@ -120,6 +127,18 @@ fn Compiler::compile(self : Compiler, node : Node) -> Unit raise RegexError {
 }
 
 ///|
+/// `Split(x, y)` where `x` starts the code of `first`: guarded by the
+/// characters `first` can start with, unless it can match empty.
+fn split_guarded(first : Node, x : Int, y : Int) -> Inst {
+  let fs : FirstSet = { lo: 0, hi: 0, non_ascii: false, }
+  if first_chars(first, fs) || fs.is_full() {
+    Split(x, y)
+  } else {
+    SplitIf(x, y, fs)
+  }
+}
+
+///|
 fn Compiler::compile_repeat(
   self : Compiler,
   n : Node,
@@ -129,11 +148,11 @@ fn Compiler::compile_repeat(
 ) -> Unit raise RegexError {
   match n {
     Char(c) => {
-      ignore(self.emit(RepChar(c, None, min, max, greedy)))
+      ignore(self.emit(RepChar(c, None, min, max, greedy, None)))
       return
     }
     Set(s) => {
-      ignore(self.emit(RepChar(0, Some(s), min, max, greedy)))
+      ignore(self.emit(RepChar(0, Some(s), min, max, greedy, None)))
       return
     }
     _ => ()
@@ -158,7 +177,7 @@ fn Compiler::compile_repeat(
     ignore(self.emit(Jmp(loop_start)))
     let exit = self.pc()
     self.prog[loop_start] = if greedy {
-      Split(body, exit)
+      split_guarded(n, body, exit)
     } else {
       Split(exit, body)
     }
@@ -188,7 +207,7 @@ fn Compiler::compile_repeat(
     let exit = self.pc()
     for s in splits {
       self.prog[s] = if greedy {
-        Split(s + 1, exit)
+        split_guarded(n, s + 1, exit)
       } else {
         Split(exit, s + 1)
       }
@@ -196,6 +215,109 @@ fn Compiler::compile_repeat(
     for c in checks {
       self.prog[c] = IfEmpty(reg, exit)
     }
+  }
+}
+
+///|
+/// The characters the code at `pc` can start with, looking through
+/// zero-width instructions, jumps, alternatives and optional
+/// single-character repetitions, if every path reaches a character test
+/// (`None` otherwise). A conservative guard: code at `pc` fails at a
+/// position whose character is not in the set.
+fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
+  let pairs : Array[(Int, Int)] = []
+  let fuel = Ref(32)
+  if self.follow_pairs(pc, pairs, fuel) {
+    Some(CharSet::from_ranges(pairs))
+  } else {
+    None
+  }
+}
+
+///|
+/// Adds the first characters of the code at `pc` to `pairs` (see
+/// `follow_set`); false if some path has no bounded first character.
+fn Compiler::follow_pairs(
+  self : Compiler,
+  pc : Int,
+  pairs : Array[(Int, Int)],
+  fuel : Ref[Int],
+) -> Bool {
+  let mut pc = pc
+  while fuel.val > 0 {
+    fuel.val -= 1
+    match self.prog[pc] {
+      Save(_) | Assert(_) | Look(_) | LookSet(_) | SetMark(_) => pc += 1
+      Jmp(t) => pc = t
+      Char(c) => {
+        pairs.push((c, c))
+        return true
+      }
+      Set(s) => {
+        pairs.append(s.to_pairs())
+        return true
+      }
+      RepChar(c, set, min, _, _, _) => {
+        match set {
+          Some(s) => pairs.append(s.to_pairs())
+          None => pairs.push((c, c))
+        }
+        if min > 0 {
+          return true
+        }
+        // optional: the code after it may start the match too
+        pc += 1
+      }
+      Split(x, y) | SplitIf(x, y, _) =>
+        return self.follow_pairs(x, pairs, fuel) &&
+          self.follow_pairs(y, pairs, fuel)
+      _ => return false
+    }
+  }
+  false
+}
+
+///|
+/// Fills in the continuation guard of every `RepChar`, and guards every
+/// `Split` whose first branch starts with a single character test.
+fn Compiler::link_follows(self : Compiler) -> Unit {
+  self.hoist_asserts()
+  for i in 0..<self.prog.length() {
+    match self.prog[i] {
+      RepChar(c, set, min, max, greedy, None) =>
+        self.prog[i] = RepChar(c, set, min, max, greedy, self.follow_set(i + 1))
+      Split(x, y) =>
+        if self.follow_set(x) is Some(s) {
+          self.prog[i] = SplitIf(x, y, {
+            lo: s.lo,
+            hi: s.hi,
+            non_ascii: s.has_non_ascii,
+          })
+        }
+      _ => ()
+    }
+  }
+}
+
+///|
+/// Moves the assertions in the zero-width prefix of the main program
+/// (capture-group opens and assertions, e.g. `(^\s*)`) before the group
+/// opens, so an attempt where they fail stops before saving anything. The
+/// prefix is never a jump target (loops start with a `Split`), and a `Save`
+/// does not move the position, so the order is unobservable.
+fn Compiler::hoist_asserts(self : Compiler) -> Unit {
+  let prog = self.prog
+  let mut n = 0
+  while n < prog.length() && prog[n] is (Save(_) | Assert(_)) {
+    n += 1
+  }
+  let asserts = prog[:n].filter(i => i is Assert(_))
+  let saves = prog[:n].filter(i => i is Save(_))
+  for i, inst in asserts {
+    prog[i] = inst
+  }
+  for i, inst in saves {
+    prog[asserts.length() + i] = inst
   }
 }
 
@@ -224,6 +346,26 @@ priv struct FirstSet {
   mut lo : UInt64
   mut hi : UInt64
   mut non_ascii : Bool
+}
+
+///|
+/// Whether code unit `c` may start a match (`c` is never the end).
+fn FirstSet::allows(self : FirstSet, c : Int) -> Bool {
+  if c < 64 {
+    ((self.lo >> c) & 1) != 0
+  } else if c < 128 {
+    ((self.hi >> (c - 64)) & 1) != 0
+  } else {
+    self.non_ascii
+  }
+}
+
+///|
+/// Whether every code unit is allowed (the set rules nothing out).
+fn FirstSet::is_full(self : FirstSet) -> Bool {
+  self.non_ascii &&
+  self.lo == 0xFFFFFFFFFFFFFFFFUL &&
+  self.hi == 0xFFFFFFFFFFFFFFFFUL
 }
 
 ///|

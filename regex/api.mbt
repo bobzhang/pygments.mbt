@@ -45,6 +45,7 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
   c.compile(node)
   let main_end = c.emit(Match)
   c.finish()
+  c.link_follows()
   let fs : FirstSet = { lo: 0, hi: 0, non_ascii: false, }
   let nullable = first_chars(node, fs)
   let vm : Vm = {
@@ -63,6 +64,9 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
     start: 0,
     must_advance: false,
     full: false,
+    dirty: false,
+    lead_pc: lead_repetition(c.prog),
+    lead_stop: -1,
   }
   { pattern, flags: final_flags, vm, ngroups, names, first: fs, nullable, }
 }
@@ -108,15 +112,94 @@ fn Regex::rejects(self : Regex, text : String, pos : Int, end : Int) -> Bool {
 }
 
 ///|
-/// Python's clamping of `pos`/`endpos` arguments.
-fn clamp_range(text : String, pos : Int, endpos : Int?) -> (Int, Int) {
+/// Python's clamping of the `endpos` argument.
+fn clamp_end(text : String, endpos : Int?) -> Int {
   let n = text.length()
-  let end = match endpos {
+  match endpos {
     Some(e) => if e < 0 { 0 } else if e > n { n } else { e }
     None => n
   }
-  let p = if pos < 0 { 0 } else { pos }
-  (p, end)
+}
+
+///|
+/// Python's clamping of the `pos` argument.
+fn clamp_pos(pos : Int) -> Int {
+  if pos < 0 {
+    0
+  } else {
+    pos
+  }
+}
+
+///|
+/// The caller's budget, or a fresh default one (allocated only when needed).
+fn budget_or_default(budget : Budget?) -> Budget {
+  match budget {
+    Some(b) => b
+    None => Budget::new(default_steps)
+  }
+}
+
+///|
+/// Points the shared VM at `text[..end]`, charging `budget`. Every `enter`
+/// is paired with `leave` (or, on an error, `abandon`).
+fn Regex::enter(self : Regex, text : String, end : Int, budget : Budget) -> Vm {
+  let vm = self.vm
+  vm.text = text
+  vm.end = end
+  vm.steps = budget.remaining
+  vm
+}
+
+///|
+/// Returns the unused steps to `budget` and releases the input.
+fn Vm::leave(self : Vm, budget : Budget) -> Unit {
+  budget.remaining = self.steps
+  // do not keep the input alive through the cached VM
+  self.text = ""
+}
+
+///|
+/// Leaves the VM clean after an error (budget exhausted).
+fn Vm::abandon(self : Vm, budget : Budget) -> Unit {
+  self.text = ""
+  self.sp = 0
+  self.dirty = true
+  budget.remaining = 0
+}
+
+///|
+/// One match attempt at `pos` of the text set up by `enter`. Returns the end
+/// of the match or -1; on success the groups are left in the VM.
+///
+/// A failed attempt pops every frame it pushed, and popping restores the
+/// capture and register slots, so the slots only need to be cleared after a
+/// success (or an error).
+fn Vm::attempt(
+  self : Vm,
+  pos : Int,
+  must_advance~ : Bool,
+  full~ : Bool,
+) -> Int raise RegexError {
+  if self.dirty {
+    if self.caps.length() > 2 {
+      self.caps.fill(-1)
+    }
+    if self.regs.length() > 0 {
+      self.regs.fill(-1)
+    }
+    self.dirty = false
+  }
+  self.sp = 0
+  self.lead_stop = -1
+  self.start = pos
+  self.must_advance = must_advance
+  self.full = full
+  let r = self.run(0, pos)
+  if r >= 0 {
+    self.dirty = true
+  }
+  r
 }
 
 ///|
@@ -131,31 +214,25 @@ fn Regex::exec_end(
   must_advance~ : Bool,
   full~ : Bool,
 ) -> Int raise RegexError {
-  let vm = self.vm
-  vm.text = text
-  vm.end = end
-  vm.start = pos
-  vm.must_advance = must_advance
-  vm.full = full
-  if vm.caps.length() > 2 {
-    vm.caps.fill(-1)
-  }
-  if vm.regs.length() > 0 {
-    vm.regs.fill(-1)
-  }
-  vm.sp = 0
-  vm.steps = budget.remaining
-  errdefer {
-    // leave the shared VM clean before propagating
-    vm.text = ""
-    vm.sp = 0
-    budget.remaining = 0
-  }
-  let r = vm.run(0, pos)
-  budget.remaining = vm.steps
-  // do not keep the input alive through the cached VM
-  vm.text = ""
+  let vm = self.enter(text, end, budget)
+  errdefer vm.abandon(budget)
+  let r = vm.attempt(pos, must_advance~, full~)
+  vm.leave(budget)
   r
+}
+
+///|
+/// The `Match` for a successful attempt at `pos` ending at `r`.
+fn Regex::make_match(self : Regex, text : String, pos : Int, r : Int) -> Match {
+  let vm = self.vm
+  let n = vm.caps.length()
+  let caps = FixedArray::make(n, -1)
+  if n > 2 {
+    caps.unsafe_blit(2, vm.caps, 2, n - 2)
+  }
+  caps[0] = pos
+  caps[1] = r
+  { text, caps, names: self.names, }
 }
 
 ///|
@@ -173,14 +250,7 @@ fn Regex::exec(
   if r < 0 {
     None
   } else {
-    let vm = self.vm
-    let caps = FixedArray::make(vm.caps.length(), -1)
-    for i in 2..<caps.length() {
-      caps[i] = vm.caps[i]
-    }
-    caps[0] = pos
-    caps[1] = r
-    Some({ text, caps, names: self.names, })
+    Some(self.make_match(text, pos, r))
   }
 }
 
@@ -195,11 +265,12 @@ pub fn Regex::match_end(
   endpos? : Int,
   budget? : Budget,
 ) -> Int raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
   if pos > end {
     return -1
   }
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   self.exec_end(text, pos, end, budget, must_advance=false, full=false)
 }
 
@@ -230,11 +301,12 @@ pub fn Regex::match_at(
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
   if pos > end || self.rejects(text, pos, end) {
     return None
   }
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   self.exec(text, pos, end, budget, must_advance=false, full=false)
 }
 
@@ -247,15 +319,18 @@ pub fn Regex::fullmatch(
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
   if pos > end || self.rejects(text, pos, end) {
     return None
   }
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   self.exec(text, pos, end, budget, must_advance=false, full=true)
 }
 
 ///|
+/// Scans `text[pos..end]` for the first match, trying each code point
+/// position the prefilter allows (one budget step per position ruled out).
 fn Regex::search_from(
   self : Regex,
   text : String,
@@ -264,39 +339,70 @@ fn Regex::search_from(
   budget : Budget,
   must_advance : Bool,
 ) -> Match? raise RegexError {
+  let vm = self.enter(text, end, budget)
+  errdefer vm.abandon(budget)
+  let nullable = self.nullable
+  let lo = self.first.lo
+  let hi = self.first.hi
+  let non_ascii = self.first.non_ascii
   let mut p = pos
-  let mut first = true
   while p <= end {
-    if !self.rejects(text, p, end) {
-      match
-        self.exec(
-          text,
-          p,
-          end,
-          budget,
-          must_advance=first && must_advance,
-          full=false,
-        ) {
-        Some(m) => return Some(m)
-        None => ()
+    if !nullable {
+      // skip the positions the prefilter rules out
+      let mut skipped = 0
+      while p < end {
+        let c = text.unsafe_get(p).to_int()
+        if c < 64 {
+          if ((lo >> c) & 1) != 0 {
+            break
+          }
+          p += 1
+        } else if c < 128 {
+          if ((hi >> (c - 64)) & 1) != 0 {
+            break
+          }
+          p += 1
+        } else if non_ascii {
+          break
+        } else {
+          p = next_position(text, p, end)
+        }
+        skipped += 1
       }
-    } else {
-      budget.remaining -= 1
-      if budget.remaining < 0 {
+      if p >= end {
+        // a non-nullable pattern cannot match at the end
+        skipped += 1
+      }
+      vm.steps -= skipped
+      if vm.steps < 0 {
         raise BudgetExceeded(pattern=self.pattern)
       }
+      if p >= end {
+        break
+      }
     }
-    first = false
-    if p < end &&
-      is_high(text.unsafe_get(p).to_int()) &&
-      p + 1 < end &&
-      is_low(text.unsafe_get(p + 1).to_int()) {
-      p += 2
-    } else {
-      p += 1
+    let r = vm.attempt(p, must_advance=must_advance && p == pos, full=false)
+    if r >= 0 {
+      vm.leave(budget)
+      return Some(self.make_match(text, p, r))
     }
+    let stop = vm.lead_stop
+    p = if stop > p { stop } else { next_position(text, p, end) }
   }
+  vm.leave(budget)
   None
+}
+
+///|
+/// The position after the code point at `p` (`p + 1` at the end).
+fn next_position(text : String, p : Int, end : Int) -> Int {
+  if p + 1 < end &&
+    is_high(text.unsafe_get(p).to_int()) &&
+    is_low(text.unsafe_get(p + 1).to_int()) {
+    p + 2
+  } else {
+    p + 1
+  }
 }
 
 ///|
@@ -309,8 +415,9 @@ pub fn Regex::search(
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
+  let budget = budget_or_default(budget)
   self.search_from(text, pos, end, budget, false)
 }
 
@@ -322,7 +429,7 @@ pub fn Regex::find_all(
   text : String,
   budget? : Budget,
 ) -> Array[Match] raise RegexError {
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   let out = []
   let end = text.length()
   let mut p = 0

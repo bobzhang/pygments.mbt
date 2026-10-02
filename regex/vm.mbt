@@ -36,6 +36,35 @@ priv struct Vm {
   mut must_advance : Bool
   /// require the match to end at `end` (`fullmatch`)
   mut full : Bool
+  /// capture/register slots may hold values from a successful attempt
+  mut dirty : Bool
+  /// pc of a greedy `RepChar` (at least one character) that starts every
+  /// match, in a program without backreferences; -1 if there is none
+  lead_pc : Int
+  /// where the last attempt's scan of the `lead_pc` repetition stopped at a
+  /// character outside it (or the end); -1 if it stopped at its maximum
+  mut lead_stop : Int
+}
+
+///|
+/// The `lead_pc` of a program (see `Vm`). A failed attempt at `p` whose
+/// leading repetition stopped at `q` rules out every start in `(p, q)`: from
+/// there the repetition can only end at a subset of the same positions, and
+/// without backreferences the rest of the match only depends on that end.
+fn lead_repetition(prog : Array[Inst]) -> Int {
+  for i in prog {
+    if i is (Backref(_) | CondRef(_)) {
+      return -1
+    }
+  }
+  let mut pc = 0
+  while prog[pc] is Save(_) {
+    pc += 1
+  }
+  match prog[pc] {
+    RepChar(_, _, min, _, true, _) if min > 0 => pc
+    _ => -1
+  }
 }
 
 ///|
@@ -181,19 +210,9 @@ fn Vm::one(self : Vm, c : Int, set : CharSet?, pos : Int) -> Int {
 }
 
 ///|
-/// Whether instruction `i` fails at `pos` before consuming anything.
-fn Vm::cannot_start(self : Vm, i : Inst, pos : Int) -> Bool {
-  match i {
-    Char(c) => pos >= self.end || self.cp_at(pos) != c
-    Set(s) => pos >= self.end || !s.contains(self.cp_at(pos))
-    RepChar(c, set, min, _, _) if min > 0 =>
-      pos >= self.end ||
-      (match set {
-        None => self.cp_at(pos) != c
-        Some(s) => !s.contains(self.cp_at(pos))
-      })
-    _ => false
-  }
+/// Whether the character at `pos` is in `f` (false at the end).
+fn Vm::follows(self : Vm, f : CharSet, pos : Int) -> Bool {
+  pos < self.end && f.contains(self.cp_at(pos))
 }
 
 ///|
@@ -233,18 +252,16 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
       self.sp = top
     } else if kind == BT_GREEDY {
       // a = pc of RepChar, b = min_pos, c = current position
-      let next_char = match self.prog[a + 1] {
-        Char(ch) => ch
-        _ => -1
-      }
+      guard self.prog[a] is RepChar(_, _, _, _, _, follow) else { panic() }
       let mut p = self.step_back(c, b)
-      if next_char >= 0 {
+      if follow is Some(f) {
+        // give back characters until the continuation can start
         let from = p
-        while p > b && self.cp_at(p) != next_char {
+        while p > b && !f.contains(self.cp_at(p)) {
           p = self.step_back(p, b)
         }
         self.charge(from - p)
-        if p == b && (p >= self.end || self.cp_at(p) != next_char) {
+        if p == b && !self.follows(f, p) {
           self.sp = top
           continue
         }
@@ -259,20 +276,38 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
       return true
     } else {
       // BT_LAZY: a = pc of RepChar, b = count so far, c = position
-      guard self.prog[a] is RepChar(ch, set, _, max, _) else { panic() }
-      let np = self.one(ch, set, c)
-      if np < 0 {
+      guard self.prog[a] is RepChar(ch, set, _, max, _, follow) else { panic() }
+      // take characters until the continuation can start
+      let mut count = b
+      let mut p = c
+      let mut alive = true
+      while true {
+        let np = self.one(ch, set, p)
+        if np < 0 {
+          alive = false
+          break
+        }
+        count += 1
+        p = np
+        guard follow is Some(f) && !self.follows(f, p) else { break }
+        if max >= 0 && count >= max {
+          alive = false
+          break
+        }
+        self.charge(1)
+      }
+      if !alive {
         self.sp = top
         continue
       }
-      if max >= 0 && b + 1 >= max {
+      if max >= 0 && count >= max {
         self.sp = top
       } else {
-        st[top + 2] = b + 1
-        st[top + 3] = np
+        st[top + 2] = count
+        st[top + 3] = p
       }
       self.bt_pc = a + 1
-      self.bt_pos = np
+      self.bt_pos = p
       return true
     }
   }
@@ -357,13 +392,18 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           false
         }
       Split(x, y) => {
+        self.push(BT_ALT, y, pos, 0)
+        pc = x
+        true
+      }
+      SplitIf(x, y, fs) => {
         // a first branch that cannot even start here fails immediately and
         // without side effects: go straight to the second one
-        if self.cannot_start(prog[x], pos) {
-          pc = y
-        } else {
+        if pos < self.end && fs.allows(self.text.unsafe_get(pos).to_int()) {
           self.push(BT_ALT, y, pos, 0)
           pc = x
+        } else {
+          pc = y
         }
         true
       }
@@ -439,7 +479,7 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           }
         }
       }
-      RepChar(c, set, min, max, greedy) => {
+      RepChar(c, set, min, max, greedy, follow) => {
         let mut p = pos
         let mut count = 0
         let mut good = true
@@ -452,6 +492,9 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           p = np
           count += 1
         }
+        if !good && pc == self.lead_pc {
+          self.lead_stop = p
+        }
         if good {
           if greedy {
             let min_pos = p
@@ -463,6 +506,9 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
               p = np
               count += 1
             }
+            if pc == self.lead_pc && (max < 0 || count < max) {
+              self.lead_stop = p
+            }
             self.charge(count)
             if p > min_pos {
               self.push(BT_GREEDY, pc, min_pos, p)
@@ -470,8 +516,14 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           } else if max < 0 || count < max {
             self.push(BT_LAZY, pc, count, p)
           }
-          pos = p
-          pc += 1
+          if follow is Some(f) && !self.follows(f, p) {
+            // the continuation cannot start here: resume from the frame
+            // just pushed (give back / take more characters), if any
+            good = false
+          } else {
+            pos = p
+            pc += 1
+          }
         }
         good
       }
@@ -488,6 +540,24 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           pc += 1
         }
         true
+      }
+      LookSet(behind, neg, s) => {
+        let matched = if behind {
+          pos > 0 &&
+          ({
+            let start = self.step_back(pos, 0)
+            let cp = self.cp_at(start)
+            s.contains(cp) && start + cp_width(cp) == pos
+          })
+        } else {
+          pos < self.end && s.contains(self.cp_at(pos))
+        }
+        if matched != neg {
+          pc += 1
+          true
+        } else {
+          false
+        }
       }
       Look(behind, neg, width, body) => {
         let sub_base = self.sp
