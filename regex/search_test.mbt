@@ -13,6 +13,14 @@ fn all_spans(re : @regex.Regex, text : String) -> Array[Array[Int]] raise {
 }
 
 ///|
+/// `[[a, b], [c, d]]` on one line.
+fn compact(xs : Array[Array[Int]]) -> String {
+  "[" +
+  xs.map(x => "[" + x.map(n => n.to_string()).join(", ") + "]").join(", ") +
+  "]"
+}
+
+///|
 test "groups of an earlier match do not leak into later ones" {
   let re = @regex.compile("(a)|(b)(c)?|(?P<d>d+)")
   debug_inspect(
@@ -96,7 +104,7 @@ test "repetitions guarded by the characters that follow them" {
   for case in cases {
     let (pattern, text, expected) = case
     let got = all_spans(@regex.compile(pattern), text)
-    assert_eq("\{Repr(got)}", expected)
+    assert_eq(compact(got), expected)
   }
 }
 
@@ -119,6 +127,29 @@ test "search skips starts inside a failed leading repetition" {
   for case in cases {
     let (pattern, text, expected) = case
     let got = all_spans(@regex.compile(pattern), text)
-    assert_eq("\{Repr(got)}", expected)
+    assert_eq(compact(got), expected)
+  }
+}
+
+///|
+test "leading assertions and optional repetitions before a guard" {
+  // expected values from CPython's re.finditer (UTF-16 offsets)
+  let cases : Array[(String, String, String)] = [
+    (
+      "(?m)(^[ \\t]*)(match|case)\\b", "  match x\nmatch\n case", "[[0, 7, 0, 2, 2, 7], [10, 15, 10, 10, 10, 15], [16, 21, 16, 17, 17, 21]]",
+    ),
+    (
+      "(?m)^(\\s*)([rRuUbB]{,2})('''[\\s\\S]*?''')", "x\n  r'''a'''\n\n   '''b'''",
+      "[[2, 12, 2, 4, 4, 5, 5, 12], [13, 24, 13, 17, 17, 17, 17, 24]]",
+    ),
+    (
+      "((?:^a)*)(b)", "aab ab b", "[[2, 3, 2, 2, 2, 3], [5, 6, 5, 5, 5, 6], [7, 8, 7, 7, 7, 8]]",
+    ),
+    ("(\\b)(\\w+)", "ab cd", "[[0, 2, 0, 0, 0, 2], [3, 5, 3, 3, 3, 5]]"),
+  ]
+  for case in cases {
+    let (pattern, text, expected) = case
+    let got = all_spans(@regex.compile(pattern), text)
+    assert_eq(compact(got), expected)
   }
 }

@@ -220,22 +220,33 @@ fn Compiler::compile_repeat(
 
 ///|
 /// The characters the code at `pc` can start with, looking through
-/// zero-width instructions and jumps, if it starts with a single character
-/// test (`None` otherwise). A conservative guard: code at `pc` fails at a
-/// position whose character is not in the set.
+/// zero-width instructions, jumps and optional single-character repetitions,
+/// if that ends at a single character test (`None` otherwise). A
+/// conservative guard: code at `pc` fails at a position whose character is
+/// not in the set.
 fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
   let mut pc = pc
+  let pairs : Array[(Int, Int)] = []
   for _ in 0..<16 {
     match self.prog[pc] {
       Save(_) | Assert(_) | Look(_) | LookSet(_) | SetMark(_) => pc += 1
       Jmp(t) => pc = t
-      Char(c) => return Some(CharSet::from_ranges([(c, c)]))
-      Set(s) => return Some(s)
-      RepChar(c, set, min, _, _, _) if min > 0 =>
-        return match set {
-          Some(s) => Some(s)
-          None => Some(CharSet::from_ranges([(c, c)]))
+      Char(c) => {
+        pairs.push((c, c))
+        return Some(CharSet::from_ranges(pairs))
+      }
+      Set(s) => return Some(if pairs.is_empty() { s } else { union(pairs, s) })
+      RepChar(c, set, min, _, _, _) => {
+        match set {
+          Some(s) => pairs.append(s.to_pairs())
+          None => pairs.push((c, c))
         }
+        if min > 0 {
+          return Some(CharSet::from_ranges(pairs))
+        }
+        // optional: the code after it may start the match too
+        pc += 1
+      }
       _ => return None
     }
   }
@@ -243,9 +254,17 @@ fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
 }
 
 ///|
+fn union(pairs : Array[(Int, Int)], s : CharSet) -> CharSet {
+  let all = pairs.copy()
+  all.append(s.to_pairs())
+  CharSet::from_ranges(all)
+}
+
+///|
 /// Fills in the continuation guard of every `RepChar`, and guards every
 /// `Split` whose first branch starts with a single character test.
 fn Compiler::link_follows(self : Compiler) -> Unit {
+  self.hoist_asserts()
   for i in 0..<self.prog.length() {
     match self.prog[i] {
       RepChar(c, set, min, max, greedy, None) =>
@@ -260,6 +279,28 @@ fn Compiler::link_follows(self : Compiler) -> Unit {
         }
       _ => ()
     }
+  }
+}
+
+///|
+/// Moves the assertions in the zero-width prefix of the main program
+/// (capture-group opens and assertions, e.g. `(^\s*)`) before the group
+/// opens, so an attempt where they fail stops before saving anything. The
+/// prefix is never a jump target (loops start with a `Split`), and a `Save`
+/// does not move the position, so the order is unobservable.
+fn Compiler::hoist_asserts(self : Compiler) -> Unit {
+  let prog = self.prog
+  let mut n = 0
+  while n < prog.length() && prog[n] is (Save(_) | Assert(_)) {
+    n += 1
+  }
+  let asserts = prog[:n].filter(i => i is Assert(_))
+  let saves = prog[:n].filter(i => i is Save(_))
+  for i, inst in asserts {
+    prog[i] = inst
+  }
+  for i, inst in saves {
+    prog[asserts.length() + i] = inst
   }
 }
 
