@@ -78,3 +78,24 @@ test "search budget covers the whole scan" {
   )
   inspect(budget.remaining, content="3998")
 }
+
+///|
+test "repetitions guarded by the characters that follow them" {
+  // expected values from CPython's re.finditer (UTF-16 offsets)
+  let cases : Array[(String, String, String)] = [
+    (
+      "a{1,3}?(b)", "aaab aaaab ab", "[[0, 4, 3, 4], [6, 10, 9, 10], [11, 13, 12, 13]]",
+    ),
+    ("\\w+?(?<!x)=", "kx=ky= a=", "[[3, 6], [7, 9]]"),
+    ("[^ ]*(?=😀)😀", "ab😀 c😀😀", "[[0, 4], [5, 10]]"),
+    ("x.{0,2}?😀", "x😀 xab😀 xabc😀", "[[0, 3], [4, 9]]"),
+    ("(?<=😀)b|(?<!a)c", "😀b ac bc", "[[2, 3], [8, 9]]"),
+    ("(\\w+)\\s*(?:=|:)", "key = 1, other: 2", "[[0, 5, 0, 3], [9, 15, 9, 14]]"),
+    ("\"(?:[^\"\\\\]|\\\\.)*\"", "say \"a\\\"b\" ok", "[[4, 10]]"),
+  ]
+  for case in cases {
+    let (pattern, text, expected) = case
+    let got = all_spans(@regex.compile(pattern), text)
+    assert_eq("\{Repr(got)}", expected)
+  }
+}

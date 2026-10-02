@@ -8,10 +8,13 @@ priv enum Inst {
   Save(Int)
   Assert(AssertKind)
   Backref(Int, Int) // group, case folding mode
-  RepChar(Int, CharSet?, Int, Int, Bool) // char (if set is None), set, min, max, greedy
+  // char (if set is None), set, min, max, greedy, and the characters the
+  // continuation can start with (None: unknown), see `Compiler::follow_set`
+  RepChar(Int, CharSet?, Int, Int, Bool, CharSet?)
   SetMark(Int) // regs[r] = pos
   IfEmpty(Int, Int) // if pos == regs[r] goto target
   Look(Bool, Bool, Int, Int) // behind, negated, width, body pc
+  LookSet(Bool, Bool, CharSet) // Look whose body is one character: behind, negated, set
   Atomic(Int) // body pc
   CondRef(Int, Int) // group, pc of the "no" branch
   Match
@@ -90,6 +93,9 @@ fn Compiler::compile(self : Compiler, node : Node) -> Unit raise RegexError {
     }
     Assert(k) => ignore(self.emit(Assert(k)))
     Backref(g, ic) => ignore(self.emit(Backref(g, ic)))
+    Look(Char(c), behind, neg) =>
+      ignore(self.emit(LookSet(behind, neg, CharSet::from_ranges([(c, c)]))))
+    Look(Set(s), behind, neg) => ignore(self.emit(LookSet(behind, neg, s)))
     Look(n, behind, neg) => {
       let width = match fixed_width(n) {
         Some(w) => w
@@ -142,11 +148,11 @@ fn Compiler::compile_repeat(
 ) -> Unit raise RegexError {
   match n {
     Char(c) => {
-      ignore(self.emit(RepChar(c, None, min, max, greedy)))
+      ignore(self.emit(RepChar(c, None, min, max, greedy, None)))
       return
     }
     Set(s) => {
-      ignore(self.emit(RepChar(0, Some(s), min, max, greedy)))
+      ignore(self.emit(RepChar(0, Some(s), min, max, greedy, None)))
       return
     }
     _ => ()
@@ -208,6 +214,40 @@ fn Compiler::compile_repeat(
     }
     for c in checks {
       self.prog[c] = IfEmpty(reg, exit)
+    }
+  }
+}
+
+///|
+/// The characters the code at `pc` can start with, looking through
+/// zero-width instructions and jumps, if it starts with a single character
+/// test (`None` otherwise). A conservative guard: code at `pc` fails at a
+/// position whose character is not in the set.
+fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
+  let mut pc = pc
+  for _ in 0..<16 {
+    match self.prog[pc] {
+      Save(_) | Assert(_) | Look(_) | LookSet(_) | SetMark(_) => pc += 1
+      Jmp(t) => pc = t
+      Char(c) => return Some(CharSet::from_ranges([(c, c)]))
+      Set(s) => return Some(s)
+      RepChar(c, set, min, _, _, _) if min > 0 =>
+        return match set {
+          Some(s) => Some(s)
+          None => Some(CharSet::from_ranges([(c, c)]))
+        }
+      _ => return None
+    }
+  }
+  None
+}
+
+///|
+/// Fills in the continuation guard of every `RepChar`.
+fn Compiler::link_follows(self : Compiler) -> Unit {
+  for i in 0..<self.prog.length() {
+    if self.prog[i] is RepChar(c, set, min, max, greedy, None) {
+      self.prog[i] = RepChar(c, set, min, max, greedy, self.follow_set(i + 1))
     }
   }
 }

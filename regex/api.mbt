@@ -45,6 +45,7 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
   c.compile(node)
   let main_end = c.emit(Match)
   c.finish()
+  c.link_follows()
   let fs : FirstSet = { lo: 0, hi: 0, non_ascii: false, }
   let nullable = first_chars(node, fs)
   let vm : Vm = {

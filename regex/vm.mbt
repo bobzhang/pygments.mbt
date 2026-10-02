@@ -183,12 +183,18 @@ fn Vm::one(self : Vm, c : Int, set : CharSet?, pos : Int) -> Int {
 }
 
 ///|
+/// Whether the character at `pos` is in `f` (false at the end).
+fn Vm::follows(self : Vm, f : CharSet, pos : Int) -> Bool {
+  pos < self.end && f.contains(self.cp_at(pos))
+}
+
+///|
 /// Whether instruction `i` fails at `pos` before consuming anything.
 fn Vm::cannot_start(self : Vm, i : Inst, pos : Int) -> Bool {
   match i {
     Char(c) => pos >= self.end || self.cp_at(pos) != c
     Set(s) => pos >= self.end || !s.contains(self.cp_at(pos))
-    RepChar(c, set, min, _, _) if min > 0 =>
+    RepChar(c, set, min, _, _, _) if min > 0 =>
       pos >= self.end ||
       (match set {
         None => self.cp_at(pos) != c
@@ -235,18 +241,16 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
       self.sp = top
     } else if kind == BT_GREEDY {
       // a = pc of RepChar, b = min_pos, c = current position
-      let next_char = match self.prog[a + 1] {
-        Char(ch) => ch
-        _ => -1
-      }
+      guard self.prog[a] is RepChar(_, _, _, _, _, follow) else { panic() }
       let mut p = self.step_back(c, b)
-      if next_char >= 0 {
+      if follow is Some(f) {
+        // give back characters until the continuation can start
         let from = p
-        while p > b && self.cp_at(p) != next_char {
+        while p > b && !f.contains(self.cp_at(p)) {
           p = self.step_back(p, b)
         }
         self.charge(from - p)
-        if p == b && (p >= self.end || self.cp_at(p) != next_char) {
+        if p == b && !self.follows(f, p) {
           self.sp = top
           continue
         }
@@ -261,20 +265,38 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
       return true
     } else {
       // BT_LAZY: a = pc of RepChar, b = count so far, c = position
-      guard self.prog[a] is RepChar(ch, set, _, max, _) else { panic() }
-      let np = self.one(ch, set, c)
-      if np < 0 {
+      guard self.prog[a] is RepChar(ch, set, _, max, _, follow) else { panic() }
+      // take characters until the continuation can start
+      let mut count = b
+      let mut p = c
+      let mut alive = true
+      while true {
+        let np = self.one(ch, set, p)
+        if np < 0 {
+          alive = false
+          break
+        }
+        count += 1
+        p = np
+        guard follow is Some(f) && !self.follows(f, p) else { break }
+        if max >= 0 && count >= max {
+          alive = false
+          break
+        }
+        self.charge(1)
+      }
+      if !alive {
         self.sp = top
         continue
       }
-      if max >= 0 && b + 1 >= max {
+      if max >= 0 && count >= max {
         self.sp = top
       } else {
-        st[top + 2] = b + 1
-        st[top + 3] = np
+        st[top + 2] = count
+        st[top + 3] = p
       }
       self.bt_pc = a + 1
-      self.bt_pos = np
+      self.bt_pos = p
       return true
     }
   }
@@ -452,7 +474,7 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           }
         }
       }
-      RepChar(c, set, min, max, greedy) => {
+      RepChar(c, set, min, max, greedy, follow) => {
         let mut p = pos
         let mut count = 0
         let mut good = true
@@ -483,8 +505,14 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           } else if max < 0 || count < max {
             self.push(BT_LAZY, pc, count, p)
           }
-          pos = p
-          pc += 1
+          if follow is Some(f) && !self.follows(f, p) {
+            // the continuation cannot start here: resume from the frame
+            // just pushed (give back / take more characters), if any
+            good = false
+          } else {
+            pos = p
+            pc += 1
+          }
         }
         good
       }
@@ -501,6 +529,24 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           pc += 1
         }
         true
+      }
+      LookSet(behind, neg, s) => {
+        let matched = if behind {
+          pos > 0 &&
+          ({
+            let start = self.step_back(pos, 0)
+            let cp = self.cp_at(start)
+            s.contains(cp) && start + cp_width(cp) == pos
+          })
+        } else {
+          pos < self.end && s.contains(self.cp_at(pos))
+        }
+        if matched != neg {
+          pc += 1
+          true
+        } else {
+          false
+        }
       }
       Look(behind, neg, width, body) => {
         let sub_base = self.sp
