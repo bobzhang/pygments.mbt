@@ -5,8 +5,12 @@ For every (pattern, flags) used by a pygments RegexLexer, record Python's
 positions where the pattern matches plus random positions, over example
 text for that lexer and a synthetic Unicode text.
 
+Also records the first SEARCH matches of `pattern.finditer(text)` per text
+(search with Python's empty-match rules).
+
 Output: JSON lines. Line 1: {"texts": [...]}; then one line per pattern:
-{"p": pattern, "f": flags, "c": [[text_id, pos16, spans16 | null], ...]}
+{"p": pattern, "f": flags, "c": [[text_id, pos16, spans16 | null], ...],
+ "s": [[text_id, [spans16 of match 1, spans16 of match 2, ...]], ...]}
 """
 import sys, os, re, json, random, importlib, glob
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '.repos', 'pygments'))
@@ -20,6 +24,7 @@ random.seed(1234)
 MAXLEN = int(os.environ.get('ORACLE_MAXLEN', '3000'))
 POSITIVE = int(os.environ.get('ORACLE_POS', '6'))
 RANDOM = int(os.environ.get('ORACLE_RAND', '6'))
+SEARCH = int(os.environ.get('ORACLE_SEARCH', '50'))
 
 SYNTH = ("héllo wörld ÀÉÎ ſ K ǅ ß ﬀ İ ı Σσς 😀 𝒜𝓑 x=1; y = \"str\\n\" # c\n"
          "  if (a && b) { return 0x1F; }\n\t// Ünïcödé 中文 ２３ \U0001F600end\n")
@@ -106,6 +111,21 @@ def cases_for(rx, tid):
     return out
 
 
+def search_case(rx, tid):
+    text = texts[tid]
+    offs = offsets[tid]
+    found = []
+    for m in rx.finditer(text):
+        spans = []
+        for g in range(rx.groups + 1):
+            s, e = m.span(g)
+            spans += [offs[s], offs[e]] if s >= 0 else [-1, -1]
+        found.append(spans)
+        if len(found) >= SEARCH:
+            break
+    return [tid, found]
+
+
 import signal
 
 
@@ -121,10 +141,12 @@ signal.signal(signal.SIGALRM, on_alarm)
 out = open(sys.argv[1], 'w')
 out.write(json.dumps({"texts": texts}) + "\n")
 slow = 0
+slow_search = 0
 for key in order:
     pat, flags = key
     rx = re.compile(pat, flags)
     cases = []
+    searches = []
     for tid in sorted(seen[key] | {0}):
         signal.alarm(2)
         try:
@@ -134,5 +156,13 @@ for key in order:
             print("slow pattern skipped:", repr(pat)[:120], file=sys.stderr)
         finally:
             signal.alarm(0)
-    out.write(json.dumps({"p": escape_surrogates(pat), "f": flags & ~re.UNICODE, "c": cases}) + "\n")
-print(len(order), "patterns", len(texts), "texts", slow, "slow")
+        signal.alarm(2)
+        try:
+            searches.append(search_case(rx, tid))
+        except Slow:
+            slow_search += 1
+        finally:
+            signal.alarm(0)
+    out.write(json.dumps({"p": escape_surrogates(pat), "f": flags & ~re.UNICODE, "c": cases, "s": searches}) + "\n")
+print(len(order), "patterns", len(texts), "texts", slow, "slow",
+      slow_search, "slow searches skipped")
