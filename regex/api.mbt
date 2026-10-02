@@ -112,15 +112,32 @@ fn Regex::rejects(self : Regex, text : String, pos : Int, end : Int) -> Bool {
 }
 
 ///|
-/// Python's clamping of `pos`/`endpos` arguments.
-fn clamp_range(text : String, pos : Int, endpos : Int?) -> (Int, Int) {
+/// Python's clamping of the `endpos` argument.
+fn clamp_end(text : String, endpos : Int?) -> Int {
   let n = text.length()
-  let end = match endpos {
+  match endpos {
     Some(e) => if e < 0 { 0 } else if e > n { n } else { e }
     None => n
   }
-  let p = if pos < 0 { 0 } else { pos }
-  (p, end)
+}
+
+///|
+/// Python's clamping of the `pos` argument.
+fn clamp_pos(pos : Int) -> Int {
+  if pos < 0 {
+    0
+  } else {
+    pos
+  }
+}
+
+///|
+/// The caller's budget, or a fresh default one (allocated only when needed).
+fn budget_or_default(budget : Budget?) -> Budget {
+  match budget {
+    Some(b) => b
+    None => Budget::new(default_steps)
+  }
 }
 
 ///|
@@ -248,11 +265,12 @@ pub fn Regex::match_end(
   endpos? : Int,
   budget? : Budget,
 ) -> Int raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
   if pos > end {
     return -1
   }
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   self.exec_end(text, pos, end, budget, must_advance=false, full=false)
 }
 
@@ -283,11 +301,12 @@ pub fn Regex::match_at(
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
   if pos > end || self.rejects(text, pos, end) {
     return None
   }
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   self.exec(text, pos, end, budget, must_advance=false, full=false)
 }
 
@@ -300,11 +319,12 @@ pub fn Regex::fullmatch(
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
   if pos > end || self.rejects(text, pos, end) {
     return None
   }
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   self.exec(text, pos, end, budget, must_advance=false, full=true)
 }
 
@@ -383,8 +403,9 @@ pub fn Regex::search(
   endpos? : Int,
   budget? : Budget,
 ) -> Match? raise RegexError {
-  let (pos, end) = clamp_range(text, pos, endpos)
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let end = clamp_end(text, endpos)
+  let pos = clamp_pos(pos)
+  let budget = budget_or_default(budget)
   self.search_from(text, pos, end, budget, false)
 }
 
@@ -396,7 +417,7 @@ pub fn Regex::find_all(
   text : String,
   budget? : Budget,
 ) -> Array[Match] raise RegexError {
-  let budget = budget.unwrap_or(Budget::new(default_steps))
+  let budget = budget_or_default(budget)
   let out = []
   let end = text.length()
   let mut p = 0
