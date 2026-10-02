@@ -329,12 +329,6 @@ pub fn Regex::fullmatch(
 }
 
 ///|
-/// Whether code unit `c` can start a match (see `may_start_with`).
-fn Regex::can_start(self : Regex, c : Int) -> Bool {
-  self.first.allows(c)
-}
-
-///|
 /// Scans `text[pos..end]` for the first match, trying each code point
 /// position the prefilter allows (one budget step per position ruled out).
 fn Regex::search_from(
@@ -348,14 +342,32 @@ fn Regex::search_from(
   let vm = self.enter(text, end, budget)
   errdefer vm.abandon(budget)
   let nullable = self.nullable
+  let lo = self.first.lo
+  let hi = self.first.hi
+  let non_ascii = self.first.non_ascii
   let mut p = pos
   while p <= end {
     if !nullable {
       // skip the positions the prefilter rules out
       let mut skipped = 0
-      while p < end && !self.can_start(text.unsafe_get(p).to_int()) {
+      while p < end {
+        let c = text.unsafe_get(p).to_int()
+        if c < 64 {
+          if ((lo >> c) & 1) != 0 {
+            break
+          }
+          p += 1
+        } else if c < 128 {
+          if ((hi >> (c - 64)) & 1) != 0 {
+            break
+          }
+          p += 1
+        } else if non_ascii {
+          break
+        } else {
+          p = next_position(text, p, end)
+        }
         skipped += 1
-        p = next_position(text, p, end)
       }
       if p >= end {
         // a non-nullable pattern cannot match at the end
