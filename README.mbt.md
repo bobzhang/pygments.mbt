@@ -13,7 +13,8 @@ highlighter — to MoonBit.
   backreferences, conditionals, inline/scoped flags, verbose mode, Unicode
   `\w\d\s` and case folding generated from CPython 3.14, a step budget
   against catastrophic backtracking. Differentially tested against CPython on
-  all 8,838 patterns used by the lexers.
+  all 8,838 patterns used by the lexers (`match` at varied positions and
+  `finditer`).
 * All non-image formatters (HTML, terminal/256/true-color, LaTeX, RTF, SVG,
   BBCode, IRC, groff, Pango, raw, testcase), all 50 styles and all 8 filters,
   byte-identical to Python on 5,480 differential cases.
@@ -102,13 +103,28 @@ in Python without PIL.
 ## Performance
 
 Best of 3 runs, lexing then formatting with `terminal256`, on an Apple M-series
-machine (`cmd/bench` vs `scripts/bench.py`, CPython 3.14):
+machine (`cmd/bench` vs `scripts/bench.py`, CPython 3.14; inputs from
+`scripts/bench_inputs.sh`):
 
 | Input | Python lex / format | native lex / format | wasm (`moonx`) lex / format |
 |---|---|---|---|
-| Python, 4.1 MB | 3361 / 550 ms | 253 / 54 ms (13× / 10×) | 715 / 102 ms (4.7× / 5.4×) |
-| C, 1.1 MB | 835 / 131 ms | 108 / 13 ms (7.7× / 10×) | 327 / 30 ms (2.6× / 4.4×) |
-| HTML, 1.4 MB | 470 / 239 ms | 81 / 17 ms (5.8× / 14×) | 224 / 44 ms (2.1× / 5.4×) |
+| Python, 4.1 MB | 3361 / 550 ms | 150 / 50 ms (22× / 11×) | 413 / 99 ms (8.1× / 5.6×) |
+| C, 1.1 MB | 835 / 131 ms | 68 / 14 ms (12× / 9.4×) | 176 / 31 ms (4.7× / 4.2×) |
+| HTML, 1.4 MB | 470 / 239 ms | 65 / 16 ms (7.2× / 15×) | 190 / 37 ms (2.5× / 6.5×) |
+
+`cmd/regex_bench` times the regex engine alone (ms, best of 10): Rich's
+`ReprHighlighter`/`JSONHighlighter` patterns via `find_all` over 20,000 repr
+lines / 800 JSON documents, `RegexLexer`-style `match_at` / `match_end` loops
+over 4,000 generated Python functions, and rare matches among 300,000 log
+lines:
+
+| Case | native | wasm-gc | wasm |
+|---|---|---|---|
+| repr `find_all` | 98 | 150 | 302 |
+| JSON `find_all` | 66 | 99 | 190 |
+| lexer `match_at` | 63 | 81 | 158 |
+| lexer `match_end` | 44 | 72 | 124 |
+| rare `search` | 40 | 75 | 79 |
 
 ## Layout
 

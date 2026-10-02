@@ -93,6 +93,36 @@ Port of Pygments (upstream `38f426a6`, cloned at `.repos/pygments`) to MoonBit.
    all groups at varied positions); snippet/examplefile token streams;
    formatter snapshots.
 
+## Regex VM performance notes
+
+The VM is a backtracking interpreter over a small instruction set; the
+optimisations are all "fail earlier", never a different matching strategy,
+so results (and Python's leftmost-first semantics) are unchanged:
+
+* **Guards from first characters.** `Split` instructions carry the set of
+  characters their first branch can start with (from the AST for
+  alternatives and greedy loops, and at link time by walking the code through
+  zero-width instructions, jumps, alternatives and optional one-character
+  repetitions); a branch that cannot start is skipped without pushing a
+  frame. Each `RepChar` records what its continuation can start with, so a
+  greedy repetition gives back, and a lazy one takes, characters until the
+  continuation can start instead of a resume/fail round trip per character.
+* **Cheap attempts.** A failed attempt pops every frame it pushed, and popping
+  restores capture/register slots, so slots are only cleared after a success.
+  Leading assertions are hoisted before capture-group opens. One-character
+  lookarounds are tested inline. `match_at`/`match_end` allocate nothing
+  besides the `Match`.
+* **Search.** A first-character prefilter skips start positions in a tight
+  loop (one budget step each). When every match starts with a greedy
+  one-set repetition and the pattern has no backreferences, a failed attempt
+  whose repetition stopped at `q` below its maximum rules out the starts
+  before `q`.
+
+`cmd/regex_bench` times these paths (Rich-style highlighters via
+`find_all`, lexer-style `match_at`/`match_end` loops, rare matches in a long
+text); `regex_bench --dump | scripts/regex_bench_oracle.py` checks its
+results against CPython.
+
 ## Styles, filters, formatters
 
 * `styles/`: `Style::new` replays `StyleMeta` on the raw `styles` entries;
