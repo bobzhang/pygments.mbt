@@ -243,11 +243,22 @@ fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
 }
 
 ///|
-/// Fills in the continuation guard of every `RepChar`.
+/// Fills in the continuation guard of every `RepChar`, and guards every
+/// `Split` whose first branch starts with a single character test.
 fn Compiler::link_follows(self : Compiler) -> Unit {
   for i in 0..<self.prog.length() {
-    if self.prog[i] is RepChar(c, set, min, max, greedy, None) {
-      self.prog[i] = RepChar(c, set, min, max, greedy, self.follow_set(i + 1))
+    match self.prog[i] {
+      RepChar(c, set, min, max, greedy, None) =>
+        self.prog[i] = RepChar(c, set, min, max, greedy, self.follow_set(i + 1))
+      Split(x, y) =>
+        if self.follow_set(x) is Some(s) {
+          self.prog[i] = SplitIf(x, y, {
+            lo: s.lo,
+            hi: s.hi,
+            non_ascii: s.has_non_ascii,
+          })
+        }
+      _ => ()
     }
   }
 }

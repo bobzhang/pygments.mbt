@@ -189,22 +189,6 @@ fn Vm::follows(self : Vm, f : CharSet, pos : Int) -> Bool {
 }
 
 ///|
-/// Whether instruction `i` fails at `pos` before consuming anything.
-fn Vm::cannot_start(self : Vm, i : Inst, pos : Int) -> Bool {
-  match i {
-    Char(c) => pos >= self.end || self.cp_at(pos) != c
-    Set(s) => pos >= self.end || !s.contains(self.cp_at(pos))
-    RepChar(c, set, min, _, _, _) if min > 0 =>
-      pos >= self.end ||
-      (match set {
-        None => self.cp_at(pos) != c
-        Some(s) => !s.contains(self.cp_at(pos))
-      })
-    _ => false
-  }
-}
-
-///|
 /// Charges `n` steps for work done inside one instruction (scans).
 fn Vm::charge(self : Vm, n : Int) -> Unit raise RegexError {
   self.steps -= n
@@ -381,24 +365,18 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
           false
         }
       Split(x, y) => {
-        // a first branch that cannot even start here fails immediately and
-        // without side effects: go straight to the second one
-        if self.cannot_start(prog[x], pos) {
-          pc = y
-        } else {
-          self.push(BT_ALT, y, pos, 0)
-          pc = x
-        }
+        self.push(BT_ALT, y, pos, 0)
+        pc = x
         true
       }
       SplitIf(x, y, fs) => {
-        if pos >= self.end ||
-          !fs.allows(self.text.unsafe_get(pos).to_int()) ||
-          self.cannot_start(prog[x], pos) {
-          pc = y
-        } else {
+        // a first branch that cannot even start here fails immediately and
+        // without side effects: go straight to the second one
+        if pos < self.end && fs.allows(self.text.unsafe_get(pos).to_int()) {
           self.push(BT_ALT, y, pos, 0)
           pc = x
+        } else {
+          pc = y
         }
         true
       }
