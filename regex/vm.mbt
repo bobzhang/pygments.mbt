@@ -369,6 +369,17 @@ fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
         }
         true
       }
+      SplitIf(x, y, fs) => {
+        if pos >= self.end ||
+          !fs.allows(self.text.unsafe_get(pos).to_int()) ||
+          self.cannot_start(prog[x], pos) {
+          pc = y
+        } else {
+          self.push(BT_ALT, y, pos, 0)
+          pc = x
+        }
+        true
+      }
       Jmp(x) => {
         pc = x
         true

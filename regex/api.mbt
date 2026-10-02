@@ -307,13 +307,7 @@ pub fn Regex::fullmatch(
 ///|
 /// Whether code unit `c` can start a match (see `may_start_with`).
 fn Regex::can_start(self : Regex, c : Int) -> Bool {
-  if c < 64 {
-    ((self.first.lo >> c) & 1) != 0
-  } else if c < 128 {
-    ((self.first.hi >> (c - 64)) & 1) != 0
-  } else {
-    self.first.non_ascii
-  }
+  self.first.allows(c)
 }
 
 ///|

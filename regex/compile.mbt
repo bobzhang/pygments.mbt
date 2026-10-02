@@ -3,6 +3,7 @@ priv enum Inst {
   Char(Int)
   Set(CharSet)
   Split(Int, Int) // try first, backtrack to second
+  SplitIf(Int, Int, FirstSet) // Split, but go straight to the second when the first cannot start here
   Jmp(Int)
   Save(Int)
   Assert(AssertKind)
@@ -72,7 +73,7 @@ fn Compiler::compile(self : Compiler, node : Node) -> Unit raise RegexError {
           let split = self.emit(Split(0, 0))
           self.compile(b)
           jumps.push(self.emit(Jmp(0)))
-          self.prog[split] = Split(split + 1, self.pc())
+          self.prog[split] = split_guarded(b, split + 1, self.pc())
         } else {
           self.compile(b)
         }
@@ -120,6 +121,18 @@ fn Compiler::compile(self : Compiler, node : Node) -> Unit raise RegexError {
 }
 
 ///|
+/// `Split(x, y)` where `x` starts the code of `first`: guarded by the
+/// characters `first` can start with, unless it can match empty.
+fn split_guarded(first : Node, x : Int, y : Int) -> Inst {
+  let fs : FirstSet = { lo: 0, hi: 0, non_ascii: false, }
+  if first_chars(first, fs) || fs.is_full() {
+    Split(x, y)
+  } else {
+    SplitIf(x, y, fs)
+  }
+}
+
+///|
 fn Compiler::compile_repeat(
   self : Compiler,
   n : Node,
@@ -158,7 +171,7 @@ fn Compiler::compile_repeat(
     ignore(self.emit(Jmp(loop_start)))
     let exit = self.pc()
     self.prog[loop_start] = if greedy {
-      Split(body, exit)
+      split_guarded(n, body, exit)
     } else {
       Split(exit, body)
     }
@@ -188,7 +201,7 @@ fn Compiler::compile_repeat(
     let exit = self.pc()
     for s in splits {
       self.prog[s] = if greedy {
-        Split(s + 1, exit)
+        split_guarded(n, s + 1, exit)
       } else {
         Split(exit, s + 1)
       }
@@ -224,6 +237,26 @@ priv struct FirstSet {
   mut lo : UInt64
   mut hi : UInt64
   mut non_ascii : Bool
+}
+
+///|
+/// Whether code unit `c` may start a match (`c` is never the end).
+fn FirstSet::allows(self : FirstSet, c : Int) -> Bool {
+  if c < 64 {
+    ((self.lo >> c) & 1) != 0
+  } else if c < 128 {
+    ((self.hi >> (c - 64)) & 1) != 0
+  } else {
+    self.non_ascii
+  }
+}
+
+///|
+/// Whether every code unit is allowed (the set rules nothing out).
+fn FirstSet::is_full(self : FirstSet) -> Bool {
+  self.non_ascii &&
+  self.lo == 0xFFFFFFFFFFFFFFFFUL &&
+  self.hi == 0xFFFFFFFFFFFFFFFFUL
 }
 
 ///|
