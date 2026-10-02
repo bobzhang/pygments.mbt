@@ -36,6 +36,8 @@ priv struct Vm {
   mut must_advance : Bool
   /// require the match to end at `end` (`fullmatch`)
   mut full : Bool
+  /// capture/register slots may hold values from a successful attempt
+  mut dirty : Bool
 }
 
 ///|

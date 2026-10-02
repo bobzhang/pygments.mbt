@@ -1,0 +1,80 @@
+///|
+fn all_spans(re : @regex.Regex, text : String) -> Array[Array[Int]] raise {
+  re
+  .find_all(text)
+  .map(m => {
+    let out = []
+    for g in 0..<=m.group_count() {
+      out.push(m.start(group=g))
+      out.push(m.end(group=g))
+    }
+    out
+  })
+}
+
+///|
+test "groups of an earlier match do not leak into later ones" {
+  let re = @regex.compile("(a)|(b)(c)?|(?P<d>d+)")
+  debug_inspect(
+    all_spans(re, "abcbdd"),
+    content=(
+      #|[
+      #|  [0, 1, 0, 1, -1, -1, -1, -1, -1, -1],
+      #|  [1, 3, -1, -1, 1, 2, 2, 3, -1, -1],
+      #|  [3, 4, -1, -1, 3, 4, -1, -1, -1, -1],
+      #|  [4, 6, -1, -1, -1, -1, -1, -1, 4, 6],
+      #|]
+    ),
+  )
+  // match_at after a find_all reuses the same VM
+  debug_inspect(
+    spans(re, "xb", pos=1),
+    content="Some([1, 2, -1, -1, 1, 2, -1, -1, -1, -1])",
+  )
+  // a nullable group inside a loop (register slots)
+  let loop_re = @regex.compile("(?:(x*)y)*z")
+  debug_inspect(
+    all_spans(loop_re, "xyyz z"),
+    content="[[0, 4, 2, 2], [5, 6, -1, -1]]",
+  )
+}
+
+///|
+test "search skips impossible starts and handles surrogate pairs" {
+  let re = @regex.compile("\\b(?:ERROR|FATAL)\\b: (?P<msg>.*)")
+  debug_inspect(
+    all_spans(re, "ok\nan ERRORS: no\nFATAL: disk 😀\n"),
+    content="[[17, 31, 24, 31]]",
+  )
+  let emoji = @regex.compile("😀+|x")
+  debug_inspect(all_spans(emoji, "a😀😀bx"), content="[[1, 5], [6, 7]]")
+  // empty matches advance by code point
+  let empty = @regex.compile("(?=😀)|$")
+  debug_inspect(all_spans(empty, "a😀b"), content="[[1, 1], [4, 4]]")
+}
+
+///|
+test "search budget covers the whole scan" {
+  let re = @regex.compile("(a*)*b")
+  let text = "x" + "a".repeat(30)
+  try re.search(text, budget=@regex.Budget::new(100000)) catch {
+    BudgetExceeded(..) => ()
+    e => fail("unexpected \{Repr(e)}")
+  } noraise {
+    _ => fail("expected budget exhaustion")
+  }
+  // positions ruled out by the prefilter are charged one step each
+  let lit = @regex.compile("z")
+  try lit.search("y".repeat(1000), budget=@regex.Budget::new(500)) catch {
+    BudgetExceeded(..) => ()
+    e => fail("unexpected \{Repr(e)}")
+  } noraise {
+    _ => fail("expected budget exhaustion")
+  }
+  let budget = @regex.Budget::new(5000)
+  debug_inspect(
+    lit.search("y".repeat(1000) + "z", budget~) is Some(_),
+    content="true",
+  )
+  inspect(budget.remaining, content="3998")
+}
