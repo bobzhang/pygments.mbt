@@ -220,44 +220,61 @@ fn Compiler::compile_repeat(
 
 ///|
 /// The characters the code at `pc` can start with, looking through
-/// zero-width instructions, jumps and optional single-character repetitions,
-/// if that ends at a single character test (`None` otherwise). A
-/// conservative guard: code at `pc` fails at a position whose character is
-/// not in the set.
+/// zero-width instructions, jumps, alternatives and optional
+/// single-character repetitions, if every path reaches a character test
+/// (`None` otherwise). A conservative guard: code at `pc` fails at a
+/// position whose character is not in the set.
 fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
-  let mut pc = pc
   let pairs : Array[(Int, Int)] = []
-  for _ in 0..<16 {
+  let fuel = Ref(32)
+  if self.follow_pairs(pc, pairs, fuel) {
+    Some(CharSet::from_ranges(pairs))
+  } else {
+    None
+  }
+}
+
+///|
+/// Adds the first characters of the code at `pc` to `pairs` (see
+/// `follow_set`); false if some path has no bounded first character.
+fn Compiler::follow_pairs(
+  self : Compiler,
+  pc : Int,
+  pairs : Array[(Int, Int)],
+  fuel : Ref[Int],
+) -> Bool {
+  let mut pc = pc
+  while fuel.val > 0 {
+    fuel.val -= 1
     match self.prog[pc] {
       Save(_) | Assert(_) | Look(_) | LookSet(_) | SetMark(_) => pc += 1
       Jmp(t) => pc = t
       Char(c) => {
         pairs.push((c, c))
-        return Some(CharSet::from_ranges(pairs))
+        return true
       }
-      Set(s) => return Some(if pairs.is_empty() { s } else { union(pairs, s) })
+      Set(s) => {
+        pairs.append(s.to_pairs())
+        return true
+      }
       RepChar(c, set, min, _, _, _) => {
         match set {
           Some(s) => pairs.append(s.to_pairs())
           None => pairs.push((c, c))
         }
         if min > 0 {
-          return Some(CharSet::from_ranges(pairs))
+          return true
         }
         // optional: the code after it may start the match too
         pc += 1
       }
-      _ => return None
+      Split(x, y) | SplitIf(x, y, _) =>
+        return self.follow_pairs(x, pairs, fuel) &&
+          self.follow_pairs(y, pairs, fuel)
+      _ => return false
     }
   }
-  None
-}
-
-///|
-fn union(pairs : Array[(Int, Int)], s : CharSet) -> CharSet {
-  let all = pairs.copy()
-  all.append(s.to_pairs())
-  CharSet::from_ranges(all)
+  false
 }
 
 ///|

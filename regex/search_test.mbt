@@ -146,6 +146,12 @@ test "leading assertions and optional repetitions before a guard" {
       "((?:^a)*)(b)", "aab ab b", "[[2, 3, 2, 2, 2, 3], [5, 6, 5, 5, 5, 6], [7, 8, 7, 7, 7, 8]]",
     ),
     ("(\\b)(\\w+)", "ab cd", "[[0, 2, 0, 0, 0, 2], [3, 5, 3, 3, 3, 5]]"),
+    // guards through alternatives
+    (
+      "(?m)(^[ \\t]*)(match|case)\\b", "    x\n  case y\n\tmatch", "[[6, 12, 6, 8, 8, 12], [15, 21, 15, 16, 16, 21]]",
+    ),
+    ("[ab]*(?:cd|e)", "aab abcd xe", "[[4, 8], [10, 11]]"),
+    ("\\s*(?:(?:x|y)z|w)", "  yz w  xw", "[[0, 4], [4, 6], [9, 10]]"),
   ]
   for case in cases {
     let (pattern, text, expected) = case
