@@ -18,7 +18,7 @@ pub let elixir_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `ElixirConsoleLexer` (Elixir iex session).
 pub fn elixir_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     elixir_console_lexer_info,
@@ -371,7 +371,7 @@ let elixir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ElixirLexer` (Elixir).
-pub fn elixir_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn elixir_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     elixir_lexer_info,
     options,
@@ -490,7 +490,7 @@ let erlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ErlangLexer` (Erlang).
-pub fn erlang_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn erlang_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     erlang_lexer_info,
     options,
@@ -519,7 +519,7 @@ pub let erlang_shell_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `ErlangShellLexer` (Erlang erl session).
 pub fn erlang_shell_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     erlang_shell_lexer_info,

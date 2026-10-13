@@ -178,7 +178,7 @@ let usd_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `UsdLexer` (USD).
-pub fn usd_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn usd_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(usd_lexer_info, options, opts => usd_lexer(options=opts), (
     lx,
     text,

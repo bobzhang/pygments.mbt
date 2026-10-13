@@ -2,9 +2,9 @@
 /// A foreground/background color of an `EscapeSequence`: an index into the
 /// xterm palette, an ANSI color name, or an RGB triple (true color).
 priv enum TermColor {
-  Index(Int)
+  Index(Int32)
   Ansi(String)
-  Rgb(Int, Int, Int)
+  Rgb(Int32, Int32, Int32)
 }
 
 ///|
@@ -72,7 +72,7 @@ fn EscapeSequence::color_string(self : EscapeSequence) -> String {
 
 ///|
 /// `int(s)` for the SGR codes extracted from `console_codes`.
-fn sgr_int(s : String) -> Int {
+fn sgr_int(s : String) -> Int32 {
   py_int(s).unwrap_or(0)
 }
 
@@ -117,7 +117,7 @@ fn EscapeSequence::reset_string(self : EscapeSequence) -> String {
 ///|
 /// Python's `Terminal256Formatter._build_color_table`: the RGB values of the
 /// 256 xterm colors.
-let xterm_colors : Array[(Int, Int, Int)] = {
+let xterm_colors : Array[(Int32, Int32, Int32)] = {
   let colors = [
     (0x00, 0x00, 0x00),
     (0xcd, 0x00, 0x00),
@@ -151,7 +151,7 @@ let xterm_colors : Array[(Int, Int, Int)] = {
 
 ///|
 /// Python's `_closest_color`: the xterm color nearest to `(r, g, b)`.
-fn closest_color(r : Int, g : Int, b : Int) -> Int {
+fn closest_color(r : Int32, g : Int32, b : Int32) -> Int32 {
   let mut distance = 257 * 257 * 3
   let mut best = 0
   for i in 0..<256 {
@@ -333,7 +333,7 @@ fn terminal256_impl(
 /// Python's `Terminal256Formatter` (options `style`, `linenos`, and the
 /// presence of `nobold`/`nounderline`/`noitalic`).
 pub fn terminal256_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   terminal256_impl(terminal256_info, options, style, false)
@@ -342,7 +342,7 @@ pub fn terminal256_formatter(
 ///|
 /// Python's `TerminalTrueColorFormatter`.
 pub fn terminal_true_color_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   terminal256_impl(terminal_true_color_info, options, style, true)

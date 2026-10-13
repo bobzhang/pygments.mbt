@@ -17,7 +17,7 @@ pub let delphi_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `DelphiLexer` (Delphi).
-pub fn delphi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn delphi_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     delphi_lexer_info,
     options,
@@ -44,7 +44,7 @@ pub let portugol_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PortugolLexer` (Portugol).
 pub fn portugol_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     portugol_lexer_info,

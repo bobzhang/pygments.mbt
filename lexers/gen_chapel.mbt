@@ -96,7 +96,7 @@ let chapel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ChapelLexer` (Chapel).
-pub fn chapel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn chapel_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     chapel_lexer_info,
     options,

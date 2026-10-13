@@ -56,7 +56,7 @@ fn error_text(e : Error) -> String {
 }
 
 ///|
-async fn run(argv : Array[String]) -> Int {
+async fn run(argv : Array[String]) -> Int32 {
   let cfg : Config = {
     lang: None,
     style: None,

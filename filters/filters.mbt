@@ -11,7 +11,7 @@ pub suberror ErrorToken {
 /// (`XXX`, `TODO`, `FIXME`, `BUG`, `NOTE`, or the `codetags` option) in
 /// comments and docstrings as `Comment.Special`.
 pub fn code_tag_filter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter raise {
   let tags = @lexer.get_list_opt(options, "codetags", [
     "XXX", "TODO", "FIXME", "BUG", "NOTE",
@@ -44,7 +44,7 @@ pub fn code_tag_filter(
 /// as `\<longrightarrow>` (Isabelle, the default `lang`) or `\longrightarrow`
 /// (`lang=latex`) into Unicode characters.
 pub fn symbol_filter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter raise {
   let lang = @lexer.get_choice_opt(
     options,
@@ -70,7 +70,7 @@ pub fn symbol_filter(
 /// Python's `KeywordCaseFilter` (`keywordcase`): changes the case of
 /// keywords (`case` option: `lower` (default), `upper` or `capitalize`).
 pub fn keyword_case_filter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter raise {
   let case = @lexer.get_choice_opt(
     options,
@@ -101,7 +101,7 @@ pub fn keyword_case_filter(
 /// Python's `NameHighlightFilter` (`highlight`): gives the `Name` tokens
 /// whose text is in `names` the type `tokentype` (default `Name.Function`).
 pub fn name_highlight_filter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter {
   let names = @lexer.get_list_opt(options, "names", [])
   let tokentype = match options.get("tokentype") {
@@ -126,7 +126,7 @@ pub fn name_highlight_filter(
 /// Python's `RaiseOnErrorTokenFilter` (`raiseonerror`): raises `ErrorToken`
 /// on the first `Error` token.
 pub fn raise_on_error_token_filter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter {
   ignore(options)
   {
@@ -164,7 +164,7 @@ fn whitespace_opt(
 /// newlines visible by replacing them with `·`, `»` and `¶` (or the
 /// characters given as options).
 pub fn visible_whitespace_filter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter raise {
   let spaces = whitespace_opt(options, "spaces", "·")
   let mut tabs = whitespace_opt(options, "tabs", "»")
@@ -223,11 +223,11 @@ pub fn visible_whitespace_filter(
 /// Python's `GobbleFilter` (`gobble`): removes the first `n` characters of
 /// every line.
 pub fn gobble_filter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter raise {
   let n = @lexer.get_int_opt(options, "n", 0)
   // (rest of `value` after dropping `left` code points, characters still to drop)
-  fn gobble(value : String, left : Int) -> (String, Int) {
+  fn gobble(value : String, left : Int32) -> (String, Int32) {
     let len = value.char_length()
     if left < len {
       (@pystr.slice(value, left), 0)
@@ -264,7 +264,7 @@ pub fn gobble_filter(
 ///|
 /// Python's `TokenMergeFilter` (`tokenmerge`): merges consecutive tokens of
 /// the same type.
-pub fn token_merge_filter(options? : @lexer.Options = Map([])) -> @lexer.Filter {
+pub fn token_merge_filter(options~ : @lexer.Options = Map([])) -> @lexer.Filter {
   ignore(options)
   {
     name: "tokenmerge",

@@ -18,7 +18,7 @@ fn makefile_lexer_tokenizer(
   text : String,
   _stack : Array[String],
 ) -> Array[@lexer.Token] raise {
-  let ins : Array[(Int, Array[@lexer.Token])] = []
+  let ins : Array[(Int32, Array[@lexer.Token])] = []
   let done = StringBuilder()
   let mut done_len = 0
   let lex = base_makefile_lexer(options=lx.options)

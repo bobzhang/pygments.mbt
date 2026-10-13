@@ -119,7 +119,7 @@ let j_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JLexer` (J).
-pub fn j_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn j_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(j_lexer_info, options, opts => j_lexer(options=opts), (
     lx,
     text,

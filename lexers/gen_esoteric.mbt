@@ -26,7 +26,7 @@ let aheui_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AheuiLexer` (Aheui).
-pub fn aheui_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn aheui_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     aheui_lexer_info,
     options,
@@ -79,7 +79,7 @@ let befunge_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BefungeLexer` (Befunge).
-pub fn befunge_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn befunge_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     befunge_lexer_info,
     options,
@@ -129,7 +129,7 @@ let brainfuck_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BrainfuckLexer` (Brainfuck).
 pub fn brainfuck_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     brainfuck_lexer_info,
@@ -217,7 +217,7 @@ let c_amk_es_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CAmkESLexer` (CAmkES).
 pub fn c_amk_es_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     c_amk_es_lexer_info,
@@ -282,7 +282,7 @@ let cap_dl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CapDLLexer` (CapDL).
-pub fn cap_dl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cap_dl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cap_dl_lexer_info,
     options,
@@ -332,7 +332,7 @@ let redcode_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RedcodeLexer` (Redcode).
-pub fn redcode_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn redcode_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     redcode_lexer_info,
     options,

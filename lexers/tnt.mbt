@@ -25,12 +25,12 @@ priv suberror TntError {
 priv struct TntLexer {
   text : String
   chars : Array[Char]
-  off : Array[Int]
-  cp_of : Array[Int]
-  cur : Array[(Int, @token.TokenType, String)]
-  mut start : Int
-  mut end : Int
-  mut orig : Int?
+  off : Array[Int32]
+  cp_of : Array[Int32]
+  cur : Array[(Int32, @token.TokenType, String)]
+  mut start : Int32
+  mut end : Int32
+  mut orig : Int32?
 }
 
 ///|
@@ -51,7 +51,7 @@ fn TntLexer::new(text : String) -> TntLexer {
 
 ///|
 /// `text[i]`, raising `IndexError` past the end.
-fn TntLexer::at(self : TntLexer, i : Int) -> Char raise TntError {
+fn TntLexer::at(self : TntLexer, i : Int32) -> Char raise TntError {
   if i < 0 || i >= self.chars.length() {
     raise Index
   }
@@ -60,7 +60,7 @@ fn TntLexer::at(self : TntLexer, i : Int) -> Char raise TntError {
 
 ///|
 /// `text[a:b]` (clamped as Python slicing).
-fn TntLexer::sl(self : TntLexer, a : Int, b : Int) -> String {
+fn TntLexer::sl(self : TntLexer, a : Int32, b : Int32) -> String {
   let n = self.chars.length()
   let a = if a > n { n } else { a }
   let b = if b > n { n } else { b }
@@ -74,7 +74,7 @@ fn TntLexer::sl(self : TntLexer, a : Int, b : Int) -> String {
 ///|
 fn TntLexer::add(
   self : TntLexer,
-  start : Int,
+  start : Int32,
   t : @token.TokenType,
   v : String,
 ) -> Unit {
@@ -99,9 +99,9 @@ fn tnt_is_number(c : Char) -> Bool {
 ///|
 fn TntLexer::whitespace(
   self : TntLexer,
-  start : Int,
-  required? : Bool = false,
-) -> Int raise TntError {
+  start : Int32,
+  required~ : Bool = false,
+) -> Int32 raise TntError {
   let mut end = start
   while end < self.chars.length() && tnt_is_whitespace(self.chars[end]) {
     end += 1
@@ -116,7 +116,7 @@ fn TntLexer::whitespace(
 }
 
 ///|
-fn TntLexer::variable(self : TntLexer, start : Int) -> Int raise TntError {
+fn TntLexer::variable(self : TntLexer, start : Int32) -> Int32 raise TntError {
   if !tnt_is_variable(self.at(start)) {
     raise Assertion
   }
@@ -129,7 +129,7 @@ fn TntLexer::variable(self : TntLexer, start : Int) -> Int raise TntError {
 }
 
 ///|
-fn TntLexer::term(self : TntLexer, start : Int) -> Int raise TntError {
+fn TntLexer::term(self : TntLexer, start : Int32) -> Int32 raise TntError {
   let c = self.at(start)
   if c == 'S' {
     let mut end = start + 1
@@ -165,7 +165,7 @@ fn TntLexer::term(self : TntLexer, start : Int) -> Int raise TntError {
 }
 
 ///|
-fn TntLexer::formula(self : TntLexer, start : Int) -> Int raise TntError {
+fn TntLexer::formula(self : TntLexer, start : Int32) -> Int32 raise TntError {
   let c = self.at(start)
   if c is ('~' | '!') {
     let mut end = start + 1
@@ -209,12 +209,12 @@ fn TntLexer::formula(self : TntLexer, start : Int) -> Int raise TntError {
 }
 
 ///|
-fn TntLexer::rule(self : TntLexer, start : Int) -> Int raise TntError {
+fn TntLexer::rule(self : TntLexer, start : Int32) -> Int32 raise TntError {
   let m = tnt_rules_re.match_at(self.text, self.off[start]) catch { _ => None }
   guard m is Some(m) else { raise Assertion }
   let mend = self.cp_of[m.end()]
   // sorted(match.regs[1:]): the first participating group
-  let mut group : (Int, Int)? = None
+  let mut group : (Int32, Int32)? = None
   for g in 1..<=m.group_count() {
     if m.start(group=g) >= 0 {
       let span = (self.cp_of[m.start(group=g)], self.cp_of[m.end(group=g)])
@@ -238,7 +238,7 @@ fn TntLexer::rule(self : TntLexer, start : Int) -> Int raise TntError {
 }
 
 ///|
-fn TntLexer::lineno(self : TntLexer, start : Int) -> Int raise TntError {
+fn TntLexer::lineno(self : TntLexer, start : Int32) -> Int32 raise TntError {
   let mut end = start
   while !tnt_is_number(self.at(end)) {
     end += 1
@@ -257,7 +257,7 @@ fn TntLexer::lineno(self : TntLexer, start : Int) -> Int raise TntError {
 }
 
 ///|
-fn TntLexer::error_till_line_end(self : TntLexer, start : Int) -> Int {
+fn TntLexer::error_till_line_end(self : TntLexer, start : Int32) -> Int32 {
   let mut end = start
   while end < self.chars.length() && self.chars[end] != '\n' {
     end += 1
@@ -366,14 +366,14 @@ fn TntLexer::truncate(self : TntLexer) -> Unit {
 
 ///|
 /// `start = end = self.error_till_line_end(pos)`.
-fn TntLexer::skip_line(self : TntLexer, pos : Int) -> Unit {
+fn TntLexer::skip_line(self : TntLexer, pos : Int32) -> Unit {
   self.start = self.error_till_line_end(pos)
   self.end = self.start
 }
 
 ///|
 /// `del self.cur[orig:]; start = end = self.error_till_line_end(pos)`.
-fn TntLexer::recover(self : TntLexer, pos : Int) -> Unit {
+fn TntLexer::recover(self : TntLexer, pos : Int32) -> Unit {
   self.truncate()
   self.skip_line(pos)
 }

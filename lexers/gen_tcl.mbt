@@ -100,7 +100,7 @@ let tcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TclLexer` (Tcl).
-pub fn tcl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tcl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(tcl_lexer_info, options, opts => tcl_lexer(options=opts), (
     lx,
     text,

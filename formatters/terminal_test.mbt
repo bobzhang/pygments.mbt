@@ -32,7 +32,7 @@ fn strip_ansi(s : String) -> String {
 }
 
 ///|
-fn count_newlines(s : String) -> Int {
+fn count_newlines(s : String) -> Int32 {
   s.iter().filter(c => c == '\n').count()
 }
 

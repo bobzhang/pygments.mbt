@@ -61,7 +61,7 @@ let bst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BSTLexer` (BST).
-pub fn bst_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn bst_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(bst_lexer_info, options, opts => bst_lexer(options=opts), (
     lx,
     text,
@@ -156,7 +156,7 @@ let bib_te_x_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BibTeXLexer` (BibTeX).
 pub fn bib_te_x_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     bib_te_x_lexer_info,

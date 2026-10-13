@@ -97,7 +97,7 @@ let darcs_patch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DarcsPatchLexer` (Darcs Patch).
 pub fn darcs_patch_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     darcs_patch_lexer_info,
@@ -186,7 +186,7 @@ let diff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DiffLexer` (Diff).
-pub fn diff_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn diff_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     diff_lexer_info,
     options,
@@ -243,7 +243,7 @@ let w_diff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `WDiffLexer` (WDiff).
-pub fn w_diff_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn w_diff_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     w_diff_lexer_info,
     options,

@@ -59,7 +59,7 @@ let hare_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HareLexer` (Hare).
-pub fn hare_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn hare_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     hare_lexer_info,
     options,

@@ -59,7 +59,7 @@ let croc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CrocLexer` (Croc).
-pub fn croc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn croc_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     croc_lexer_info,
     options,
@@ -214,7 +214,7 @@ let d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DLexer` (D).
-pub fn d_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn d_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(d_lexer_info, options, opts => d_lexer(options=opts), (
     lx,
     text,
@@ -281,7 +281,7 @@ let mini_d_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MiniDLexer` (MiniD).
-pub fn mini_d_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mini_d_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mini_d_lexer_info,
     options,

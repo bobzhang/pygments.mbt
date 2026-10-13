@@ -161,7 +161,7 @@ let jsonnet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JsonnetLexer` (Jsonnet).
-pub fn jsonnet_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jsonnet_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     jsonnet_lexer_info,
     options,

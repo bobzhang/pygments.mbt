@@ -18,7 +18,7 @@ fn docstring_headline(doc : String) -> String {
 
 ///|
 /// Python's `str` ordering: lexicographic by code point.
-fn py_compare(a : String, b : String) -> Int {
+fn py_compare(a : String, b : String) -> Int32 {
   let xs = a.to_array()
   let ys = b.to_array()
   for i in 0..<@cmp.minimum(xs.length(), ys.length()) {
@@ -34,7 +34,7 @@ fn py_compare(a : String, b : String) -> Int {
 fn compare_rows(
   a : (String, String, String),
   b : (String, String, String),
-) -> Int {
+) -> Int32 {
   let c = py_compare(a.0, b.0)
   if c != 0 {
     return c

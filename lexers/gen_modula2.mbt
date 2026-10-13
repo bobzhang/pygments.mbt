@@ -108,7 +108,7 @@ let modula2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Modula2Lexer` (Modula-2).
-pub fn modula2_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn modula2_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     modula2_lexer_info,
     options,

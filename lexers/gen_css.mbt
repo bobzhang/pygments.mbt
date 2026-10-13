@@ -192,7 +192,7 @@ let css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CssLexer` (CSS).
-pub fn css_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn css_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(css_lexer_info, options, opts => css_lexer(options=opts), (
     lx,
     text,
@@ -407,7 +407,7 @@ let less_css_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LessCssLexer` (LessCss).
 pub fn less_css_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     less_css_lexer_info,
@@ -622,7 +622,7 @@ let sass_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SassLexer` (Sass).
-pub fn sass_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sass_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sass_lexer_info,
     options,
@@ -801,7 +801,7 @@ let scss_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ScssLexer` (SCSS).
-pub fn scss_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn scss_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     scss_lexer_info,
     options,

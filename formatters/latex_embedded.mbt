@@ -23,7 +23,7 @@ pub fn latex_embedded_lexer(
   left : String,
   right : String,
   lang : @lexer.Lexer,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   let merged = lang.options.copy()
   for k, v in options {
@@ -37,7 +37,7 @@ pub fn latex_embedded_lexer(
       // find and remove all the escape tokens (replace with an empty string)
       let buffered = StringBuilder()
       let mut buffered_len = 0
-      let insertions : Array[(Int, Array[@lexer.Token])] = []
+      let insertions : Array[(Int32, Array[@lexer.Token])] = []
       let insertion_buf : Array[@lexer.Token] = []
       for item in find_safe_escape_tokens(left, right, lang, text) {
         let (i, t, v) = item
@@ -72,7 +72,7 @@ fn find_safe_escape_tokens(
   right : String,
   lang : @lexer.Lexer,
   text : String,
-) -> Array[(Int, @token.TokenType?, String)] raise {
+) -> Array[(Int32, @token.TokenType?, String)] raise {
   let out = []
   let pred = (t : @token.TokenType) => {
     t.is_subtype_of(@token.comment) || t.is_subtype_of(@token.string)
@@ -96,7 +96,7 @@ fn find_safe_escape_tokens(
 fn filter_to(
   tokens : Array[@lexer.Token],
   pred : (@token.TokenType) -> Bool,
-) -> Array[(Int, @token.TokenType?, String)] {
+) -> Array[(Int32, @token.TokenType?, String)] {
   let out = []
   let buf = StringBuilder()
   let mut idx = 0
@@ -127,7 +127,7 @@ fn find_escape_tokens(
   left : String,
   right : String,
   text : String,
-) -> Array[(Int, @token.TokenType?, String)] {
+) -> Array[(Int32, @token.TokenType?, String)] {
   let out = []
   let mut index = 0
   let mut text = text

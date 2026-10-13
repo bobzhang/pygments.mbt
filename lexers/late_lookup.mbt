@@ -64,7 +64,7 @@ fn late_guess_lexer(text : String) -> @lexer.Lexer? raise {
 /// `ClassNotFound`.
 fn lookup_lexer(
   name : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   (late_lookup_by_name.val)(name, options)
 }

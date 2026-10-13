@@ -47,7 +47,7 @@ async fn main {
       }
       cases += 1
       let text = texts[tid.to_int()]
-      let got : Array[Int]? = try re.match_at(text, pos.to_int()) catch {
+      let got : Array[Int32]? = try re.match_at(text, pos.to_int()) catch {
         e => {
           println("ERROR \{pat.escape()}: \{Repr(e)}")
           Some([-99])
@@ -63,7 +63,7 @@ async fn main {
         }
         None => None
       }
-      let want : Array[Int]? = match expected {
+      let want : Array[Int32]? = match expected {
         Null => None
         Array(xs) =>
           Some(
@@ -99,7 +99,7 @@ async fn main {
           n.to_int()
         })
       })
-      let got : Array[Array[Int]] = try re.find_all(text) catch {
+      let got : Array[Array[Int32]] = try re.find_all(text) catch {
         e => {
           println("ERROR (search) \{pat.escape()}: \{Repr(e)}")
           [[-99]]

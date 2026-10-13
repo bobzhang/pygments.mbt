@@ -48,7 +48,7 @@ let io_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `IoLexer` (Io).
-pub fn io_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn io_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(io_lexer_info, options, opts => io_lexer(options=opts), (
     lx,
     text,

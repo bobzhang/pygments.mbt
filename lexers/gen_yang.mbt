@@ -71,7 +71,7 @@ let yang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `YangLexer` (YANG).
-pub fn yang_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn yang_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     yang_lexer_info,
     options,

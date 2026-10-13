@@ -106,7 +106,7 @@ let asymptote_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AsymptoteLexer` (Asymptote).
 pub fn asymptote_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     asymptote_lexer_info,
@@ -167,7 +167,7 @@ let gl_shader_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GLShaderLexer` (GLSL).
 pub fn gl_shader_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gl_shader_lexer_info,
@@ -318,7 +318,7 @@ let gnuplot_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GnuplotLexer` (Gnuplot).
-pub fn gnuplot_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gnuplot_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gnuplot_lexer_info,
     options,
@@ -396,7 +396,7 @@ let hlsl_shader_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `HLSLShaderLexer` (HLSL).
 pub fn hlsl_shader_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     hlsl_shader_lexer_info,
@@ -465,7 +465,7 @@ let post_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PostScriptLexer` (PostScript).
 pub fn post_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     post_script_lexer_info,
@@ -521,7 +521,7 @@ let povray_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PovrayLexer` (POVRay).
-pub fn povray_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn povray_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     povray_lexer_info,
     options,

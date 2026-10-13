@@ -131,7 +131,7 @@ let qv_to_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `QVToLexer` (QVTO).
-pub fn qv_to_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn qv_to_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     qv_to_lexer_info,
     options,

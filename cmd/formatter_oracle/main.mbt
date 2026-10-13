@@ -1,8 +1,8 @@
 ///|
 /// Pass/fail counters per case group (`format:html`, `style`, ...).
 struct Tally {
-  pass : Map[String, Int]
-  fail : Map[String, Int]
+  pass : Map[String, Int32]
+  fail : Map[String, Int32]
 }
 
 ///|

@@ -1,11 +1,11 @@
 ///|
-fn tok(index : Int, value : String) -> @lexer.Token {
+fn tok(index : Int32, value : String) -> @lexer.Token {
   { index, ttype: @token.text, value, }
 }
 
 ///|
 test "do_insertions splits tokens at insertion points" {
-  let ins : Array[(Int, Array[@lexer.Token])] = [
+  let ins : Array[(Int32, Array[@lexer.Token])] = [
     (2, [{ index: 0, ttype: @token.generic_prompt, value: ">>> ", }]),
   ]
   let out = @lexer.do_insertions(ins, [tok(0, "abcd"), tok(4, "ef")])

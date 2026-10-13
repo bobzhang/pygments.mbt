@@ -189,7 +189,7 @@ let vcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `VCLLexer` (VCL).
-pub fn vcl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn vcl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(vcl_lexer_info, options, opts => vcl_lexer(options=opts), (
     lx,
     text,
@@ -392,7 +392,7 @@ let vcl_snippet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VCLSnippetLexer` (VCLSnippets).
 pub fn vcl_snippet_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vcl_snippet_lexer_info,

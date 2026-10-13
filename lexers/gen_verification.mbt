@@ -48,7 +48,7 @@ let boogie_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BoogieLexer` (Boogie).
-pub fn boogie_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn boogie_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     boogie_lexer_info,
     options,
@@ -107,7 +107,7 @@ let silver_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SilverLexer` (Silver).
-pub fn silver_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn silver_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     silver_lexer_info,
     options,

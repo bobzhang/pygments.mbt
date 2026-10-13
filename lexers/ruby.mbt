@@ -36,7 +36,7 @@ fn heredoc_callback(
   tolerant_ops : Array[String],
   skip_unterminated : Bool,
 ) -> Unit raise {
-  let g = (i : Int) => m.group(i).unwrap_or("")
+  let g = (i : Int32) => m.group(i).unwrap_or("")
   ctx.emit(m.start(group=1), @token.operator, g(1))
   ctx.emit(m.start(group=2), @token.string_heredoc, g(2))
   ctx.emit(m.start(group=3), @token.string_delimiter, g(3))
@@ -57,7 +57,7 @@ fn heredoc_callback(
     // this is the outer heredoc again, now we can process them all
     for entry in heredocstack {
       let (tolerant, hdname) = entry
-      let lines : Array[(Int, String)] = []
+      let lines : Array[(Int32, String)] = []
       let mut found = false
       for line_entry in pystr_lines(pystr_from(ctx.text, ctx.pos)) {
         let start = line_entry.0 + ctx.pos
@@ -161,7 +161,7 @@ fn ruby_console_lexer_tokenizer(
   let rblexer = ruby_lexer(options=lx.options)
   let out : Array[@lexer.Token] = []
   let mut curcode = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for entry in pystr_lines(text) {
     let (start, line) = entry
     match ruby_console_prompt_re.match_at(line, 0) {

@@ -65,7 +65,7 @@ let kusto_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `KustoLexer` (Kusto).
-pub fn kusto_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn kusto_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     kusto_lexer_info,
     options,

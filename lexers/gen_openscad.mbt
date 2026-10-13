@@ -96,7 +96,7 @@ let open_scad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OpenScadLexer` (OpenSCAD).
 pub fn open_scad_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     open_scad_lexer_info,

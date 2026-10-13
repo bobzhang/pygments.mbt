@@ -128,7 +128,7 @@ let gherkin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GherkinLexer` (Gherkin).
-pub fn gherkin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gherkin_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gherkin_lexer_info,
     options,
@@ -212,7 +212,7 @@ let tap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TAPLexer` (TAP).
-pub fn tap_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tap_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(tap_lexer_info, options, opts => tap_lexer(options=opts), (
     lx,
     text,

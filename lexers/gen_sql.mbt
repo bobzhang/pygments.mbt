@@ -126,7 +126,7 @@ let google_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GoogleSqlLexer` (GoogleSQL).
 pub fn google_sql_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     google_sql_lexer_info,
@@ -270,7 +270,7 @@ let my_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MySqlLexer` (MySQL).
-pub fn my_sql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn my_sql_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     my_sql_lexer_info,
     options,
@@ -357,7 +357,7 @@ let pl_pgsql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PlPgsqlLexer` (PL/pgSQL).
 pub fn pl_pgsql_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     pl_pgsql_lexer_info,
@@ -385,7 +385,7 @@ pub let postgres_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PostgresConsoleLexer` (PostgreSQL console (psql)).
 pub fn postgres_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     postgres_console_lexer_info,
@@ -653,7 +653,7 @@ let postgres_explain_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
 ///|
 /// Creates a `PostgresExplainLexer` (PostgreSQL EXPLAIN dialect).
 pub fn postgres_explain_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     postgres_explain_lexer_info,
@@ -737,7 +737,7 @@ let postgres_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PostgresLexer` (PostgreSQL SQL dialect).
 pub fn postgres_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     postgres_lexer_info,
@@ -786,7 +786,7 @@ let rql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RqlLexer` (RQL).
-pub fn rql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rql_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(rql_lexer_info, options, opts => rql_lexer(options=opts), (
     lx,
     text,
@@ -839,7 +839,7 @@ let sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SqlLexer` (SQL).
-pub fn sql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sql_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(sql_lexer_info, options, opts => sql_lexer(options=opts), (
     lx,
     text,
@@ -865,7 +865,7 @@ pub let sqlite_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `SqliteConsoleLexer` (sqlite3con).
 pub fn sqlite_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sqlite_console_lexer_info,
@@ -949,7 +949,7 @@ let transact_sql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TransactSqlLexer` (Transact-SQL).
 pub fn transact_sql_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     transact_sql_lexer_info,
@@ -1041,7 +1041,7 @@ let psql_regex_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PsqlRegexLexer` (PostgreSQL console - regexp based lexer).
-fn psql_regex_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+fn psql_regex_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     psql_regex_lexer_info,
     options,

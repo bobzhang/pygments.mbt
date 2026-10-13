@@ -44,7 +44,7 @@ fn dylan_console_lexer_tokenizer(
   let dylexer = dylan_lexer(options=lx.options)
   let out : Array[@lexer.Token] = []
   let mut curcode = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for entry in pystr_lines(text) {
     let (start, line) = entry
     match dylan_console_prompt_re.match_at(line, 0) {

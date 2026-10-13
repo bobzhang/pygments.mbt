@@ -65,20 +65,20 @@ async fn read_stdin() -> String {
 }
 
 ///|
-async fn usage_error(msg : String) -> Int {
+async fn usage_error(msg : String) -> Int32 {
   eprint(usage)
   eprint("pygmentize: error: \{msg}\n")
   2
 }
 
 ///|
-async fn print_usage_help() -> Int {
+async fn print_usage_help() -> Int32 {
   eprint(usage + help_text)
   2
 }
 
 ///|
-async fn run(argv : Array[String]) -> Int {
+async fn run(argv : Array[String]) -> Int32 {
   let args = parse_args(argv) catch {
     UsageError(msg) => return usage_error(msg)
   }

@@ -3,7 +3,7 @@ let hex_digits : String = "0123456789abcdef"
 
 ///|
 /// `n` as `width` lowercase hex digits.
-fn hex(n : Int, width : Int) -> String {
+fn hex(n : Int32, width : Int32) -> String {
   let buf = StringBuilder()
   for i = width - 1; i >= 0; i = i - 1 {
     buf.write_char(hex_digits.unsafe_get((n >> (4 * i)) & 15).unsafe_to_char())
@@ -12,7 +12,7 @@ fn hex(n : Int, width : Int) -> String {
 }
 
 ///|
-fn write_escaped(buf : StringBuilder, cp : Int) -> Unit {
+fn write_escaped(buf : StringBuilder, cp : Int32) -> Unit {
   if cp <= 0xff {
     buf.write_string("\\x")
     buf.write_string(hex(cp, 2))

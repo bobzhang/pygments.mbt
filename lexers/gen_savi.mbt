@@ -128,7 +128,7 @@ let savi_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SaviLexer` (Savi).
-pub fn savi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn savi_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     savi_lexer_info,
     options,

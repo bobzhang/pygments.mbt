@@ -94,7 +94,7 @@ let ampl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AmplLexer` (Ampl).
-pub fn ampl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ampl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ampl_lexer_info,
     options,

@@ -18,7 +18,7 @@ pub let antlr_action_script_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrActionScriptLexer` (ANTLR With ActionScript Target).
 pub fn antlr_action_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_action_script_lexer_info,
@@ -53,7 +53,7 @@ pub let antlr_c_sharp_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrCSharpLexer` (ANTLR With C# Target).
 pub fn antlr_c_sharp_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_c_sharp_lexer_info,
@@ -88,7 +88,7 @@ pub let antlr_cpp_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrCppLexer` (ANTLR With CPP Target).
 pub fn antlr_cpp_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_cpp_lexer_info,
@@ -123,7 +123,7 @@ pub let antlr_java_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrJavaLexer` (ANTLR With Java Target).
 pub fn antlr_java_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_java_lexer_info,
@@ -369,7 +369,7 @@ let antlr_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AntlrLexer` (ANTLR).
-pub fn antlr_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn antlr_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_lexer_info,
     options,
@@ -398,7 +398,7 @@ pub let antlr_objective_c_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrObjectiveCLexer` (ANTLR With ObjectiveC Target).
 pub fn antlr_objective_c_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_objective_c_lexer_info,
@@ -433,7 +433,7 @@ pub let antlr_perl_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrPerlLexer` (ANTLR With Perl Target).
 pub fn antlr_perl_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_perl_lexer_info,
@@ -468,7 +468,7 @@ pub let antlr_python_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrPythonLexer` (ANTLR With Python Target).
 pub fn antlr_python_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_python_lexer_info,
@@ -503,7 +503,7 @@ pub let antlr_ruby_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `AntlrRubyLexer` (ANTLR With Ruby Target).
 pub fn antlr_ruby_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     antlr_ruby_lexer_info,
@@ -573,7 +573,7 @@ let ebnf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `EbnfLexer` (EBNF).
-pub fn ebnf_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ebnf_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ebnf_lexer_info,
     options,
@@ -601,7 +601,7 @@ pub let ragel_c_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `RagelCLexer` (Ragel in C Host).
-pub fn ragel_c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ragel_c_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_c_lexer_info,
     options,
@@ -635,7 +635,7 @@ pub let ragel_cpp_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RagelCppLexer` (Ragel in CPP Host).
 pub fn ragel_cpp_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_cpp_lexer_info,
@@ -669,7 +669,7 @@ pub let ragel_d_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `RagelDLexer` (Ragel in D Host).
-pub fn ragel_d_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ragel_d_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_d_lexer_info,
     options,
@@ -731,7 +731,7 @@ let ragel_embedded_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RagelEmbeddedLexer` (Embedded Ragel).
 pub fn ragel_embedded_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_embedded_lexer_info,
@@ -761,7 +761,7 @@ pub let ragel_java_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RagelJavaLexer` (Ragel in Java Host).
 pub fn ragel_java_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_java_lexer_info,
@@ -857,7 +857,7 @@ let ragel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RagelLexer` (Ragel).
-pub fn ragel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ragel_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_lexer_info,
     options,
@@ -886,7 +886,7 @@ pub let ragel_objective_c_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RagelObjectiveCLexer` (Ragel in Objective C Host).
 pub fn ragel_objective_c_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_objective_c_lexer_info,
@@ -921,7 +921,7 @@ pub let ragel_ruby_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RagelRubyLexer` (Ragel in Ruby Host).
 pub fn ragel_ruby_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ragel_ruby_lexer_info,
@@ -955,7 +955,7 @@ pub let treetop_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `TreetopLexer` (Treetop).
-pub fn treetop_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn treetop_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     treetop_lexer_info,
     options,
@@ -1059,7 +1059,7 @@ let treetop_base_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TreetopBaseLexer` (TreetopBaseLexer).
 fn treetop_base_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     treetop_base_lexer_info,

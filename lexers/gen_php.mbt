@@ -179,7 +179,7 @@ let php_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PhpLexer` (PHP).
-pub fn php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn php_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     php_lexer_info,
     options,
@@ -206,7 +206,7 @@ pub let psysh_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PsyshConsoleLexer` (PsySH console session for PHP).
 pub fn psysh_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     psysh_console_lexer_info,
@@ -273,7 +273,7 @@ let zephir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ZephirLexer` (Zephir).
-pub fn zephir_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn zephir_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     zephir_lexer_info,
     options,

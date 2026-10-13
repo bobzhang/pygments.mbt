@@ -17,7 +17,7 @@ pub let email_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `EmailLexer` (E-mail).
-pub fn email_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn email_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     email_lexer_info,
     options,
@@ -109,7 +109,7 @@ let email_header_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EmailHeaderLexer` (EmailHeaderLexer).
 fn email_header_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     email_header_lexer_info,

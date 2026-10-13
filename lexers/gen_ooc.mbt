@@ -86,7 +86,7 @@ let ooc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `OocLexer` (Ooc).
-pub fn ooc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ooc_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ooc_lexer_info, options, opts => ooc_lexer(options=opts), (
     lx,
     text,

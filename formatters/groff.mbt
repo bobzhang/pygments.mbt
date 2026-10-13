@@ -41,7 +41,7 @@ fn groff_escape(text : String) -> String {
 /// `wrap`. As in Python, the line counter and the current line length
 /// continue across `format` calls.
 pub fn groff_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)

@@ -58,9 +58,9 @@ fn shell_session_tokenize(
   let mut pos = 0
   let curcode = StringBuilder()
   let mut curlen = 0
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   let mut backslash_continuation = false
-  fn flush(pos : Int, code : String, ins) raise {
+  fn flush(pos : Int32, code : String, ins) raise {
     for t in @lexer.do_insertions(ins, inner.get_tokens_unprocessed(code)) {
       out.push({ ..t, index: pos + t.index, })
     }

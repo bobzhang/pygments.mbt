@@ -48,7 +48,7 @@ let abnf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AbnfLexer` (ABNF).
-pub fn abnf_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn abnf_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     abnf_lexer_info,
     options,
@@ -98,7 +98,7 @@ let bnf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BnfLexer` (BNF).
-pub fn bnf_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn bnf_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(bnf_lexer_info, options, opts => bnf_lexer(options=opts), (
     lx,
     text,
@@ -226,7 +226,7 @@ let jsgf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JsgfLexer` (JSGF).
-pub fn jsgf_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jsgf_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     jsgf_lexer_info,
     options,
@@ -285,7 +285,7 @@ let peg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PegLexer` (PEG).
-pub fn peg_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn peg_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(peg_lexer_info, options, opts => peg_lexer(options=opts), (
     lx,
     text,

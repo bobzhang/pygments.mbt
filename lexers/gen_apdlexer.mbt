@@ -56,7 +56,7 @@ let apdlexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `apdlexer` (ANSYS parametric design language).
-pub fn apdlexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn apdlexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(apdlexer_info, options, opts => apdlexer(options=opts), (
     lx,
     text,

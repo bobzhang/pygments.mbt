@@ -18,7 +18,7 @@ pub let r_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RConsoleLexer` (RConsole).
 pub fn r_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     r_console_lexer_info,
@@ -66,7 +66,7 @@ let rd_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RdLexer` (Rd).
-pub fn rd_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rd_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(rd_lexer_info, options, opts => rd_lexer(options=opts), (
     lx,
     text,
@@ -141,7 +141,7 @@ let s_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SLexer` (S).
-pub fn s_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn s_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(s_lexer_info, options, opts => s_lexer(options=opts), (
     lx,
     text,

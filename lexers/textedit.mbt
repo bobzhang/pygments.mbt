@@ -22,7 +22,7 @@ fn vim_str_lt(a : String, b : String) -> Bool {
 
 ///|
 /// Python's `s[:n]`.
-fn vim_prefix(s : String, n : Int) -> String {
+fn vim_prefix(s : String, n : Int32) -> String {
   @lexer.py_slice(s, 0, n)
 }
 

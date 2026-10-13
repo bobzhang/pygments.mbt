@@ -57,7 +57,7 @@ let cirru_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CirruLexer` (Cirru).
-pub fn cirru_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cirru_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cirru_lexer_info,
     options,
@@ -142,7 +142,7 @@ let duel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DuelLexer` (Duel).
-pub fn duel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn duel_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     duel_lexer_info,
     options,
@@ -216,7 +216,7 @@ let qml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `QmlLexer` (QML).
-pub fn qml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn qml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(qml_lexer_info, options, opts => qml_lexer(options=opts), (
     lx,
     text,
@@ -329,7 +329,7 @@ let slim_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SlimLexer` (Slim).
-pub fn slim_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn slim_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     slim_lexer_info,
     options,
@@ -1261,7 +1261,7 @@ let x_query_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `XQueryLexer` (XQuery).
-pub fn x_query_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn x_query_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     x_query_lexer_info,
     options,

@@ -194,7 +194,7 @@ let clean_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CleanLexer` (Clean).
-pub fn clean_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn clean_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     clean_lexer_info,
     options,

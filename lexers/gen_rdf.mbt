@@ -110,7 +110,7 @@ let sh_ex_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ShExCLexer` (ShExC).
-pub fn sh_ex_c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sh_ex_c_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sh_ex_c_lexer_info,
     options,
@@ -233,7 +233,7 @@ let sparql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SparqlLexer` (SPARQL).
-pub fn sparql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sparql_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sparql_lexer_info,
     options,
@@ -390,7 +390,7 @@ let turtle_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TurtleLexer` (Turtle).
-pub fn turtle_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn turtle_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     turtle_lexer_info,
     options,

@@ -84,7 +84,7 @@ let newspeak_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NewspeakLexer` (Newspeak).
 pub fn newspeak_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     newspeak_lexer_info,
@@ -286,7 +286,7 @@ let smalltalk_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SmalltalkLexer` (Smalltalk).
 pub fn smalltalk_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     smalltalk_lexer_info,

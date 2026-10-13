@@ -46,7 +46,7 @@ priv struct MimeState {
   mut boundary : String?
   mut content_transfer_encoding : String?
   mut content_type : String
-  max_nested_level : Int
+  max_nested_level : Int32
 }
 
 ///|
@@ -129,7 +129,7 @@ fn mime_lexer_callbacks(
         end=entire_body.length(),
       )
     }
-    let emit_part = (offset : Int, part : String) => {
+    let emit_part = (offset : Int32, part : String) => {
       for t in mime_bodypart_tokens(st, part) {
         ctx.emit(offset + t.index, t.ttype, t.value)
       }

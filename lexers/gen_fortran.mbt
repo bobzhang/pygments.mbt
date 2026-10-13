@@ -64,7 +64,7 @@ let fortran_fixed_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FortranFixedLexer` (FortranFixed).
 pub fn fortran_fixed_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     fortran_fixed_lexer_info,
@@ -147,7 +147,7 @@ let fortran_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FortranLexer` (Fortran).
-pub fn fortran_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn fortran_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     fortran_lexer_info,
     options,

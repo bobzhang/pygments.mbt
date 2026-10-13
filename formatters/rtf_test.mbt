@@ -7,8 +7,8 @@ let rtf_foot : String = "\\par\n}\n"
 ///|
 fn format_rtf(
   t : String,
-  options? : Map[String, String] = {},
-  lexer? : String = "text",
+  options~ : Map[String, String] = {},
+  lexer~ : String = "text",
   style? : @styles.Style,
 ) -> String raise {
   let tokens = @lexers.get_lexer_by_name(lexer).get_tokens(t)
@@ -28,7 +28,7 @@ fn extract_color_table(rtf : String) -> Array[String] {
 ///|
 fn rtf_color(hex : String) -> String {
   let h = if hex.has_prefix("#") { @pystr.slice(hex, 1) } else { hex }
-  let channel = (i : Int) => {
+  let channel = (i : Int32) => {
     let digit = (c : Char) => {
       if c >= 'a' {
         c.to_int() - 'a'.to_int() + 10

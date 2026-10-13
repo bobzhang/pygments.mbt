@@ -158,7 +158,7 @@ let dns_zone_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DnsZoneLexer` (Zone).
 pub fn dns_zone_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     dns_zone_lexer_info,

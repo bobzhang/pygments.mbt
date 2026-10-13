@@ -72,7 +72,7 @@ let ambient_talk_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AmbientTalkLexer` (AmbientTalk).
 pub fn ambient_talk_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ambient_talk_lexer_info,

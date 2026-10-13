@@ -22,7 +22,7 @@ fn r_console_lexer_tokenizer(
   let slexer = s_lexer(options=lx.options)
   let out : Array[@lexer.Token] = []
   let mut current_code_block = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for entry in pystr_lines(text) {
     let (start, line) = entry
     if line.has_prefix(">") || line.has_prefix("+") {

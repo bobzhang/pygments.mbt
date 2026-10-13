@@ -56,7 +56,7 @@ let macaulay2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Macaulay2Lexer` (Macaulay2).
 pub fn macaulay2_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     macaulay2_lexer_info,

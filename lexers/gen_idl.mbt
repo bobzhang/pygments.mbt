@@ -57,7 +57,7 @@ let idl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `IDLLexer` (IDL).
-pub fn idl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn idl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(idl_lexer_info, options, opts => idl_lexer(options=opts), (
     lx,
     text,

@@ -1,6 +1,6 @@
 ///|
 /// Compiles a pattern known to be valid (aborts otherwise).
-pub fn re(pattern : String, flags? : Int = 0) -> @regex.Regex {
+pub fn re(pattern : String, flags~ : Int32 = 0) -> @regex.Regex {
   @regex.compile(pattern, flags~) catch {
     e => abort("invalid builtin regex \{pattern.escape()}: \{Repr(e)}")
   }

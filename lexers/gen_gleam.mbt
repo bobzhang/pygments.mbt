@@ -77,7 +77,7 @@ let gleam_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GleamLexer` (Gleam).
-pub fn gleam_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gleam_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gleam_lexer_info,
     options,

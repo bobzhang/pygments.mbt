@@ -174,7 +174,7 @@ let debian_control_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DebianControlLexer` (Debian Control file).
 pub fn debian_control_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     debian_control_lexer_info,
@@ -240,7 +240,7 @@ let debian_sources_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DebianSourcesLexer` (Debian Sources file).
 pub fn debian_sources_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     debian_sources_lexer_info,
@@ -335,7 +335,7 @@ let nsis_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NSISLexer` (NSIS).
-pub fn nsis_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn nsis_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nsis_lexer_info,
     options,
@@ -422,7 +422,7 @@ let rpm_spec_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RPMSpecLexer` (RPMSpec).
 pub fn rpm_spec_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rpm_spec_lexer_info,
@@ -492,7 +492,7 @@ let sources_list_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SourcesListLexer` (Debian Sourcelist).
 pub fn sources_list_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sources_list_lexer_info,

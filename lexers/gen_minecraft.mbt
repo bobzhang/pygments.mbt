@@ -167,7 +167,7 @@ let mc_function_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MCFunctionLexer` (MCFunction).
 pub fn mc_function_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mc_function_lexer_info,
@@ -270,7 +270,7 @@ let mc_schema_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MCSchemaLexer` (MCSchema).
 pub fn mc_schema_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mc_schema_lexer_info,
@@ -358,7 +358,7 @@ let snbt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SNBTLexer` (SNBT).
-pub fn snbt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn snbt_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     snbt_lexer_info,
     options,

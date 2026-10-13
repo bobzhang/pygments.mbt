@@ -68,7 +68,7 @@ let func_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FuncLexer` (FunC).
-pub fn func_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn func_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     func_lexer_info,
     options,

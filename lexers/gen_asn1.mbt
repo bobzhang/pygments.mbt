@@ -72,7 +72,7 @@ let asn1_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Asn1Lexer` (ASN.1).
-pub fn asn1_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn asn1_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     asn1_lexer_info,
     options,

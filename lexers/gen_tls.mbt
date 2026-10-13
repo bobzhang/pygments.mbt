@@ -41,7 +41,7 @@ let tls_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TlsLexer` (TLS Presentation Language).
-pub fn tls_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tls_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(tls_lexer_info, options, opts => tls_lexer(options=opts), (
     lx,
     text,

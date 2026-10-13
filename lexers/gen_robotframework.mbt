@@ -18,7 +18,7 @@ pub let robot_framework_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RobotFrameworkLexer` (RobotFramework).
 pub fn robot_framework_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     robot_framework_lexer_info,

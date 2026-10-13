@@ -17,7 +17,7 @@ pub let cssul4_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CSSUL4Lexer` (CSS+UL4).
-pub fn cssul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cssul4_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cssul4_lexer_info,
     options,
@@ -50,7 +50,7 @@ pub let htmlul4_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `HTMLUL4Lexer` (HTML+UL4).
-pub fn htmlul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn htmlul4_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     htmlul4_lexer_info,
     options,
@@ -84,7 +84,7 @@ pub let javascript_ul4_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JavascriptUL4Lexer` (Javascript+UL4).
 pub fn javascript_ul4_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     javascript_ul4_lexer_info,
@@ -119,7 +119,7 @@ pub let python_ul4_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PythonUL4Lexer` (Python+UL4).
 pub fn python_ul4_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     python_ul4_lexer_info,
@@ -313,7 +313,7 @@ let ul4_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `UL4Lexer` (UL4).
-pub fn ul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ul4_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ul4_lexer_info, options, opts => ul4_lexer(options=opts), (
     lx,
     text,
@@ -338,7 +338,7 @@ pub let xmlul4_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `XMLUL4Lexer` (XML+UL4).
-pub fn xmlul4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xmlul4_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xmlul4_lexer_info,
     options,

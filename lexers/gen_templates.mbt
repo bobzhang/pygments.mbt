@@ -18,7 +18,7 @@ pub let angular2_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `Angular2HtmlLexer` (HTML + Angular2).
 pub fn angular2_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     angular2_html_lexer_info,
@@ -141,7 +141,7 @@ let angular2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Angular2Lexer` (Angular2).
 pub fn angular2_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     angular2_lexer_info,
@@ -171,7 +171,7 @@ pub let cheetah_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CheetahHtmlLexer` (HTML+Cheetah).
 pub fn cheetah_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cheetah_html_lexer_info,
@@ -211,7 +211,7 @@ pub let cheetah_javascript_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CheetahJavascriptLexer` (JavaScript+Cheetah).
 pub fn cheetah_javascript_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cheetah_javascript_lexer_info,
@@ -293,7 +293,7 @@ let cheetah_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CheetahLexer` (Cheetah).
-pub fn cheetah_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cheetah_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cheetah_lexer_info,
     options,
@@ -322,7 +322,7 @@ pub let cheetah_xml_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CheetahXmlLexer` (XML+Cheetah).
 pub fn cheetah_xml_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cheetah_xml_lexer_info,
@@ -357,7 +357,7 @@ pub let coldfusion_cfc_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `ColdfusionCFCLexer` (Coldfusion CFC).
 pub fn coldfusion_cfc_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     coldfusion_cfc_lexer_info,
@@ -392,7 +392,7 @@ pub let coldfusion_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `ColdfusionHtmlLexer` (Coldfusion HTML).
 pub fn coldfusion_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     coldfusion_html_lexer_info,
@@ -472,7 +472,7 @@ let coldfusion_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ColdfusionLexer` (cfstatement).
 pub fn coldfusion_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     coldfusion_lexer_info,
@@ -502,7 +502,7 @@ pub let css_django_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CssDjangoLexer` (CSS+Django/Jinja).
 pub fn css_django_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     css_django_lexer_info,
@@ -536,7 +536,7 @@ pub let css_erb_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CssErbLexer` (CSS+Ruby).
-pub fn css_erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn css_erb_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     css_erb_lexer_info,
     options,
@@ -570,7 +570,7 @@ pub let css_genshi_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CssGenshiLexer` (CSS+Genshi Text).
 pub fn css_genshi_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     css_genshi_lexer_info,
@@ -604,7 +604,7 @@ pub let css_php_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `CssPhpLexer` (CSS+PHP).
-pub fn css_php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn css_php_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     css_php_lexer_info,
     options,
@@ -638,7 +638,7 @@ pub let css_smarty_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CssSmartyLexer` (CSS+Smarty).
 pub fn css_smarty_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     css_smarty_lexer_info,
@@ -790,7 +790,7 @@ let django_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DjangoLexer` (Django/Jinja).
-pub fn django_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn django_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     django_lexer_info,
     options,
@@ -818,7 +818,7 @@ pub let erb_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `ErbLexer` (ERB).
-pub fn erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn erb_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     erb_lexer_info,
     options,
@@ -845,7 +845,7 @@ pub let evoque_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `EvoqueHtmlLexer` (HTML+Evoque).
 pub fn evoque_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     evoque_html_lexer_info,
@@ -956,7 +956,7 @@ let evoque_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `EvoqueLexer` (Evoque).
-pub fn evoque_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn evoque_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     evoque_lexer_info,
     options,
@@ -985,7 +985,7 @@ pub let evoque_xml_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `EvoqueXmlLexer` (XML+Evoque).
 pub fn evoque_xml_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     evoque_xml_lexer_info,
@@ -1019,7 +1019,7 @@ pub let genshi_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `GenshiLexer` (Genshi).
-pub fn genshi_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn genshi_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     genshi_lexer_info,
     options,
@@ -1110,7 +1110,7 @@ let genshi_text_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GenshiTextLexer` (Genshi Text).
 pub fn genshi_text_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     genshi_text_lexer_info,
@@ -1140,7 +1140,7 @@ pub let handlebars_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `HandlebarsHtmlLexer` (HTML+Handlebars).
 pub fn handlebars_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     handlebars_html_lexer_info,
@@ -1275,7 +1275,7 @@ let handlebars_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `HandlebarsLexer` (Handlebars).
 pub fn handlebars_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     handlebars_lexer_info,
@@ -1307,7 +1307,7 @@ pub let html_django_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `HtmlDjangoLexer` (HTML+Django/Jinja).
 pub fn html_django_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     html_django_lexer_info,
@@ -1342,7 +1342,7 @@ pub let html_genshi_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `HtmlGenshiLexer` (HTML+Genshi).
 pub fn html_genshi_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     html_genshi_lexer_info,
@@ -1380,7 +1380,7 @@ pub let html_php_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `HtmlPhpLexer` (HTML+PHP).
 pub fn html_php_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     html_php_lexer_info,
@@ -1415,7 +1415,7 @@ pub let html_smarty_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `HtmlSmartyLexer` (HTML+Smarty).
 pub fn html_smarty_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     html_smarty_lexer_info,
@@ -1453,7 +1453,7 @@ pub let javascript_django_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JavascriptDjangoLexer` (JavaScript+Django/Jinja).
 pub fn javascript_django_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     javascript_django_lexer_info,
@@ -1490,7 +1490,7 @@ pub let javascript_erb_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JavascriptErbLexer` (JavaScript+Ruby).
 pub fn javascript_erb_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     javascript_erb_lexer_info,
@@ -1529,7 +1529,7 @@ pub let javascript_genshi_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JavascriptGenshiLexer` (JavaScript+Genshi Text).
 pub fn javascript_genshi_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     javascript_genshi_lexer_info,
@@ -1566,7 +1566,7 @@ pub let javascript_php_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JavascriptPhpLexer` (JavaScript+PHP).
 pub fn javascript_php_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     javascript_php_lexer_info,
@@ -1603,7 +1603,7 @@ pub let javascript_smarty_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JavascriptSmartyLexer` (JavaScript+Smarty).
 pub fn javascript_smarty_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     javascript_smarty_lexer_info,
@@ -1637,7 +1637,7 @@ pub let jsp_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JspLexer` (Java Server Page).
-pub fn jsp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jsp_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(jsp_lexer_info, options, opts => jsp_lexer(options=opts), (
     lx,
     text,
@@ -1670,7 +1670,7 @@ pub let lasso_css_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LassoCssLexer` (CSS+Lasso).
 pub fn lasso_css_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lasso_css_lexer_info,
@@ -1702,7 +1702,7 @@ pub let lasso_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LassoHtmlLexer` (HTML+Lasso).
 pub fn lasso_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lasso_html_lexer_info,
@@ -1739,7 +1739,7 @@ pub let lasso_javascript_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LassoJavascriptLexer` (JavaScript+Lasso).
 pub fn lasso_javascript_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lasso_javascript_lexer_info,
@@ -1769,7 +1769,7 @@ pub let lasso_xml_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LassoXmlLexer` (XML+Lasso).
 pub fn lasso_xml_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lasso_xml_lexer_info,
@@ -2083,7 +2083,7 @@ let liquid_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LiquidLexer` (liquid).
-pub fn liquid_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn liquid_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     liquid_lexer_info,
     options,
@@ -2112,7 +2112,7 @@ pub let mako_css_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MakoCssLexer` (CSS+Mako).
 pub fn mako_css_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mako_css_lexer_info,
@@ -2147,7 +2147,7 @@ pub let mako_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MakoHtmlLexer` (HTML+Mako).
 pub fn mako_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mako_html_lexer_info,
@@ -2184,7 +2184,7 @@ pub let mako_javascript_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MakoJavascriptLexer` (JavaScript+Mako).
 pub fn mako_javascript_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mako_javascript_lexer_info,
@@ -2321,7 +2321,7 @@ let mako_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MakoLexer` (Mako).
-pub fn mako_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mako_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mako_lexer_info,
     options,
@@ -2350,7 +2350,7 @@ pub let mako_xml_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MakoXmlLexer` (XML+Mako).
 pub fn mako_xml_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mako_xml_lexer_info,
@@ -2487,7 +2487,7 @@ let mason_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MasonLexer` (Mason).
-pub fn mason_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mason_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mason_lexer_info,
     options,
@@ -2516,7 +2516,7 @@ pub let myghty_css_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MyghtyCssLexer` (CSS+Myghty).
 pub fn myghty_css_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     myghty_css_lexer_info,
@@ -2551,7 +2551,7 @@ pub let myghty_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MyghtyHtmlLexer` (HTML+Myghty).
 pub fn myghty_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     myghty_html_lexer_info,
@@ -2588,7 +2588,7 @@ pub let myghty_javascript_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MyghtyJavascriptLexer` (JavaScript+Myghty).
 pub fn myghty_javascript_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     myghty_javascript_lexer_info,
@@ -2706,7 +2706,7 @@ let myghty_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MyghtyLexer` (Myghty).
-pub fn myghty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn myghty_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     myghty_lexer_info,
     options,
@@ -2735,7 +2735,7 @@ pub let myghty_xml_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MyghtyXmlLexer` (XML+Myghty).
 pub fn myghty_xml_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     myghty_xml_lexer_info,
@@ -2769,7 +2769,7 @@ pub let rhtml_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `RhtmlLexer` (RHTML).
-pub fn rhtml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rhtml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rhtml_lexer_info,
     options,
@@ -2856,7 +2856,7 @@ let smarty_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SmartyLexer` (Smarty).
-pub fn smarty_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn smarty_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     smarty_lexer_info,
     options,
@@ -2885,7 +2885,7 @@ pub let sql_jinja_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `SqlJinjaLexer` (SQL+Jinja).
 pub fn sql_jinja_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sql_jinja_lexer_info,
@@ -2919,7 +2919,7 @@ pub let ssp_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `SspLexer` (Scalate Server Page).
-pub fn ssp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ssp_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ssp_lexer_info, options, opts => ssp_lexer(options=opts), (
     lx,
     text,
@@ -2952,7 +2952,7 @@ pub let tea_template_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `TeaTemplateLexer` (Tea).
 pub fn tea_template_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tea_template_lexer_info,
@@ -2987,7 +2987,7 @@ pub let twig_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `TwigHtmlLexer` (HTML+Twig).
 pub fn twig_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     twig_html_lexer_info,
@@ -3140,7 +3140,7 @@ let twig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TwigLexer` (Twig).
-pub fn twig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn twig_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     twig_lexer_info,
     options,
@@ -3169,7 +3169,7 @@ pub let velocity_html_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `VelocityHtmlLexer` (HTML+Velocity).
 pub fn velocity_html_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     velocity_html_lexer_info,
@@ -3286,7 +3286,7 @@ let velocity_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VelocityLexer` (Velocity).
 pub fn velocity_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     velocity_lexer_info,
@@ -3316,7 +3316,7 @@ pub let velocity_xml_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `VelocityXmlLexer` (XML+Velocity).
 pub fn velocity_xml_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     velocity_xml_lexer_info,
@@ -3351,7 +3351,7 @@ pub let xml_django_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `XmlDjangoLexer` (XML+Django/Jinja).
 pub fn xml_django_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xml_django_lexer_info,
@@ -3385,7 +3385,7 @@ pub let xml_erb_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `XmlErbLexer` (XML+Ruby).
-pub fn xml_erb_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xml_erb_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xml_erb_lexer_info,
     options,
@@ -3418,7 +3418,7 @@ pub let xml_php_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `XmlPhpLexer` (XML+PHP).
-pub fn xml_php_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xml_php_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xml_php_lexer_info,
     options,
@@ -3452,7 +3452,7 @@ pub let xml_smarty_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `XmlSmartyLexer` (XML+Smarty).
 pub fn xml_smarty_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xml_smarty_lexer_info,
@@ -3487,7 +3487,7 @@ pub let yaml_jinja_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `YamlJinjaLexer` (YAML+Jinja).
 pub fn yaml_jinja_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     yaml_jinja_lexer_info,
@@ -3522,7 +3522,7 @@ let cheetah_python_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CheetahPythonLexer` (CheetahPythonLexer).
 fn cheetah_python_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cheetah_python_lexer_info,
@@ -3610,7 +3610,7 @@ let coldfusion_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
 ///|
 /// Creates a `ColdfusionMarkupLexer` (Coldfusion).
 fn coldfusion_markup_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     coldfusion_markup_lexer_info,
@@ -3728,7 +3728,7 @@ let genshi_markup_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GenshiMarkupLexer` (GenshiMarkupLexer).
 fn genshi_markup_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     genshi_markup_lexer_info,
@@ -3776,7 +3776,7 @@ let jsp_root_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JspRootLexer` (JspRootLexer).
-fn jsp_root_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+fn jsp_root_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     jsp_root_lexer_info,
     options,
@@ -3828,7 +3828,7 @@ let tea_template_root_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
 ///|
 /// Creates a `TeaTemplateRootLexer` (TeaTemplateRootLexer).
 fn tea_template_root_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tea_template_root_lexer_info,

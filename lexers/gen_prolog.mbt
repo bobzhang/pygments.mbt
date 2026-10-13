@@ -170,7 +170,7 @@ let logtalk_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LogtalkLexer` (Logtalk).
-pub fn logtalk_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn logtalk_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     logtalk_lexer_info,
     options,
@@ -255,7 +255,7 @@ let prolog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PrologLexer` (Prolog).
-pub fn prolog_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn prolog_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     prolog_lexer_info,
     options,

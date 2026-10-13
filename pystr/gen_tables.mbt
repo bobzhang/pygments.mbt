@@ -2,7 +2,7 @@
 
 ///|
 /// Inclusive code point ranges where `str.isprintable` is false.
-let nonprintable_ranges : FixedArray[Int] = [
+let nonprintable_ranges : FixedArray[Int32] = [
   0, 31, 127, 160, 173, 173, 888, 889, 896, 899, 907, 907, 909, 909, 930, 930, 1328,
   1328, 1367, 1368, 1419, 1420, 1424, 1424, 1480, 1487, 1515, 1518, 1525, 1541, 1564,
   1564, 1757, 1757, 1806, 1807, 1867, 1868, 1970, 1983, 2043, 2044, 2094, 2095, 2111,
@@ -129,7 +129,7 @@ let nonprintable_ranges : FixedArray[Int] = [
 
 ///|
 /// Inclusive ranges of cased characters (final-sigma rule).
-let cased_ranges : FixedArray[Int] = [
+let cased_ranges : FixedArray[Int32] = [
   65, 90, 97, 122, 170, 170, 181, 181, 186, 186, 192, 214, 216, 246, 248, 442, 444,
   447, 452, 659, 661, 696, 704, 705, 736, 740, 837, 837, 880, 883, 886, 887, 890,
   893, 895, 895, 902, 902, 904, 906, 908, 908, 910, 929, 931, 1013, 1015, 1153, 1162,
@@ -160,7 +160,7 @@ let cased_ranges : FixedArray[Int] = [
 
 ///|
 /// Inclusive ranges of case-ignorable characters (final-sigma rule).
-let case_ignorable_ranges : FixedArray[Int] = [
+let case_ignorable_ranges : FixedArray[Int32] = [
   39, 39, 46, 46, 58, 58, 94, 94, 96, 96, 168, 168, 173, 173, 175, 175, 180, 180,
   183, 184, 688, 879, 884, 885, 890, 890, 900, 901, 903, 903, 1155, 1161, 1369, 1369,
   1375, 1375, 1425, 1469, 1471, 1471, 1473, 1474, 1476, 1477, 1479, 1479, 1524, 1524,
@@ -238,7 +238,7 @@ let case_ignorable_ranges : FixedArray[Int] = [
 ///|
 /// Full case mappings `(code point, lower, upper, title)` for every
 /// character where one of them differs from the character itself.
-let case_table : Array[(Int, String, String, String)] = [
+let case_table : Array[(Int32, String, String, String)] = [
   (65, "a", "A", "A"),
   (66, "b", "B", "B"),
   (67, "c", "C", "C"),

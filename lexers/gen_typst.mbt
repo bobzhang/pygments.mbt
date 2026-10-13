@@ -186,7 +186,7 @@ let typst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TypstLexer` (Typst).
-pub fn typst_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn typst_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     typst_lexer_info,
     options,

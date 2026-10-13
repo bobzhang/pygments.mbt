@@ -62,7 +62,7 @@ let go_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GoLexer` (Go).
-pub fn go_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn go_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(go_lexer_info, options, opts => go_lexer(options=opts), (
     lx,
     text,

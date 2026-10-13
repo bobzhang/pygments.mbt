@@ -87,7 +87,7 @@ let boo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BooLexer` (Boo).
-pub fn boo_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn boo_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(boo_lexer_info, options, opts => boo_lexer(options=opts), (
     lx,
     text,
@@ -113,7 +113,7 @@ pub let c_sharp_aspx_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CSharpAspxLexer` (aspx-cs).
 pub fn c_sharp_aspx_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     c_sharp_aspx_lexer_info,
@@ -466,7 +466,7 @@ let c_sharp_lexer_variants : Array[(String, @lazy.Lazy[@lexer.RegexDef])] = [
 
 ///|
 /// Creates a `CSharpLexer` (C#).
-pub fn c_sharp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn c_sharp_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     c_sharp_lexer_info,
     options,
@@ -632,7 +632,7 @@ let f_sharp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FSharpLexer` (F#).
-pub fn f_sharp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn f_sharp_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     f_sharp_lexer_info,
     options,
@@ -1177,7 +1177,7 @@ let nemerle_lexer_variants : Array[(String, @lazy.Lazy[@lexer.RegexDef])] = [
 
 ///|
 /// Creates a `NemerleLexer` (Nemerle).
-pub fn nemerle_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn nemerle_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nemerle_lexer_info,
     options,
@@ -1204,7 +1204,7 @@ pub let vb_net_aspx_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `VbNetAspxLexer` (aspx-vb).
 pub fn vb_net_aspx_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vb_net_aspx_lexer_info,
@@ -1328,7 +1328,7 @@ let vb_net_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `VbNetLexer` (VB.net).
-pub fn vb_net_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn vb_net_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vb_net_lexer_info,
     options,
@@ -1475,7 +1475,7 @@ let xpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `XppLexer` (X++).
-pub fn xpp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xpp_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(xpp_lexer_info, options, opts => xpp_lexer(options=opts), (
     lx,
     text,
@@ -1532,7 +1532,7 @@ let generic_aspx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GenericAspxLexer` (aspx-gen).
 fn generic_aspx_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     generic_aspx_lexer_info,

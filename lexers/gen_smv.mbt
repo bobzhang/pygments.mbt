@@ -49,7 +49,7 @@ let nu_smv_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NuSMVLexer` (NuSMV).
-pub fn nu_smv_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn nu_smv_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nu_smv_lexer_info,
     options,

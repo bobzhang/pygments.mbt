@@ -3,7 +3,7 @@
 /// `.oracle/analyse.jsonl` (see `scripts/analyse_oracle.py`).
 async fn run_analyse(path : String, only : String?, quiet : Bool) -> Unit {
   let data = @fs.read_file(path).text()
-  let score_bad : Map[String, Int] = Map([])
+  let score_bad : Map[String, Int32] = Map([])
   let mut guess_ok = 0
   let mut guess_bad = 0
   for line in data.split("\n") {

@@ -86,7 +86,7 @@ let bbc_basic_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BBCBasicLexer` (BBC Basic).
 pub fn bbc_basic_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     bbc_basic_lexer_info,
@@ -241,7 +241,7 @@ let blitz_basic_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BlitzBasicLexer` (BlitzBasic).
 pub fn blitz_basic_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     blitz_basic_lexer_info,
@@ -382,7 +382,7 @@ let blitz_max_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BlitzMaxLexer` (BlitzMax).
 pub fn blitz_max_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     blitz_max_lexer_info,
@@ -436,7 +436,7 @@ let cbm_basic_v2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CbmBasicV2Lexer` (CBM BASIC V2).
 pub fn cbm_basic_v2_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cbm_basic_v2_lexer_info,
@@ -584,7 +584,7 @@ let monkey_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MonkeyLexer` (Monkey).
-pub fn monkey_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn monkey_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     monkey_lexer_info,
     options,
@@ -754,7 +754,7 @@ let q_basic_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `QBasicLexer` (QBasic).
-pub fn q_basic_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn q_basic_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     q_basic_lexer_info,
     options,
@@ -931,7 +931,7 @@ let vb_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VBScriptLexer` (VBScript).
 pub fn vb_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vb_script_lexer_info,

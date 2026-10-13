@@ -20,7 +20,7 @@ fn main {
     5
   }
   let filter = if args.length() > 2 { args[2] } else { "" }
-  let cases : Array[(String, () -> Int)] = [
+  let cases : Array[(String, () -> Int32)] = [
     ("repr find_all", bench_repr(repr_lines(20000))),
     ("json find_all", bench_json(json_docs(800))),
     ("lexer match_at", bench_tokenize(python_text(4000))),
@@ -49,11 +49,11 @@ fn main {
 ///|
 /// Deterministic pseudo-random numbers.
 priv struct Lcg {
-  mut state : UInt
+  mut state : UInt32
 }
 
 ///|
-fn Lcg::next(self : Lcg, n : Int) -> Int {
+fn Lcg::next(self : Lcg, n : Int32) -> Int32 {
   self.state = self.state * 1664525U + 1013904223U
   ((self.state >> 8).reinterpret_as_int() & 0x7FFFFF) % n
 }
@@ -67,7 +67,7 @@ let esc_dq : String = "\\\""
 let esc_sq : String = "\\'"
 
 ///|
-fn hex(n : Int, width : Int) -> String {
+fn hex(n : Int32, width : Int32) -> String {
   let digits = "0123456789abcdef"
   let sb = StringBuilder()
   for i = width - 1; i >= 0; i = i - 1 {
@@ -78,7 +78,7 @@ fn hex(n : Int, width : Int) -> String {
 
 ///|
 /// Lines like the ones Rich's `ReprHighlighter` sees when pretty-printing.
-fn repr_lines(n : Int) -> Array[String] {
+fn repr_lines(n : Int32) -> Array[String] {
   let rng : Lcg = { state: 42, }
   let out = []
   for i in 0..<n {
@@ -129,7 +129,7 @@ let repr_patterns : Array[String] = [
 
 ///|
 /// Sum of all group spans of all matches: a cheap fingerprint.
-fn spans_checksum(ms : Array[@regex.Match]) -> Int {
+fn spans_checksum(ms : Array[@regex.Match]) -> Int32 {
   let mut sum = 0
   for m in ms {
     for g in 0..<=m.group_count() {
@@ -149,7 +149,7 @@ fn compile_all(patterns : Array[String]) -> Array[@regex.Regex] {
 }
 
 ///|
-fn bench_repr(lines : Array[String]) -> () -> Int {
+fn bench_repr(lines : Array[String]) -> () -> Int32 {
   let res = compile_all(repr_patterns)
   fn() {
     let mut sum = 0
@@ -165,7 +165,7 @@ fn bench_repr(lines : Array[String]) -> () -> Int {
 
 ///|
 /// Pretty-printed JSON documents (Rich's `JSONHighlighter` input).
-fn json_docs(n : Int) -> Array[String] {
+fn json_docs(n : Int32) -> Array[String] {
   let rng : Lcg = { state: 7, }
   let out = []
   for _ in 0..<n {
@@ -208,7 +208,7 @@ let json_patterns : Array[String] = [
 ]
 
 ///|
-fn bench_json(docs : Array[String]) -> () -> Int {
+fn bench_json(docs : Array[String]) -> () -> Int32 {
   let res = compile_all(json_patterns)
   fn() {
     let mut sum = 0
@@ -224,7 +224,7 @@ fn bench_json(docs : Array[String]) -> () -> Int {
 
 ///|
 /// Python-like source text.
-fn python_text(n : Int) -> String {
+fn python_text(n : Int32) -> String {
   let rng : Lcg = { state: 99, }
   let sb = StringBuilder()
   for i in 0..<n {
@@ -249,7 +249,7 @@ fn python_text(n : Int) -> String {
 }
 
 ///|
-let token_patterns : Array[(String, Int)] = [
+let token_patterns : Array[(String, Int32)] = [
   ("\\n", 0),
   ("[^\\S\\n]+", 0),
   ("#.*$", @regex.MULTILINE),
@@ -286,7 +286,7 @@ fn compile_tokens() -> Array[@regex.Regex] {
 ///|
 /// A `RegexLexer`-style loop: at each position, the first rule that matches
 /// (via `match_at`, which allocates a `Match`) wins.
-fn bench_tokenize(text : String) -> () -> Int {
+fn bench_tokenize(text : String) -> () -> Int32 {
   let res = compile_tokens()
   fn() {
     let budget = @regex.Budget::new(1_000_000_000)
@@ -314,7 +314,7 @@ fn bench_tokenize(text : String) -> () -> Int {
 ///|
 /// Like `bench_tokenize`, with the dispatch the pygments lexer uses:
 /// `may_start_with` first, then `match_end` (no `Match` allocation).
-fn bench_tokenize_end(text : String) -> () -> Int {
+fn bench_tokenize_end(text : String) -> () -> Int32 {
   let res = compile_tokens()
   fn() {
     let budget = @regex.Budget::new(1_000_000_000)
@@ -345,7 +345,7 @@ fn bench_tokenize_end(text : String) -> () -> Int {
 
 ///|
 /// A long log where the searched-for lines are rare.
-fn log_text(n : Int) -> String {
+fn log_text(n : Int32) -> String {
   let rng : Lcg = { state: 3, }
   let sb = StringBuilder()
   for i in 0..<n {
@@ -371,7 +371,7 @@ let rare_patterns : Array[String] = [
 ]
 
 ///|
-fn bench_rare(text : String) -> () -> Int {
+fn bench_rare(text : String) -> () -> Int32 {
   let res = compile_all(rare_patterns)
   fn() {
     let mut sum = 0
@@ -384,7 +384,7 @@ fn bench_rare(text : String) -> () -> Int {
 }
 
 ///|
-fn match_spans(ms : Array[@regex.Match]) -> Array[Int] {
+fn match_spans(ms : Array[@regex.Match]) -> Array[Int32] {
   let out = []
   for m in ms {
     for g in 0..<=m.group_count() {
@@ -402,7 +402,7 @@ fn dump_find_all(
   texts : Array[String],
 ) -> Unit {
   let res = compile_all(patterns)
-  let spans : Array[Array[Int]] = []
+  let spans : Array[Array[Int32]] = []
   for t in texts {
     for re in res {
       spans.push(match_spans(re.find_all(t) catch { _ => abort("budget") }))
@@ -411,9 +411,9 @@ fn dump_find_all(
   let obj : Json = {
     "kind": "find_all",
     "name": name,
-    "patterns": patterns.to_json(),
-    "texts": texts.to_json(),
-    "spans": spans.to_json(),
+    "patterns": Json(patterns),
+    "texts": Json(texts),
+    "spans": Json(spans),
   }
   println(obj.stringify())
 }
@@ -421,7 +421,7 @@ fn dump_find_all(
 ///|
 fn dump_tokenize(text : String) -> Unit {
   let res = compile_tokens()
-  let tokens : Array[Array[Int]] = []
+  let tokens : Array[Array[Int32]] = []
   let mut pos = 0
   let n = text.length()
   while pos < n {
@@ -441,11 +441,9 @@ fn dump_tokenize(text : String) -> Unit {
   let obj : Json = {
     "kind": "tokenize",
     "name": "lexer match_at",
-    "patterns": token_patterns
-    .map(p => [p.0.to_json(), p.1.to_json()])
-    .to_json(),
-    "texts": [text].to_json(),
-    "spans": tokens.to_json(),
+    "patterns": Json(token_patterns.map(p => [Json(p.0), Json(p.1)])),
+    "texts": Json([text]),
+    "spans": Json(tokens),
   }
   println(obj.stringify())
 }

@@ -46,7 +46,7 @@ let bugs_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BugsLexer` (BUGS).
-pub fn bugs_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn bugs_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     bugs_lexer_info,
     options,
@@ -105,7 +105,7 @@ let jags_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JagsLexer` (JAGS).
-pub fn jags_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jags_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     jags_lexer_info,
     options,
@@ -178,7 +178,7 @@ let modelica_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ModelicaLexer` (Modelica).
 pub fn modelica_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     modelica_lexer_info,
@@ -292,7 +292,7 @@ let stan_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `StanLexer` (Stan).
-pub fn stan_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn stan_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     stan_lexer_info,
     options,

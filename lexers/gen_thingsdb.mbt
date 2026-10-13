@@ -104,7 +104,7 @@ let things_db_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ThingsDBLexer` (ThingsDB).
 pub fn things_db_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     things_db_lexer_info,

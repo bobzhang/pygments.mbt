@@ -177,7 +177,7 @@ let devicetree_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `DevicetreeLexer` (Devicetree).
 pub fn devicetree_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     devicetree_lexer_info,

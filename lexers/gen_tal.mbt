@@ -62,7 +62,7 @@ let tal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TalLexer` (Tal).
-pub fn tal_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tal_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(tal_lexer_info, options, opts => tal_lexer(options=opts), (
     lx,
     text,

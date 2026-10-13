@@ -1,6 +1,6 @@
 ///|
 /// Whether `cp` lies in one of the inclusive `ranges` (pairs, sorted).
-fn in_ranges(ranges : FixedArray[Int], cp : Int) -> Bool {
+fn in_ranges(ranges : FixedArray[Int32], cp : Int32) -> Bool {
   let mut lo = 0
   let mut hi = ranges.length() / 2 - 1
   while lo <= hi {
@@ -35,7 +35,7 @@ pub fn is_case_ignorable(c : Char) -> Bool {
 }
 
 ///|
-let case_map : Map[Int, (String, String, String)] = Map([])
+let case_map : Map[Int32, (String, String, String)] = Map([])
 
 ///|
 /// The full `(lower, upper, title)` mappings of `c`, if any differs from `c`.

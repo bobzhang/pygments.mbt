@@ -147,7 +147,7 @@ let jsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JsxLexer` (JSX).
-pub fn jsx_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jsx_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(jsx_lexer_info, options, opts => jsx_lexer(options=opts), (
     lx,
     text,
@@ -334,7 +334,7 @@ let tsx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TsxLexer` (TSX).
-pub fn tsx_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tsx_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(tsx_lexer_info, options, opts => tsx_lexer(options=opts), (
     lx,
     text,

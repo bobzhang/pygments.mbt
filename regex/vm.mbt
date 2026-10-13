@@ -1,37 +1,37 @@
 ///|
 /// Backtrack frame kinds; every frame occupies four slots of `Vm::stack`.
-const BT_ALT : Int = 0
+const BT_ALT : Int32 = 0
 
 ///|
-const BT_CAP : Int = 1
+const BT_CAP : Int32 = 1
 
 ///|
-const BT_REG : Int = 2
+const BT_REG : Int32 = 2
 
 ///|
-const BT_GREEDY : Int = 3
+const BT_GREEDY : Int32 = 3
 
 ///|
-const BT_LAZY : Int = 4
+const BT_LAZY : Int32 = 4
 
 ///|
 priv struct Vm {
   prog : FixedArray[Inst]
   mut text : String
-  mut end : Int
-  caps : FixedArray[Int]
-  regs : FixedArray[Int]
-  mut stack : FixedArray[Int]
+  mut end : Int32
+  caps : FixedArray[Int32]
+  regs : FixedArray[Int32]
+  mut stack : FixedArray[Int32]
   /// number of used slots of `stack`
-  mut sp : Int
-  mut steps : Int
-  mut bt_pc : Int
-  mut bt_pos : Int
+  mut sp : Int32
+  mut steps : Int32
+  mut bt_pc : Int32
+  mut bt_pos : Int32
   pattern : String
   /// pc of the `Match` ending the main program
-  main_end : Int
+  main_end : Int32
   /// start position of the current attempt
-  mut start : Int
+  mut start : Int32
   /// reject an empty match at `start` (Python's `must_advance`)
   mut must_advance : Bool
   /// require the match to end at `end` (`fullmatch`)
@@ -40,10 +40,10 @@ priv struct Vm {
   mut dirty : Bool
   /// pc of a greedy `RepChar` (at least one character) that starts every
   /// match, in a program without backreferences; -1 if there is none
-  lead_pc : Int
+  lead_pc : Int32
   /// where the last attempt's scan of the `lead_pc` repetition stopped at a
   /// character outside it (or the end); -1 if it stopped at its maximum
-  mut lead_stop : Int
+  mut lead_stop : Int32
 }
 
 ///|
@@ -51,7 +51,7 @@ priv struct Vm {
 /// leading repetition stopped at `q` rules out every start in `(p, q)`: from
 /// there the repetition can only end at a subset of the same positions, and
 /// without backreferences the rest of the match only depends on that end.
-fn lead_repetition(prog : Array[Inst]) -> Int {
+fn lead_repetition(prog : Array[Inst]) -> Int32 {
   for i in prog {
     if i is (Backref(_) | CondRef(_)) {
       return -1
@@ -69,21 +69,21 @@ fn lead_repetition(prog : Array[Inst]) -> Int {
 
 ///|
 /// Maximum size of the backtrack stack (in `Int` slots).
-const MAX_STACK : Int = 1 << 25
+const MAX_STACK : Int32 = 1 << 25
 
 ///|
-fn is_high(c : Int) -> Bool {
+fn is_high(c : Int32) -> Bool {
   c >= 0xD800 && c <= 0xDBFF
 }
 
 ///|
-fn is_low(c : Int) -> Bool {
+fn is_low(c : Int32) -> Bool {
   c >= 0xDC00 && c <= 0xDFFF
 }
 
 ///|
 /// Code point starting at `pos` (which must be `< end`).
-fn Vm::cp_at(self : Vm, pos : Int) -> Int {
+fn Vm::cp_at(self : Vm, pos : Int32) -> Int32 {
   let c = self.text.unsafe_get(pos).to_int()
   if is_high(c) && pos + 1 < self.end {
     let d = self.text.unsafe_get(pos + 1).to_int()
@@ -95,7 +95,7 @@ fn Vm::cp_at(self : Vm, pos : Int) -> Int {
 }
 
 ///|
-fn cp_width(cp : Int) -> Int {
+fn cp_width(cp : Int32) -> Int32 {
   if cp > 0xFFFF {
     2
   } else {
@@ -105,7 +105,7 @@ fn cp_width(cp : Int) -> Int {
 
 ///|
 /// Position of the code point preceding `pos`, never going below `floor`.
-fn Vm::step_back(self : Vm, pos : Int, floor : Int) -> Int {
+fn Vm::step_back(self : Vm, pos : Int32, floor : Int32) -> Int32 {
   if pos - 2 >= floor &&
     is_low(self.text.unsafe_get(pos - 1).to_int()) &&
     is_high(self.text.unsafe_get(pos - 2).to_int()) {
@@ -117,7 +117,7 @@ fn Vm::step_back(self : Vm, pos : Int, floor : Int) -> Int {
 
 ///|
 /// Code point ending at `pos` (which must be `> 0`).
-fn Vm::cp_before(self : Vm, pos : Int) -> Int {
+fn Vm::cp_before(self : Vm, pos : Int32) -> Int32 {
   let p = self.step_back(pos, 0)
   if p == pos - 2 {
     self.cp_at(p)
@@ -129,10 +129,10 @@ fn Vm::cp_before(self : Vm, pos : Int) -> Int {
 ///|
 fn Vm::push(
   self : Vm,
-  kind : Int,
-  a : Int,
-  b : Int,
-  c : Int,
+  kind : Int32,
+  a : Int32,
+  b : Int32,
+  c : Int32,
 ) -> Unit raise RegexError {
   let sp = self.sp
   if sp + 4 > self.stack.length() {
@@ -159,7 +159,7 @@ fn Vm::grow(self : Vm) -> Unit raise RegexError {
 }
 
 ///|
-fn is_word_cp(c : Int, ascii : Bool) -> Bool {
+fn is_word_cp(c : Int32, ascii : Bool) -> Bool {
   if ascii {
     ascii_word.contains(c)
   } else {
@@ -168,7 +168,7 @@ fn is_word_cp(c : Int, ascii : Bool) -> Bool {
 }
 
 ///|
-fn Vm::check_assert(self : Vm, k : AssertKind, pos : Int) -> Bool {
+fn Vm::check_assert(self : Vm, k : AssertKind, pos : Int32) -> Bool {
   match k {
     Bol | StrStart => pos == 0
     BolM => pos == 0 || self.text.unsafe_get(pos - 1).to_int() == '\n'
@@ -193,7 +193,7 @@ fn Vm::check_assert(self : Vm, k : AssertKind, pos : Int) -> Bool {
 ///|
 /// Tries to match one character of a `RepChar` at `pos`; returns the new
 /// position or -1.
-fn Vm::one(self : Vm, c : Int, set : CharSet?, pos : Int) -> Int {
+fn Vm::one(self : Vm, c : Int32, set : CharSet?, pos : Int32) -> Int32 {
   if pos >= self.end {
     return -1
   }
@@ -211,13 +211,13 @@ fn Vm::one(self : Vm, c : Int, set : CharSet?, pos : Int) -> Int {
 
 ///|
 /// Whether the character at `pos` is in `f` (false at the end).
-fn Vm::follows(self : Vm, f : CharSet, pos : Int) -> Bool {
+fn Vm::follows(self : Vm, f : CharSet, pos : Int32) -> Bool {
   pos < self.end && f.contains(self.cp_at(pos))
 }
 
 ///|
 /// Charges `n` steps for work done inside one instruction (scans).
-fn Vm::charge(self : Vm, n : Int) -> Unit raise RegexError {
+fn Vm::charge(self : Vm, n : Int32) -> Unit raise RegexError {
   self.steps -= n
   if self.steps < 0 {
     raise BudgetExceeded(pattern=self.pattern)
@@ -227,7 +227,7 @@ fn Vm::charge(self : Vm, n : Int) -> Unit raise RegexError {
 ///|
 /// Pops frames down to `base` until a resumable one is found. On success the
 /// resume point is stored in `bt_pc`/`bt_pos`.
-fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
+fn Vm::backtrack(self : Vm, base : Int32) -> Bool raise RegexError {
   while self.sp > base {
     self.steps -= 1
     if self.steps < 0 {
@@ -317,7 +317,7 @@ fn Vm::backtrack(self : Vm, base : Int) -> Bool raise RegexError {
 ///|
 /// Discards alternatives above `base`, keeping the undo log (capture and
 /// register restores) so outer backtracking still restores state.
-fn Vm::commit(self : Vm, base : Int) -> Unit {
+fn Vm::commit(self : Vm, base : Int32) -> Unit {
   let st = self.stack
   let mut w = base
   for r = base; r < self.sp; r = r + 4 {
@@ -337,7 +337,7 @@ fn Vm::commit(self : Vm, base : Int) -> Unit {
 
 ///|
 /// Undoes every frame above `base`.
-fn Vm::unwind(self : Vm, base : Int) -> Unit {
+fn Vm::unwind(self : Vm, base : Int32) -> Unit {
   let st = self.stack
   while self.sp > base {
     let top = self.sp - 4
@@ -354,7 +354,11 @@ fn Vm::unwind(self : Vm, base : Int) -> Unit {
 ///|
 /// Runs the program from `start_pc` at `start_pos`. Returns the end position
 /// of the first successful path, or -1.
-fn Vm::run(self : Vm, start_pc : Int, start_pos : Int) -> Int raise RegexError {
+fn Vm::run(
+  self : Vm,
+  start_pc : Int32,
+  start_pos : Int32,
+) -> Int32 raise RegexError {
   let base = self.sp
   let prog = self.prog
   let mut pc = start_pc

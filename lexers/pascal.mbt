@@ -28,8 +28,8 @@ priv suberror DelphiError {
 /// IGNORECASE`, as used by `DelphiLexer`).
 priv struct DelphiScanner {
   text : String
-  mut pos : Int
-  mut start_pos : Int
+  mut pos : Int32
+  mut start_pos : Int32
   mut matched : String
 }
 

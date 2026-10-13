@@ -86,7 +86,7 @@ let pony_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PonyLexer` (Pony).
-pub fn pony_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn pony_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     pony_lexer_info,
     options,

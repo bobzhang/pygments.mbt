@@ -175,7 +175,7 @@ let hexdump_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HexdumpLexer` (Hexdump).
-pub fn hexdump_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn hexdump_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     hexdump_lexer_info,
     options,

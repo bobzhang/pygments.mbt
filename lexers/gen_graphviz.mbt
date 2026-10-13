@@ -61,7 +61,7 @@ let graphviz_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GraphvizLexer` (Graphviz).
 pub fn graphviz_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     graphviz_lexer_info,

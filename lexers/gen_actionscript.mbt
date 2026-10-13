@@ -146,7 +146,7 @@ let action_script3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ActionScript3Lexer` (ActionScript 3).
 pub fn action_script3_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     action_script3_lexer_info,
@@ -208,7 +208,7 @@ let action_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ActionScriptLexer` (ActionScript).
 pub fn action_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     action_script_lexer_info,
@@ -277,7 +277,7 @@ let mxml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MxmlLexer` (MXML).
-pub fn mxml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mxml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mxml_lexer_info,
     options,

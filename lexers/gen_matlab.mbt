@@ -167,7 +167,7 @@ let matlab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MatlabLexer` (Matlab).
-pub fn matlab_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn matlab_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     matlab_lexer_info,
     options,
@@ -196,7 +196,7 @@ pub let matlab_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MatlabSessionLexer` (Matlab session).
 pub fn matlab_session_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     matlab_session_lexer_info,
@@ -305,7 +305,7 @@ let octave_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `OctaveLexer` (Octave).
-pub fn octave_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn octave_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     octave_lexer_info,
     options,
@@ -398,7 +398,7 @@ let scilab_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ScilabLexer` (Scilab).
-pub fn scilab_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn scilab_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     scilab_lexer_info,
     options,

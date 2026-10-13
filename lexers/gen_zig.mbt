@@ -68,7 +68,7 @@ let zig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ZigLexer` (Zig).
-pub fn zig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn zig_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(zig_lexer_info, options, opts => zig_lexer(options=opts), (
     lx,
     text,

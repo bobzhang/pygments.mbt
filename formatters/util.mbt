@@ -54,7 +54,7 @@ fn ttype_repr_tail(t : @token.TokenType) -> String {
 ///|
 /// Python string ordering (by code point; code units are equivalent for
 /// the ASCII names compared here).
-fn py_str_compare(a : String, b : String) -> Int {
+fn py_str_compare(a : String, b : String) -> Int32 {
   let n = if a.length() < b.length() { a.length() } else { b.length() }
   for i in 0..<n {
     let c = a.unsafe_get(i).to_int() - b.unsafe_get(i).to_int()
@@ -67,7 +67,7 @@ fn py_str_compare(a : String, b : String) -> Int {
 
 ///|
 /// Python tuple ordering of token types.
-fn ttype_compare(a : @token.TokenType, b : @token.TokenType) -> Int {
+fn ttype_compare(a : @token.TokenType, b : @token.TokenType) -> Int32 {
   let x = ttype_tuple(a)
   let y = ttype_tuple(b)
   let n = if x.length() < y.length() { x.length() } else { y.length() }
@@ -100,7 +100,7 @@ pub fn webify(color : String) -> String {
 ///|
 /// Python's `int(s)` for decimal strings (surrounding whitespace, an
 /// optional sign and single underscores between digits are accepted).
-fn py_int(s : String) -> Int? {
+fn py_int(s : String) -> Int32? {
   let t = s.trim(chars=" \t\n\r\u{0b}\u{0c}").to_owned()
   let chars = t.to_array()
   if chars.length() == 0 {
@@ -138,7 +138,7 @@ fn py_int(s : String) -> Int? {
 ///|
 /// Python's `a % b` (result has the sign of `b`); raises Python's
 /// `ZeroDivisionError` for `b == 0`.
-fn py_mod(a : Int, b : Int) -> Int raise FormatterError {
+fn py_mod(a : Int32, b : Int32) -> Int32 raise FormatterError {
   if b == 0 {
     raise FormatterError("ZeroDivisionError: integer modulo by zero")
   }
@@ -155,8 +155,8 @@ fn py_mod(a : Int, b : Int) -> Int raise FormatterError {
 fn abs_int_opt(
   options : @lexer.Options,
   name : String,
-  default : Int,
-) -> Int raise {
+  default : Int32,
+) -> Int32 raise {
   let v = @lexer.get_int_opt(options, name, default)
   if v < 0 {
     -v
@@ -177,7 +177,7 @@ fn truthy_opt(options : @lexer.Options, name : String) -> Bool {
 
 ///|
 /// Python's `int(hex, 16)` for up to 8 hex digits (`None` if invalid).
-fn parse_hex(s : String) -> Int? {
+fn parse_hex(s : String) -> Int32? {
   let t = s.trim(chars=" \t\n\r\u{0b}\u{0c}").to_owned()
   if t.length() == 0 {
     return None

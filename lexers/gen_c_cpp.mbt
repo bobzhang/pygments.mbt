@@ -233,7 +233,7 @@ let c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CLexer` (C).
-pub fn c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn c_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     c_lexer_info,
     options,
@@ -573,7 +573,7 @@ let cpp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CppLexer` (C++).
-pub fn cpp_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cpp_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cpp_lexer_info,
     options,

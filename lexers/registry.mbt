@@ -31,7 +31,7 @@ pub fn find_lexer_class_by_name(
 /// ```
 pub fn get_lexer_by_name(
   lexer_alias : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   (find_lexer_class_by_name(lexer_alias).1)(options)
 }
@@ -63,7 +63,7 @@ pub fn basename(path : String) -> String {
 pub fn fn_matches(name : String, pattern : String) -> Bool {
   let n = name.to_array()
   let p = pattern.to_array()
-  fn go(i : Int, j : Int) -> Bool {
+  fn go(i : Int32, j : Int32) -> Bool {
     if j == p.length() {
       return i == n.length()
     }
@@ -103,7 +103,10 @@ pub fn fn_matches(name : String, pattern : String) -> Bool {
 
 ///|
 /// Parses a glob bracket expression starting at `p[j] == '['`.
-fn parse_bracket(p : Array[Char], j : Int) -> (Bool, Array[(Char, Char)], Int)? {
+fn parse_bracket(
+  p : Array[Char],
+  j : Int32,
+) -> (Bool, Array[(Char, Char)], Int32)? {
   let mut k = j + 1
   let negate = k < p.length() && p[k] == '!'
   if negate {
@@ -176,7 +179,7 @@ pub fn find_lexer_class_for_filename(
 pub fn get_lexer_for_filename(
   filename : String,
   code? : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   match find_lexer_class_for_filename(filename, code?) {
     Some(entry) => (entry.1)(options)
@@ -191,7 +194,7 @@ pub fn get_lexer_for_filename(
 /// Python's `get_lexer_for_mimetype`.
 pub fn get_lexer_for_mimetype(
   mime : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   for entry in all_lexers {
     if entry.0.mimetypes.contains(mime) {
@@ -205,7 +208,7 @@ pub fn get_lexer_for_mimetype(
 /// Python's `guess_lexer`: vim modeline first, then the best `analyse_text`.
 pub fn guess_lexer(
   text : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   match get_filetype_from_buffer(text) {
     Some(ft) =>
@@ -240,7 +243,7 @@ pub fn guess_lexer(
 pub fn guess_lexer_for_filename(
   filename : String,
   text : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   let fname = basename(filename)
   let primary : Map[String, Bool] = Map([])
@@ -361,7 +364,10 @@ pub fn splitlines(s : String) -> Array[String] {
 ///|
 /// Python's `get_filetype_from_buffer`: the filetype from a vim modeline in
 /// the last or first five lines.
-pub fn get_filetype_from_buffer(buf : String, max_lines? : Int = 5) -> String? {
+pub fn get_filetype_from_buffer(
+  buf : String,
+  max_lines~ : Int32 = 5,
+) -> String? {
   let lines = splitlines(buf)
   let n = lines.length()
   for k in 0..<max_lines {

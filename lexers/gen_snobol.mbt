@@ -62,7 +62,7 @@ let snobol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SnobolLexer` (Snobol).
-pub fn snobol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn snobol_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     snobol_lexer_info,
     options,

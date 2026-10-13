@@ -35,7 +35,7 @@ let gcode_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GcodeLexer` (g-code).
-pub fn gcode_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gcode_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gcode_lexer_info,
     options,

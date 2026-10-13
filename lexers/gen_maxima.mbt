@@ -57,7 +57,7 @@ let maxima_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MaximaLexer` (Maxima).
-pub fn maxima_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn maxima_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     maxima_lexer_info,
     options,

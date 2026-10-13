@@ -2,13 +2,13 @@
 
 ///|
 /// `text[start:end]` on UTF-16 offsets.
-fn data_sub(text : String, start : Int, end : Int) -> String {
+fn data_sub(text : String, start : Int32, end : Int32) -> String {
   text.unsafe_substring(start~, end~)
 }
 
 ///|
 /// Python's `int(s)` for a string of ASCII digits.
-fn data_parse_int(s : String) -> Int {
+fn data_parse_int(s : String) -> Int32 {
   let mut n = 0
   for c in s {
     n = n * 10 + (c.to_int() - '0'.to_int())
@@ -17,7 +17,10 @@ fn data_parse_int(s : String) -> Int {
 }
 
 ///|
-fn yaml_tok_arg(args : Array[@lexer.CallbackArg], i : Int) -> @token.TokenType {
+fn yaml_tok_arg(
+  args : Array[@lexer.CallbackArg],
+  i : Int32,
+) -> @token.TokenType {
   match args[i] {
     Tok(t) => t
     _ => @token.text
@@ -25,7 +28,7 @@ fn yaml_tok_arg(args : Array[@lexer.CallbackArg], i : Int) -> @token.TokenType {
 }
 
 ///|
-fn yaml_bool_arg(args : Array[@lexer.CallbackArg], i : Int) -> Bool {
+fn yaml_bool_arg(args : Array[@lexer.CallbackArg], i : Int32) -> Bool {
   match args[i] {
     Bool(b) => b
     _ => false
@@ -36,10 +39,10 @@ fn yaml_bool_arg(args : Array[@lexer.CallbackArg], i : Int) -> Bool {
 /// Callbacks of `YamlLexer`. The indentation state of Python's
 /// `YamlLexerContext` is per-run state.
 fn yaml_lexer_callbacks(_lx : @lexer.Lexer) -> Map[String, @lexer.CallbackFn] {
-  let indent_stack : Array[Int] = []
+  let indent_stack : Array[Int32] = []
   let indent = Ref(-1)
   let next_indent = Ref(0)
-  let block_scalar_indent : Ref[Int?] = Ref(None)
+  let block_scalar_indent : Ref[Int32?] = Ref(None)
   Map::from_array([
     (
       "YamlLexer.something",
@@ -247,7 +250,7 @@ fn json_is_whitespace(c : Char) -> Bool {
 fn json_tokens(text : String) -> Array[@lexer.Token] {
   let out : Array[@lexer.Token] = []
   let queue : Array[@lexer.Token] = []
-  let emit = (i : Int, t : @token.TokenType, v : String) => {
+  let emit = (i : Int32, t : @token.TokenType, v : String) => {
     out.push({ index: i, ttype: t, value: v, })
   }
   let flush = () => {
@@ -282,7 +285,7 @@ fn json_tokens(text : String) -> Array[@lexer.Token] {
       1
     }
     let character = if width == 1 {
-      Int::unsafe_to_char(cu)
+      Int32::unsafe_to_char(cu)
     } else {
       '\u{FFFF}'
     }

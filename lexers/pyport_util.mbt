@@ -4,7 +4,7 @@
 ///|
 /// Python's `line_re.finditer(text)` (`.*?\n`): every line ending with a
 /// newline, with its start offset. A trailing line without `\n` is dropped.
-fn pystr_lines(text : String) -> Array[(Int, String)] {
+fn pystr_lines(text : String) -> Array[(Int32, String)] {
   let out = []
   let mut start = 0
   for i in 0..<text.length() {
@@ -24,13 +24,13 @@ fn pystr_itok(ttype : @token.TokenType, value : String) -> @lexer.Token {
 
 ///|
 /// Python's `text[:n]`: the first `n` code points of `text`.
-fn pystr_prefix(text : String, n : Int) -> String {
+fn pystr_prefix(text : String, n : Int32) -> String {
   text.unsafe_substring(start=0, end=pystr_cp_advance(text, 0, n))
 }
 
 ///|
 /// The UTF-16 offset `n` code points after `pos` (clamped to the end).
-fn pystr_cp_advance(text : String, pos : Int, n : Int) -> Int {
+fn pystr_cp_advance(text : String, pos : Int32, n : Int32) -> Int32 {
   let len = text.length()
   let mut i = pos
   let mut k = 0
@@ -44,7 +44,7 @@ fn pystr_cp_advance(text : String, pos : Int, n : Int) -> Int {
 
 ///|
 /// The UTF-16 offset `n` code points before `pos` (clamped to 0).
-fn pystr_cp_retreat(text : String, pos : Int, n : Int) -> Int {
+fn pystr_cp_retreat(text : String, pos : Int32, n : Int32) -> Int32 {
   let mut i = pos
   let mut k = 0
   while i > 0 && k < n {
@@ -89,13 +89,13 @@ fn pystr_split(s : String, sep : String) -> Array[String] {
 
 ///|
 /// Python's `str[a:]` with a UTF-16 offset.
-fn pystr_from(s : String, start : Int) -> String {
+fn pystr_from(s : String, start : Int32) -> String {
   @lexer.py_slice(s, start, s.length())
 }
 
 ///|
 /// Python's `s.find(sub, start)` (UTF-16 offsets); `-1` when absent.
-fn pystr_find(s : String, sub : String, start : Int) -> Int {
+fn pystr_find(s : String, sub : String, start : Int32) -> Int32 {
   let start = if start < 0 { 0 } else { start }
   if start > s.length() {
     return -1
@@ -147,7 +147,7 @@ fn pystr_re_escape(s : String) -> String {
 
 ///|
 /// Python's `str.splitlines(keepends)`.
-fn pystr_splitlines(s : String, keepends? : Bool = false) -> Array[String] {
+fn pystr_splitlines(s : String, keepends~ : Bool = false) -> Array[String] {
   let out = []
   let buf = StringBuilder()
   let chars = s.to_array()

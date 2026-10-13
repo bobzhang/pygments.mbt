@@ -180,7 +180,7 @@ let adl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AdlLexer` (ADL).
-pub fn adl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn adl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(adl_lexer_info, options, opts => adl_lexer(options=opts), (
     lx,
     text,
@@ -389,7 +389,7 @@ let cadl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CadlLexer` (cADL).
-pub fn cadl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cadl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cadl_lexer_info,
     options,
@@ -570,7 +570,7 @@ let odin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `OdinLexer` (ODIN).
-pub fn odin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn odin_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     odin_lexer_info,
     options,

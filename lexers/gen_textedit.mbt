@@ -55,7 +55,7 @@ let awk_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AwkLexer` (Awk).
-pub fn awk_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn awk_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(awk_lexer_info, options, opts => awk_lexer(options=opts), (
     lx,
     text,
@@ -165,7 +165,7 @@ let sed_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SedLexer` (Sed).
-pub fn sed_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sed_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(sed_lexer_info, options, opts => sed_lexer(options=opts), (
     lx,
     text,
@@ -246,7 +246,7 @@ let vim_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `VimLexer` (VimL).
-pub fn vim_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn vim_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vim_lexer_info,
     options,

@@ -18,7 +18,7 @@ pub let json_bare_object_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JsonBareObjectLexer` (JSONBareObject).
 pub fn json_bare_object_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     json_bare_object_lexer_info,
@@ -45,7 +45,7 @@ pub let json_ld_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JsonLdLexer` (JSON-LD).
-pub fn json_ld_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn json_ld_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     json_ld_lexer_info,
     options,
@@ -76,7 +76,7 @@ pub let json_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `JsonLexer` (JSON).
-pub fn json_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn json_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     json_lexer_info,
     options,
@@ -350,7 +350,7 @@ let yaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `YamlLexer` (YAML).
-pub fn yaml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn yaml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     yaml_lexer_info,
     options,

@@ -184,15 +184,15 @@ fn words(s : String) -> Array[String] {
 /// ```
 pub fn Style::new(
   styles : Array[(@token.TokenType, String)],
-  name? : String = "unnamed",
-  aliases? : Array[String] = [],
-  background_color? : String? = Some("#ffffff"),
-  highlight_color? : String? = Some("#ffffcc"),
-  line_number_color? : String = "inherit",
-  line_number_background_color? : String = "transparent",
-  line_number_special_color? : String = "#000000",
-  line_number_special_background_color? : String = "#ffffc0",
-  web_style_gallery_exclude? : Bool = false,
+  name~ : String = "unnamed",
+  aliases~ : Array[String] = [],
+  background_color~ : String? = Some("#ffffff"),
+  highlight_color~ : String? = Some("#ffffcc"),
+  line_number_color~ : String = "inherit",
+  line_number_background_color~ : String = "transparent",
+  line_number_special_color~ : String = "#000000",
+  line_number_special_background_color~ : String = "#ffffc0",
+  web_style_gallery_exclude~ : Bool = false,
 ) -> Style raise StyleError {
   let raw : Map[@token.TokenType, String] = Map::from_array(styles)
   for t, _ in @token.standard_names() {
@@ -314,6 +314,6 @@ pub fn Style::list_styles(
 
 ///|
 /// Python's `__len__`: the number of token types the style knows.
-pub fn Style::length(self : Style) -> Int {
+pub fn Style::length(self : Style) -> Int32 {
   self.defs.length()
 }

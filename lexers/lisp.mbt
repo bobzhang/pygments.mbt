@@ -223,7 +223,7 @@ fn is_lower_char(c : Char) -> Bool {
 /// A consumable token stream (a Python generator shared by the Shen passes).
 priv struct TokenCursor {
   toks : Array[@lexer.Token]
-  mut i : Int
+  mut i : Int32
 }
 
 ///|

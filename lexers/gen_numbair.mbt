@@ -47,7 +47,7 @@ let numba_ir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NumbaIRLexer` (Numba_IR).
 pub fn numba_ir_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     numba_ir_lexer_info,

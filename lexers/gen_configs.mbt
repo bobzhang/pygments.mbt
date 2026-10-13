@@ -57,7 +57,7 @@ let apache_conf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ApacheConfLexer` (ApacheConf).
 pub fn apache_conf_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     apache_conf_lexer_info,
@@ -164,7 +164,7 @@ let augeas_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AugeasLexer` (Augeas).
-pub fn augeas_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn augeas_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     augeas_lexer_info,
     options,
@@ -236,7 +236,7 @@ let caddyfile_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CaddyfileLexer` (Caddyfile).
 pub fn caddyfile_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     caddyfile_lexer_info,
@@ -377,7 +377,7 @@ let cfengine3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `Cfengine3Lexer` (CFEngine3).
 pub fn cfengine3_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cfengine3_lexer_info,
@@ -441,7 +441,7 @@ let desktop_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DesktopLexer` (Desktop file).
-pub fn desktop_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn desktop_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     desktop_lexer_info,
     options,
@@ -550,7 +550,7 @@ let docker_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DockerLexer` (Docker).
-pub fn docker_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn docker_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     docker_lexer_info,
     options,
@@ -658,7 +658,7 @@ let ini_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `IniLexer` (INI).
-pub fn ini_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ini_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ini_lexer_info, options, opts => ini_lexer(options=opts), (
     lx,
     text,
@@ -750,7 +750,7 @@ let kconfig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `KconfigLexer` (Kconfig).
-pub fn kconfig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn kconfig_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     kconfig_lexer_info,
     options,
@@ -802,7 +802,7 @@ let lighttpd_conf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LighttpdConfLexer` (Lighttpd configuration file).
 pub fn lighttpd_conf_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lighttpd_conf_lexer_info,
@@ -943,7 +943,7 @@ let nested_text_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NestedTextLexer` (NestedText).
 pub fn nested_text_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nested_text_lexer_info,
@@ -1032,7 +1032,7 @@ let nginx_conf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NginxConfLexer` (Nginx configuration file).
 pub fn nginx_conf_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nginx_conf_lexer_info,
@@ -1109,7 +1109,7 @@ let pacman_conf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PacmanConfLexer` (PacmanConf).
 pub fn pacman_conf_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     pacman_conf_lexer_info,
@@ -1172,7 +1172,7 @@ let pkg_config_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PkgConfigLexer` (PkgConfig).
 pub fn pkg_config_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     pkg_config_lexer_info,
@@ -1241,7 +1241,7 @@ let properties_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PropertiesLexer` (Properties).
 pub fn properties_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     properties_lexer_info,
@@ -1332,7 +1332,7 @@ let regedit_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RegeditLexer` (reg).
-pub fn regedit_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn regedit_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     regedit_lexer_info,
     options,
@@ -1402,7 +1402,7 @@ let singularity_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SingularityLexer` (Singularity).
 pub fn singularity_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     singularity_lexer_info,
@@ -1459,7 +1459,7 @@ let squid_conf_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SquidConfLexer` (SquidConf).
 pub fn squid_conf_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     squid_conf_lexer_info,
@@ -1566,7 +1566,7 @@ let systemd_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SystemdLexer` (Systemd).
-pub fn systemd_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn systemd_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     systemd_lexer_info,
     options,
@@ -1704,7 +1704,7 @@ let toml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TOMLLexer` (TOML).
-pub fn toml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn toml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     toml_lexer_info,
     options,
@@ -1762,7 +1762,7 @@ let termcap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TermcapLexer` (Termcap).
-pub fn termcap_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn termcap_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     termcap_lexer_info,
     options,
@@ -1831,7 +1831,7 @@ let terminfo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TerminfoLexer` (Terminfo).
 pub fn terminfo_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     terminfo_lexer_info,
@@ -1962,7 +1962,7 @@ let terraform_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TerraformLexer` (Terraform).
 pub fn terraform_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     terraform_lexer_info,
@@ -2017,7 +2017,7 @@ let unix_config_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `UnixConfigLexer` (Unix/Linux config files).
 pub fn unix_config_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     unix_config_lexer_info,

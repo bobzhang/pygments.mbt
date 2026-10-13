@@ -104,7 +104,7 @@ let dtd_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DtdLexer` (DTD).
-pub fn dtd_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn dtd_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(dtd_lexer_info, options, opts => dtd_lexer(options=opts), (
     lx,
     text,
@@ -250,7 +250,7 @@ let haml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HamlLexer` (Haml).
-pub fn haml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn haml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     haml_lexer_info,
     options,
@@ -427,7 +427,7 @@ let html_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HtmlLexer` (HTML).
-pub fn html_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn html_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     html_lexer_info,
     options,
@@ -590,7 +590,7 @@ let pug_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PugLexer` (Pug).
-pub fn pug_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn pug_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(pug_lexer_info, options, opts => pug_lexer(options=opts), (
     lx,
     text,
@@ -757,7 +757,7 @@ let scaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ScamlLexer` (Scaml).
-pub fn scaml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn scaml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     scaml_lexer_info,
     options,
@@ -816,7 +816,7 @@ let url_encoded_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `UrlEncodedLexer` (urlencoded).
 pub fn url_encoded_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     url_encoded_lexer_info,
@@ -1042,7 +1042,7 @@ let vue_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `VueLexer` (Vue).
-pub fn vue_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn vue_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(vue_lexer_info, options, opts => vue_lexer(options=opts), (
     lx,
     text,
@@ -1101,7 +1101,7 @@ let xml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `XmlLexer` (XML).
-pub fn xml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(xml_lexer_info, options, opts => xml_lexer(options=opts), (
     lx,
     text,
@@ -1155,7 +1155,7 @@ let xslt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `XsltLexer` (XSLT).
-pub fn xslt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xslt_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xslt_lexer_info,
     options,

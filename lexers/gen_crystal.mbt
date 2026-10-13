@@ -413,7 +413,7 @@ let crystal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CrystalLexer` (Crystal).
-pub fn crystal_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn crystal_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     crystal_lexer_info,
     options,

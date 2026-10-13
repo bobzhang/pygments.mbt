@@ -82,7 +82,7 @@ let soong_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SoongLexer` (Soong).
-pub fn soong_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn soong_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     soong_lexer_info,
     options,

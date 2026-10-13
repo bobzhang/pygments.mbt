@@ -41,7 +41,7 @@ let bc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BCLexer` (BC).
-pub fn bc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn bc_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(bc_lexer_info, options, opts => bc_lexer(options=opts), (
     lx,
     text,
@@ -67,7 +67,7 @@ pub let gap_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `GAPConsoleLexer` (GAP session).
 pub fn gap_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gap_console_lexer_info,
@@ -119,7 +119,7 @@ let gap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GAPLexer` (GAP).
-pub fn gap_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gap_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(gap_lexer_info, options, opts => gap_lexer(options=opts), (
     lx,
     text,
@@ -174,7 +174,7 @@ let mathematica_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MathematicaLexer` (Mathematica).
 pub fn mathematica_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mathematica_lexer_info,
@@ -245,7 +245,7 @@ let mu_pad_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MuPADLexer` (MuPAD).
-pub fn mu_pad_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mu_pad_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mu_pad_lexer_info,
     options,
