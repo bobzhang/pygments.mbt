@@ -53,7 +53,7 @@ let asc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AscLexer` (ASCII armored).
-pub fn asc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn asc_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(asc_lexer_info, options, opts => asc_lexer(options=opts), (
     lx,
     text,

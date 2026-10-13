@@ -140,7 +140,7 @@ let coffee_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CoffeeScriptLexer` (CoffeeScript).
 pub fn coffee_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     coffee_script_lexer_info,
@@ -281,7 +281,7 @@ let dart_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DartLexer` (Dart).
-pub fn dart_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn dart_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     dart_lexer_info,
     options,
@@ -480,7 +480,7 @@ let earl_grey_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EarlGreyLexer` (Earl Grey).
 pub fn earl_grey_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     earl_grey_lexer_info,
@@ -586,7 +586,7 @@ let javascript_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `JavascriptLexer` (JavaScript).
 pub fn javascript_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     javascript_lexer_info,
@@ -668,7 +668,7 @@ let juttle_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JuttleLexer` (Juttle).
-pub fn juttle_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn juttle_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     juttle_lexer_info,
     options,
@@ -872,7 +872,7 @@ let kal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `KalLexer` (Kal).
-pub fn kal_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn kal_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(kal_lexer_info, options, opts => kal_lexer(options=opts), (
     lx,
     text,
@@ -1195,7 +1195,7 @@ let lasso_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LassoLexer` (Lasso).
-pub fn lasso_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn lasso_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lasso_lexer_info,
     options,
@@ -1339,7 +1339,7 @@ let live_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LiveScriptLexer` (LiveScript).
 pub fn live_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     live_script_lexer_info,
@@ -1501,7 +1501,7 @@ let mask_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MaskLexer` (Mask).
-pub fn mask_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mask_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mask_lexer_info,
     options,
@@ -1530,7 +1530,7 @@ pub let node_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `NodeConsoleLexer` (Node.js REPL console session).
 pub fn node_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     node_console_lexer_info,
@@ -1816,7 +1816,7 @@ let objective_j_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ObjectiveJLexer` (Objective-J).
 pub fn objective_j_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     objective_j_lexer_info,
@@ -1949,7 +1949,7 @@ let type_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TypeScriptLexer` (TypeScript).
 pub fn type_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     type_script_lexer_info,

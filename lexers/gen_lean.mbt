@@ -69,7 +69,7 @@ let lean3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Lean3Lexer` (Lean).
-pub fn lean3_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn lean3_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lean3_lexer_info,
     options,
@@ -147,7 +147,7 @@ let lean4_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Lean4Lexer` (Lean4).
-pub fn lean4_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn lean4_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lean4_lexer_info,
     options,

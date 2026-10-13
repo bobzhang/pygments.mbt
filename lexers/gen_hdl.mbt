@@ -145,7 +145,7 @@ let system_verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SystemVerilogLexer` (systemverilog).
 pub fn system_verilog_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     system_verilog_lexer_info,
@@ -263,7 +263,7 @@ let verilog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `VerilogLexer` (verilog).
-pub fn verilog_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn verilog_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     verilog_lexer_info,
     options,
@@ -422,7 +422,7 @@ let vhdl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `VhdlLexer` (vhdl).
-pub fn vhdl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn vhdl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vhdl_lexer_info,
     options,

@@ -135,7 +135,7 @@ let ldaprc_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LdaprcLexer` (LDAP configuration file).
-pub fn ldaprc_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ldaprc_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ldaprc_lexer_info,
     options,
@@ -391,7 +391,7 @@ let ldif_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LdifLexer` (LDIF).
-pub fn ldif_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ldif_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ldif_lexer_info,
     options,

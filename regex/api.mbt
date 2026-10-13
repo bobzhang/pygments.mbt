@@ -3,10 +3,10 @@
 /// matching code points over a UTF-16 `String`. Positions are UTF-16 offsets.
 pub struct Regex {
   pattern : String
-  flags : Int
+  flags : Int32
   priv vm : Vm
-  priv ngroups : Int
-  priv names : Map[String, Int]
+  priv ngroups : Int32
+  priv names : Map[String, Int32]
   priv first : FirstSet
   priv nullable : Bool
 }
@@ -14,19 +14,19 @@ pub struct Regex {
 ///|
 /// A step budget shared by several match calls (e.g. one lexing request).
 pub struct Budget {
-  mut remaining : Int
+  mut remaining : Int32
 }
 
 ///|
 /// Creates a budget of `steps` VM steps.
-pub fn Budget::new(steps : Int) -> Budget {
+pub fn Budget::new(steps : Int32) -> Budget {
   { remaining: steps, }
 }
 
 ///|
 /// Default number of VM steps allowed for a single match call without an
 /// explicit budget.
-pub let default_steps : Int = 50_000_000
+pub let default_steps : Int32 = 50_000_000
 
 ///|
 /// Compiles `pattern` with Python `re` flags (`IGNORECASE`, `MULTILINE`, ...).
@@ -39,7 +39,7 @@ pub let default_steps : Int = 50_000_000
 ///   inspect(m.end(), content="7")
 /// }
 /// ```
-pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
+pub fn compile(pattern : String, flags~ : Int32 = 0) -> Regex raise RegexError {
   let (node, ngroups, names, final_flags) = parse_pattern(pattern, flags)
   let c : Compiler = { prog: [], subs: [], nregs: 0, }
   c.compile(node)
@@ -73,20 +73,20 @@ pub fn compile(pattern : String, flags? : Int = 0) -> Regex raise RegexError {
 
 ///|
 /// Number of capturing groups.
-pub fn Regex::group_count(self : Regex) -> Int {
+pub fn Regex::group_count(self : Regex) -> Int32 {
   self.ngroups
 }
 
 ///|
 /// Index of the named group `name`.
-pub fn Regex::group_index(self : Regex, name : String) -> Int? {
+pub fn Regex::group_index(self : Regex, name : String) -> Int32? {
   self.names.get(name)
 }
 
 ///|
 /// The named groups and their indices, ordered by index (the keys of
 /// Python's `pattern.groupindex` / `match.groupdict()`).
-pub fn Regex::group_names(self : Regex) -> Array[(String, Int)] {
+pub fn Regex::group_names(self : Regex) -> Array[(String, Int32)] {
   let out = self.names.to_array()
   out.sort_by_key(p => p.1)
   out
@@ -94,7 +94,12 @@ pub fn Regex::group_names(self : Regex) -> Array[(String, Int)] {
 
 ///|
 /// Whether the prefilter rules out a match starting at `pos`.
-fn Regex::rejects(self : Regex, text : String, pos : Int, end : Int) -> Bool {
+fn Regex::rejects(
+  self : Regex,
+  text : String,
+  pos : Int32,
+  end : Int32,
+) -> Bool {
   if self.nullable {
     return false
   }
@@ -113,7 +118,7 @@ fn Regex::rejects(self : Regex, text : String, pos : Int, end : Int) -> Bool {
 
 ///|
 /// Python's clamping of the `endpos` argument.
-fn clamp_end(text : String, endpos : Int?) -> Int {
+fn clamp_end(text : String, endpos : Int32?) -> Int32 {
   let n = text.length()
   match endpos {
     Some(e) => if e < 0 { 0 } else if e > n { n } else { e }
@@ -123,7 +128,7 @@ fn clamp_end(text : String, endpos : Int?) -> Int {
 
 ///|
 /// Python's clamping of the `pos` argument.
-fn clamp_pos(pos : Int) -> Int {
+fn clamp_pos(pos : Int32) -> Int32 {
   if pos < 0 {
     0
   } else {
@@ -143,7 +148,12 @@ fn budget_or_default(budget : Budget?) -> Budget {
 ///|
 /// Points the shared VM at `text[..end]`, charging `budget`. Every `enter`
 /// is paired with `leave` (or, on an error, `abandon`).
-fn Regex::enter(self : Regex, text : String, end : Int, budget : Budget) -> Vm {
+fn Regex::enter(
+  self : Regex,
+  text : String,
+  end : Int32,
+  budget : Budget,
+) -> Vm {
   let vm = self.vm
   vm.text = text
   vm.end = end
@@ -177,10 +187,10 @@ fn Vm::abandon(self : Vm, budget : Budget) -> Unit {
 /// success (or an error).
 fn Vm::attempt(
   self : Vm,
-  pos : Int,
+  pos : Int32,
   must_advance~ : Bool,
   full~ : Bool,
-) -> Int raise RegexError {
+) -> Int32 raise RegexError {
   if self.dirty {
     if self.caps.length() > 2 {
       self.caps.fill(-1)
@@ -208,12 +218,12 @@ fn Vm::attempt(
 fn Regex::exec_end(
   self : Regex,
   text : String,
-  pos : Int,
-  end : Int,
+  pos : Int32,
+  end : Int32,
   budget : Budget,
   must_advance~ : Bool,
   full~ : Bool,
-) -> Int raise RegexError {
+) -> Int32 raise RegexError {
   let vm = self.enter(text, end, budget)
   errdefer vm.abandon(budget)
   let r = vm.attempt(pos, must_advance~, full~)
@@ -223,7 +233,12 @@ fn Regex::exec_end(
 
 ///|
 /// The `Match` for a successful attempt at `pos` ending at `r`.
-fn Regex::make_match(self : Regex, text : String, pos : Int, r : Int) -> Match {
+fn Regex::make_match(
+  self : Regex,
+  text : String,
+  pos : Int32,
+  r : Int32,
+) -> Match {
   let vm = self.vm
   let n = vm.caps.length()
   let caps = FixedArray::make(n, -1)
@@ -240,8 +255,8 @@ fn Regex::make_match(self : Regex, text : String, pos : Int, r : Int) -> Match {
 fn Regex::exec(
   self : Regex,
   text : String,
-  pos : Int,
-  end : Int,
+  pos : Int32,
+  end : Int32,
   budget : Budget,
   must_advance~ : Bool,
   full~ : Bool,
@@ -261,10 +276,10 @@ fn Regex::exec(
 pub fn Regex::match_end(
   self : Regex,
   text : String,
-  pos : Int,
-  endpos? : Int,
+  pos : Int32,
+  endpos? : Int32,
   budget? : Budget,
-) -> Int raise RegexError {
+) -> Int32 raise RegexError {
   let end = clamp_end(text, endpos)
   let pos = clamp_pos(pos)
   if pos > end {
@@ -278,7 +293,7 @@ pub fn Regex::match_end(
 /// Whether a match can start at a position whose UTF-16 code unit is `c`
 /// (`-1`: the end of the input). Conservative: `true` may still fail to
 /// match, `false` never matches.
-pub fn Regex::may_start_with(self : Regex, c : Int) -> Bool {
+pub fn Regex::may_start_with(self : Regex, c : Int32) -> Bool {
   if self.nullable {
     true
   } else if c < 0 {
@@ -297,8 +312,8 @@ pub fn Regex::may_start_with(self : Regex, c : Int) -> Bool {
 pub fn Regex::match_at(
   self : Regex,
   text : String,
-  pos : Int,
-  endpos? : Int,
+  pos : Int32,
+  endpos? : Int32,
   budget? : Budget,
 ) -> Match? raise RegexError {
   let end = clamp_end(text, endpos)
@@ -315,8 +330,8 @@ pub fn Regex::match_at(
 pub fn Regex::fullmatch(
   self : Regex,
   text : String,
-  pos? : Int = 0,
-  endpos? : Int,
+  pos~ : Int32 = 0,
+  endpos? : Int32,
   budget? : Budget,
 ) -> Match? raise RegexError {
   let end = clamp_end(text, endpos)
@@ -334,8 +349,8 @@ pub fn Regex::fullmatch(
 fn Regex::search_from(
   self : Regex,
   text : String,
-  pos : Int,
-  end : Int,
+  pos : Int32,
+  end : Int32,
   budget : Budget,
   must_advance : Bool,
 ) -> Match? raise RegexError {
@@ -395,7 +410,7 @@ fn Regex::search_from(
 
 ///|
 /// The position after the code point at `p` (`p + 1` at the end).
-fn next_position(text : String, p : Int, end : Int) -> Int {
+fn next_position(text : String, p : Int32, end : Int32) -> Int32 {
   if p + 1 < end &&
     is_high(text.unsafe_get(p).to_int()) &&
     is_low(text.unsafe_get(p + 1).to_int()) {
@@ -411,8 +426,8 @@ fn next_position(text : String, p : Int, end : Int) -> Int {
 pub fn Regex::search(
   self : Regex,
   text : String,
-  pos? : Int = 0,
-  endpos? : Int,
+  pos~ : Int32 = 0,
+  endpos? : Int32,
   budget? : Budget,
 ) -> Match? raise RegexError {
   let end = clamp_end(text, endpos)
@@ -491,31 +506,31 @@ pub fn Regex::split(
 /// The result of a successful match.
 pub struct Match {
   text : String
-  priv caps : FixedArray[Int]
-  priv names : Map[String, Int]
+  priv caps : FixedArray[Int32]
+  priv names : Map[String, Int32]
 }
 
 ///|
 /// Start offset of group `g` (default 0), or -1 if it did not participate.
-pub fn Match::start(self : Match, group? : Int = 0) -> Int {
+pub fn Match::start(self : Match, group~ : Int32 = 0) -> Int32 {
   self.caps[group * 2]
 }
 
 ///|
 /// End offset of group `g` (default 0), or -1 if it did not participate.
-pub fn Match::end(self : Match, group? : Int = 0) -> Int {
+pub fn Match::end(self : Match, group~ : Int32 = 0) -> Int32 {
   self.caps[group * 2 + 1]
 }
 
 ///|
 /// Number of capturing groups of the pattern.
-pub fn Match::group_count(self : Match) -> Int {
+pub fn Match::group_count(self : Match) -> Int32 {
   self.caps.length() / 2 - 1
 }
 
 ///|
 /// Text of group `g`, or `None` if it did not participate.
-pub fn Match::group(self : Match, g : Int) -> String? {
+pub fn Match::group(self : Match, g : Int32) -> String? {
   let s = self.caps[g * 2]
   let e = self.caps[g * 2 + 1]
   if s < 0 || e < 0 {
@@ -542,13 +557,13 @@ pub fn Match::named(self : Match, name : String) -> String? {
 
 ///|
 /// Index of the named group `name`.
-pub fn Match::name_index(self : Match, name : String) -> Int? {
+pub fn Match::name_index(self : Match, name : String) -> Int32? {
   self.names.get(name)
 }
 
 ///|
 /// A match object covering `text[start:end]` with no groups (Python's
 /// `_PseudoMatch`, used when a callback is applied to a sub-group).
-pub fn Match::from_span(text : String, start : Int, end : Int) -> Match {
+pub fn Match::from_span(text : String, start : Int32, end : Int32) -> Match {
   { text, caps: [start, end], names: {}, }
 }

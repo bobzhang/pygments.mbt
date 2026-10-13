@@ -68,7 +68,7 @@ pub fn find_formatter_class(name : String) -> FormatterClass? {
 /// ```
 pub fn get_formatter_by_name(
   name : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   match find_formatter_class(name) {
@@ -80,7 +80,12 @@ pub fn get_formatter_by_name(
 
 ///|
 /// Python's `fnmatch.fnmatch` (case-sensitive; `*`, `?`, `[...]`).
-fn fn_matches(name : Array[Char], pat : Array[Char], i : Int, j : Int) -> Bool {
+fn fn_matches(
+  name : Array[Char],
+  pat : Array[Char],
+  i : Int32,
+  j : Int32,
+) -> Bool {
   if j == pat.length() {
     return i == name.length()
   }
@@ -150,7 +155,7 @@ fn fn_matches(name : Array[Char], pat : Array[Char], i : Int, j : Int) -> Bool {
 /// ```
 pub fn get_formatter_for_filename(
   filename : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = match filename.rev_find("/") {

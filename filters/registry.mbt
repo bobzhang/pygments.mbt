@@ -36,7 +36,7 @@ pub fn find_filter(name : String) -> Bool {
 /// ```
 pub fn get_filter_by_name(
   name : String,
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Filter raise {
   for entry in all_filters {
     if entry.0 == name {

@@ -95,8 +95,8 @@ pub fn Formatter::new(
   info : FormatterInfo,
   base : BaseOptions,
   format : (Tokens) -> String raise,
-  style_defs? : (String?) -> String raise = _ => "",
-  aux_files? : () -> Array[AuxFile] = () => [],
+  style_defs~ : (String?) -> String raise = _ => "",
+  aux_files~ : () -> Array[AuxFile] = () => [],
 ) -> Formatter {
   {
     info,

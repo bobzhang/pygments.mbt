@@ -40,7 +40,7 @@ let pddl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PddlLexer` (PDDL).
-pub fn pddl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn pddl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     pddl_lexer_info,
     options,

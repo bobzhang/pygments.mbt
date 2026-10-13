@@ -127,7 +127,7 @@ let k_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `KLexer` (K).
-pub fn k_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn k_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(k_lexer_info, options, opts => k_lexer(options=opts), (
     lx,
     text,
@@ -263,7 +263,7 @@ let q_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `QLexer` (Q).
-pub fn q_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn q_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(q_lexer_info, options, opts => q_lexer(options=opts), (
     lx,
     text,

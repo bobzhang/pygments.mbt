@@ -66,7 +66,7 @@ let py_py_log_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PyPyLogLexer` (PyPy Log).
 pub fn py_py_log_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     py_py_log_lexer_info,
@@ -118,7 +118,7 @@ let vc_tree_status_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VCTreeStatusLexer` (VCTreeStatus).
 pub fn vc_tree_status_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vc_tree_status_lexer_info,

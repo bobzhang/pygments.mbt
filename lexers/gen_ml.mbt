@@ -80,7 +80,7 @@ let f_star_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FStarLexer` (FStar).
-pub fn f_star_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn f_star_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     f_star_lexer_info,
     options,
@@ -167,7 +167,7 @@ let ocaml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `OcamlLexer` (OCaml).
-pub fn ocaml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ocaml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ocaml_lexer_info,
     options,
@@ -335,7 +335,7 @@ let opa_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `OpaLexer` (Opa).
-pub fn opa_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn opa_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(opa_lexer_info, options, opts => opa_lexer(options=opts), (
     lx,
     text,
@@ -420,7 +420,7 @@ let reason_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ReasonLexer` (ReasonML).
-pub fn reason_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn reason_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     reason_lexer_info,
     options,
@@ -665,7 +665,7 @@ let sml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SMLLexer` (Standard ML).
-pub fn sml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(sml_lexer_info, options, opts => sml_lexer(options=opts), (
     lx,
     text,

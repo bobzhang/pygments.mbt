@@ -1,7 +1,7 @@
 ///|
 /// A piece of HTML output: `(1, line)` for a line of highlighted source,
 /// `(0, text)` for wrapping markup (Python's generator protocol).
-type Piece = (Int, String)
+type Piece = (Int32, String)
 
 ///|
 /// Python's `_format_lines`: the highlighted lines, without wrapping.
@@ -96,7 +96,7 @@ fn HtmlFormatter::format_lines(
 
 ///|
 /// Python's `'%*d' % (width, n)`.
-fn pad_num(n : Int, width : Int) -> String {
+fn pad_num(n : Int32, width : Int32) -> String {
   @pystr.rjust(n.to_string(), width)
 }
 

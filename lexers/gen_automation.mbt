@@ -78,7 +78,7 @@ let auto_it_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AutoItLexer` (AutoIt).
-pub fn auto_it_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn auto_it_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     auto_it_lexer_info,
     options,
@@ -183,7 +183,7 @@ let autohotkey_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AutohotkeyLexer` (autohotkey).
 pub fn autohotkey_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     autohotkey_lexer_info,

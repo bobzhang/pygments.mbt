@@ -104,7 +104,7 @@ let cddl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CddlLexer` (CDDL).
-pub fn cddl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cddl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cddl_lexer_info,
     options,

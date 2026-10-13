@@ -82,7 +82,7 @@ let jslt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JSLTLexer` (JSLT).
-pub fn jslt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jslt_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     jslt_lexer_info,
     options,

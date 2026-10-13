@@ -67,7 +67,7 @@ fn scheme_color(
 /// `colorscheme` is the `colorscheme` option, which cannot be given as a
 /// string). As in Python, the line counter continues across `format` calls.
 pub fn terminal_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
   colorscheme? : Map[@token.TokenType, (String, String)],
 ) -> Formatter raise {

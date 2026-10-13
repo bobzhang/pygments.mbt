@@ -18,7 +18,7 @@ pub let julia_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `JuliaConsoleLexer` (Julia console).
 pub fn julia_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     julia_console_lexer_info,
@@ -322,7 +322,7 @@ let julia_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JuliaLexer` (Julia).
-pub fn julia_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn julia_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     julia_lexer_info,
     options,

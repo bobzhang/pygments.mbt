@@ -72,7 +72,7 @@ let typo_script_css_data_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(()
 ///|
 /// Creates a `TypoScriptCssDataLexer` (TypoScriptCssData).
 pub fn typo_script_css_data_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     typo_script_css_data_lexer_info,
@@ -156,7 +156,7 @@ let typo_script_html_data_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy((
 ///|
 /// Creates a `TypoScriptHtmlDataLexer` (TypoScriptHtmlData).
 pub fn typo_script_html_data_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     typo_script_html_data_lexer_info,
@@ -297,7 +297,7 @@ let typo_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TypoScriptLexer` (TypoScript).
 pub fn typo_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     typo_script_lexer_info,

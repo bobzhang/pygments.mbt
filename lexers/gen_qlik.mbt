@@ -98,7 +98,7 @@ let qlik_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `QlikLexer` (Qlik).
-pub fn qlik_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn qlik_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     qlik_lexer_info,
     options,

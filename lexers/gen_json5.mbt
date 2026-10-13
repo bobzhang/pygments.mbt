@@ -74,7 +74,7 @@ let json5_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Json5Lexer` (JSON5).
-pub fn json5_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn json5_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     json5_lexer_info,
     options,

@@ -1,38 +1,38 @@
 ///|
 priv enum Inst {
-  Char(Int)
+  Char(Int32)
   Set(CharSet)
-  Split(Int, Int) // try first, backtrack to second
-  SplitIf(Int, Int, FirstSet) // Split, but go straight to the second when the first cannot start here
-  Jmp(Int)
-  Save(Int)
+  Split(Int32, Int32) // try first, backtrack to second
+  SplitIf(Int32, Int32, FirstSet) // Split, but go straight to the second when the first cannot start here
+  Jmp(Int32)
+  Save(Int32)
   Assert(AssertKind)
-  Backref(Int, Int) // group, case folding mode
+  Backref(Int32, Int32) // group, case folding mode
   // char (if set is None), set, min, max, greedy, and the characters the
   // continuation can start with (None: unknown), see `Compiler::follow_set`
-  RepChar(Int, CharSet?, Int, Int, Bool, CharSet?)
-  SetMark(Int) // regs[r] = pos
-  IfEmpty(Int, Int) // if pos == regs[r] goto target
-  Look(Bool, Bool, Int, Int) // behind, negated, width, body pc
+  RepChar(Int32, CharSet?, Int32, Int32, Bool, CharSet?)
+  SetMark(Int32) // regs[r] = pos
+  IfEmpty(Int32, Int32) // if pos == regs[r] goto target
+  Look(Bool, Bool, Int32, Int32) // behind, negated, width, body pc
   LookSet(Bool, Bool, CharSet) // Look whose body is one character: behind, negated, set
-  Atomic(Int) // body pc
-  CondRef(Int, Int) // group, pc of the "no" branch
+  Atomic(Int32) // body pc
+  CondRef(Int32, Int32) // group, pc of the "no" branch
   Match
 }
 
 ///|
 priv struct Compiler {
   prog : Array[Inst]
-  subs : Array[(Node, Int)] // deferred sub-programs and the Inst index to patch
-  mut nregs : Int
+  subs : Array[(Node, Int32)] // deferred sub-programs and the Inst index to patch
+  mut nregs : Int32
 }
 
 ///|
 /// Maximum number of instructions a single pattern may compile to.
-const MAX_PROGRAM : Int = 200000
+const MAX_PROGRAM : Int32 = 200000
 
 ///|
-fn Compiler::emit(self : Compiler, i : Inst) -> Int raise RegexError {
+fn Compiler::emit(self : Compiler, i : Inst) -> Int32 raise RegexError {
   if self.prog.length() >= MAX_PROGRAM {
     raise Syntax(pattern="", pos=0, message="pattern too large")
   }
@@ -41,7 +41,7 @@ fn Compiler::emit(self : Compiler, i : Inst) -> Int raise RegexError {
 }
 
 ///|
-fn Compiler::pc(self : Compiler) -> Int {
+fn Compiler::pc(self : Compiler) -> Int32 {
   self.prog.length()
 }
 
@@ -129,7 +129,7 @@ fn Compiler::compile(self : Compiler, node : Node) -> Unit raise RegexError {
 ///|
 /// `Split(x, y)` where `x` starts the code of `first`: guarded by the
 /// characters `first` can start with, unless it can match empty.
-fn split_guarded(first : Node, x : Int, y : Int) -> Inst {
+fn split_guarded(first : Node, x : Int32, y : Int32) -> Inst {
   let fs : FirstSet = { lo: 0, hi: 0, non_ascii: false, }
   if first_chars(first, fs) || fs.is_full() {
     Split(x, y)
@@ -142,8 +142,8 @@ fn split_guarded(first : Node, x : Int, y : Int) -> Inst {
 fn Compiler::compile_repeat(
   self : Compiler,
   n : Node,
-  min : Int,
-  max : Int,
+  min : Int32,
+  max : Int32,
   greedy : Bool,
 ) -> Unit raise RegexError {
   match n {
@@ -224,8 +224,8 @@ fn Compiler::compile_repeat(
 /// single-character repetitions, if every path reaches a character test
 /// (`None` otherwise). A conservative guard: code at `pc` fails at a
 /// position whose character is not in the set.
-fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
-  let pairs : Array[(Int, Int)] = []
+fn Compiler::follow_set(self : Compiler, pc : Int32) -> CharSet? {
+  let pairs : Array[(Int32, Int32)] = []
   let fuel = Ref(32)
   if self.follow_pairs(pc, pairs, fuel) {
     Some(CharSet::from_ranges(pairs))
@@ -239,9 +239,9 @@ fn Compiler::follow_set(self : Compiler, pc : Int) -> CharSet? {
 /// `follow_set`); false if some path has no bounded first character.
 fn Compiler::follow_pairs(
   self : Compiler,
-  pc : Int,
-  pairs : Array[(Int, Int)],
-  fuel : Ref[Int],
+  pc : Int32,
+  pairs : Array[(Int32, Int32)],
+  fuel : Ref[Int32],
 ) -> Bool {
   let mut pc = pc
   while fuel.val > 0 {
@@ -350,7 +350,7 @@ priv struct FirstSet {
 
 ///|
 /// Whether code unit `c` may start a match (`c` is never the end).
-fn FirstSet::allows(self : FirstSet, c : Int) -> Bool {
+fn FirstSet::allows(self : FirstSet, c : Int32) -> Bool {
   if c < 64 {
     ((self.lo >> c) & 1) != 0
   } else if c < 128 {
@@ -369,7 +369,7 @@ fn FirstSet::is_full(self : FirstSet) -> Bool {
 }
 
 ///|
-fn FirstSet::add_char(self : FirstSet, c : Int) -> Unit {
+fn FirstSet::add_char(self : FirstSet, c : Int32) -> Unit {
   if c < 64 {
     self.lo = self.lo | (1UL << c)
   } else if c < 128 {

@@ -28,18 +28,18 @@ pub struct HtmlFormatter {
   wrapcode : Bool
   debug_token_types : Bool
   /// 0: no line numbers, 1: `table`, 2: `inline`.
-  linenos : Int
-  linenostart : Int
-  linenostep : Int
-  linenospecial : Int
+  linenos : Int32
+  linenostart : Int32
+  linenostep : Int32
+  linenospecial : Int32
   nobackground : Bool
   lineseparator : String
   lineanchors : String
   linespans : String
   anchorlinenos : Bool
-  hl_lines : Array[Int]
+  hl_lines : Array[Int32]
   priv ttype2class : Map[@token.TokenType, String]
-  priv class2style : Map[String, (String, @token.TokenType, Int)]
+  priv class2style : Map[String, (String, @token.TokenType, Int32)]
   priv span_openers : Map[@token.TokenType, String]
 }
 
@@ -47,7 +47,7 @@ pub struct HtmlFormatter {
 /// Creates an HTML formatter from `options` (see Python's documentation of
 /// `HtmlFormatter` for the option names).
 pub fn HtmlFormatter::new(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> HtmlFormatter raise {
   let base = BaseOptions::new(options, style?)

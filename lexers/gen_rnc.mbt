@@ -56,7 +56,7 @@ let rnc_compact_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `RNCCompactLexer` (Relax-NG Compact).
 pub fn rnc_compact_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rnc_compact_lexer_info,

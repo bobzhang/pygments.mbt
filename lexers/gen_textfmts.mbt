@@ -62,7 +62,7 @@ let gettext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GettextLexer` (Gettext Catalog).
-pub fn gettext_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gettext_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gettext_lexer_info,
     options,
@@ -137,7 +137,7 @@ let http_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HttpLexer` (HTTP).
-pub fn http_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn http_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     http_lexer_info,
     options,
@@ -209,7 +209,7 @@ let irc_logs_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `IrcLogsLexer` (IRC logs).
 pub fn irc_logs_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     irc_logs_lexer_info,
@@ -277,7 +277,7 @@ let kernel_log_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `KernelLogLexer` (Kernel log).
 pub fn kernel_log_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     kernel_log_lexer_info,
@@ -397,7 +397,7 @@ let notmuch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NotmuchLexer` (Notmuch).
-pub fn notmuch_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn notmuch_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     notmuch_lexer_info,
     options,
@@ -478,7 +478,7 @@ let todotxt_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TodotxtLexer` (Todotxt).
-pub fn todotxt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn todotxt_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     todotxt_lexer_info,
     options,

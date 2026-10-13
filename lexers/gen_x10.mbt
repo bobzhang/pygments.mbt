@@ -40,7 +40,7 @@ let x10_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `X10Lexer` (X10).
-pub fn x10_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn x10_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(x10_lexer_info, options, opts => x10_lexer(options=opts), (
     lx,
     text,

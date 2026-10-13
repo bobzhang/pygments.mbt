@@ -75,7 +75,7 @@ let pawn_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PawnLexer` (Pawn).
-pub fn pawn_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn pawn_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     pawn_lexer_info,
     options,
@@ -162,7 +162,7 @@ let source_pawn_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SourcePawnLexer` (SourcePawn).
 pub fn source_pawn_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     source_pawn_lexer_info,

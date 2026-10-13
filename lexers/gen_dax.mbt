@@ -55,7 +55,7 @@ let dax_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DaxLexer` (Dax).
-pub fn dax_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn dax_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(dax_lexer_info, options, opts => dax_lexer(options=opts), (
     lx,
     text,

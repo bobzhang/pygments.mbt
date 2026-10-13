@@ -2,7 +2,7 @@
 
 ///|
 /// The UTF-16 offset `n` code points after `pos` (clamped to the text end).
-fn urbi_advance(text : String, pos : Int, n : Int) -> Int {
+fn urbi_advance(text : String, pos : Int32, n : Int32) -> Int32 {
   let mut i = pos
   let mut k = 0
   while k < n && i < text.length() {

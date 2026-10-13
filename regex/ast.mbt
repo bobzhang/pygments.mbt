@@ -1,37 +1,37 @@
 ///|
 /// `re.IGNORECASE`
-pub const IGNORECASE : Int = 2
+pub const IGNORECASE : Int32 = 2
 
 ///|
 /// `re.LOCALE` (accepted, treated as no-op)
-pub const LOCALE : Int = 4
+pub const LOCALE : Int32 = 4
 
 ///|
 /// `re.MULTILINE`
-pub const MULTILINE : Int = 8
+pub const MULTILINE : Int32 = 8
 
 ///|
 /// `re.DOTALL`
-pub const DOTALL : Int = 16
+pub const DOTALL : Int32 = 16
 
 ///|
 /// `re.UNICODE` (the default for text patterns)
-pub const UNICODE : Int = 32
+pub const UNICODE : Int32 = 32
 
 ///|
 /// `re.VERBOSE`
-pub const VERBOSE : Int = 64
+pub const VERBOSE : Int32 = 64
 
 ///|
 /// `re.ASCII`
-pub const ASCII : Int = 256
+pub const ASCII : Int32 = 256
 
 ///|
 /// Errors raised by the regex engine.
 pub suberror RegexError {
   /// The pattern is not valid Python `re` syntax (or uses an unsupported
   /// construct).
-  Syntax(pattern~ : String, pos~ : Int, message~ : String)
+  Syntax(pattern~ : String, pos~ : Int32, message~ : String)
   /// The step budget of a match was exhausted (catastrophic backtracking).
   BudgetExceeded(pattern~ : String)
 } derive(Debug)
@@ -61,27 +61,27 @@ priv enum Greed {
 ///|
 priv enum Node {
   Empty
-  Char(Int)
+  Char(Int32)
   Set(CharSet)
   Seq(Array[Node])
   Alt(Array[Node])
-  Group(Int, Node) // capture index (>= 1)
-  Repeat(Node, Int, Int, Greed) // min, max (-1 = unbounded)
+  Group(Int32, Node) // capture index (>= 1)
+  Repeat(Node, Int32, Int32, Greed) // min, max (-1 = unbounded)
   Assert(AssertKind)
-  Backref(Int, Int) // group, case folding (0: none, 1: unicode, 2: ascii)
+  Backref(Int32, Int32) // group, case folding (0: none, 1: unicode, 2: ascii)
   Look(Node, Bool, Bool) // behind?, negated?
   Atomic(Node)
-  Cond(Int, Node, Node)
+  Cond(Int32, Node, Node)
 }
 
 ///|
 priv struct Parser {
   src : String
-  mut pos : Int
-  mut flags : Int
-  mut ngroups : Int
-  names : Map[String, Int]
-  open_groups : Array[Int]
+  mut pos : Int32
+  mut flags : Int32
+  mut ngroups : Int32
+  names : Map[String, Int32]
+  open_groups : Array[Int32]
 }
 
 ///|
@@ -95,7 +95,7 @@ fn Parser::eof(self : Parser) -> Bool {
 }
 
 ///|
-fn Parser::peek(self : Parser) -> Int {
+fn Parser::peek(self : Parser) -> Int32 {
   if self.pos < self.src.length() {
     self.src[self.pos].to_int()
   } else {
@@ -104,7 +104,7 @@ fn Parser::peek(self : Parser) -> Int {
 }
 
 ///|
-fn Parser::peek_at(self : Parser, off : Int) -> Int {
+fn Parser::peek_at(self : Parser, off : Int32) -> Int32 {
   let p = self.pos + off
   if p < self.src.length() {
     self.src[p].to_int()
@@ -114,7 +114,7 @@ fn Parser::peek_at(self : Parser, off : Int) -> Int {
 }
 
 ///|
-fn Parser::accept(self : Parser, c : Int) -> Bool {
+fn Parser::accept(self : Parser, c : Int32) -> Bool {
   if self.peek() == c {
     self.pos += 1
     true
@@ -125,7 +125,7 @@ fn Parser::accept(self : Parser, c : Int) -> Bool {
 
 ///|
 /// Reads one code point (combining surrogate pairs).
-fn Parser::next_cp(self : Parser) -> Int {
+fn Parser::next_cp(self : Parser) -> Int32 {
   let c = self.src[self.pos].to_int()
   self.pos += 1
   if c >= 0xD800 && c <= 0xDBFF && self.pos < self.src.length() {
@@ -139,17 +139,17 @@ fn Parser::next_cp(self : Parser) -> Int {
 }
 
 ///|
-fn is_digit(c : Int) -> Bool {
+fn is_digit(c : Int32) -> Bool {
   c >= 48 && c <= 57
 }
 
 ///|
-fn is_octal(c : Int) -> Bool {
+fn is_octal(c : Int32) -> Bool {
   c >= 48 && c <= 55
 }
 
 ///|
-fn hex_value(c : Int) -> Int {
+fn hex_value(c : Int32) -> Int32 {
   if c >= 48 && c <= 57 {
     c - 48
   } else if c >= 97 && c <= 102 {
@@ -162,12 +162,12 @@ fn hex_value(c : Int) -> Int {
 }
 
 ///|
-fn is_ascii_letter(c : Int) -> Bool {
+fn is_ascii_letter(c : Int32) -> Bool {
   (c >= 65 && c <= 90) || (c >= 97 && c <= 122)
 }
 
 ///|
-fn flag_of_letter(c : Int) -> Int {
+fn flag_of_letter(c : Int32) -> Int32 {
   match c {
     'a' => ASCII
     'i' => IGNORECASE
@@ -183,8 +183,8 @@ fn flag_of_letter(c : Int) -> Int {
 ///|
 fn parse_pattern(
   src : String,
-  flags : Int,
-) -> (Node, Int, Map[String, Int], Int) raise RegexError {
+  flags : Int32,
+) -> (Node, Int32, Map[String, Int32], Int32) raise RegexError {
   let p : Parser = {
     src,
     pos: 0,
@@ -378,7 +378,7 @@ fn Parser::parse_quantifier(
 }
 
 ///|
-fn Parser::parse_dec(self : Parser, s : String) -> Int raise RegexError {
+fn Parser::parse_dec(self : Parser, s : String) -> Int32 raise RegexError {
   let mut v = 0
   for c in s {
     v = v * 10 + (c.to_int() - 48)
@@ -391,7 +391,7 @@ fn Parser::parse_dec(self : Parser, s : String) -> Int raise RegexError {
 
 ///|
 /// Largest supported repeat count (CPython's limit is `MAXREPEAT - 1`).
-const MAX_REPEAT : Int = 0x7fffffff / 16
+const MAX_REPEAT : Int32 = 0x7fffffff / 16
 
 ///|
 fn Parser::dot(self : Parser) -> Node {
@@ -404,7 +404,7 @@ fn Parser::dot(self : Parser) -> Node {
 
 ///|
 /// A literal code point, honouring IGNORECASE.
-fn Parser::literal(self : Parser, c : Int) -> Node {
+fn Parser::literal(self : Parser, c : Int32) -> Node {
   if (self.flags & IGNORECASE) == 0 {
     return Char(c)
   }
@@ -426,7 +426,7 @@ fn Parser::literal(self : Parser, c : Int) -> Node {
 }
 
 ///|
-fn Parser::category(self : Parser, c : Int) -> CharSet {
+fn Parser::category(self : Parser, c : Int32) -> CharSet {
   let ascii = (self.flags & ASCII) != 0
   match c {
     'd' => if ascii { ascii_digit } else { unicode_digit }
@@ -471,7 +471,7 @@ fn Parser::parse_atom(self : Parser) -> Node? raise RegexError {
 }
 
 ///|
-fn Parser::read_hex(self : Parser, n : Int) -> Int raise RegexError {
+fn Parser::read_hex(self : Parser, n : Int32) -> Int32 raise RegexError {
   let mut v = 0
   for _ in 0..<n {
     let h = hex_value(self.peek())
@@ -486,7 +486,7 @@ fn Parser::read_hex(self : Parser, n : Int) -> Int raise RegexError {
 
 ///|
 /// Escapes common to both contexts; returns -1 if `c` is not one of them.
-fn Parser::simple_escape(self : Parser, c : Int) -> Int raise RegexError {
+fn Parser::simple_escape(self : Parser, c : Int32) -> Int32 raise RegexError {
   match c {
     'a' => 7
     'f' => 12
@@ -530,7 +530,7 @@ fn Parser::parse_escape(self : Parser) -> Node raise RegexError {
       }
       self.literal(v)
     }
-    '1'..='9' => {
+    '1'..<='9' => {
       let d1 = c
       if is_digit(self.peek()) {
         let d2 = self.peek()
@@ -563,7 +563,7 @@ fn Parser::parse_escape(self : Parser) -> Node raise RegexError {
 }
 
 ///|
-fn Parser::backref(self : Parser, g : Int) -> Node raise RegexError {
+fn Parser::backref(self : Parser, g : Int32) -> Node raise RegexError {
   if g > self.ngroups {
     raise self.fail("invalid group reference \{g}")
   }
@@ -583,7 +583,9 @@ fn Parser::backref(self : Parser, g : Int) -> Node raise RegexError {
 ///|
 /// Parses a class escape. Returns `Ok(cp)` for a single character or
 /// `Err(set)` for a category.
-fn Parser::class_escape(self : Parser) -> Result[Int, CharSet] raise RegexError {
+fn Parser::class_escape(
+  self : Parser,
+) -> Result[Int32, CharSet] raise RegexError {
   if self.eof() {
     raise self.fail("bad escape (end of pattern)")
   }
@@ -591,7 +593,7 @@ fn Parser::class_escape(self : Parser) -> Result[Int, CharSet] raise RegexError 
   match c {
     'd' | 'D' | 's' | 'S' | 'w' | 'W' => Err(self.category(c))
     'b' => Ok(8)
-    '0'..='7' => {
+    '0'..<='7' => {
       let mut v = c - 48
       let mut k = 0
       while k < 2 && is_octal(self.peek()) {
@@ -622,7 +624,7 @@ fn Parser::class_escape(self : Parser) -> Result[Int, CharSet] raise RegexError 
 fn Parser::parse_class(self : Parser) -> Node raise RegexError {
   let negate = self.accept('^')
   let start = self.pos
-  let pairs : Array[(Int, Int)] = []
+  let pairs : Array[(Int32, Int32)] = []
   while true {
     if self.eof() {
       raise self.fail("unterminated character set")
@@ -677,7 +679,10 @@ fn Parser::parse_class(self : Parser) -> Node raise RegexError {
 }
 
 ///|
-fn add_item(pairs : Array[(Int, Int)], item : Result[Int, CharSet]) -> Unit {
+fn add_item(
+  pairs : Array[(Int32, Int32)],
+  item : Result[Int32, CharSet],
+) -> Unit {
   match item {
     Ok(c) => pairs.push((c, c))
     Err(set) => pairs.append(set.to_pairs())
@@ -685,7 +690,7 @@ fn add_item(pairs : Array[(Int, Int)], item : Result[Int, CharSet]) -> Unit {
 }
 
 ///|
-fn Parser::read_name(self : Parser, term : Int) -> String raise RegexError {
+fn Parser::read_name(self : Parser, term : Int32) -> String raise RegexError {
   let start = self.pos
   while !self.eof() && self.peek() != term {
     self.pos += 1
@@ -710,7 +715,7 @@ fn Parser::expect_close(self : Parser) -> Unit raise RegexError {
 
 ///|
 /// Parses a sub-expression with a temporary flag set.
-fn Parser::parse_sub(self : Parser, flags : Int) -> Node raise RegexError {
+fn Parser::parse_sub(self : Parser, flags : Int32) -> Node raise RegexError {
   let saved = self.flags
   self.flags = flags
   let node = self.parse_alt()
@@ -860,7 +865,7 @@ fn Parser::parse_seq_alt_limited(self : Parser) -> Node raise RegexError {
 fn Parser::capture_group(
   self : Parser,
   name : String?,
-  flags : Int,
+  flags : Int32,
 ) -> Node raise RegexError {
   self.ngroups += 1
   let g = self.ngroups
@@ -882,7 +887,7 @@ fn Parser::capture_group(
 
 ///|
 /// The width (in code points) of `node` if it is fixed.
-fn fixed_width(node : Node) -> Int? {
+fn fixed_width(node : Node) -> Int32? {
   match node {
     Empty | Assert(_) | Look(_, _, _) => Some(0)
     Char(_) | Set(_) => Some(1)

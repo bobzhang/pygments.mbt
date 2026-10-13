@@ -38,8 +38,8 @@ async fn main {
   let mut pass = 0
   let mut failed = 0
   let mut errors = 0
-  let failed_by_alias : Map[String, Int] = Map([])
-  let passed_by_alias : Map[String, Int] = Map([])
+  let failed_by_alias : Map[String, Int32] = Map([])
+  let passed_by_alias : Map[String, Int32] = Map([])
   let times : Array[(Int64, String)] = []
   for line in data.split("\n") {
     if line.length() == 0 {
@@ -117,7 +117,7 @@ async fn main {
           k += 1
         }
         println("FAIL \{file} (token \{k} of \{want.length()})")
-        let show = (xs : Array[(String, String)], j : Int) => {
+        let show = (xs : Array[(String, String)], j : Int32) => {
           if j < xs.length() {
             "\{xs[j].0} \{xs[j].1.escape()}"
           } else {

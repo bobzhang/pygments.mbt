@@ -71,7 +71,7 @@ fn literate_tokenize(
   }
   let code = StringBuilder()
   let mut code_len = 0
-  let insertions : Array[(Int, Array[@lexer.Token])] = []
+  let insertions : Array[(Int32, Array[@lexer.Token])] = []
   if style == "bird" {
     for line in literate_lines(text) {
       match literate_bird_re.match_at(line, 0) {

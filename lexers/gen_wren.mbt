@@ -65,7 +65,7 @@ let wren_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `WrenLexer` (Wren).
-pub fn wren_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn wren_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     wren_lexer_info,
     options,

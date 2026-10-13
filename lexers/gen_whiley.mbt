@@ -108,7 +108,7 @@ let whiley_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `WhileyLexer` (Whiley).
-pub fn whiley_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn whiley_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     whiley_lexer_info,
     options,

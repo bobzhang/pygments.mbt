@@ -75,7 +75,7 @@ fn raw_token_parse_line(line : String) -> (@token.TokenType, String)? {
   for i in 1..<parts.length() {
     let p = parts[i]
     guard p.length() > 0 &&
-      p.unsafe_get(0).to_int().unsafe_to_char() is ('A'..='Z') else {
+      p.unsafe_get(0).to_int().unsafe_to_char() is ('A'..<='Z') else {
       return None
     }
     ttype = ttype.sub(p)
@@ -87,7 +87,7 @@ fn raw_token_parse_line(line : String) -> (@token.TokenType, String)? {
 }
 
 ///|
-fn py_hex_value(s : String, start : Int, n : Int) -> Int? {
+fn py_hex_value(s : String, start : Int32, n : Int32) -> Int32? {
   if start + n > s.length() {
     return None
   }
@@ -109,7 +109,7 @@ fn py_hex_value(s : String, start : Int, n : Int) -> Int? {
 }
 
 ///|
-fn py_write_code_point(sb : StringBuilder, cp : Int) -> Bool {
+fn py_write_code_point(sb : StringBuilder, cp : Int32) -> Bool {
   if cp < 0 || cp > 0x10FFFF {
     return false
   }
@@ -215,7 +215,7 @@ fn py_string_literal_eval(src : String) -> String? {
           }
           i += len
         }
-        '0'..='7' as d => {
+        '0'..<='7' as d => {
           let mut v = d.to_int() - '0'.to_int()
           let mut k = 0
           while k < 2 &&

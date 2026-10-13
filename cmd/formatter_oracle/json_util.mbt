@@ -85,7 +85,7 @@ fn style_attrs_json(st : @styles.Style) -> Json {
 
 ///|
 /// Index of the first difference between `a` and `b`.
-fn first_diff(a : String, b : String) -> Int {
+fn first_diff(a : String, b : String) -> Int32 {
   let n = if a.length() < b.length() { a.length() } else { b.length() }
   for i in 0..<n {
     if a.unsafe_get(i) != b.unsafe_get(i) {
@@ -97,7 +97,7 @@ fn first_diff(a : String, b : String) -> Int {
 
 ///|
 /// Up to 60 code units of `s` around `i`, escaped.
-fn excerpt(s : String, i : Int) -> String {
+fn excerpt(s : String, i : Int32) -> String {
   let start = if i > 30 { i - 30 } else { 0 }
   let end = if i + 30 < s.length() { i + 30 } else { s.length() }
   s.unsafe_substring(start~, end~).escape()

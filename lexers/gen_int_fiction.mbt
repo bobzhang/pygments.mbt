@@ -510,7 +510,7 @@ let inform6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Inform6Lexer` (Inform 6).
-pub fn inform6_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn inform6_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     inform6_lexer_info,
     options,
@@ -2702,7 +2702,7 @@ let inform6_template_lexer_variants : Array[
 ///|
 /// Creates a `Inform6TemplateLexer` (Inform 6 template).
 pub fn inform6_template_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     inform6_template_lexer_info,
@@ -4883,7 +4883,7 @@ let inform7_lexer_variants : Array[(String, @lazy.Lazy[@lexer.RegexDef])] = [
 
 ///|
 /// Creates a `Inform7Lexer` (Inform 7).
-pub fn inform7_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn inform7_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     inform7_lexer_info,
     options,
@@ -5740,7 +5740,7 @@ let tads3_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Tads3Lexer` (TADS 3).
-pub fn tads3_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tads3_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tads3_lexer_info,
     options,

@@ -328,7 +328,7 @@ let arduino_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ArduinoLexer` (Arduino).
-pub fn arduino_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn arduino_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     arduino_lexer_info,
     options,
@@ -673,7 +673,7 @@ let charmci_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CharmciLexer` (Charmci).
-pub fn charmci_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn charmci_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     charmci_lexer_info,
     options,
@@ -735,7 +735,7 @@ let clay_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ClayLexer` (Clay).
-pub fn clay_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn clay_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     clay_lexer_info,
     options,
@@ -1074,7 +1074,7 @@ let cuda_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CudaLexer` (CUDA).
-pub fn cuda_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cuda_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cuda_lexer_info,
     options,
@@ -1326,7 +1326,7 @@ let ec_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ECLexer` (eC).
-pub fn ec_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ec_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ec_lexer_info,
     options,
@@ -1668,7 +1668,7 @@ let mql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MqlLexer` (MQL).
-pub fn mql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mql_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mql_lexer_info,
     options,
@@ -1910,7 +1910,7 @@ let nes_c_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NesCLexer` (nesC).
-pub fn nes_c_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn nes_c_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nes_c_lexer_info,
     options,
@@ -2217,7 +2217,7 @@ let omg_idl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `OmgIdlLexer` (OMG Interface Definition Language).
-pub fn omg_idl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn omg_idl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     omg_idl_lexer_info,
     options,
@@ -2551,7 +2551,7 @@ let pike_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PikeLexer` (Pike).
-pub fn pike_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn pike_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     pike_lexer_info,
     options,
@@ -2793,7 +2793,7 @@ let promela_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PromelaLexer` (Promela).
-pub fn promela_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn promela_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     promela_lexer_info,
     options,
@@ -3134,7 +3134,7 @@ let swig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SwigLexer` (SWIG).
-pub fn swig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn swig_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     swig_lexer_info,
     options,
@@ -3251,7 +3251,7 @@ let vala_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ValaLexer` (Vala).
-pub fn vala_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn vala_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     vala_lexer_info,
     options,

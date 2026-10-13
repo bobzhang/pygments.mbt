@@ -47,7 +47,7 @@ let phix_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PhixLexer` (Phix).
-pub fn phix_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn phix_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     phix_lexer_info,
     options,

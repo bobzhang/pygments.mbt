@@ -50,7 +50,7 @@ let comal80_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Comal80Lexer` (COMAL-80).
-pub fn comal80_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn comal80_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     comal80_lexer_info,
     options,

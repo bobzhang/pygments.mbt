@@ -115,7 +115,7 @@ let mbt_builtin_functions : Array[String] = [
 ///|
 let moon_bit_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
   let rules : Array[@lexer.Rule] = []
-  let states : Array[(String, Array[Int])] = []
+  let states : Array[(String, Array[Int32])] = []
   fn state(name : String, rs : Array[@lexer.Rule]) {
     let idx = []
     for r in rs {
@@ -264,7 +264,7 @@ let moon_bit_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MoonBitLexer` (MoonBit).
 pub fn moon_bit_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moon_bit_lexer_info,

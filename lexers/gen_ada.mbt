@@ -198,7 +198,7 @@ let ada_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AdaLexer` (Ada).
-pub fn ada_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ada_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ada_lexer_info, options, opts => ada_lexer(options=opts), (
     lx,
     text,

@@ -142,7 +142,7 @@ let rust_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RustLexer` (Rust).
-pub fn rust_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rust_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rust_lexer_info,
     options,

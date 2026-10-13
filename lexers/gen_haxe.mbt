@@ -930,7 +930,7 @@ let haxe_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HaxeLexer` (Haxe).
-pub fn haxe_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn haxe_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     haxe_lexer_info,
     options,
@@ -1031,7 +1031,7 @@ let hxml_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HxmlLexer` (Hxml).
-pub fn hxml_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn hxml_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     hxml_lexer_info,
     options,

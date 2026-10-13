@@ -39,7 +39,7 @@ let rf_error : @token.TokenType = @token.error
 
 ///|
 /// `normalize(string, remove='')`.
-fn rf_normalize(s : String, remove? : String = "") -> String {
+fn rf_normalize(s : String, remove~ : String = "") -> String {
   let drop = remove + " "
   let sb = StringBuilder()
   for c in s.to_lower() {
@@ -52,7 +52,7 @@ fn rf_normalize(s : String, remove? : String = "") -> String {
 
 ///|
 /// `str(chars[a:b])` with Python slice clamping.
-fn rf_join(chars : Array[Char], a : Int, b : Int) -> String {
+fn rf_join(chars : Array[Char], a : Int32, b : Int32) -> String {
   let n = chars.length()
   let a = if a < 0 { 0 } else if a > n { n } else { a }
   let b = if b < 0 { n + b } else if b > n { n } else { b }
@@ -69,15 +69,15 @@ priv struct RfVar {
   identifier : String
   base : String
   index : String?
-  start : Int
-  end : Int
+  start : Int32
+  end : Int32
 }
 
 ///|
 priv suberror RfNoVariable
 
 ///|
-fn rf_is_escaped(s : Array[Char], index : Int) -> Bool {
+fn rf_is_escaped(s : Array[Char], index : Int32) -> Bool {
   let mut escaped = false
   let mut index = index
   while index > 0 && s[index - 1] == '\\' {
@@ -89,7 +89,7 @@ fn rf_is_escaped(s : Array[Char], index : Int) -> Bool {
 
 ///|
 /// `string.find(ch, start, end)` on code points.
-fn rf_find(s : Array[Char], ch : Char, start : Int, end : Int) -> Int {
+fn rf_find(s : Array[Char], ch : Char, start : Int32, end : Int32) -> Int32 {
   let n = s.length()
   let end = if end > n { n } else { end }
   let mut i = if start < 0 { 0 } else { start }
@@ -106,9 +106,9 @@ fn rf_find(s : Array[Char], ch : Char, start : Int, end : Int) -> Int {
 fn rf_find_start_index(
   s : Array[Char],
   identifiers : String,
-  start : Int,
-  end : Int,
-) -> Int {
+  start : Int32,
+  end : Int32,
+) -> Int32 {
   let index = rf_find(s, '{', start, end) - 1
   if index < 0 {
     return -1
@@ -123,9 +123,9 @@ fn rf_find_start_index(
 /// `VariableSplitter._find_variable` (on the prefix `s[:len]`).
 fn rf_find_variable(
   s : Array[Char],
-  len : Int,
+  len : Int32,
   identifiers : String,
-) -> (Int, Int) raise RfNoVariable {
+) -> (Int32, Int32) raise RfNoVariable {
   let mut max_end_index = -1
   for i = len - 1; i >= 0; i = i - 1 {
     if s[i] == '}' {
@@ -170,8 +170,8 @@ fn rf_split_variable(string : String, identifiers : String) -> RfVar? {
   // returns true on StopIteration
   fn variable_state(
     c : Char,
-    index : Int,
-    open_curly : Ref[Int],
+    index : Int32,
+    open_curly : Ref[Int32],
     state : Ref[RfVarState],
   ) -> Bool {
     variable_chars.push(c)
@@ -326,11 +326,11 @@ priv enum RfCellKind {
 /// A cell tokenizer (`Tokenizer` and its subclasses).
 priv struct RfCell {
   kind : RfCellKind
-  mut index : Int
+  mut index : Int32
   template_setter : ((String) -> Unit)?
   mut custom : RfCell?
   mut keyword_found : Bool
-  mut assigns : Int
+  mut assigns : Int32
   mut in_arguments : Bool
 }
 
@@ -338,7 +338,7 @@ priv struct RfCell {
 fn RfCell::new(
   kind : RfCellKind,
   template_setter? : (String) -> Unit,
-  support_assign? : Bool = true,
+  support_assign~ : Bool = true,
 ) -> RfCell {
   {
     kind,
@@ -360,7 +360,7 @@ priv enum RfRes {
 
 ///|
 /// `Tokenizer._tokenize`: `_tokens[min(index, len - 1)]`.
-fn RfCell::default_token(self : RfCell, index : Int) -> RfRes {
+fn RfCell::default_token(self : RfCell, index : Int32) -> RfRes {
   let tokens = match self.kind {
     Comment => [rf_comment]
     Setting | TestCaseSetting | KeywordSetting => [rf_setting, rf_argument]
@@ -380,7 +380,7 @@ fn RfCell::default_token(self : RfCell, index : Int) -> RfRes {
 fn RfCell::setting_tokenize(
   self : RfCell,
   value : String,
-  index : Int,
+  index : Int32,
 ) -> RfRes {
   let (keyword_settings, import_settings, other_settings) = match self.kind {
     TestCaseSetting =>
@@ -428,7 +428,7 @@ fn RfCell::setting_tokenize(
 }
 
 ///|
-fn RfCell::tokenize_at(self : RfCell, value : String, index : Int) -> RfRes {
+fn RfCell::tokenize_at(self : RfCell, value : String, index : Int32) -> RfRes {
   match self.kind {
     Setting => self.setting_tokenize(value, index)
     TestCaseSetting | KeywordSetting =>
@@ -548,7 +548,7 @@ fn rf_is_template_set(template : String) -> Bool {
 }
 
 ///|
-fn RfTable::continues(self : RfTable, value : String, index : Int) -> Bool {
+fn RfTable::continues(self : RfTable, value : String, index : Int32) -> Bool {
   let base = () => {
     value == "..." && self.prev_values.iter().all(v => v == "" || v == "\\")
   }
@@ -563,7 +563,7 @@ fn RfTable::continues(self : RfTable, value : String, index : Int) -> Bool {
 fn RfTable::tokenize_value(
   self : RfTable,
   value : String,
-  index : Int,
+  index : Int32,
 ) -> Array[(String, @token.TokenType)] {
   match self.kind {
     Setting =>
@@ -614,7 +614,7 @@ fn RfTable::tokenize_value(
 fn RfTable::tokenize(
   self : RfTable,
   value : String,
-  index : Int,
+  index : Int32,
 ) -> Array[(String, @token.TokenType)] {
   let out = if self.continues(value, index) {
     if self.prev_tokenizer is Some(p) {

@@ -2,7 +2,7 @@
 
 ///|
 /// Python's `text[:n]` (counting code points).
-fn tal_head(text : String, n : Int) -> String {
+fn tal_head(text : String, n : Int32) -> String {
   let mut count = 0
   let mut end = 0
   for c in text {

@@ -135,7 +135,7 @@ let lily_pond_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LilyPondLexer` (LilyPond).
 pub fn lily_pond_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lily_pond_lexer_info,

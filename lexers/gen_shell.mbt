@@ -116,7 +116,7 @@ let bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BashLexer` (Bash).
-pub fn bash_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn bash_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     bash_lexer_info,
     options,
@@ -145,7 +145,7 @@ pub let bash_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `BashSessionLexer` (Bash Session).
 pub fn bash_session_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     bash_session_lexer_info,
@@ -676,7 +676,7 @@ let batch_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BatchLexer` (Batchfile).
-pub fn batch_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn batch_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     batch_lexer_info,
     options,
@@ -740,7 +740,7 @@ let execline_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ExeclineLexer` (execline).
 pub fn execline_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     execline_lexer_info,
@@ -830,7 +830,7 @@ let fish_shell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `FishShellLexer` (Fish).
 pub fn fish_shell_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     fish_shell_lexer_info,
@@ -860,7 +860,7 @@ pub let msdos_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MSDOSSessionLexer` (MSDOS Session).
 pub fn msdos_session_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     msdos_session_lexer_info,
@@ -946,7 +946,7 @@ let power_shell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `PowerShellLexer` (PowerShell).
 pub fn power_shell_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     power_shell_lexer_info,
@@ -976,7 +976,7 @@ pub let power_shell_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PowerShellSessionLexer` (PowerShell Session).
 pub fn power_shell_session_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     power_shell_session_lexer_info,
@@ -1097,7 +1097,7 @@ let slurm_bash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SlurmBashLexer` (Slurm).
 pub fn slurm_bash_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     slurm_bash_lexer_info,
@@ -1176,7 +1176,7 @@ let tcsh_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TcshLexer` (Tcsh).
-pub fn tcsh_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tcsh_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tcsh_lexer_info,
     options,
@@ -1205,7 +1205,7 @@ pub let tcsh_session_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `TcshSessionLexer` (Tcsh Session).
 pub fn tcsh_session_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tcsh_session_lexer_info,

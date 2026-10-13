@@ -46,7 +46,7 @@ let bb_code_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `BBCodeLexer` (BBCode).
-pub fn bb_code_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn bb_code_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     bb_code_lexer_info,
     options,
@@ -114,7 +114,7 @@ let groff_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GroffLexer` (Groff).
-pub fn groff_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn groff_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     groff_lexer_info,
     options,
@@ -275,7 +275,7 @@ let markdown_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MarkdownLexer` (Markdown).
 pub fn markdown_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     markdown_lexer_info,
@@ -363,7 +363,7 @@ let moin_wiki_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MoinWikiLexer` (MoinMoin/Trac Wiki markup).
 pub fn moin_wiki_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moin_wiki_lexer_info,
@@ -393,7 +393,7 @@ pub let moz_preproc_css_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MozPreprocCssLexer` (CSS+mozpreproc).
 pub fn moz_preproc_css_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moz_preproc_css_lexer_info,
@@ -460,7 +460,7 @@ let moz_preproc_hash_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
 ///|
 /// Creates a `MozPreprocHashLexer` (mozhashpreproc).
 pub fn moz_preproc_hash_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moz_preproc_hash_lexer_info,
@@ -490,7 +490,7 @@ pub let moz_preproc_javascript_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MozPreprocJavascriptLexer` (Javascript+mozpreproc).
 pub fn moz_preproc_javascript_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moz_preproc_javascript_lexer_info,
@@ -562,7 +562,7 @@ let moz_preproc_percent_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() 
 ///|
 /// Creates a `MozPreprocPercentLexer` (mozpercentpreproc).
 pub fn moz_preproc_percent_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moz_preproc_percent_lexer_info,
@@ -592,7 +592,7 @@ pub let moz_preproc_xul_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MozPreprocXulLexer` (XUL+mozpreproc).
 pub fn moz_preproc_xul_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moz_preproc_xul_lexer_info,
@@ -848,7 +848,7 @@ let org_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `OrgLexer` (Org Mode).
-pub fn org_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn org_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(org_lexer_info, options, opts => org_lexer(options=opts), (
     lx,
     text,
@@ -1091,7 +1091,7 @@ let rst_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RstLexer` (reStructuredText).
-pub fn rst_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rst_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rst_lexer_info,
     options,
@@ -1185,7 +1185,7 @@ let tex_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TexLexer` (TeX).
-pub fn tex_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tex_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(tex_lexer_info, options, opts => tex_lexer(options=opts), (
     lx,
     text,
@@ -1329,7 +1329,7 @@ let tiddly_wiki5_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TiddlyWiki5Lexer` (tiddler).
 pub fn tiddly_wiki5_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tiddly_wiki5_lexer_info,
@@ -2419,7 +2419,7 @@ let wikitext_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `WikitextLexer` (Wikitext).
 pub fn wikitext_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     wikitext_lexer_info,

@@ -76,7 +76,7 @@ fn matlab_session_lexer_tokenizer(
   let mlexer = matlab_lexer(options=lx.options)
   let out : Array[@lexer.Token] = []
   let mut curcode = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   let mut continuation = false
   for entry in pystr_lines(text) {
     let (start, line) = entry

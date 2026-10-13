@@ -136,7 +136,7 @@ let perl6_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Perl6Lexer` (Perl6).
-pub fn perl6_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn perl6_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     perl6_lexer_info,
     options,
@@ -343,7 +343,7 @@ let perl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PerlLexer` (Perl).
-pub fn perl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn perl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     perl_lexer_info,
     options,

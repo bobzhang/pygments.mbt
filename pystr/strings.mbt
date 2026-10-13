@@ -49,7 +49,7 @@ pub fn is_line_break(c : Char) -> Bool {
 ///   inspect(@pystr.splitlines("", keepends=true).length(), content="0")
 /// }
 /// ```
-pub fn splitlines(s : String, keepends? : Bool = false) -> Array[String] {
+pub fn splitlines(s : String, keepends~ : Bool = false) -> Array[String] {
   let out = []
   let n = s.length()
   let mut start = 0
@@ -84,7 +84,7 @@ pub fn splitlines(s : String, keepends? : Bool = false) -> Array[String] {
 ///   inspect(@pystr.expandtabs("a\tb\n\tc", tabsize=4), content="a   b\n    c")
 /// }
 /// ```
-pub fn expandtabs(s : String, tabsize? : Int = 8) -> String {
+pub fn expandtabs(s : String, tabsize~ : Int32 = 8) -> String {
   let buf = StringBuilder()
   let mut col = 0
   for c in s {
@@ -118,7 +118,7 @@ pub fn expandtabs(s : String, tabsize? : Int = 8) -> String {
 ///   )
 /// }
 /// ```
-pub fn html_escape(s : String, quote? : Bool = true) -> String {
+pub fn html_escape(s : String, quote~ : Bool = true) -> String {
   let buf = StringBuilder()
   for c in s {
     match c {
@@ -135,7 +135,7 @@ pub fn html_escape(s : String, quote? : Bool = true) -> String {
 
 ///|
 /// The number of code points in `s` (Python's `len`).
-pub fn py_len(s : String) -> Int {
+pub fn py_len(s : String) -> Int32 {
   s.char_length()
 }
 
@@ -149,9 +149,9 @@ pub fn py_len(s : String) -> Int {
 ///   inspect(@pystr.slice("héllo", -2), content="lo")
 /// }
 /// ```
-pub fn slice(s : String, start : Int, end? : Int) -> String {
+pub fn slice(s : String, start : Int32, end? : Int32) -> String {
   let n = s.char_length()
-  fn norm(i : Int) -> Int {
+  fn norm(i : Int32) -> Int32 {
     let i = if i < 0 { i + n } else { i }
     if i < 0 {
       0
@@ -170,7 +170,7 @@ pub fn slice(s : String, start : Int, end? : Int) -> String {
   if a >= b {
     return ""
   }
-  let off = (i : Int) => {
+  let off = (i : Int32) => {
     if i == n {
       s.length()
     } else {
@@ -192,7 +192,7 @@ pub fn rstrip_newlines(s : String) -> String {
 
 ///|
 /// Python's `'%*d' % (width, n)` / `str(n).rjust(width)`.
-pub fn rjust(s : String, width : Int, fill? : Char = ' ') -> String {
+pub fn rjust(s : String, width : Int32, fill~ : Char = ' ') -> String {
   let n = s.char_length()
   if n >= width {
     s

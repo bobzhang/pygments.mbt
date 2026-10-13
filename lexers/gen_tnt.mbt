@@ -17,7 +17,7 @@ pub let tnt_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `TNTLexer` (Typographic Number Theory).
-pub fn tnt_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tnt_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tnt_lexer_info,
     options,

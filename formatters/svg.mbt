@@ -13,7 +13,7 @@ pub let svg_info : FormatterInfo = {
 /// `fontsize`, `xoffset`, `yoffset`, `ystep`, `spacehack`, `linenos`,
 /// `linenostart`, `linenostep`, `linenowidth`.
 pub fn svg_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)

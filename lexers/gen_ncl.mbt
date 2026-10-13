@@ -51,7 +51,7 @@ let ncl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NCLLexer` (NCL).
-pub fn ncl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ncl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ncl_lexer_info, options, opts => ncl_lexer(options=opts), (
     lx,
     text,

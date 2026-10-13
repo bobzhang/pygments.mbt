@@ -41,7 +41,7 @@ let igor_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `IgorLexer` (Igor).
-pub fn igor_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn igor_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     igor_lexer_info,
     options,

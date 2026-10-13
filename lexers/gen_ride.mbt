@@ -62,7 +62,7 @@ let ride_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RideLexer` (Ride).
-pub fn ride_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ride_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ride_lexer_info,
     options,

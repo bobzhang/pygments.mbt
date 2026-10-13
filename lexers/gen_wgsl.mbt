@@ -74,7 +74,7 @@ let wgsl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `WgslLexer` (WebGPU Shading Language).
-pub fn wgsl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn wgsl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     wgsl_lexer_info,
     options,

@@ -142,7 +142,7 @@ let aspect_j_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AspectJLexer` (AspectJ).
 pub fn aspect_j_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     aspect_j_lexer_info,
@@ -255,7 +255,7 @@ let ceylon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CeylonLexer` (Ceylon).
-pub fn ceylon_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ceylon_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ceylon_lexer_info,
     options,
@@ -316,7 +316,7 @@ let clojure_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ClojureLexer` (Clojure).
-pub fn clojure_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn clojure_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     clojure_lexer_info,
     options,
@@ -378,7 +378,7 @@ let clojure_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ClojureScriptLexer` (ClojureScript).
 pub fn clojure_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     clojure_script_lexer_info,
@@ -504,7 +504,7 @@ let golo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GoloLexer` (Golo).
-pub fn golo_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn golo_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     golo_lexer_info,
     options,
@@ -639,7 +639,7 @@ let gosu_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GosuLexer` (Gosu).
-pub fn gosu_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gosu_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gosu_lexer_info,
     options,
@@ -668,7 +668,7 @@ pub let gosu_template_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `GosuTemplateLexer` (Gosu Template).
 pub fn gosu_template_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     gosu_template_lexer_info,
@@ -777,7 +777,7 @@ let groovy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GroovyLexer` (Groovy).
-pub fn groovy_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn groovy_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     groovy_lexer_info,
     options,
@@ -892,7 +892,7 @@ let ioke_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `IokeLexer` (Ioke).
-pub fn ioke_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ioke_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ioke_lexer_info,
     options,
@@ -1256,7 +1256,7 @@ let jasmin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JasminLexer` (Jasmin).
-pub fn jasmin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jasmin_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     jasmin_lexer_info,
     options,
@@ -1408,7 +1408,7 @@ let java_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JavaLexer` (Java).
-pub fn java_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn java_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     java_lexer_info,
     options,
@@ -1627,7 +1627,7 @@ let kotlin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `KotlinLexer` (Kotlin).
-pub fn kotlin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn kotlin_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     kotlin_lexer_info,
     options,
@@ -1705,7 +1705,7 @@ let pig_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PigLexer` (Pig).
-pub fn pig_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn pig_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(pig_lexer_info, options, opts => pig_lexer(options=opts), (
     lx,
     text,
@@ -1800,7 +1800,7 @@ let sarl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SarlLexer` (SARL).
-pub fn sarl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sarl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sarl_lexer_info,
     options,
@@ -2127,7 +2127,7 @@ let scala_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ScalaLexer` (Scala).
-pub fn scala_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn scala_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     scala_lexer_info,
     options,
@@ -2234,7 +2234,7 @@ let xtend_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `XtendLexer` (Xtend).
-pub fn xtend_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xtend_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xtend_lexer_info,
     options,
@@ -2326,7 +2326,7 @@ let tea_lang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TeaLangLexer` (TeaLangLexer).
-fn tea_lang_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+fn tea_lang_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tea_lang_lexer_info,
     options,

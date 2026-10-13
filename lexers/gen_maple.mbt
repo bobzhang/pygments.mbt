@@ -52,7 +52,7 @@ let maple_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MapleLexer` (Maple).
-pub fn maple_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn maple_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     maple_lexer_info,
     options,

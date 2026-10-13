@@ -76,7 +76,7 @@ let sophia_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SophiaLexer` (Sophia).
-pub fn sophia_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sophia_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     sophia_lexer_info,
     options,

@@ -44,7 +44,7 @@ let rts_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RtsLexer` (TrafficScript).
-pub fn rts_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rts_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(rts_lexer_info, options, opts => rts_lexer(options=opts), (
     lx,
     text,

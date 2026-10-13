@@ -69,7 +69,7 @@ fn psysh_console_lexer_tokenizer(
   let phplexer = php_lexer(options=opts)
   let out : Array[@lexer.Token] = []
   let mut curcode = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for entry in pystr_lines(text) {
     let (start, line) = entry
     if line.has_prefix(">>> ") || line.has_prefix("... ") {

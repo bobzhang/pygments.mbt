@@ -78,7 +78,7 @@ let tera_term_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `TeraTermLexer` (Tera Term macro).
 pub fn tera_term_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tera_term_lexer_info,

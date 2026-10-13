@@ -83,7 +83,7 @@ let sas_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SASLexer` (SAS).
-pub fn sas_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn sas_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(sas_lexer_info, options, opts => sas_lexer(options=opts), (
     lx,
     text,

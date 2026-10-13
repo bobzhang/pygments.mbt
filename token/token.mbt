@@ -3,7 +3,7 @@
 /// (`Token.Name.Builtin`, ...). Token types are interned, so equality is
 /// identity.
 pub struct TokenType {
-  priv id : Int
+  priv id : Int32
 } derive(Eq, Hash, Compare)
 
 ///|
@@ -24,9 +24,9 @@ pub extend TokenType with Show::{output}
 
 ///|
 priv struct Registry {
-  parents : Array[Int]
+  parents : Array[Int32]
   names : Array[String]
-  children : Array[Map[String, Int]]
+  children : Array[Map[String, Int32]]
   full_names : Array[String]
 }
 

@@ -85,7 +85,7 @@ let icon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `IconLexer` (Icon).
-pub fn icon_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn icon_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     icon_lexer_info,
     options,
@@ -137,7 +137,7 @@ let ucode_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `UcodeLexer` (ucode).
-pub fn ucode_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ucode_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ucode_lexer_info,
     options,
@@ -234,7 +234,7 @@ let unicon_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `UniconLexer` (Unicon).
-pub fn unicon_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn unicon_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     unicon_lexer_info,
     options,

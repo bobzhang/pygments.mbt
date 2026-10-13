@@ -136,7 +136,7 @@ let arrow_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ArrowLexer` (Arrow).
-pub fn arrow_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn arrow_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     arrow_lexer_info,
     options,

@@ -59,7 +59,7 @@ let spice_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SpiceLexer` (Spice).
-pub fn spice_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn spice_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     spice_lexer_info,
     options,

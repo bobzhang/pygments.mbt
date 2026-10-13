@@ -130,7 +130,7 @@ let rebol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RebolLexer` (REBOL).
-pub fn rebol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rebol_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rebol_lexer_info,
     options,
@@ -287,7 +287,7 @@ let red_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RedLexer` (Red).
-pub fn red_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn red_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(red_lexer_info, options, opts => red_lexer(options=opts), (
     lx,
     text,

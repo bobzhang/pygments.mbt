@@ -5,7 +5,7 @@ pub(all) enum CallbackArg {
   Str(String)
   Tok(@token.TokenType)
   Bool(Bool)
-  Int(Int)
+  Int(Int32)
 } derive(Debug)
 
 ///|
@@ -51,11 +51,11 @@ pub(all) enum StateOp {
 /// A lexing rule: regex, action and optional transition.
 pub struct Rule {
   pattern : String
-  flags : Int
+  flags : Int32
   action : Action
   transition : Array[StateOp]?
   priv mut regex : @regex.Regex?
-  priv mut ops : FixedArray[Int]
+  priv mut ops : FixedArray[Int32]
 }
 
 ///|
@@ -63,7 +63,7 @@ pub struct Rule {
 /// the state stack.
 pub fn Rule::new(
   pattern : String,
-  flags : Int,
+  flags : Int32,
   action : Action,
   transition : Array[StateOp]?,
 ) -> Rule {
@@ -89,7 +89,7 @@ fn Rule::compiled(self : Rule) -> @regex.Regex raise {
 pub struct RegexDef {
   name : String
   state_names : Array[String]
-  priv state_index : Map[String, Int]
+  priv state_index : Map[String, Int32]
   priv states : Array[Array[Rule]]
   /// per state, the rules that can match at a position, indexed by the code
   /// unit there (0-127 ASCII, 128 other, 129 end of input); built lazily
@@ -102,7 +102,7 @@ pub struct RegexDef {
 /// The dispatch table of state `i` (see `RegexDef::dispatch`).
 fn RegexDef::table(
   self : RegexDef,
-  i : Int,
+  i : Int32,
 ) -> FixedArray[FixedArray[Rule]] raise {
   match self.dispatch[i] {
     Some(t) => t
@@ -128,7 +128,7 @@ fn RegexDef::table(
 
 ///|
 /// The dispatch class of `pos` in `text` (see `RegexDef::dispatch`).
-fn dispatch_class(text : String, pos : Int, end : Int) -> Int {
+fn dispatch_class(text : String, pos : Int32, end : Int32) -> Int32 {
   // clamp like the regex layer (and Python's `pattern.match(text, pos, end)`)
   let p = if pos < 0 { 0 } else { pos }
   let e = if end > text.length() { text.length() } else { end }
@@ -147,7 +147,7 @@ fn dispatch_class(text : String, pos : Int, end : Int) -> Int {
 ///|
 /// Python's `text[pos]` index: negative positions count from the end;
 /// -1 when out of range (Python raises `IndexError`, ending the loop).
-fn py_index(text : String, pos : Int) -> Int {
+fn py_index(text : String, pos : Int32) -> Int32 {
   let i = if pos < 0 { text.length() + pos } else { pos }
   if i < 0 || i >= text.length() {
     -1
@@ -162,10 +162,10 @@ pub fn RegexDef::new(
   name : String,
   state_names : Array[String],
   rules : Array[Rule],
-  states : Array[Array[Int]],
-  extended? : Bool = false,
+  states : Array[Array[Int32]],
+  extended~ : Bool = false,
 ) -> RegexDef {
-  let state_index : Map[String, Int] = Map([])
+  let state_index : Map[String, Int32] = Map([])
   for i, n in state_names {
     state_index[n] = i
   }
@@ -201,7 +201,7 @@ pub fn RegexDef::new(
 
 ///|
 /// Index of the state `name`.
-pub fn RegexDef::state(self : RegexDef, name : String) -> Int {
+pub fn RegexDef::state(self : RegexDef, name : String) -> Int32 {
   match self.state_index.get(name) {
     Some(i) => i
     None => abort("\{self.name}: unknown state \{name}")
@@ -222,9 +222,9 @@ pub(all) struct Ctx {
   lexer : Lexer
   def : RegexDef
   text : String
-  mut pos : Int
-  mut end : Int
-  stack : Array[Int]
+  mut pos : Int32
+  mut end : Int32
+  stack : Array[Int32]
   out : Array[Token]
   callbacks : Map[String, CallbackFn]
 }
@@ -233,7 +233,7 @@ pub(all) struct Ctx {
 /// Appends a token to the output.
 pub fn Ctx::emit(
   self : Ctx,
-  index : Int,
+  index : Int32,
   ttype : @token.TokenType,
   value : String,
 ) -> Unit {
@@ -357,8 +357,8 @@ pub fn Ctx::emit_lexed(
   self : Ctx,
   lexer : Lexer,
   text : String,
-  offset : Int,
-  stack? : Array[String] = ["root"],
+  offset : Int32,
+  stack~ : Array[String] = ["root"],
 ) -> Unit raise {
   for t in lexer.get_tokens_unprocessed(text, stack~) {
     self.out.push({ index: t.index + offset, ttype: t.ttype, value: t.value, })
@@ -378,7 +378,7 @@ fn merge_options(base : Options, extra : Array[(String, String)]) -> Options {
 }
 
 ///|
-fn Ctx::transition(self : Ctx, ops : FixedArray[Int]) -> Unit {
+fn Ctx::transition(self : Ctx, ops : FixedArray[Int32]) -> Unit {
   for op in ops {
     if op >= 0 {
       self.stack.push(op)
@@ -393,7 +393,7 @@ fn Ctx::transition(self : Ctx, ops : FixedArray[Int]) -> Unit {
 }
 
 ///|
-fn code_point_width(text : String, pos : Int) -> Int {
+fn code_point_width(text : String, pos : Int32) -> Int32 {
   let c = text.unsafe_get(pos).to_int()
   if c >= 0xD800 &&
     c <= 0xDBFF &&
@@ -414,7 +414,7 @@ pub fn run_regex(
   def : RegexDef,
   text : String,
   stack : Array[String],
-  callbacks? : Map[String, CallbackFn] = {},
+  callbacks~ : Map[String, CallbackFn] = {},
 ) -> Array[Token] raise {
   let ctx : Ctx = {
     lexer,
@@ -452,10 +452,10 @@ pub fn Ctx::new(
   lexer : Lexer,
   def : RegexDef,
   text : String,
-  callbacks? : Map[String, CallbackFn] = {},
-  pos? : Int = 0,
-  end? : Int,
-  stack? : Array[String] = ["root"],
+  callbacks~ : Map[String, CallbackFn] = {},
+  pos~ : Int32 = 0,
+  end? : Int32,
+  stack~ : Array[String] = ["root"],
 ) -> Ctx raise {
   let ctx : Ctx = {
     lexer,

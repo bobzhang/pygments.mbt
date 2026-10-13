@@ -11,7 +11,7 @@ fn replace_special(
   value : String,
   regex : @regex.Regex,
   special : @token.TokenType,
-  replace? : (String) -> String = s => s,
+  replace~ : (String) -> String = s => s,
 ) -> Unit raise {
   let mut last = 0
   for m in regex.find_all(value) {

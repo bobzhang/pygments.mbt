@@ -114,7 +114,7 @@ fn node_console_lexer_tokenizer(
   let out : Array[@lexer.Token] = []
   let curcode = StringBuilder()
   let mut curcode_len = 0
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for m in node_console_line_re.find_all(text) {
     let line = m.matched()
     if line.has_prefix("> ") {

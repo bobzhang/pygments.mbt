@@ -40,7 +40,7 @@ let rita_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RitaLexer` (Rita).
-pub fn rita_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rita_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rita_lexer_info,
     options,

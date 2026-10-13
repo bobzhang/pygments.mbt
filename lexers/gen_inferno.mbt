@@ -69,7 +69,7 @@ let limbo_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LimboLexer` (Limbo).
-pub fn limbo_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn limbo_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     limbo_lexer_info,
     options,

@@ -33,7 +33,7 @@ pub fn irc_colors() -> Map[@token.TokenType, (String, String)] {
 
 ///|
 /// Python's `irc.IRC_COLOR_MAP`: mIRC color numbers.
-let irc_color_map : Map[String, Int] = {
+let irc_color_map : Map[String, Int32] = {
   "white": 0,
   "black": 1,
   "blue": 2,
@@ -106,7 +106,7 @@ pub let irc_info : FormatterInfo = {
 /// Python's `IRCFormatter` (options `bg`, `linenos`; `colorscheme` as a
 /// map). As in Python, the line counter continues across `format` calls.
 pub fn irc_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
   colorscheme? : Map[@token.TokenType, (String, String)],
 ) -> Formatter raise {

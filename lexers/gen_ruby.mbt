@@ -110,7 +110,7 @@ let fancy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FancyLexer` (Fancy).
-pub fn fancy_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn fancy_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     fancy_lexer_info,
     options,
@@ -139,7 +139,7 @@ pub let ruby_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `RubyConsoleLexer` (Ruby irb session).
 pub fn ruby_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ruby_console_lexer_info,
@@ -517,7 +517,7 @@ let ruby_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RubyLexer` (Ruby).
-pub fn ruby_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ruby_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ruby_lexer_info,
     options,

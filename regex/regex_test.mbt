@@ -1,5 +1,9 @@
 ///|
-fn spans(re : @regex.Regex, text : String, pos? : Int = 0) -> Array[Int]? raise {
+fn spans(
+  re : @regex.Regex,
+  text : String,
+  pos~ : Int32 = 0,
+) -> Array[Int32]? raise {
   match re.match_at(text, pos) {
     None => None
     Some(m) => {

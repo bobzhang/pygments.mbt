@@ -92,7 +92,7 @@ let isabelle_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `IsabelleLexer` (Isabelle).
 pub fn isabelle_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     isabelle_lexer_info,
@@ -208,7 +208,7 @@ let rocq_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RocqLexer` (Rocq Prover).
-pub fn rocq_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rocq_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rocq_lexer_info,
     options,

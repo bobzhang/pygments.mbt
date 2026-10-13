@@ -47,7 +47,7 @@ let cpsa_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CPSALexer` (CPSA).
-pub fn cpsa_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cpsa_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cpsa_lexer_info,
     options,
@@ -160,7 +160,7 @@ let common_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CommonLispLexer` (Common Lisp).
 pub fn common_lisp_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     common_lisp_lexer_info,
@@ -244,7 +244,7 @@ let emacs_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EmacsLispLexer` (EmacsLisp).
 pub fn emacs_lisp_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     emacs_lisp_lexer_info,
@@ -302,7 +302,7 @@ let fennel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FennelLexer` (Fennel).
-pub fn fennel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn fennel_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     fennel_lexer_info,
     options,
@@ -376,7 +376,7 @@ let hy_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HyLexer` (Hy).
-pub fn hy_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn hy_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(hy_lexer_info, options, opts => hy_lexer(options=opts), (
     lx,
     text,
@@ -441,7 +441,7 @@ let janet_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JanetLexer` (Janet).
-pub fn janet_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn janet_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     janet_lexer_info,
     options,
@@ -499,7 +499,7 @@ let new_lisp_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NewLispLexer` (NewLisp).
 pub fn new_lisp_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     new_lisp_lexer_info,
@@ -625,7 +625,7 @@ let racket_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RacketLexer` (Racket).
-pub fn racket_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn racket_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     racket_lexer_info,
     options,
@@ -719,7 +719,7 @@ let scheme_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `SchemeLexer` (Scheme).
-pub fn scheme_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn scheme_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     scheme_lexer_info,
     options,
@@ -776,7 +776,7 @@ let shen_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ShenLexer` (Shen).
-pub fn shen_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn shen_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     shen_lexer_info,
     options,
@@ -856,7 +856,7 @@ let xtlang_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `XtlangLexer` (xtlang).
-pub fn xtlang_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn xtlang_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     xtlang_lexer_info,
     options,

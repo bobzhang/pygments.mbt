@@ -17,7 +17,7 @@ pub let slash_lexer_info : @lexer.LexerInfo = {
 
 ///|
 /// Creates a `SlashLexer` (Slash).
-pub fn slash_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn slash_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     slash_lexer_info,
     options,
@@ -225,7 +225,7 @@ let slash_language_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `SlashLanguageLexer` (SlashLanguageLexer).
 fn slash_language_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     slash_language_lexer_info,

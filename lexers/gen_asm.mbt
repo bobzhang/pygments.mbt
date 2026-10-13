@@ -18,7 +18,7 @@ pub let c_objdump_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CObjdumpLexer` (c-objdump).
 pub fn c_objdump_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     c_objdump_lexer_info,
@@ -78,7 +78,7 @@ let ca65_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Ca65Lexer` (ca65 assembler).
-pub fn ca65_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ca65_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     ca65_lexer_info,
     options,
@@ -107,7 +107,7 @@ pub let cpp_objdump_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `CppObjdumpLexer` (cpp-objdump).
 pub fn cpp_objdump_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cpp_objdump_lexer_info,
@@ -142,7 +142,7 @@ pub let d_objdump_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `DObjdumpLexer` (d-objdump).
 pub fn d_objdump_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     d_objdump_lexer_info,
@@ -221,7 +221,7 @@ let dasm16_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Dasm16Lexer` (DASM16).
-pub fn dasm16_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn dasm16_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     dasm16_lexer_info,
     options,
@@ -328,7 +328,7 @@ let gas_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `GasLexer` (GAS).
-pub fn gas_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn gas_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(gas_lexer_info, options, opts => gas_lexer(options=opts), (
     lx,
     text,
@@ -398,7 +398,7 @@ let hsail_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HsailLexer` (HSAIL).
-pub fn hsail_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn hsail_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     hsail_lexer_info,
     options,
@@ -465,7 +465,7 @@ let llvm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LlvmLexer` (LLVM).
-pub fn llvm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn llvm_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     llvm_lexer_info,
     options,
@@ -615,7 +615,7 @@ let llvm_mir_body_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LlvmMirBodyLexer` (LLVM-MIR Body).
 pub fn llvm_mir_body_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     llvm_mir_body_lexer_info,
@@ -711,7 +711,7 @@ let llvm_mir_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `LlvmMirLexer` (LLVM-MIR).
 pub fn llvm_mir_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     llvm_mir_lexer_info,
@@ -796,7 +796,7 @@ let nasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NasmLexer` (NASM).
-pub fn nasm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn nasm_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nasm_lexer_info,
     options,
@@ -959,7 +959,7 @@ let nasm_objdump_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `NasmObjdumpLexer` (objdump-nasm).
 pub fn nasm_objdump_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     nasm_objdump_lexer_info,
@@ -1122,7 +1122,7 @@ let objdump_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ObjdumpLexer` (objdump).
-pub fn objdump_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn objdump_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     objdump_lexer_info,
     options,
@@ -1217,7 +1217,7 @@ let tasm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TasmLexer` (TASM).
-pub fn tasm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn tasm_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     tasm_lexer_info,
     options,

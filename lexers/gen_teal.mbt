@@ -51,7 +51,7 @@ let teal_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `TealLexer` (teal).
-pub fn teal_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn teal_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     teal_lexer_info,
     options,

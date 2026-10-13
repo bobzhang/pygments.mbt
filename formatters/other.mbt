@@ -31,7 +31,7 @@ pub let testcase_info : FormatterInfo = {
 ///|
 /// Python's `NullFormatter`: the token texts, concatenated.
 pub fn null_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)
@@ -50,7 +50,7 @@ pub fn null_formatter(
 /// `error_color` (colorize `Error` tokens) and `compress` (only `""` and
 /// `"none"` are supported; `gz`/`bz2` need compression libraries).
 pub fn raw_token_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)
@@ -89,7 +89,7 @@ pub fn raw_token_formatter(
 ///|
 /// Python's `TestcaseFormatter`: a pytest test case for the token stream.
 pub fn testcase_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)

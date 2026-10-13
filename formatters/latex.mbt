@@ -57,7 +57,7 @@ fn channel_ratio(hex2 : String) -> String {
 fn latex_rgbcolor(col : String?) -> String {
   match col {
     Some(c) if c != "" => {
-      let part = (i : Int) => channel_ratio(@pystr.slice(c, i, end=i + 2))
+      let part = (i : Int32) => channel_ratio(@pystr.slice(c, i, end=i + 2))
       "\{part(0)},\{part(2)},\{part(4)}"
     }
     _ => "1,1,1"
@@ -76,8 +76,8 @@ pub struct LatexFormatter {
   docclass : String
   preamble : String
   linenos : Bool
-  linenostart : Int
-  linenostep : Int
+  linenostart : Int32
+  linenostep : Int32
   verboptions : String
   nobackground : Bool
   commandprefix : String
@@ -92,7 +92,7 @@ pub struct LatexFormatter {
 ///|
 /// Creates a LaTeX formatter from `options`.
 pub fn LatexFormatter::new(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> LatexFormatter raise {
   let base = BaseOptions::new(options, style?)

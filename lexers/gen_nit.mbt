@@ -57,7 +57,7 @@ let nit_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NitLexer` (Nit).
-pub fn nit_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn nit_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(nit_lexer_info, options, opts => nit_lexer(options=opts), (
     lx,
     text,

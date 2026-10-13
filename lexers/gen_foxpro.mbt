@@ -54,7 +54,7 @@ let fox_pro_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `FoxProLexer` (FoxPro).
-pub fn fox_pro_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn fox_pro_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     fox_pro_lexer_info,
     options,

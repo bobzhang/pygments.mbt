@@ -87,7 +87,7 @@ let base_makefile_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `BaseMakefileLexer` (Base Makefile).
 pub fn base_makefile_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     base_makefile_lexer_info,
@@ -174,7 +174,7 @@ let c_make_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CMakeLexer` (CMake).
-pub fn c_make_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn c_make_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     c_make_lexer_info,
     options,
@@ -205,7 +205,7 @@ pub let makefile_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `MakefileLexer` (Makefile).
 pub fn makefile_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     makefile_lexer_info,

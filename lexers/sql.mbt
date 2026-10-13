@@ -76,7 +76,7 @@ fn sql_language_callback(ctx : @lexer.Ctx, m : @regex.Match) -> Unit raise {
       }
     }
   }
-  let g = (i : Int) => m.group(i).unwrap_or("")
+  let g = (i : Int32) => m.group(i).unwrap_or("")
   // 1 = $, 2 = delimiter, 3 = $
   ctx.emit(m.start(group=1), @token.string, g(1))
   ctx.emit(m.start(group=2), @token.string_delimiter, g(2))
@@ -183,7 +183,7 @@ fn postgres_console_lexer_tokenizer(
     // consume the lines of the command: start with an optional prompt
     // and continue until the end of command is detected
     let mut curcode = ""
-    let insertions : Array[(Int, Array[@lexer.Token])] = []
+    let insertions : Array[(Int32, Array[@lexer.Token])] = []
     while i < lines.length() {
       let line = lines[i]
       i += 1
@@ -266,7 +266,7 @@ fn sqlite_console_lexer_tokenizer(
   let sql = sql_lexer(options=lx.options)
   let out : Array[@lexer.Token] = []
   let mut curcode = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for entry in pystr_lines(data) {
     let (start, line) = entry
     if sqlite_prompt_re.match_at(line, 0) is Some(_) {
@@ -330,7 +330,7 @@ let tsql_declare_re : @regex.Regex = @lexer.re(
 let tsql_variable_re : @regex.Regex = @lexer.re("@[a-zA-Z_]\\w*\\b")
 
 ///|
-fn sql_count_matches(re : @regex.Regex, text : String) -> Int {
+fn sql_count_matches(re : @regex.Regex, text : String) -> Int32 {
   (re.find_all(text) catch { _ => [] }).length()
 }
 

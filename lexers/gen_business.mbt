@@ -139,7 +139,7 @@ let abap_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ABAPLexer` (ABAP).
-pub fn abap_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn abap_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     abap_lexer_info,
     options,
@@ -205,7 +205,7 @@ let cobol_freeformat_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
 ///|
 /// Creates a `CobolFreeformatLexer` (COBOLFree).
 pub fn cobol_freeformat_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cobol_freeformat_lexer_info,
@@ -271,7 +271,7 @@ let cobol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CobolLexer` (COBOL).
-pub fn cobol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cobol_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cobol_lexer_info,
     options,
@@ -328,7 +328,7 @@ let good_data_cl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `GoodDataCLLexer` (GoodData-CL).
 pub fn good_data_cl_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     good_data_cl_lexer_info,
@@ -386,7 +386,7 @@ let maql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MaqlLexer` (MAQL).
-pub fn maql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn maql_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     maql_lexer_info,
     options,
@@ -454,7 +454,7 @@ let open_edge_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `OpenEdgeLexer` (OpenEdge ABL).
 pub fn open_edge_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     open_edge_lexer_info,

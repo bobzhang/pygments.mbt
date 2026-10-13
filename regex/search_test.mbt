@@ -1,5 +1,5 @@
 ///|
-fn all_spans(re : @regex.Regex, text : String) -> Array[Array[Int]] raise {
+fn all_spans(re : @regex.Regex, text : String) -> Array[Array[Int32]] raise {
   re
   .find_all(text)
   .map(m => {
@@ -14,7 +14,7 @@ fn all_spans(re : @regex.Regex, text : String) -> Array[Array[Int]] raise {
 
 ///|
 /// `[[a, b], [c, d]]` on one line.
-fn compact(xs : Array[Array[Int]]) -> String {
+fn compact(xs : Array[Array[Int32]]) -> String {
   "[" +
   xs.map(x => "[" + x.map(n => n.to_string()).join(", ") + "]").join(", ") +
   "]"

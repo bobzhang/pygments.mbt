@@ -100,7 +100,7 @@ let agda_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `AgdaLexer` (Agda).
-pub fn agda_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn agda_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     agda_lexer_info,
     options,
@@ -259,7 +259,7 @@ let cryptol_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CryptolLexer` (Cryptol).
-pub fn cryptol_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cryptol_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cryptol_lexer_info,
     options,
@@ -427,7 +427,7 @@ let haskell_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HaskellLexer` (Haskell).
-pub fn haskell_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn haskell_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     haskell_lexer_info,
     options,
@@ -627,7 +627,7 @@ let hspec_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HspecLexer` (Hspec).
-pub fn hspec_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn hspec_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     hspec_lexer_info,
     options,
@@ -774,7 +774,7 @@ let idris_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `IdrisLexer` (Idris).
-pub fn idris_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn idris_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     idris_lexer_info,
     options,
@@ -983,7 +983,7 @@ let koka_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `KokaLexer` (Koka).
-pub fn koka_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn koka_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     koka_lexer_info,
     options,
@@ -1012,7 +1012,7 @@ pub let literate_agda_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateAgdaLexer` (Literate Agda).
 pub fn literate_agda_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     literate_agda_lexer_info,
@@ -1040,7 +1040,7 @@ pub let literate_cryptol_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateCryptolLexer` (Literate Cryptol).
 pub fn literate_cryptol_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     literate_cryptol_lexer_info,
@@ -1068,7 +1068,7 @@ pub let literate_haskell_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateHaskellLexer` (Literate Haskell).
 pub fn literate_haskell_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     literate_haskell_lexer_info,
@@ -1096,7 +1096,7 @@ pub let literate_idris_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `LiterateIdrisLexer` (Literate Idris).
 pub fn literate_idris_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     literate_idris_lexer_info,

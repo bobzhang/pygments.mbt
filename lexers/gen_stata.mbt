@@ -133,7 +133,7 @@ let stata_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `StataLexer` (Stata).
-pub fn stata_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn stata_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     stata_lexer_info,
     options,

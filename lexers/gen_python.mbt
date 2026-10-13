@@ -236,7 +236,7 @@ let cython_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `CythonLexer` (Cython).
-pub fn cython_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn cython_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     cython_lexer_info,
     options,
@@ -331,7 +331,7 @@ let dg_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `DgLexer` (dg).
-pub fn dg_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn dg_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(dg_lexer_info, options, opts => dg_lexer(options=opts), (
     lx,
     text,
@@ -765,7 +765,7 @@ let num_py_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `NumPyLexer` (NumPy).
-pub fn num_py_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn num_py_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     num_py_lexer_info,
     options,
@@ -983,7 +983,7 @@ let python2_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `Python2Lexer` (Python 2.x).
-pub fn python2_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn python2_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     python2_lexer_info,
     options,
@@ -1099,7 +1099,7 @@ let python2_traceback_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() =>
 ///|
 /// Creates a `Python2TracebackLexer` (Python 2.x Traceback).
 pub fn python2_traceback_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     python2_traceback_lexer_info,
@@ -1129,7 +1129,7 @@ pub let python_console_lexer_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `PythonConsoleLexer` (Python console session).
 pub fn python_console_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     python_console_lexer_info,
@@ -1579,7 +1579,7 @@ let python_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PythonLexer` (Python).
-pub fn python_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn python_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     python_lexer_info,
     options,
@@ -1702,7 +1702,7 @@ let python_traceback_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
 ///|
 /// Creates a `PythonTracebackLexer` (Python Traceback).
 pub fn python_traceback_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     python_traceback_lexer_info,
@@ -1732,7 +1732,7 @@ let _replace_inner_code_info : @lexer.LexerInfo = {
 ///|
 /// Creates a `_ReplaceInnerCode` (_ReplaceInnerCode).
 fn _replace_inner_code(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     _replace_inner_code_info,
@@ -1806,7 +1806,7 @@ let _python_console_lexer_base_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(()
 ///|
 /// Creates a `_PythonConsoleLexerBase` (Python console session).
 fn _python_console_lexer_base(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     _python_console_lexer_base_info,

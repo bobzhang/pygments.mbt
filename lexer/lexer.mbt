@@ -1,7 +1,7 @@
 ///|
 /// One token produced by a lexer: its UTF-16 start offset, type and text.
 pub(all) struct Token {
-  index : Int
+  index : Int32
   ttype : @token.TokenType
   value : String
 } derive(Eq, Debug)
@@ -48,7 +48,7 @@ pub struct Lexer {
   stripnl : Bool
   stripall : Bool
   ensurenl : Bool
-  tabsize : Int
+  tabsize : Int32
   filters : Array[Filter]
 }
 
@@ -88,7 +88,7 @@ pub fn Lexer::add_filter(self : Lexer, f : Filter) -> Unit {
 
 ///|
 /// Default step budget for one lexing request (shared by nested lexers).
-pub let default_budget_steps : Int = 2_000_000_000
+pub let default_budget_steps : Int32 = 2_000_000_000
 
 ///|
 let current_budget : Ref[@regex.Budget] = Ref(
@@ -96,7 +96,7 @@ let current_budget : Ref[@regex.Budget] = Ref(
 )
 
 ///|
-let nesting : Ref[Int] = Ref(0)
+let nesting : Ref[Int32] = Ref(0)
 
 ///|
 /// The budget of the lexing request in progress.
@@ -110,7 +110,7 @@ pub fn budget() -> @regex.Budget {
 pub fn Lexer::get_tokens_unprocessed(
   self : Lexer,
   text : String,
-  stack? : Array[String] = ["root"],
+  stack~ : Array[String] = ["root"],
 ) -> Array[Token] raise {
   if nesting.val == 0 {
     current_budget.val = @regex.Budget::new(default_budget_steps)
@@ -160,7 +160,7 @@ fn strip_by(s : String, pred : (Char) -> Bool) -> String {
 
 ///|
 /// Python's `str.expandtabs(tabsize)`.
-pub fn expand_tabs(s : String, tabsize : Int) -> String {
+pub fn expand_tabs(s : String, tabsize : Int32) -> String {
   let sb = StringBuilder()
   let mut col = 0
   for c in s {
@@ -188,7 +188,7 @@ pub fn expand_tabs(s : String, tabsize : Int) -> String {
 pub fn Lexer::get_tokens(
   self : Lexer,
   text : String,
-  unfiltered? : Bool = false,
+  unfiltered~ : Bool = false,
 ) -> Array[(@token.TokenType, String)] raise {
   let t = self.preprocess(text)
   let mut stream = self

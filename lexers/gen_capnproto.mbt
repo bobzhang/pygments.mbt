@@ -71,7 +71,7 @@ let capn_proto_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CapnProtoLexer` (Cap'n Proto).
 pub fn capn_proto_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     capn_proto_lexer_info,

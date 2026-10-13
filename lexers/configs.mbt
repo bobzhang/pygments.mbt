@@ -3,7 +3,7 @@
 
 ///|
 /// The first `n` code points of `text` (Python's `text[:n]`).
-fn configs_prefix(text : String, n : Int) -> String {
+fn configs_prefix(text : String, n : Int32) -> String {
   let mut i = 0
   let mut count = 0
   while i < text.length() && count < n {

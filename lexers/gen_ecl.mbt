@@ -69,7 +69,7 @@ let ecl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ECLLexer` (ECL).
-pub fn ecl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ecl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ecl_lexer_info, options, opts => ecl_lexer(options=opts), (
     lx,
     text,

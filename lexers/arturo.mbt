@@ -15,7 +15,7 @@ fn arturo_lexer_callbacks(
     (
       "ArturoLexer.handle_annotated_strings",
       (ctx, m, _) => {
-        let g = (i : Int) => m.group(i).unwrap_or("")
+        let g = (i : Int32) => m.group(i).unwrap_or("")
         ctx.emit(m.start(group=1), @token.string_double, g(1))
         ctx.emit(m.start(group=2), @token.string_interpol, g(2))
         ctx.emit(m.start(group=3), @token.string_interpol, g(3))

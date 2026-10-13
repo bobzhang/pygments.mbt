@@ -427,7 +427,7 @@ let kuin_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `KuinLexer` (Kuin).
-pub fn kuin_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn kuin_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     kuin_lexer_info,
     options,

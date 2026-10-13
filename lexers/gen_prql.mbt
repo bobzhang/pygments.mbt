@@ -253,7 +253,7 @@ let prql_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PrqlLexer` (PRQL).
-pub fn prql_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn prql_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     prql_lexer_info,
     options,

@@ -55,7 +55,7 @@ let mosel_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MoselLexer` (Mosel).
-pub fn mosel_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mosel_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mosel_lexer_info,
     options,

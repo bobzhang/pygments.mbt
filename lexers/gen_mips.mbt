@@ -47,7 +47,7 @@ let mips_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `MIPSLexer` (MIPS).
-pub fn mips_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn mips_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mips_lexer_info,
     options,

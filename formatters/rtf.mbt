@@ -45,7 +45,7 @@ fn rtf_escape_text(text : String) -> String {
 /// Python's `RtfFormatter.hex_to_rtf_color`.
 fn hex_to_rtf_color(color : String) -> String raise FormatterError {
   let c = if color.has_prefix("#") { @pystr.slice(color, 1) } else { color }
-  let channel = (i : Int) => {
+  let channel = (i : Int32) => {
     let part = @pystr.slice(c, i, end=i + 2)
     match parse_hex(part) {
       Some(v) => v
@@ -84,7 +84,7 @@ fn split_tokens_on_newlines(tokens : Tokens) -> Tokens {
 /// `linenos`, `lineno_fontsize`, `lineno_padding`, `linenostart`,
 /// `linenostep`, `lineno_color`, `hl_lines`, `hl_color`, `hl_linenostart`.
 pub fn rtf_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)
@@ -119,7 +119,7 @@ pub fn rtf_formatter(
       }
   }
   // Python's `_create_color_mapping`
-  let color_mapping : Map[String, Int] = Map([])
+  let color_mapping : Map[String, Int32] = Map([])
   let mut offset = 1
   if linenos {
     color_mapping[lineno_color] = offset

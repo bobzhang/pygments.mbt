@@ -74,7 +74,7 @@ let apple_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `AppleScriptLexer` (AppleScript).
 pub fn apple_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     apple_script_lexer_info,
@@ -160,7 +160,7 @@ let chaiscript_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `ChaiscriptLexer` (ChaiScript).
 pub fn chaiscript_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     chaiscript_lexer_info,
@@ -250,7 +250,7 @@ let easytrieve_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `EasytrieveLexer` (Easytrieve).
 pub fn easytrieve_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     easytrieve_lexer_info,
@@ -343,7 +343,7 @@ let hybris_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `HybrisLexer` (Hybris).
-pub fn hybris_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn hybris_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     hybris_lexer_info,
     options,
@@ -432,7 +432,7 @@ let jcl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `JclLexer` (JCL).
-pub fn jcl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn jcl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(jcl_lexer_info, options, opts => jcl_lexer(options=opts), (
     lx,
     text,
@@ -515,7 +515,7 @@ let lsl_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LSLLexer` (LSL).
-pub fn lsl_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn lsl_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(lsl_lexer_info, options, opts => lsl_lexer(options=opts), (
     lx,
     text,
@@ -620,7 +620,7 @@ let lua_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LuaLexer` (Lua).
-pub fn lua_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn lua_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     lua_lexer_info,
     options,
@@ -901,7 +901,7 @@ let luau_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `LuauLexer` (Luau).
-pub fn luau_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn luau_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     luau_lexer_info,
     options,
@@ -953,7 +953,7 @@ let moo_code_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MOOCodeLexer` (MOOCode).
 pub fn moo_code_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moo_code_lexer_info,
@@ -1021,7 +1021,7 @@ let mini_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MiniScriptLexer` (MiniScript).
 pub fn mini_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     mini_script_lexer_info,
@@ -1147,7 +1147,7 @@ let moon_script_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `MoonScriptLexer` (MoonScript).
 pub fn moon_script_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     moon_script_lexer_info,
@@ -1249,7 +1249,7 @@ let rexx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `RexxLexer` (Rexx).
-pub fn rexx_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn rexx_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     rexx_lexer_info,
     options,

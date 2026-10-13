@@ -2,13 +2,13 @@
 
 ///|
 /// `match.group(i)` treating a non-participating group as `""`.
-fn markup_group(m : @regex.Match, i : Int) -> String {
+fn markup_group(m : @regex.Match, i : Int32) -> String {
   m.group(i).unwrap_or("")
 }
 
 ///|
 /// Index of the named group `name` (the pattern is known to define it).
-fn markup_gi(m : @regex.Match, name : String) -> Int {
+fn markup_gi(m : @regex.Match, name : String) -> Int32 {
   m.name_index(name).unwrap()
 }
 
@@ -64,7 +64,7 @@ fn markup_splitlines_keepends(s : String) -> Array[String] {
 
 ///|
 /// Python's `s.find(sub, start)` on UTF-16 offsets.
-fn markup_find_from(s : String, sub : String, start : Int) -> Int {
+fn markup_find_from(s : String, sub : String, start : Int32) -> Int32 {
   if start > s.length() {
     return -1
   }
@@ -79,7 +79,7 @@ fn markup_find_from(s : String, sub : String, start : Int) -> Int {
 fn markup_emit_shifted(
   ctx : @lexer.Ctx,
   tokens : Array[@lexer.Token],
-  offset : Int,
+  offset : Int32,
 ) -> Unit {
   for t in tokens {
     ctx.emit(t.index + offset, t.ttype, t.value)
@@ -120,7 +120,7 @@ fn rst_lexer_callbacks(
         guard lexer is Some(lexer) else {
           ctx.emit(m.start(group=8), @token.string, code)
         }
-        let ins : Array[(Int, Array[@lexer.Token])] = []
+        let ins : Array[(Int32, Array[@lexer.Token])] = []
         let buf = StringBuilder()
         let mut code_len = 0
         for line in markup_splitlines_keepends(code) {
@@ -184,7 +184,7 @@ fn rst_lexer_analyse(text : String) -> Double {
   if n >= 2 && chars[0] == '.' && chars[1] == '.' && (n < 3 || chars[2] != '.') {
     return 0.3
   }
-  let find = (c : Char, from : Int) => {
+  let find = (c : Char, from : Int32) => {
     let mut i = if from < 0 { 0 } else { from }
     while i < n {
       if chars[i] == c {
@@ -391,7 +391,7 @@ let wikitext_lang_re : @regex.Regex = @lexer.re("\\blang=(\"|'|)(\\w+)(\\1)")
 fn wikitext_split_tag(
   ctx : @lexer.Ctx,
   m : @regex.Match,
-) -> (String, String, Int)? raise {
+) -> (String, String, Int32)? raise {
   let attr_content = m.matched()
   let mut start = 0
   let mut index = 0

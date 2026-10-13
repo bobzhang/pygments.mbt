@@ -2,7 +2,7 @@
 /// Python's `do_insertions`: inserts each token list of `insertions` at its
 /// index into the stream `tokens`, splitting tokens as needed.
 pub fn do_insertions(
-  insertions : Array[(Int, Array[Token])],
+  insertions : Array[(Int32, Array[Token])],
   tokens : Array[Token],
 ) -> Array[Token] {
   let out = []
@@ -13,7 +13,7 @@ pub fn do_insertions(
   let mut ins_i = 0
   let mut index = insertions[0].0
   let mut itokens = insertions[0].1
-  let mut realpos : Int? = None
+  let mut realpos : Int32? = None
   let mut insleft = true
   for tok in tokens {
     let i = tok.index
@@ -75,9 +75,9 @@ pub fn do_insertions(
 ///|
 /// Python slicing `s[start:end]` with clamping (negative `end` counts from
 /// the end, as in Python).
-pub fn py_slice(s : String, start : Int, end : Int) -> String {
+pub fn py_slice(s : String, start : Int32, end : Int32) -> String {
   let n = s.length()
-  let clamp = (x : Int) => {
+  let clamp = (x : Int32) => {
     if x < 0 {
       let y = n + x
       if y < 0 {
@@ -108,11 +108,11 @@ pub fn delegate(
   root : Lexer,
   language : Lexer,
   text : String,
-  needle? : @token.TokenType = @token.other,
+  needle~ : @token.TokenType = @token.other,
 ) -> Array[Token] raise {
   let buffered = StringBuilder()
   let mut buffered_len = 0
-  let insertions : Array[(Int, Array[Token])] = []
+  let insertions : Array[(Int32, Array[Token])] = []
   let mut lng_buffer : Array[Token] = []
   for tok in language.get_tokens_unprocessed(text) {
     if tok.ttype == needle {

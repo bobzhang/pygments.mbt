@@ -82,7 +82,7 @@ let visual_prolog_grammar_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy((
 ///|
 /// Creates a `VisualPrologGrammarLexer` (Visual Prolog Grammar).
 pub fn visual_prolog_grammar_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     visual_prolog_grammar_lexer_info,
@@ -177,7 +177,7 @@ let visual_prolog_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `VisualPrologLexer` (Visual Prolog).
 pub fn visual_prolog_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     visual_prolog_lexer_info,

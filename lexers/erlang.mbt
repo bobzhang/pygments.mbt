@@ -55,7 +55,7 @@ fn erlang_shell_lexer_tokenizer(
   let erlexer = erlang_lexer(options=lx.options)
   let out : Array[@lexer.Token] = []
   let mut curcode = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for entry in pystr_lines(text) {
     let (start, line) = entry
     match erlang_shell_prompt_re.match_at(line, 0) {
@@ -113,7 +113,7 @@ fn elixir_console_lexer_tokenizer(
   let out : Array[@lexer.Token] = []
   let mut curcode = ""
   let mut in_error = false
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   for entry in pystr_lines(text) {
     let (start, line) = entry
     if line.has_prefix("** ") {

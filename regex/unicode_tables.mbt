@@ -2,7 +2,7 @@
 
 ///|
 /// Inclusive code point ranges matched by Python's Unicode `\w`.
-let word_ranges : FixedArray[Int] = [
+let word_ranges : FixedArray[Int32] = [
   48, 57, 65, 90, 95, 95, 97, 122, 170, 170, 178, 179, 181, 181, 185, 186, 188, 190,
   192, 214, 216, 246, 248, 705, 710, 721, 736, 740, 748, 748, 750, 750, 880, 884,
   886, 887, 890, 893, 895, 895, 902, 902, 904, 906, 908, 908, 910, 929, 931, 1013,
@@ -132,7 +132,7 @@ let word_ranges : FixedArray[Int] = [
 
 ///|
 /// Inclusive code point ranges matched by Python's Unicode `\d`.
-let digit_ranges : FixedArray[Int] = [
+let digit_ranges : FixedArray[Int32] = [
   48, 57, 1632, 1641, 1776, 1785, 1984, 1993, 2406, 2415, 2534, 2543, 2662, 2671,
   2790, 2799, 2918, 2927, 3046, 3055, 3174, 3183, 3302, 3311, 3430, 3439, 3558, 3567,
   3664, 3673, 3792, 3801, 3872, 3881, 4160, 4169, 4240, 4249, 6112, 6121, 6160, 6169,
@@ -149,14 +149,14 @@ let digit_ranges : FixedArray[Int] = [
 
 ///|
 /// Inclusive code point ranges matched by Python's Unicode `\s`.
-let space_ranges : FixedArray[Int] = [
+let space_ranges : FixedArray[Int32] = [
   9, 13, 28, 32, 133, 133, 160, 160, 5760, 5760, 8192, 8202, 8232, 8233, 8239, 8239,
   8287, 8287, 12288, 12288,
 ]
 
 ///|
 /// Pairs `(cp, lower)` of `_sre.unicode_tolower` where it differs from `cp`.
-let lower_map : FixedArray[Int] = [
+let lower_map : FixedArray[Int32] = [
   65, 97, 66, 98, 67, 99, 68, 100, 69, 101, 70, 102, 71, 103, 72, 104, 73, 105, 74,
   106, 75, 107, 76, 108, 77, 109, 78, 110, 79, 111, 80, 112, 81, 113, 82, 114, 83,
   115, 84, 116, 85, 117, 86, 118, 87, 119, 88, 120, 89, 121, 90, 122, 192, 224, 193,
@@ -380,7 +380,7 @@ let lower_map : FixedArray[Int] = [
 
 ///|
 /// Code points whose IGNORECASE equivalence class is non-trivial (sorted).
-let case_equiv_keys : FixedArray[Int] = [
+let case_equiv_keys : FixedArray[Int32] = [
   65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84,
   85, 86, 87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108,
   109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 181, 192,
@@ -605,7 +605,7 @@ let case_equiv_keys : FixedArray[Int] = [
 
 ///|
 /// Offsets into `case_equiv_members`, parallel to `case_equiv_keys` (+1 sentinel).
-let case_equiv_offsets : FixedArray[Int] = [
+let case_equiv_offsets : FixedArray[Int32] = [
   0, 2, 4, 6, 8, 10, 12, 14, 16, 20, 22, 25, 27, 29, 31, 33, 35, 37, 39, 42, 44,
   46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 76, 78, 81, 83, 85, 87,
   89, 91, 93, 95, 98, 100, 102, 104, 106, 108, 110, 112, 115, 117, 119, 121, 123,
@@ -816,7 +816,7 @@ let case_equiv_offsets : FixedArray[Int] = [
 
 ///|
 /// Concatenated equivalence classes (each sorted, including the key).
-let case_equiv_members : FixedArray[Int] = [
+let case_equiv_members : FixedArray[Int32] = [
   65, 97, 66, 98, 67, 99, 68, 100, 69, 101, 70, 102, 71, 103, 72, 104, 73, 105, 304,
   305, 74, 106, 75, 107, 8490, 76, 108, 77, 109, 78, 110, 79, 111, 80, 112, 81, 113,
   82, 114, 83, 115, 383, 84, 116, 85, 117, 86, 118, 87, 119, 88, 120, 89, 121, 90,

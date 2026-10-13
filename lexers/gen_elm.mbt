@@ -83,7 +83,7 @@ let elm_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ElmLexer` (Elm).
-pub fn elm_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn elm_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(elm_lexer_info, options, opts => elm_lexer(options=opts), (
     lx,
     text,

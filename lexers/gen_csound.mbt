@@ -69,7 +69,7 @@ let csound_document_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CsoundDocumentLexer` (Csound Document).
 pub fn csound_document_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     csound_document_lexer_info,
@@ -355,7 +355,7 @@ let csound_orchestra_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => 
 ///|
 /// Creates a `CsoundOrchestraLexer` (Csound Orchestra).
 pub fn csound_orchestra_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     csound_orchestra_lexer_info,
@@ -541,7 +541,7 @@ let csound_score_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 ///|
 /// Creates a `CsoundScoreLexer` (Csound Score).
 pub fn csound_score_lexer(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
 ) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     csound_score_lexer_info,

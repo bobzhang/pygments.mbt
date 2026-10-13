@@ -4,7 +4,7 @@ let capital_sigma : Char = '\u{3a3}'
 ///|
 /// Python's final-sigma rule: whether the capital sigma at `chars[i]`
 /// lowercases to `ς`.
-fn is_final_sigma(chars : Array[Char], i : Int) -> Bool {
+fn is_final_sigma(chars : Array[Char], i : Int32) -> Bool {
   let mut j = i - 1
   while j >= 0 && is_case_ignorable(chars[j]) {
     j -= 1
@@ -20,7 +20,7 @@ fn is_final_sigma(chars : Array[Char], i : Int) -> Bool {
 }
 
 ///|
-fn lower_at(chars : Array[Char], i : Int, buf : StringBuilder) -> Unit {
+fn lower_at(chars : Array[Char], i : Int32, buf : StringBuilder) -> Unit {
   let c = chars[i]
   if c == capital_sigma {
     buf.write_char(if is_final_sigma(chars, i) { '\u{3c2}' } else { '\u{3c3}' })

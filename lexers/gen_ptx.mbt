@@ -50,7 +50,7 @@ let ptx_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `PtxLexer` (PTX).
-pub fn ptx_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn ptx_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(ptx_lexer_info, options, opts => ptx_lexer(options=opts), (
     lx,
     text,

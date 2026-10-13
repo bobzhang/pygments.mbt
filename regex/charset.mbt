@@ -1,18 +1,18 @@
 ///|
-const MAX_CP : Int = 0x10FFFF
+const MAX_CP : Int32 = 0x10FFFF
 
 ///|
 /// An immutable set of code points: sorted, merged, inclusive ranges plus an
 /// ASCII bitmap for the common fast path.
 priv struct CharSet {
-  ranges : FixedArray[Int]
+  ranges : FixedArray[Int32]
   lo : UInt64
   hi : UInt64
   has_non_ascii : Bool
 }
 
 ///|
-fn CharSet::contains(self : CharSet, c : Int) -> Bool {
+fn CharSet::contains(self : CharSet, c : Int32) -> Bool {
   if c < 64 {
     ((self.lo >> c) & 1) != 0
   } else if c < 128 {
@@ -41,10 +41,10 @@ fn CharSet::contains(self : CharSet, c : Int) -> Bool {
 
 ///|
 /// Builds a `CharSet` from arbitrary (possibly overlapping) inclusive ranges.
-fn CharSet::from_ranges(input : Array[(Int, Int)]) -> CharSet {
+fn CharSet::from_ranges(input : Array[(Int32, Int32)]) -> CharSet {
   let sorted = input.copy()
   sorted.sort_by((a, b) => if a.0 != b.0 { a.0 - b.0 } else { a.1 - b.1 })
-  let merged : Array[Int] = []
+  let merged : Array[Int32] = []
   for r in sorted {
     let (a, b) = r
     let n = merged.length()
@@ -79,7 +79,7 @@ fn CharSet::from_ranges(input : Array[(Int, Int)]) -> CharSet {
 }
 
 ///|
-fn CharSet::to_pairs(self : CharSet) -> Array[(Int, Int)] {
+fn CharSet::to_pairs(self : CharSet) -> Array[(Int32, Int32)] {
   let out = []
   for i = 0; i < self.ranges.length(); i = i + 2 {
     out.push((self.ranges[i], self.ranges[i + 1]))
@@ -104,7 +104,7 @@ fn CharSet::complement(self : CharSet) -> CharSet {
 }
 
 ///|
-fn ranges_of_table(t : FixedArray[Int]) -> Array[(Int, Int)] {
+fn ranges_of_table(t : FixedArray[Int32]) -> Array[(Int32, Int32)] {
   let out = []
   for i = 0; i < t.length(); i = i + 2 {
     out.push((t[i], t[i + 1]))
@@ -140,7 +140,11 @@ let ascii_digit : CharSet = CharSet::from_ranges([(48, 57)])
 let ascii_space : CharSet = CharSet::from_ranges([(9, 13), (32, 32)])
 
 ///|
-fn binary_search_table(t : FixedArray[Int], stride : Int, key : Int) -> Int {
+fn binary_search_table(
+  t : FixedArray[Int32],
+  stride : Int32,
+  key : Int32,
+) -> Int32 {
   let mut lo = 0
   let mut hi = t.length() / stride - 1
   while lo <= hi {
@@ -159,7 +163,7 @@ fn binary_search_table(t : FixedArray[Int], stride : Int, key : Int) -> Int {
 
 ///|
 /// Python's `_sre.unicode_tolower` (simple lowercase mapping).
-fn to_lower(c : Int) -> Int {
+fn to_lower(c : Int32) -> Int32 {
   if c < 128 {
     if c >= 65 && c <= 90 {
       c + 32
@@ -177,7 +181,7 @@ fn to_lower(c : Int) -> Int {
 }
 
 ///|
-fn ascii_lower(c : Int) -> Int {
+fn ascii_lower(c : Int32) -> Int32 {
   if c >= 65 && c <= 90 {
     c + 32
   } else {
@@ -188,7 +192,7 @@ fn ascii_lower(c : Int) -> Int {
 ///|
 /// All code points that match `c` under `re.IGNORECASE` (Unicode mode),
 /// including `c` itself.
-fn case_equivalents(c : Int) -> Array[Int] {
+fn case_equivalents(c : Int32) -> Array[Int32] {
   let i = binary_search_table(case_equiv_keys, 1, c)
   if i < 0 {
     [c]
@@ -204,9 +208,9 @@ fn case_equivalents(c : Int) -> Array[Int] {
 ///|
 /// Closes a set of ranges under case equivalence.
 fn case_close(
-  pairs : Array[(Int, Int)],
+  pairs : Array[(Int32, Int32)],
   ascii_only : Bool,
-) -> Array[(Int, Int)] {
+) -> Array[(Int32, Int32)] {
   let out = pairs.copy()
   if ascii_only {
     for r in pairs {

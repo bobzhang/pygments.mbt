@@ -74,7 +74,7 @@ fn write_merged(
 ///|
 /// Python's `BBCodeFormatter`. Options: `style`, `codetag`, `monofont`.
 pub fn bbcode_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)
@@ -134,7 +134,7 @@ fn pango_escape(text : String) -> String {
 ///|
 /// Python's `PangoMarkupFormatter`. Options: `style`.
 pub fn pango_markup_formatter(
-  options? : @lexer.Options = Map([]),
+  options~ : @lexer.Options = Map([]),
   style? : @styles.Style,
 ) -> Formatter raise {
   let base = BaseOptions::new(options, style?)

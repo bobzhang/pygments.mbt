@@ -20,7 +20,7 @@ fn julia_console_lexer_tokenizer(
   let out : Array[@lexer.Token] = []
   let mut start = 0
   let mut curcode = ""
-  let mut insertions : Array[(Int, Array[@lexer.Token])] = []
+  let mut insertions : Array[(Int32, Array[@lexer.Token])] = []
   let mut output = false
   let mut error = false
   for line in pystr_splitlines(text, keepends=true) {

@@ -60,7 +60,7 @@ let forth_lexer_def : @lazy.Lazy[@lexer.RegexDef] = @lazy.Lazy(() => {
 
 ///|
 /// Creates a `ForthLexer` (Forth).
-pub fn forth_lexer(options? : @lexer.Options = Map([])) -> @lexer.Lexer raise {
+pub fn forth_lexer(options~ : @lexer.Options = Map([])) -> @lexer.Lexer raise {
   @lexer.Lexer::new(
     forth_lexer_info,
     options,
