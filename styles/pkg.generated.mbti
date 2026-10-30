@@ -144,7 +144,7 @@ pub struct Style {
   // private fields
 }
 pub fn Style::iter(Self) -> Iter[(@token.TokenType, TokenStyle)]
-pub fn Style::length(Self) -> Int
+pub fn Style::length(Self) -> Int32
 pub fn Style::list_styles(Self) -> Array[(@token.TokenType, TokenStyle)]
 pub fn Style::new(Array[(@token.TokenType, String)], name? : String, aliases? : Array[String], background_color? : String?, highlight_color? : String?, line_number_color? : String, line_number_background_color? : String, line_number_special_color? : String, line_number_special_background_color? : String, web_style_gallery_exclude? : Bool) -> Self raise StyleError
 pub fn Style::style_def(Self, @token.TokenType) -> StyleDef?

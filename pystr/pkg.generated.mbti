@@ -6,7 +6,7 @@ pub fn ascii(String) -> String
 
 pub fn capitalize(String) -> String
 
-pub fn expandtabs(String, tabsize? : Int) -> String
+pub fn expandtabs(String, tabsize? : Int32) -> String
 
 pub fn html_escape(String, quote? : Bool) -> String
 
@@ -20,15 +20,15 @@ pub fn is_printable(Char) -> Bool
 
 pub fn lower(String) -> String
 
-pub fn py_len(String) -> Int
+pub fn py_len(String) -> Int32
 
 pub fn repr(String) -> String
 
-pub fn rjust(String, Int, fill? : Char) -> String
+pub fn rjust(String, Int32, fill? : Char) -> String
 
 pub fn rstrip_newlines(String) -> String
 
-pub fn slice(String, Int, end? : Int) -> String
+pub fn slice(String, Int32, end? : Int32) -> String
 
 pub fn split(String, String) -> Array[String]
 

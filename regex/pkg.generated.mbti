@@ -6,65 +6,65 @@ import {
 }
 
 // Values
-pub const ASCII : Int = 256
+pub const ASCII : Int32 = 256
 
-pub const DOTALL : Int = 16
+pub const DOTALL : Int32 = 16
 
-pub const IGNORECASE : Int = 2
+pub const IGNORECASE : Int32 = 2
 
-pub const LOCALE : Int = 4
+pub const LOCALE : Int32 = 4
 
-pub const MULTILINE : Int = 8
+pub const MULTILINE : Int32 = 8
 
-pub const UNICODE : Int = 32
+pub const UNICODE : Int32 = 32
 
-pub const VERBOSE : Int = 64
+pub const VERBOSE : Int32 = 64
 
-pub fn compile(String, flags? : Int) -> Regex raise RegexError
+pub fn compile(String, flags? : Int32) -> Regex raise RegexError
 
-pub let default_steps : Int
+pub let default_steps : Int32
 
 // Errors
 pub suberror RegexError {
-  Syntax(pattern~ : String, pos~ : Int, message~ : String)
+  Syntax(pattern~ : String, pos~ : Int32, message~ : String)
   BudgetExceeded(pattern~ : String)
 } derive(@debug.Debug)
 pub fn RegexError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub struct Budget {
-  mut remaining : Int
+  mut remaining : Int32
 }
-pub fn Budget::new(Int) -> Self
+pub fn Budget::new(Int32) -> Self
 
 pub struct Match {
   text : String
   // private fields
 }
-pub fn Match::end(Self, group? : Int) -> Int
-pub fn Match::from_span(String, Int, Int) -> Self
-pub fn Match::group(Self, Int) -> String?
-pub fn Match::group_count(Self) -> Int
+pub fn Match::end(Self, group? : Int32) -> Int32
+pub fn Match::from_span(String, Int32, Int32) -> Self
+pub fn Match::group(Self, Int32) -> String?
+pub fn Match::group_count(Self) -> Int32
 pub fn Match::matched(Self) -> String
-pub fn Match::name_index(Self, String) -> Int?
+pub fn Match::name_index(Self, String) -> Int32?
 pub fn Match::named(Self, String) -> String?
-pub fn Match::start(Self, group? : Int) -> Int
+pub fn Match::start(Self, group? : Int32) -> Int32
 
 pub struct Regex {
   pattern : String
-  flags : Int
+  flags : Int32
   // private fields
 }
 pub fn Regex::find_all(Self, String, budget? : Budget) -> Array[Match] raise RegexError
-pub fn Regex::fullmatch(Self, String, pos? : Int, endpos? : Int, budget? : Budget) -> Match? raise RegexError
-pub fn Regex::group_count(Self) -> Int
-pub fn Regex::group_index(Self, String) -> Int?
-pub fn Regex::group_names(Self) -> Array[(String, Int)]
-pub fn Regex::match_at(Self, String, Int, endpos? : Int, budget? : Budget) -> Match? raise RegexError
-pub fn Regex::match_end(Self, String, Int, endpos? : Int, budget? : Budget) -> Int raise RegexError
-pub fn Regex::may_start_with(Self, Int) -> Bool
+pub fn Regex::fullmatch(Self, String, pos? : Int32, endpos? : Int32, budget? : Budget) -> Match? raise RegexError
+pub fn Regex::group_count(Self) -> Int32
+pub fn Regex::group_index(Self, String) -> Int32?
+pub fn Regex::group_names(Self) -> Array[(String, Int32)]
+pub fn Regex::match_at(Self, String, Int32, endpos? : Int32, budget? : Budget) -> Match? raise RegexError
+pub fn Regex::match_end(Self, String, Int32, endpos? : Int32, budget? : Budget) -> Int32 raise RegexError
+pub fn Regex::may_start_with(Self, Int32) -> Bool
 pub fn Regex::replace_all(Self, String, (Match) -> String, budget? : Budget) -> String raise RegexError
-pub fn Regex::search(Self, String, pos? : Int, endpos? : Int, budget? : Budget) -> Match? raise RegexError
+pub fn Regex::search(Self, String, pos? : Int32, endpos? : Int32, budget? : Budget) -> Match? raise RegexError
 pub fn Regex::split(Self, String, budget? : Budget) -> Array[String?] raise RegexError
 
 // Type aliases

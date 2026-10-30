@@ -12,21 +12,21 @@ pub fn budget() -> @regex.Budget
 
 pub fn clamp_score(Double) -> Double
 
-pub let default_budget_steps : Int
+pub let default_budget_steps : Int32
 
 pub fn delegate(Lexer, Lexer, String, needle? : @token.TokenType) -> Array[Token] raise
 
-pub fn do_insertions(Array[(Int, Array[Token])], Array[Token]) -> Array[Token]
+pub fn do_insertions(Array[(Int32, Array[Token])], Array[Token]) -> Array[Token]
 
 pub fn doctype_matches(String, String) -> Bool
 
-pub fn expand_tabs(String, Int) -> String
+pub fn expand_tabs(String, Int32) -> String
 
 pub fn get_bool_opt(Map[String, String], String, Bool) -> Bool raise OptionError
 
 pub fn get_choice_opt(Map[String, String], String, Array[String], String, normcase? : Bool) -> String raise OptionError
 
-pub fn get_int_opt(Map[String, String], String, Int) -> Int raise OptionError
+pub fn get_int_opt(Map[String, String], String, Int32) -> Int32 raise OptionError
 
 pub fn get_list_opt(Map[String, String], String, Array[String]) -> Array[String]
 
@@ -40,9 +40,9 @@ pub fn matches(@regex.Regex, String) -> Bool
 
 pub fn no_analyse(String) -> Double
 
-pub fn py_slice(String, Int, Int) -> String
+pub fn py_slice(String, Int32, Int32) -> String
 
-pub fn re(String, flags? : Int) -> @regex.Regex
+pub fn re(String, flags? : Int32) -> @regex.Regex
 
 pub fn run_context(Ctx) -> Unit raise
 
@@ -79,24 +79,24 @@ pub(all) enum CallbackArg {
   Str(String)
   Tok(@token.TokenType)
   Bool(Bool)
-  Int(Int)
+  Int(Int32)
 } derive(@debug.Debug)
 
 pub(all) struct Ctx {
   lexer : Lexer
   def : RegexDef
   text : String
-  mut pos : Int
-  mut end : Int
-  stack : Array[Int]
+  mut pos : Int32
+  mut end : Int32
+  stack : Array[Int32]
   out : Array[Token]
   callbacks : Map[String, (Ctx, @regex.Match, Array[CallbackArg]) -> Unit raise]
 }
 pub fn Ctx::apply(Self, Action, @regex.Match) -> Unit raise
-pub fn Ctx::emit(Self, Int, @token.TokenType, String) -> Unit
-pub fn Ctx::emit_lexed(Self, Lexer, String, Int, stack? : Array[String]) -> Unit raise
+pub fn Ctx::emit(Self, Int32, @token.TokenType, String) -> Unit
+pub fn Ctx::emit_lexed(Self, Lexer, String, Int32, stack? : Array[String]) -> Unit raise
 pub fn Ctx::is_extended(Self) -> Bool
-pub fn Ctx::new(Lexer, RegexDef, String, callbacks? : Map[String, (Self, @regex.Match, Array[CallbackArg]) -> Unit raise], pos? : Int, end? : Int, stack? : Array[String]) -> Self raise
+pub fn Ctx::new(Lexer, RegexDef, String, callbacks? : Map[String, (Self, @regex.Match, Array[CallbackArg]) -> Unit raise], pos? : Int32, end? : Int32, stack? : Array[String]) -> Self raise
 pub fn Ctx::pop_state(Self) -> Unit
 pub fn Ctx::push_state(Self, String) -> Unit raise
 pub fn Ctx::set_state_stack(Self, Array[String]) -> Unit raise
@@ -114,7 +114,7 @@ pub struct Lexer {
   stripnl : Bool
   stripall : Bool
   ensurenl : Bool
-  tabsize : Int
+  tabsize : Int32
   filters : Array[Filter]
   // private fields
 }
@@ -146,17 +146,17 @@ pub struct RegexDef {
   extended : Bool
   // private fields
 }
-pub fn RegexDef::new(String, Array[String], Array[Rule], Array[Array[Int]], extended? : Bool) -> Self
-pub fn RegexDef::state(Self, String) -> Int
+pub fn RegexDef::new(String, Array[String], Array[Rule], Array[Array[Int32]], extended? : Bool) -> Self
+pub fn RegexDef::state(Self, String) -> Int32
 
 pub struct Rule {
   pattern : String
-  flags : Int
+  flags : Int32
   action : Action
   transition : Array[StateOp]?
   // private fields
 }
-pub fn Rule::new(String, Int, Action, Array[StateOp]?) -> Self
+pub fn Rule::new(String, Int32, Action, Array[StateOp]?) -> Self
 
 pub(all) enum StateOp {
   Push(String)
@@ -165,7 +165,7 @@ pub(all) enum StateOp {
 } derive(@debug.Debug)
 
 pub(all) struct Token {
-  index : Int
+  index : Int32
   ttype : @token.TokenType
   value : String
 } derive(Eq, @debug.Debug)
