@@ -15,7 +15,7 @@ fn percent_format(template : String, values : Map[String, String]) -> String {
         continue
       }
       if d.to_int() == '('.to_int() {
-        match template.view(start_offset=i + 2).find(")s") {
+        match template.clamped_view(start=i + 2).find(")s") {
           Some(j) => {
             let key = template.unsafe_substring(start=i + 2, end=i + 2 + j)
             buf.write_string(values.get(key).unwrap_or(""))
