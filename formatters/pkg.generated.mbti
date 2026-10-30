@@ -153,16 +153,16 @@ pub struct HtmlFormatter {
   filename : String
   wrapcode : Bool
   debug_token_types : Bool
-  linenos : Int
-  linenostart : Int
-  linenostep : Int
-  linenospecial : Int
+  linenos : Int32
+  linenostart : Int32
+  linenostep : Int32
+  linenospecial : Int32
   nobackground : Bool
   lineseparator : String
   lineanchors : String
   linespans : String
   anchorlinenos : Bool
-  hl_lines : Array[Int]
+  hl_lines : Array[Int32]
   // private fields
 }
 pub fn HtmlFormatter::cssfile_contents(Self) -> String
@@ -184,8 +184,8 @@ pub struct LatexFormatter {
   docclass : String
   preamble : String
   linenos : Bool
-  linenostart : Int
-  linenostep : Int
+  linenostart : Int32
+  linenostep : Int32
   verboptions : String
   nobackground : Bool
   commandprefix : String

@@ -182,9 +182,9 @@ pub let whitespace : TokenType
 pub struct TokenType {
   // private fields
 } derive(Compare, Eq, Hash)
-pub fn TokenType::compare(Self, Self) -> Int
+pub fn TokenType::compare(Self, Self) -> Int32
 pub fn TokenType::equal(Self, Self) -> Bool
-pub fn TokenType::hash(Self) -> Int
+pub fn TokenType::hash(Self) -> Int32
 pub fn TokenType::hash_combine(Self, Hasher) -> Unit
 pub fn TokenType::is_subtype_of(Self, Self) -> Bool
 pub fn TokenType::last(Self) -> String

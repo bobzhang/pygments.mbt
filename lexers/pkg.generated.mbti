@@ -771,7 +771,7 @@ pub fn genshi_text_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
 
 pub let genshi_text_lexer_info : @lexer.LexerInfo
 
-pub fn get_filetype_from_buffer(String, max_lines? : Int) -> String?
+pub fn get_filetype_from_buffer(String, max_lines? : Int32) -> String?
 
 pub fn get_lexer_by_name(String, options? : Map[String, String]) -> @lexer.Lexer raise
 

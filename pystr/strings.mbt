@@ -13,7 +13,7 @@ pub fn split(s : String, sep : String) -> Array[String] {
   let mut start = 0
   let n = sep.length()
   while true {
-    match s.view(start_offset=start).find(sep) {
+    match s.clamped_view(start~).find(sep) {
       Some(i) => {
         out.push(s.unsafe_substring(start~, end=start + i))
         start = start + i + n
