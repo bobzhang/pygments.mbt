@@ -28,13 +28,14 @@ pub const ASCII : Int32 = 256
 
 ///|
 /// Errors raised by the regex engine.
+#derive(Debug)
 pub suberror RegexError {
   /// The pattern is not valid Python `re` syntax (or uses an unsupported
   /// construct).
   Syntax(pattern~ : String, pos~ : Int32, message~ : String)
   /// The step budget of a match was exhausted (catastrophic backtracking).
   BudgetExceeded(pattern~ : String)
-} derive(Debug)
+}
 
 ///|
 pub extend RegexError with Debug::{to_repr}
@@ -52,11 +53,12 @@ priv enum AssertKind {
 }
 
 ///|
+#derive(Eq)
 priv enum Greed {
   Greedy
   Lazy
   Possessive
-} derive(Eq)
+}
 
 ///|
 priv enum Node {

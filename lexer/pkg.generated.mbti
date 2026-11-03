@@ -57,14 +57,16 @@ pub fn split_whitespace(String) -> Array[String]
 pub fn text_tokenizer(Lexer, String, Array[String]) -> Array[Token]
 
 // Errors
+#derive(@debug.Debug)
 pub suberror LexError {
   MissingCallback(String)
   UnknownState(String)
-} derive(@debug.Debug)
+}
 
+#derive(@debug.Debug)
 pub suberror OptionError {
   OptionError(String)
-} derive(@debug.Debug)
+}
 
 // Types and methods
 pub(all) enum Action {
@@ -75,12 +77,13 @@ pub(all) enum Action {
   Call(String, Array[CallbackArg])
 }
 
+#derive(@debug.Debug)
 pub(all) enum CallbackArg {
   Str(String)
   Tok(@token.TokenType)
   Bool(Bool)
   Int(Int32)
-} derive(@debug.Debug)
+}
 
 pub(all) struct Ctx {
   lexer : Lexer
@@ -158,17 +161,19 @@ pub struct Rule {
 }
 pub fn Rule::new(String, Int32, Action, Array[StateOp]?) -> Self
 
+#derive(@debug.Debug)
 pub(all) enum StateOp {
   Push(String)
   Pop
   Dup
-} derive(@debug.Debug)
+}
 
+#derive(Eq, @debug.Debug)
 pub(all) struct Token {
   index : Int32
   ttype : @token.TokenType
   value : String
-} derive(Eq, @debug.Debug)
+}
 
 pub(all) enum UsingTarget {
   This

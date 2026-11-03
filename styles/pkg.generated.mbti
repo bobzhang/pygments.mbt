@@ -120,14 +120,16 @@ pub fn xcode_style() -> Style
 pub fn zenburn_style() -> Style
 
 // Errors
+#derive(@debug.Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(@debug.Debug)
+}
 
+#derive(@debug.Debug)
 pub suberror StyleError {
   WrongColorFormat(String)
   UnknownToken(@token.TokenType)
-} derive(@debug.Debug)
+}
 
 // Types and methods
 pub struct Style {
@@ -151,6 +153,7 @@ pub fn Style::style_def(Self, @token.TokenType) -> StyleDef?
 pub fn Style::style_for_token(Self, @token.TokenType) -> TokenStyle raise StyleError
 pub fn Style::styles_token(Self, @token.TokenType) -> Bool
 
+#derive(Eq, @debug.Debug)
 pub(all) struct StyleDef {
   color : String
   bold : Bool
@@ -161,8 +164,9 @@ pub(all) struct StyleDef {
   roman : Bool
   sans : Bool
   mono : Bool
-} derive(Eq, @debug.Debug)
+}
 
+#derive(Eq, @debug.Debug)
 pub(all) struct TokenStyle {
   color : String?
   bold : Bool
@@ -175,7 +179,7 @@ pub(all) struct TokenStyle {
   mono : Bool
   ansicolor : String?
   bgansicolor : String?
-} derive(Eq, @debug.Debug)
+}
 
 // Type aliases
 

@@ -1,18 +1,20 @@
 ///|
 /// Errors raised while building or querying a style.
+#derive(Debug)
 pub suberror StyleError {
   /// A color that `StyleMeta.colorformat` rejects.
   WrongColorFormat(String)
   /// `style_for_token` on a token type the style does not know (Python's
   /// `KeyError`).
   UnknownToken(@token.TokenType)
-} derive(Debug)
+}
 
 ///|
 /// The processed definition of one token type (Python's `_styles` list
 /// `[color, bold, italic, underline, bgcolor, border, roman, sans, mono]`).
 /// Colors are normalised: `""`, a 6-digit hex value without `#`, an ANSI
 /// color name, `transparent`, or a CSS `var(...)`/`calc(...)` expression.
+#derive(Eq, Debug)
 pub(all) struct StyleDef {
   color : String
   bold : Bool
@@ -23,12 +25,13 @@ pub(all) struct StyleDef {
   roman : Bool
   sans : Bool
   mono : Bool
-} derive(Eq, Debug)
+}
 
 ///|
 /// Python's `style_for_token` dictionary. `None` stands for Python's `None`;
 /// `roman`, `sans` and `mono` are `True` or `None` in Python, `true` or
 /// `false` here.
+#derive(Eq, Debug)
 pub(all) struct TokenStyle {
   color : String?
   bold : Bool
@@ -41,7 +44,7 @@ pub(all) struct TokenStyle {
   mono : Bool
   ansicolor : String?
   bgansicolor : String?
-} derive(Eq, Debug)
+}
 
 ///|
 /// A highlighting style: the equivalent of a `pygments.style.Style` class

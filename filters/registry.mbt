@@ -1,8 +1,9 @@
 ///|
 /// Raised when no filter matches a lookup (Python's `ClassNotFound`).
+#derive(Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(Debug)
+}
 
 ///|
 /// Python's `FILTERS`: filter names and constructors, in Python's order.

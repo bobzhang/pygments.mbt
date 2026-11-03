@@ -1,10 +1,11 @@
 ///|
 /// One token produced by a lexer: its UTF-16 start offset, type and text.
+#derive(Eq, Debug)
 pub(all) struct Token {
   index : Int32
   ttype : @token.TokenType
   value : String
-} derive(Eq, Debug)
+}
 
 ///|
 /// Static metadata of a lexer class (name, aliases, file patterns, ...).

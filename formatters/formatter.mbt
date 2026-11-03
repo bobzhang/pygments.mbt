@@ -5,18 +5,21 @@ pub type Tokens = Array[(@token.TokenType, String)]
 
 ///|
 /// Errors raised by formatters (Python's `ValueError`/`RuntimeError`/...).
+#derive(Debug)
 pub suberror FormatterError {
   FormatterError(String)
-} derive(Debug)
+}
 
 ///|
 /// Raised when no formatter matches a lookup (Python's `ClassNotFound`).
+#derive(Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(Debug)
+}
 
 ///|
 /// Static metadata of a formatter class.
+#derive(Debug)
 pub(all) struct FormatterInfo {
   /// Python class name, e.g. `HtmlFormatter`.
   class_name : String
@@ -27,7 +30,7 @@ pub(all) struct FormatterInfo {
   filenames : Array[String]
   /// First paragraph of the class docstring.
   description : String
-} derive(Debug)
+}
 
 ///|
 /// The options every formatter accepts (Python's `Formatter.__init__`).
@@ -83,11 +86,12 @@ pub struct Formatter {
 /// directory of the output file (or the current directory when the output
 /// has no name) unless it is absolute; with `noclobber` an existing file is
 /// kept.
+#derive(Debug)
 pub(all) struct AuxFile {
   path : String
   contents : String
   noclobber : Bool
-} derive(Debug)
+}
 
 ///|
 /// Wraps the operations of a formatter class.

@@ -2446,9 +2446,10 @@ pub fn zig_lexer(options? : Map[String, String]) -> @lexer.Lexer raise
 pub let zig_lexer_info : @lexer.LexerInfo
 
 // Errors
+#derive(@debug.Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(@debug.Debug)
+}
 
 // Types and methods
 

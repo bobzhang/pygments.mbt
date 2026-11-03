@@ -5,9 +5,10 @@ pub type Options = Map[String, String]
 
 ///|
 /// Errors raised for invalid option values.
+#derive(Debug)
 pub suberror OptionError {
   OptionError(String)
-} derive(Debug)
+}
 
 ///|
 /// Python's `get_bool_opt`.

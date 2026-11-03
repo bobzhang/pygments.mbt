@@ -2,9 +2,10 @@
 /// Raised by the `raiseonerror` filter on an `Error` token (Python's
 /// `ErrorToken`; the `excclass` option cannot be expressed as a string
 /// option and is not supported).
+#derive(Debug)
 pub suberror ErrorToken {
   ErrorToken(String)
-} derive(Debug)
+}
 
 ///|
 /// Python's `CodeTagFilter` (`codetagify`): highlights special code tags

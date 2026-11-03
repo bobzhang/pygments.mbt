@@ -1,8 +1,9 @@
 ///|
 /// Raised when no style matches a lookup (Python's `ClassNotFound`).
+#derive(Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(Debug)
+}
 
 ///|
 /// Builtin styles constructed so far, by style name.

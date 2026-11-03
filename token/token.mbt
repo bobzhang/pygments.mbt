@@ -2,9 +2,10 @@
 /// A token type: a node in the open hierarchy rooted at `token`
 /// (`Token.Name.Builtin`, ...). Token types are interned, so equality is
 /// identity.
+#derive(Eq, Hash, Compare)
 pub struct TokenType {
   priv id : Int32
-} derive(Eq, Hash, Compare)
+}
 
 ///|
 pub extend TokenType with Eq::{not_equal, equal}

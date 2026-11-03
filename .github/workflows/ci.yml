@@ -8,18 +8,19 @@ on:
 
 jobs:
   test:
-    name: Build and test (${{ matrix.os }})
+    name: Build and test (${{ matrix.os }}, ${{ matrix.moonbit }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
+        moonbit: [latest, pre-release]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
 
       - name: Install MoonBit
         run: |
-          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s -- "${{ matrix.moonbit }}"
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
 
       - name: Versions
@@ -70,6 +71,10 @@ jobs:
           moonrun _build/wasm/release/build/cmd/scat/scat.wasm -- /tmp/t.mbt
 
   conformance:
+    strategy:
+      fail-fast: false
+      matrix:
+        moonbit: [latest, pre-release]
     name: Conformance against Python Pygments
     runs-on: ubuntu-latest
     env:
@@ -83,7 +88,7 @@ jobs:
 
       - name: Install MoonBit
         run: |
-          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s -- "${{ matrix.moonbit }}"
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
 
       - name: Update registry index
