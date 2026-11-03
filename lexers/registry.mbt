@@ -1,8 +1,9 @@
 ///|
 /// Raised when no lexer matches a lookup.
+#derive(Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(Debug)
+}
 
 ///|
 /// Python's `find_lexer_class_by_name`: the lexer class with `alias`.

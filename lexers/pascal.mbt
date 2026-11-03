@@ -18,10 +18,11 @@
 /// matching at the end of the text (Python's `pygments.scanner.EndOfText`);
 /// `UnknownUnit` for an entry of the `units` option that is not a key of
 /// `BUILTIN_UNITS` (Python raises `KeyError`).
+#derive(Debug)
 priv suberror DelphiError {
   EndOfText
   UnknownUnit(String)
-} derive(Debug)
+}
 
 ///|
 /// Port of `pygments.scanner.Scanner` (flags `DOTALL | MULTILINE |

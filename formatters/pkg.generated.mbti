@@ -92,20 +92,23 @@ pub fn ttype_class(@token.TokenType) -> String
 pub fn webify(String) -> String
 
 // Errors
+#derive(@debug.Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(@debug.Debug)
+}
 
+#derive(@debug.Debug)
 pub suberror FormatterError {
   FormatterError(String)
-} derive(@debug.Debug)
+}
 
 // Types and methods
+#derive(@debug.Debug)
 pub(all) struct AuxFile {
   path : String
   contents : String
   noclobber : Bool
-} derive(@debug.Debug)
+}
 
 pub struct BaseOptions {
   style : @styles.Style
@@ -131,13 +134,14 @@ pub fn Formatter::new(FormatterInfo, BaseOptions, (Array[(@token.TokenType, Stri
 pub fn Formatter::options(Self) -> Map[String, String]
 pub fn Formatter::style(Self) -> @styles.Style
 
+#derive(@debug.Debug)
 pub(all) struct FormatterInfo {
   class_name : String
   name : String
   aliases : Array[String]
   filenames : Array[String]
   description : String
-} derive(@debug.Debug)
+}
 
 pub struct HtmlFormatter {
   base : BaseOptions

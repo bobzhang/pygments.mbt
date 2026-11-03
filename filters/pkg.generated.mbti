@@ -35,13 +35,15 @@ pub fn token_merge_filter(options? : Map[String, String]) -> @lexer.Filter
 pub fn visible_whitespace_filter(options? : Map[String, String]) -> @lexer.Filter raise
 
 // Errors
+#derive(@debug.Debug)
 pub suberror ClassNotFound {
   ClassNotFound(String)
-} derive(@debug.Debug)
+}
 
+#derive(@debug.Debug)
 pub suberror ErrorToken {
   ErrorToken(String)
-} derive(@debug.Debug)
+}
 
 // Types and methods
 

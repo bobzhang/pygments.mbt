@@ -25,10 +25,11 @@ pub fn compile(String, flags? : Int32) -> Regex raise RegexError
 pub let default_steps : Int32
 
 // Errors
+#derive(@debug.Debug)
 pub suberror RegexError {
   Syntax(pattern~ : String, pos~ : Int32, message~ : String)
   BudgetExceeded(pattern~ : String)
-} derive(@debug.Debug)
+}
 pub fn RegexError::to_repr(Self) -> @debug.Repr
 
 // Types and methods

@@ -1,12 +1,13 @@
 ///|
 /// Arguments captured by a callback factory (e.g. the token type passed to
 /// YAML's `save_indent(Text, start=True)`).
+#derive(Debug)
 pub(all) enum CallbackArg {
   Str(String)
   Tok(@token.TokenType)
   Bool(Bool)
   Int(Int32)
-} derive(Debug)
+}
 
 ///|
 /// A hand-written callback (Python: a callable token action).
@@ -38,6 +39,7 @@ pub(all) enum Action {
 
 ///|
 /// One state-stack operation of a transition.
+#derive(Debug)
 pub(all) enum StateOp {
   /// push a named state
   Push(String)
@@ -45,7 +47,7 @@ pub(all) enum StateOp {
   Pop
   /// `#push`: push the current state again
   Dup
-} derive(Debug)
+}
 
 ///|
 /// A lexing rule: regex, action and optional transition.
@@ -210,10 +212,11 @@ pub fn RegexDef::state(self : RegexDef, name : String) -> Int32 {
 
 ///|
 /// Errors raised while lexing.
+#derive(Debug)
 pub suberror LexError {
   MissingCallback(String)
   UnknownState(String)
-} derive(Debug)
+}
 
 ///|
 /// The lexing context handed to callbacks (Python's `LexerContext` plus the
