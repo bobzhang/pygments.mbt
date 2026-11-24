@@ -21,7 +21,7 @@ fn lua_filter_builtins(
     for mod_, funcs in lua_builtin_modules {
       if !disabled_modules.contains(mod_) {
         for f in funcs {
-          functions.add(f)
+          functions.insert(f)
         }
       }
     }
@@ -103,16 +103,16 @@ fn luau_lexer_tokenizer(
   let disabled = @lexer.get_list_opt(lx.options, "disabled_builtins", [])
   let builtins : @set.Set[String] = @set.Set([])
   for b in additional {
-    builtins.add(b)
+    builtins.insert(b)
   }
   if include_luau {
     for b in luau_builtins {
-      builtins.add(b)
+      builtins.insert(b)
     }
   }
   if include_roblox {
     for b in roblox_builtins {
-      builtins.add(b)
+      builtins.insert(b)
     }
   }
   for b in disabled {

@@ -150,21 +150,21 @@ fn delphi_sets(
   let keywords : @set.Set[String] = @set.Set([])
   let builtins : @set.Set[String] = @set.Set([])
   if portugol {
-    delphi_portugol_keywords.each(k => keywords.add(k))
-    delphi_portugol_builtin_types.each(b => builtins.add(b))
+    delphi_portugol_keywords.each(k => keywords.insert(k))
+    delphi_portugol_builtin_types.each(b => builtins.insert(b))
   } else {
     if @lexer.get_bool_opt(options, "turbopascal", true) {
-      delphi_turbo_pascal_keywords.each(k => keywords.add(k))
+      delphi_turbo_pascal_keywords.each(k => keywords.insert(k))
     }
     if @lexer.get_bool_opt(options, "delphi", true) {
-      delphi_delphi_keywords.each(k => keywords.add(k))
+      delphi_delphi_keywords.each(k => keywords.insert(k))
     }
     if @lexer.get_bool_opt(options, "freepascal", true) {
-      delphi_free_pascal_keywords.each(k => keywords.add(k))
+      delphi_free_pascal_keywords.each(k => keywords.insert(k))
     }
     for unit in @lexer.get_list_opt(options, "units", delphi_builtin_unit_names) {
       match delphi_builtin_units.get(unit) {
-        Some(names) => names.each(b => builtins.add(b))
+        Some(names) => names.each(b => builtins.insert(b))
         None => raise UnknownUnit(unit)
       }
     }
@@ -293,7 +293,7 @@ fn delphi_scan(
             token = @token.name_function
             next_token_is_function = false
             if portugol {
-              block_labels.add(scanner.matched.to_lower())
+              block_labels.insert(scanner.matched.to_lower())
             }
           }
         } else if !portugol && next_token_is_property {
@@ -301,7 +301,7 @@ fn delphi_scan(
           next_token_is_property = false
         } else if !portugol && collect_labels {
           token = @token.name_label
-          block_labels.add(scanner.matched.to_lower())
+          block_labels.insert(scanner.matched.to_lower())
         } else if block_labels.contains(lowercase_name) {
           token = @token.name_label
         } else if portugol &&
