@@ -1,9 +1,9 @@
 import {
+  "moonbitlang/async",
   "bobzhang/pygments/lexer",
   "bobzhang/pygments/lexers",
   "bobzhang/pygments/formatters",
   "bobzhang/pygments/styles",
-  "moonbitlang/async",
   "moonbitlang/async/fs",
   "moonbitlang/async/os_error",
   "moonbitlang/async/stdio",

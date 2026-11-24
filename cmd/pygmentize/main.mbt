@@ -1,7 +1,7 @@
 ///|
 /// `pygmentize`: highlight an input file and write the result to an output
 /// file (a port of `pygments/cmdline.py`).
-async fn main {
+async fn main_async() -> Unit {
   let argv = @env.args()
   let code = run(argv[1:].to_owned()) catch {
     e => {
@@ -406,4 +406,9 @@ fn os_message(e : @os_error.OSError) -> String {
   } else {
     msg
   }
+}
+
+///|
+fn main {
+  @async.run_async_main(main_async)
 }
