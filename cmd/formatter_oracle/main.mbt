@@ -78,7 +78,7 @@ fn tokens_json_string(tokens : Array[(@token.TokenType, String)]) -> String {
 ///
 /// Usage: formatter_oracle [corpus.jsonl] [--only GROUP] [--quiet]
 ///   GROUP is e.g. `format:html`, `styledefs:latex`, `style`, `filter:gobble`.
-async fn main {
+async fn main_async() -> Unit {
   let args = @env.args()
   let mut path = ".oracle/formatters.jsonl"
   let mut quiet = false
@@ -259,4 +259,9 @@ async fn main {
   if total_fail > 0 {
     @sys.exit(1)
   }
+}
+
+///|
+fn main {
+  @async.run_async_main(main_async)
 }

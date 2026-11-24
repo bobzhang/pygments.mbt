@@ -8,7 +8,7 @@
 /// terminal's own 16-color palette (readable on dark and light themes); with
 /// `-s STYLE` it uses 24-bit color when `COLORTERM` says so, 256 colors
 /// otherwise.
-async fn main {
+async fn main_async() -> Unit {
   let code = run(@env.args()[1:].to_owned()) catch {
     e => {
       @stdio.stderr.write("scat: \{error_text(e)}\n")
@@ -216,4 +216,9 @@ fn os_message(e : @os_error.OSError) -> String {
   } else {
     msg
   }
+}
+
+///|
+fn main {
+  @async.run_async_main(main_async)
 }

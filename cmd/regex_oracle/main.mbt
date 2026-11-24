@@ -1,7 +1,7 @@
 ///|
 /// Replays the corpus produced by `scripts/regex_oracle.py` and reports
 /// mismatches between the MoonBit engine and Python's `re`.
-async fn main {
+async fn main_async() -> Unit {
   let args = @env.args()
   let path = if args.length() > 1 { args[1] } else { ".oracle/regex.jsonl" }
   let verbose = args.contains("-v")
@@ -140,4 +140,9 @@ async fn main {
   if compile_errors > 0 || mismatches > 0 || search_mismatches > 0 {
     @sys.exit(1)
   }
+}
+
+///|
+fn main {
+  @async.run_async_main(main_async)
 }

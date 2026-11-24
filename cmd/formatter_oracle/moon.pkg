@@ -1,4 +1,5 @@
 import {
+  "moonbitlang/async",
   "moonbitlang/x/sys",
   "bobzhang/pygments/filters",
   "bobzhang/pygments/formatters",
