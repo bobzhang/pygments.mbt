@@ -5,7 +5,6 @@ import {
   "bobzhang/pygments/lexers",
   "bobzhang/pygments/styles",
   "bobzhang/pygments/token",
-  "moonbitlang/async",
   "moonbitlang/async/fs",
   "moonbitlang/core/json",
   "moonbitlang/core/env",

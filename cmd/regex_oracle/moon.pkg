@@ -1,7 +1,6 @@
 import {
   "moonbitlang/x/sys",
   "bobzhang/pygments/regex",
-  "moonbitlang/async",
   "moonbitlang/async/fs",
   "moonbitlang/core/json",
   "moonbitlang/core/env",
