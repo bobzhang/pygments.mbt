@@ -26,7 +26,7 @@ fn php_lexer_tokenizer(
     for key, value in php_builtin_modules {
       if !disabledmodules.contains(key) {
         for f in value {
-          functions.add(f)
+          functions.insert(f)
         }
       }
     }

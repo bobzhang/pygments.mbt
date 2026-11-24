@@ -52,7 +52,7 @@ fn csound_orchestra_lexer_callbacks(
       "CsoundOrchestraLexer.opcode_name_callback",
       (ctx, m, _) => {
         let opcode = m.matched()
-        csound_user_defined_opcodes.add(opcode)
+        csound_user_defined_opcodes.insert(opcode)
         ctx.emit(m.start(), @token.name_function, opcode)
       },
     ),
