@@ -138,7 +138,7 @@ async fn main_async() -> Unit {
     "patterns=\{patterns} compile_errors=\{compile_errors} cases=\{cases} mismatches=\{mismatches} search_cases=\{search_cases} search_mismatches=\{search_mismatches} bad_patterns=\{bad_patterns}",
   )
   if compile_errors > 0 || mismatches > 0 || search_mismatches > 0 {
-    @sys.exit(1)
+    @env.exit(1)
   }
 }
 

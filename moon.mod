@@ -15,6 +15,6 @@ description = "A port of Pygments (generic syntax highlighter) to MoonBit"
 preferred_target = "native"
 
 import {
-  "moonbitlang/async@0.22.4",
-  "moonbitlang/x@0.5.5",
+  "moonbitlang/async@0.22.10",
+  "moonbitlang/x@0.5.9",
 }
