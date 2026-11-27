@@ -71,6 +71,6 @@ async fn run_analyse(path : String, only : String?, quiet : Bool) -> Unit {
     println("wrong scores: \{bad.join(" ")}")
   }
   if bad.length() > 0 || guess_bad > 0 {
-    @sys.exit(1)
+    @env.exit(1)
   }
 }

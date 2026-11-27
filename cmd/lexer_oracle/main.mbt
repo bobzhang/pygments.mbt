@@ -149,6 +149,6 @@ async fn main {
     println("failing: \{failing.join(" ")}")
   }
   if failed > 0 || errors > 0 {
-    @sys.exit(1)
+    @env.exit(1)
   }
 }

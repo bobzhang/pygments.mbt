@@ -1,5 +1,4 @@
 import {
-  "moonbitlang/x/sys",
   "bobzhang/pygments/lexers",
   "bobzhang/pygments/lexer",
   "moonbitlang/async",

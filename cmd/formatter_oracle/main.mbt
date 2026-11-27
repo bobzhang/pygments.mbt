@@ -257,7 +257,7 @@ async fn main_async() -> Unit {
   }
   println("total: pass=\{total_pass} fail=\{total_fail}")
   if total_fail > 0 {
-    @sys.exit(1)
+    @env.exit(1)
   }
 }
 
